@@ -7,7 +7,6 @@
 		class="preloader__img">
 </div>
 
-
 <!-- STATIC TOPBAR
     ============================== -->
 <div class="topbar hidden-xs hidden-sm">
@@ -39,7 +38,7 @@
 					class="icon-bar"></span>
 			</button>
 			<!-- Brand name -->
-			<a class="navbar-brand" href="index.html">혼자서도 잘해요</a>
+			<a class="navbar-brand" href="home.do">혼자서도 잘해요</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<!-- Navbar links -->
@@ -68,3 +67,4 @@
 		</div>
 	</div>
 </div>
+
