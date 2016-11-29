@@ -62,7 +62,7 @@ CREATE TABLE INTRODUCE(
 	location varchar2(100) not null,
 	business_hours varchar2(50) not null,
 	tel varchar2(50) not null,
-	keyword_no number,
+	keyword_no number unique,
 	category_no number not null,
 	constraint fk_introduce foreign key(board_no) references board(board_no),
 	constraint fk_introduce_category foreign key(category_no) references introduce_category(category_no)
@@ -72,6 +72,8 @@ CREATE TABLE INTRODUCE(
 CREATE TABLE KEYWORD(
 	keyword_no number not null,
 	keyword_name varchar2(50) not null,
+	board_no number not null,
+	constraint fk_keyword_board foreign key(board_no) references introduce(board_no),
 	constraint fk_keyword foreign key(keyword_no) references introduce(keyword_no),
 	constraint pk_keyword primary key(keyword_no, keyword_name)
 )
