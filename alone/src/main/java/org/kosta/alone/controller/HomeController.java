@@ -18,6 +18,7 @@ public class HomeController {
 	public String showView(@PathVariable String viewName){
 		System.out.println("1.@PathVariable:"+viewName);
 		return viewName;
+	
 	}
 	@RequestMapping("{dirName}/{viewName}.do")
 	public String showView(@PathVariable String dirName,@PathVariable String viewName){
