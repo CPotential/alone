@@ -42,7 +42,7 @@ CREATE TABLE BOARD(
 	id varchar2(50) not null,
 	content clob not null,
 	time_posted date not null,
-	board_enabled default 1, -- 게시글 삭제 여부 : 삭제시 0
+	board_enabled number default 1, -- 게시글 삭제 여부 : 삭제시 0
 	constraint fk_board foreign key(id) references member(id)
 )
 
@@ -136,6 +136,7 @@ CREATE TABLE COMMENT(
 	constraint fk_comment_board foreign key(board_no) references board(board_no),
 	constraint fk_comment_id foreign key(id) references member(id)
 )
+
 -- 공통 회원 정보
 insert into MEMBER(id,password,name,nickname,tel) 
 values('java','1234','아이유','유','01231231');
