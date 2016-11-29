@@ -17,7 +17,7 @@ CREATE TABLE GENERICMEMBER(
 	mileage number default 0,
 	constraint fk_genericmember foreign key(id) references member(id)
 )
-
+ 
 -- 기업 회원 정보
 CREATE TABLE COMPANYMEMBER( 
 	id varchar2(50) primary key,
