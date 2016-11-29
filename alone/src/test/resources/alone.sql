@@ -136,11 +136,83 @@ CREATE TABLE COMMENT(
 	constraint fk_comment_board foreign key(board_no) references board(board_no),
 	constraint fk_comment_id foreign key(id) references member(id)
 )
+-- 공통 회원 정보
+insert into MEMBER(id,password,name,nickname,tel) 
+values('java','1234','아이유','유','01231231');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('spring','1234','아이유2','유2','0102525311');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('oracle','1234','김상혁','혁','010215431');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('jstl','1234','주혜진','진','0123125131');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('jquery','1234','송중기','송','01031203251');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('admin','1234','관리자','admin관리자','01112345678');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('admin1','1234','관리자','admin관리자관리자1','01112345678');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('company','1234','관리자','company관리자','0101231678');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('company1','1234','관리자','company관리자1','011545678');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('member','1234','관리자','member관리자','0106531678');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('member1','1234','관리자','member관리자1','0154545678');
 
 
+-- 일반 회원 정보
+insert into GENERICMEMBER(id,birth,gender,mileage) 
+values('java','0320','여',10);
+insert into GENERICMEMBER(id,birth,gender,mileage) 
+values('jstl','0613','여',80);
+insert into GENERICMEMBER(id,birth,gender,mileage) 
+values('jquery','0910','남',130);
 
 
+-- 기업 회원 정보
+insert into COMPANYMEMBER(id,address,corporate_registration_number) 
+values('oracle','종로','12315152364');
+insert into COMPANYMEMBER(id,address,corporate_registration_number) 
+values('spring','판교','12365452364');
 
 
+-- 회원 권한
+insert into AUTHORITIES(id,authority)
+values('admin','ROLE_ADMIN');
+insert into AUTHORITIES(id,authority)
+values('admin1','ROLE_ADMIN');
+insert into AUTHORITIES(id,authority)
+values('company','ROLE_COMPANY');
+insert into AUTHORITIES(id,authority)
+values('company1','ROLE_COMPANY');
+insert into AUTHORITIES(id,authority)
+values('member','ROLE_MEMBER');
+insert into AUTHORITIES(id,authority)
+values('member1','ROLE_MEMBER');
 
+--board--
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'java','어려웡',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'sql','dsds',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
 
+-- 카테고리--
+insert into INTRODUCE_CATEGORY(category_no,category_name) values('1','음식점');
+insert into INTRODUCE_CATEGORY(category_no,category_name) values('2','술');
+insert into INTRODUCE_CATEGORY(category_no,category_name) values('3','문화');
+
+--소개글--
+insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) values('2','장도뚝배기','낙성대','서울특별시 관악구 봉천로 삼영빌딩','24시간','02-877-4171','1','1');
+insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) values('6','치치','혜화','서울특별시 종로구 대학로 8가길 36','매일 17:00~05:00','02-766-6222','2','1');
+
+--키워드--
+insert into KEYWORD(keyword_no,keyword_name,board_no) values('1','#맛잇어여','2');
+insert into KEYWORD(keyword_no,keyword_name,board_no) values('1','#혼자가기에도 부담없어여','2');
+
+--모임글--
+insert into meeting(board_no,title,region,location,interest) values('4','식사','판교','유스페이스','코딩');
+
+--후기글--
+insert into review(board_no,title) values('5','음식후기');

@@ -18,6 +18,7 @@ public class HomeController {
 	public String showView(@PathVariable String viewName){
 		System.out.println("@PathVariable:"+viewName);
 		return viewName;
+	
 	}
 	@RequestMapping("{dirName}/{viewName}.do")
 	public String showView(@PathVariable String dirName,@PathVariable String viewName){
@@ -29,6 +30,4 @@ public class HomeController {
 		System.out.println("@PathVariable showAdminLoginForm");
 		return "member/admin/"+viewName;
 	}
-	
-	
 }
