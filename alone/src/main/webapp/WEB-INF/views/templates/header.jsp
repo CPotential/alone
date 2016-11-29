@@ -14,7 +14,7 @@
 		<ul class="topbar-nav topbar-nav_right">
 
 			<!-- Account links -->
-			<li><a href="sign-in.html">Sign In</a></li>
+			<li><a href="login.do">Sign In</a></li>
 			<li><a href="register.jsp"> Sign Up</a></li>
 
 		</ul>

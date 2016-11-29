@@ -42,9 +42,10 @@ CREATE TABLE BOARD(
 	id varchar2(50) not null,
 	content clob not null,
 	time_posted date not null,
-	board_enabled default 1, -- 게시글 삭제 여부 : 삭제시 0
+	board_enabled number default 1, -- 게시글 삭제 여부 : 삭제시 0
 	constraint fk_board foreign key(id) references member(id)
 )
+
 
 -- 소개글 카테고리
 CREATE SEQUENCE INTRODUCE_CATEGORY_SEQ;
@@ -120,7 +121,7 @@ CREATE TABLE LIKESCHECK(
 	board_no number not null,
 	id varchar2(50) not null,
 	likes_statement number default 0, -- 좋아요 상태 : 좋아요 누른 상태 1
-	constraint fk_likes_board foreign key(board_no) references review(board_no),
+	constraint fk_likes_board foreign key(board_no) references REVIEW(board_no),
 	constraint fk_likes_id foreign key(id) references member(id),
 	constraint pk_likescheck(board_no, id)
 )
@@ -216,3 +217,5 @@ insert into meeting(board_no,title,region,location,interest) values('4','식사'
 
 --후기글--
 insert into review(board_no,title) values('5','음식후기');
+
+
