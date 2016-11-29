@@ -21,7 +21,7 @@ Last change:    14/06/2016
 
 $(window).load(function() { // starts after the page is fully loaded
     $(".hero__bs").backstretch([
-        "resources/img/bg_1222222.jpg"
+        "resources/img/bg_1.jpg"
         , "resources/img/bg_2.jpg"
         , "resources/img/bg_3.jpg"
     ], {duration: 5000, fade: 500});
