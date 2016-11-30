@@ -19,17 +19,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="memberVO">
 		select * from member where address=#{value}
 	</select>
-	<insert id="registerMember" parameterType="memberVO">
-		insert into member(id,password,name,address)
-		values(#{id},#{password},#{name},#{address})
-	</insert>
+
 	<select id="idCheck" resultType="string">
 		select count(*) from spring_member where id=#{value}
 	</select>
+	
 	<update id="update" parameterType="memberVO">
 		update member set password=#{password} ,address=#{address} ,name=#{name}
 		where id=#{id}
 	</update>
+	
+	<insert id="registerMember" parameterType="memberVO">
+		insert into member(id,password,name,nickname,tel)
+		values(#{id},#{password},#{name},#{nickName},#{tel})
+	</insert>
+	
+	
 </mapper>
  
  

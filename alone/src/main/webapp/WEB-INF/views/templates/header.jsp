@@ -15,7 +15,7 @@
 
 			<!-- Account links -->
 			<li><a href="login.do">Sign In</a></li>
-			<li><a href="register.jsp"> Sign Up</a></li>
+			<li><a href="register.do"> Sign Up</a></li>
 
 		</ul>
 	</div>

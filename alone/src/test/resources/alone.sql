@@ -164,7 +164,8 @@ values('member','1234','관리자','member관리자','0106531678');
 insert into MEMBER(id,password,name,nickname,tel) 
 values('member1','1234','관리자','member관리자1','0154545678');
 
-
+select * from member;
+select * from GENERICMEMBER;
 -- 일반 회원 정보
 insert into GENERICMEMBER(id,birth,gender,mileage) 
 values('java','0320','여',10);
