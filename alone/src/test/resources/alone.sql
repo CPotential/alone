@@ -293,14 +293,5 @@ select keyword.keyword_name
 from keyword keyword, introduce introduce
 where keyword.board_no=introduce.board_no and introduce.board_no=1
 
-select * from keyword
-select count(*) from keyword where board_no=1
-
-select * from member
-select * from BOARD
-select * from review
-
-
-select * from authorities
-select authorities.authority from member member,authorities authorities where member.id=authorities.id and member.id='java'
-
+-----------------------여기서 막쓰세요 
+--확실한것만 board,member xml로 이동하여 저장시켜주세요.
