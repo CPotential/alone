@@ -15,8 +15,20 @@ public class ReviewDAOImpl implements ReviewDAO {
 	private SqlSessionTemplate template;
 
 	@Override
-	public List<ReviewBoardVO> listBoard() {
-		return template.selectList("review.listBoard");
+	public List<ReviewBoardVO> reviewList() {
+		return template.selectList("review.reviewList");
+	}
+
+	@Override
+	public List<ReviewBoardVO> reviewTitleSearchList(String searchKeyWord) {
+
+		return template.selectList("review.reviewTitleSearchList",searchKeyWord);
+	}
+
+	@Override
+	public List<ReviewBoardVO> reviewWriterSearchList(String searchKeyWord) {
+		// TODO Auto-generated method stub
+		return template.selectList("review.reviewWriterSearchList",searchKeyWord);
 	}
 	
 	

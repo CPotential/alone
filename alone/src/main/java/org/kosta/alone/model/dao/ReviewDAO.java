@@ -6,7 +6,11 @@ import org.kosta.alone.model.vo.ReviewBoardVO;
 
 public interface ReviewDAO {
 	
-	List<ReviewBoardVO> listBoard();
+	public List<ReviewBoardVO> reviewList();
+
+	public List<ReviewBoardVO> reviewTitleSearchList(String searchKeyWord);
+
+	public List<ReviewBoardVO> reviewWriterSearchList(String searchKeyWord);
 	
 
 }

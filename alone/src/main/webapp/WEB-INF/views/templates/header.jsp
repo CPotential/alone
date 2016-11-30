@@ -61,7 +61,7 @@
 				</a>
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#">후기 게시판</a></li>
-						<li><a href="#">리뷰 게시판</a></li>
+						<li><a href="reviewList.do">리뷰 게시판</a></li>
 					</ul></li>
 			</ul>
 		</div>

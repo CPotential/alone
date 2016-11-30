@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!-- FOOTER
     ============================== -->
+    
 <footer>
 	<!-- Footer Top -->
 	<div class="footer_top hidden-xs">
@@ -101,19 +102,6 @@
 						Copyright 2015 <a href="http://simpleqode.com/">Simpleqode.com</a>.
 						All Rights Reserved.
 					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6">
-					<ul class="footer__social">
-						<li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-						<li class="facebook"><a href="#"><i
-								class="fa fa-facebook"></i></a></li>
-						<li class="linkedin"><a href="#"><i
-								class="fa fa-linkedin"></i></a></li>
-						<li class="google-plus"><a href="#"><i
-								class="fa fa-google-plus"></i></a></li>
-						<li class="pinterest"><a href="#"><i
-								class="fa fa-pinterest"></i></a></li>
-					</ul>
 				</div>
 			</div>
 			<!-- / .row -->

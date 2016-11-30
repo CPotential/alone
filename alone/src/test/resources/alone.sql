@@ -194,10 +194,14 @@ insert into AUTHORITIES(id,authority)
 values('member','ROLE_MEMBER');
 insert into AUTHORITIES(id,authority)
 values('member1','ROLE_MEMBER');
+insert into AUTHORITIES(id,authority)
+values('java','ROLE_MEMBER')
+insert into AUTHORITIES(id,authority)
+values('java','ROLE_COMPANY');
 
 --board--
-insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'java','어려웡',sysdate);
-insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'sql','dsds',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'java','싫다 싫어',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'spring','dsds',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
@@ -208,7 +212,7 @@ insert into INTRODUCE_CATEGORY(category_no,category_name) values('2','술');
 insert into INTRODUCE_CATEGORY(category_no,category_name) values('3','문화');
 
 --소개글--
-insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) values('2','장도뚝배기','낙성대','서울특별시 관악구 봉천로 삼영빌딩','24시간','02-877-4171','1','1');
+insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) values('3','장도뚝배기','낙성대','서울특별시 관악구 봉천로 삼영빌딩','24시간','02-877-4171','1','1');
 insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) values('6','치치','혜화','서울특별시 종로구 대학로 8가길 36','매일 17:00~05:00','02-766-6222','2','1');
 
 --키워드--
@@ -216,9 +220,26 @@ insert into KEYWORD(keyword_no,keyword_name,board_no) values('1','#맛잇어여'
 insert into KEYWORD(keyword_no,keyword_name,board_no) values('1','#혼자가기에도 부담없어여','2');
 
 --모임글--
-insert into meeting(board_no,title,region,location,interest) values('4','식사','판교','유스페이스','코딩');
+insert into meeting(board_no,title,region,location,interest) values('24','식사','판교','유스페이스','코딩');
 
 --후기글--
-insert into review(board_no,title) values('5','음식후기');
+insert into review(board_no,title) values('29','하상현 멍청이1213');
 
+
+
+
+
+
+
+
+select * from member
+select * from BOARD
+select * from review
+select board.board_no as boardNo,member.nickname as "memberVO.nickName",
+to_char(board.time_posted,'yyyy.mm.dd') as timePosted,review.title,review.hits,review.likes 
+from board board,review review,member member where board.board_no=review.board_no and board.id=member.id and
+review.title='음식후기'
+
+select * from authorities
+select authorities.authority from member member,authorities authorities where member.id=authorities.id and member.id='java'
 
