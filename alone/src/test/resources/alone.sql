@@ -88,7 +88,10 @@ CREATE TABLE MEETING(
 	hits number default 0,
 	constraint fk_meeting foreign key(board_no) references board(board_no)
 )
-
+select meeting.board_no as boardNo,meeting.title,meeting.region,meeting.interest,meeting.hits,board.time_posted as timePosted,member.nickname as nickName from board board,meeting meeting,member member where board.board_no = meeting.board_no and board.id = member.id;
+select meeting.board_no,meeting.region,meeting.title,meeting.interest,meeting.hits,board.time_posted,member.nickname from board board,meeting meeting,member member where board.board_no = meeting.board_no and board.id = member.id;
+select * from board
+select * from meeting;
 -- 후기글 정보
 CREATE TABLE REVIEW(
 	board_no number primary key,
@@ -97,7 +100,6 @@ CREATE TABLE REVIEW(
 	likes number default 0,
 	constraint fk_review foreign key(board_no) references board(board_no)
 )
-
 -- 이미지 정보
 CREATE TABLE IMAGE(
 	image_no number primary key,
@@ -201,7 +203,7 @@ insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'sql
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'spring','ds',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
-
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'spring','os',sysdate);
 -- 카테고리--
 insert into INTRODUCE_CATEGORY(category_no,category_name) values('1','음식점');
 insert into INTRODUCE_CATEGORY(category_no,category_name) values('2','술');
@@ -219,7 +221,7 @@ insert into KEYWORD(keyword_no,keyword_name,board_no) values(keyword_seq.nextval
 select * from keyword
 --모임글--
 insert into meeting(board_no,title,region,location,interest) values('4','식사','판교','유스페이스','코딩');
-
+insert into meeting(board_no,title,region,location,interest) values('22','식사','목동','현대타워','등산');
 --후기글--
 insert into review(board_no,title) values('5','음식후기');
 

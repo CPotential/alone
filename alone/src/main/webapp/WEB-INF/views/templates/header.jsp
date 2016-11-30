@@ -60,7 +60,7 @@
 					data-toggle="dropdown"> 커뮤니티 <span class="fa fa-angle-down"></span>
 				</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">후기 게시판</a></li>
+						<li><a href="getMeetingList.do">모임 게시판</a></li>
 						<li><a href="#">리뷰 게시판</a></li>
 					</ul></li>
 			</ul>
