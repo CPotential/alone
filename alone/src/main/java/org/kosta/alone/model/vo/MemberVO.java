@@ -6,6 +6,7 @@ public class MemberVO {
 	private String name;
 	private String nickName;
 	private String tel;
+	private String authority;
 	private int enabled;
 	
 	public MemberVO() {
@@ -23,15 +24,18 @@ public class MemberVO {
 		this.tel = tel;
 	}
 
-	public MemberVO(String id, String password, String name, String nickName, String tel, int enabled) {
+	public MemberVO(String id, String password, String name, String nickName, String tel,String authority,int enabled) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.nickName = nickName;
 		this.tel = tel;
+		this.authority=authority;
 		this.enabled = enabled;
 	}
+
+
 
 	public String getId() {
 		return id;
@@ -73,6 +77,13 @@ public class MemberVO {
 		this.tel = tel;
 	}
 
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
 	public int getEnabled() {
 		return enabled;
 	}
@@ -84,7 +95,10 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return "MemberVO [id=" + id + ", password=" + password + ", name=" + name + ", nickName=" + nickName + ", tel="
-				+ tel + ", enabled=" + enabled + "]";
+				+ tel + ", authority=" + authority + ", enabled=" + enabled + "]";
 	}
+	
+
+
 	
 }

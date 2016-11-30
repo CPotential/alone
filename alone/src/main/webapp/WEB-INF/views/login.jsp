@@ -28,6 +28,18 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+        <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
+    <!--  jquery 사용처입니다. -->
+ <script type="text/javascript" >
+ 
+ 	$(document).ready(function(){
+ 		
+ 		$( ":submit" ).click(function(){
+ 			alert($("#sign-in__id").val());
+ 	 		alert($("#sign-in__password").val());
+ 		})
+ 	}) // ready
+ </script>
   </head>
 
   <body class="body_plain">
@@ -54,15 +66,15 @@
           <div class="body-plain__form">
 
             <!-- Sign In form -->
-            <form role="form">
+            <form role="form" method="post" action="${pageContext.request.contextPath}/loginCheck.do">
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control" id="sign-in__email" placeholder="아이디를 입력하세요">
+                <input type="text" class="form-control" id="sign-in__id" name="id" placeholder="아이디를 입력하세요">
               </div>
               <br>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" class="form-control" id="sign-in__password" placeholder="패스워드 입력하세요">
+                <input type="password" class="form-control" id="sign-in__password" name="password" placeholder="패스워드 입력하세요">
               </div>
               <br>
               <button type="submit" class="btn btn-primary btn-block btn-lg">Submit</button>
@@ -72,20 +84,6 @@
             <hr />
             <p>가입 안했어요?? <a href="sign-up.html">회원 가입</a></p>
 
-
-            <div class="collapse" id="lost-password__form">
-              <p class="text-muted">
-                Enter your email address below and we will send you a link to reset your password.
-              </p>
-              <form class="form-inline" role="form">
-                <div class="form-group">
-                  <label class="sr-only" for="lost-password__email">Email address</label>
-                  <input type="email" class="form-control" id="lost-password__email" placeholder="Enter email">
-                </div>
-                <button type="submit" class="btn btn-info">Send</button>
-              </form>
-            </div> <!-- lost-password__form -->
-          </div> <!-- / .body-plain__form -->
 
           <!-- Footer -->
           <div class="body-plain__footer">

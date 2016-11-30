@@ -9,6 +9,7 @@ CREATE TABLE MEMBER(
 	enabled number default 1 -- 탈퇴여부 : 탈퇴시 0 으로 변경
 )
 
+drop table genericmember;
 -- 일반 회원 정보
 CREATE TABLE GENERICMEMBER(
 	id varchar2(50) primary key,
@@ -17,7 +18,8 @@ CREATE TABLE GENERICMEMBER(
 	mileage number default 0,
 	constraint fk_genericmember foreign key(id) references member(id)
 )
- 
+
+drop table companymember;
 -- 기업 회원 정보
 CREATE TABLE COMPANYMEMBER( 
 	id varchar2(50) primary key,
@@ -27,6 +29,7 @@ CREATE TABLE COMPANYMEMBER(
 	constraint fk_companymember foreign key(id) references member(id)
 )
 
+drop table authorities;
 -- 회원 권한
 CREATE TABLE AUTHORITIES(
 	id varchar2(50) not null,
@@ -35,6 +38,8 @@ CREATE TABLE AUTHORITIES(
 	constraint fk_member_authorities primary key(id, authority)
 )
 
+drop sequence board_seq;
+drop table board;
 -- 공통 게시판 정보
 CREATE SEQUENCE BOARD_SEQ;
 CREATE TABLE BOARD(
@@ -46,7 +51,8 @@ CREATE TABLE BOARD(
 	constraint fk_board foreign key(id) references member(id)
 )
 
-
+drop sequence introduce_category_seq;
+drop table introduce_category;
 -- 소개글 카테고리
 CREATE SEQUENCE INTRODUCE_CATEGORY_SEQ;
 CREATE TABLE INTRODUCE_CATEGORY(
@@ -54,8 +60,8 @@ CREATE TABLE INTRODUCE_CATEGORY(
 	category_name varchar2(50) not null
 )
 
+drop table introduce;
 -- 소개글 정보
-CREATE SEQUENCE KEYWORD_SEQ;
 CREATE TABLE INTRODUCE(
 	board_no number primary key,
 	company_name varchar2(50) not null,
@@ -63,22 +69,23 @@ CREATE TABLE INTRODUCE(
 	location varchar2(100) not null,
 	business_hours varchar2(50) not null,
 	tel varchar2(50) not null,
-	keyword_no number unique,
 	category_no number not null,
 	constraint fk_introduce foreign key(board_no) references board(board_no),
 	constraint fk_introduce_category foreign key(category_no) references introduce_category(category_no)
 )
 
+drop sequence keyword_seq;
+drop table keyword;
 -- 소개글 키워드 정보
+CREATE SEQUENCE KEYWORD_SEQ;
 CREATE TABLE KEYWORD(
-	keyword_no number not null,
+	keyword_no number primary key,
 	keyword_name varchar2(50) not null,
 	board_no number not null,
-	constraint fk_keyword_board foreign key(board_no) references introduce(board_no),
-	constraint fk_keyword foreign key(keyword_no) references introduce(keyword_no),
-	constraint pk_keyword primary key(keyword_no, keyword_name)
+	constraint fk_keyword_board foreign key(board_no) references introduce(board_no)
 )
 
+drop table meeting;
 -- 모임글 정보
 CREATE TABLE MEETING(
 	board_no number primary key,
@@ -89,7 +96,15 @@ CREATE TABLE MEETING(
 	hits number default 0,
 	constraint fk_meeting foreign key(board_no) references board(board_no)
 )
+<<<<<<< HEAD
+select meeting.board_no as boardNo,meeting.title,meeting.region,meeting.interest,meeting.hits,board.time_posted as timePosted,member.nickname as nickName from board board,meeting meeting,member member where board.board_no = meeting.board_no and board.id = member.id;
+select meeting.board_no,meeting.region,meeting.title,meeting.interest,meeting.hits,board.time_posted,member.nickname from board board,meeting meeting,member member where board.board_no = meeting.board_no and board.id = member.id;
+select * from board
+select * from meeting;
+=======
 
+drop table review;
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 -- 후기글 정보
 CREATE TABLE REVIEW(
 	board_no number primary key,
@@ -98,7 +113,11 @@ CREATE TABLE REVIEW(
 	likes number default 0,
 	constraint fk_review foreign key(board_no) references board(board_no)
 )
+<<<<<<< HEAD
+=======
 
+drop table image;
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 -- 이미지 정보
 CREATE TABLE IMAGE(
 	image_no number primary key,
@@ -108,6 +127,8 @@ CREATE TABLE IMAGE(
 	constraint fk_image foreign key(board_no) references board(board_no)
 )
 
+drop sequence mileage_seq;
+drop table mileage;
 -- 마일리지 정보
 CREATE SEQUENCE MILEAGE_SEQ;
 CREATE TABLE MILEAGE(
@@ -118,19 +139,23 @@ CREATE TABLE MILEAGE(
 	constraint fk_mileage foreign key(id) references genericmember(id)
 )
 
+drop table likescheck;
 -- 좋아요 상태
 CREATE TABLE LIKESCHECK(
 	board_no number not null,
 	id varchar2(50) not null,
 	likes_statement number default 0, -- 좋아요 상태 : 좋아요 누른 상태 1
-	constraint fk_likes_board foreign key(board_no) references REVIEW(board_no),
+	constraint fk_likes_board foreign key(board_no) references review(board_no),
 	constraint fk_likes_id foreign key(id) references member(id),
-	constraint pk_likescheck(board_no, id)
+	constraint pk_likescheck primary key(board_no, id)
 )
 
+drop sequence comment_seq;
+drop table boardcomment;
 -- 댓글 정보
+select * from boardcomment
 CREATE SEQUENCE COMMENT_SEQ;
-CREATE TABLE COMMENT(
+CREATE TABLE BOARDCOMMENT(
 	comment_no number primary key,
 	board_no number not null,
 	content clob not null,
@@ -190,36 +215,91 @@ values('admin1','ROLE_ADMIN');
 insert into AUTHORITIES(id,authority)
 values('company','ROLE_COMPANY');
 insert into AUTHORITIES(id,authority)
-values('company1','ROLE_COMPANY');
+values('spring','ROLE_COMPANY');
 insert into AUTHORITIES(id,authority)
 values('member','ROLE_MEMBER');
 insert into AUTHORITIES(id,authority)
 values('member1','ROLE_MEMBER');
+insert into AUTHORITIES(id,authority)
+values('java','ROLE_MEMBER')
+insert into AUTHORITIES(id,authority)
+values('java','ROLE_COMPANY');
 
 --board--
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'java','싫다 싫어',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'spring','dsds',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'java','어려웡',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'sql','dsds',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'spring','ds',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
-insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
-
+<<<<<<< HEAD
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'spring','os',sysdate);
+=======
+select * from board
+select * from introduce
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 -- 카테고리--
 insert into INTRODUCE_CATEGORY(category_no,category_name) values('1','음식점');
 insert into INTRODUCE_CATEGORY(category_no,category_name) values('2','술');
 insert into INTRODUCE_CATEGORY(category_no,category_name) values('3','문화');
 
 --소개글--
-insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) values('2','장도뚝배기','낙성대','서울특별시 관악구 봉천로 삼영빌딩','24시간','02-877-4171','1','1');
+insert into introduce(board_no, company_name, region, location, business_hours, tel, category_no) 
+values('1', '장도뚝배기', '낙성대', '서울특별시 관악구 봉천로 삼영빌딩', '24시간', '02-877-4171', '1');
+insert into introduce(board_no, company_name, region, location, business_hours, tel, category_no) 
+values('2', '치치', '혜화', '서울특별시 종로구 대학로 8가길 36', '매일 17:00~05:00', '02-766-6222', '1');
+
+insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) values('3','장도뚝배기','낙성대','서울특별시 관악구 봉천로 삼영빌딩','24시간','02-877-4171','1','1');
 insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) values('6','치치','혜화','서울특별시 종로구 대학로 8가길 36','매일 17:00~05:00','02-766-6222','2','1');
 
+
 --키워드--
-insert into KEYWORD(keyword_no,keyword_name,board_no) values('1','#맛잇어여','2');
-insert into KEYWORD(keyword_no,keyword_name,board_no) values('1','#혼자가기에도 부담없어여','2');
-
+insert into KEYWORD(keyword_no,keyword_name,board_no) values(keyword_seq.nextval, '#알바생존잘(?)','2');
+insert into KEYWORD(keyword_no,keyword_name,board_no) values(keyword_seq.nextval, '#뿌잉뿌잉','2');
+select * from keyword
 --모임글--
+<<<<<<< HEAD
 insert into meeting(board_no,title,region,location,interest) values('4','식사','판교','유스페이스','코딩');
+insert into meeting(board_no,title,region,location,interest) values('22','식사','목동','현대타워','등산');
+=======
+insert into meeting(board_no,title,region,location,interest) values('24','식사','판교','유스페이스','코딩');
 
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 --후기글--
-insert into review(board_no,title) values('5','음식후기');
+insert into review(board_no,title) values('29','하상현 멍청이1213');
 
+
+--사진--
+insert into image(image_no, image_name, image_original_name, board_no) 
+values('1', sysdate, 'asdf', 1);
+insert into image(image_no, image_name, image_original_name, board_no) 
+values('2', sysdate, 'asdf', 1);
+select * from image
+select * from keyword
+
+---- 소개글 리스트 ( board_no 으로 찾아서 )
+-- 1) 사진,가게명,지역 뽑아오기
+select introduce.board_no, member.nickname, image.image_name, introduce.region 
+from member member, board board, image image, introduce introduce 
+where introduce.category_no=1 and member.id=board.id and board.board_no=image.board_no and board.board_no=image.board_no
+-- 2) keyword 뽑아오기
+select keyword.keyword_name
+from keyword keyword, introduce introduce
+where keyword.board_no=introduce.board_no and introduce.board_no=1
+
+select * from keyword
+select count(*) from keyword where board_no=1
+
+select * from member
+select * from BOARD
+select * from review
+select board.board_no as boardNo,member.nickname as "memberVO.nickName",
+to_char(board.time_posted,'yyyy.mm.dd') as timePosted,review.title,review.hits,review.likes 
+from board board,review review,member member where board.board_no=review.board_no and board.id=member.id and
+review.title='음식후기'
+
+select * from authorities
+select authorities.authority from member member,authorities authorities where member.id=authorities.id and member.id='java'
 
