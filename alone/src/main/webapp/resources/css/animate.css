@@ -5,6 +5,21 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 
 Copyright (c) 2014 Daniel Eden
 */
+/* 
+#left{
+		padding: 5px;
+		height:500px;
+		width:200px;
+		float: left; left로 부유위치를 지정해 left와 main이 수평 배치하도록 한다   
+	}
+#main{
+		padding: 5px;
+		width:600px;
+		height: 500px;		
+		float: left; left로 부유위치를 지정해 left와 main이 수평 배치하도록 한다   
+		border-left: 1px solid black;
+	} */
+
 
 .animated {
   -webkit-animation-duration: 1s;
