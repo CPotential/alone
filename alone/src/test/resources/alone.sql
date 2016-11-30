@@ -54,7 +54,6 @@ CREATE TABLE INTRODUCE_CATEGORY(
 )
 
 -- 소개글 정보
-CREATE SEQUENCE KEYWORD_SEQ;
 CREATE TABLE INTRODUCE(
 	board_no number primary key,
 	company_name varchar2(50) not null,
@@ -62,20 +61,20 @@ CREATE TABLE INTRODUCE(
 	location varchar2(100) not null,
 	business_hours varchar2(50) not null,
 	tel varchar2(50) not null,
-	keyword_no number unique,
 	category_no number not null,
 	constraint fk_introduce foreign key(board_no) references board(board_no),
 	constraint fk_introduce_category foreign key(category_no) references introduce_category(category_no)
 )
 
 -- 소개글 키워드 정보
+drop sequence keyword_seq
+CREATE SEQUENCE KEYWORD_SEQ;
+drop table keyword
 CREATE TABLE KEYWORD(
-	keyword_no number not null,
+	keyword_no number primary key,
 	keyword_name varchar2(50) not null,
 	board_no number not null,
-	constraint fk_keyword_board foreign key(board_no) references introduce(board_no),
-	constraint fk_keyword foreign key(keyword_no) references introduce(keyword_no),
-	constraint pk_keyword primary key(keyword_no, keyword_name)
+	constraint fk_keyword_board foreign key(board_no) references introduce(board_no)
 )
 
 -- 모임글 정보
@@ -106,6 +105,7 @@ CREATE TABLE IMAGE(
 	board_no number not null,
 	constraint fk_image foreign key(board_no) references board(board_no)
 )
+
 
 -- 마일리지 정보
 CREATE SEQUENCE MILEAGE_SEQ;
@@ -188,7 +188,7 @@ values('admin1','ROLE_ADMIN');
 insert into AUTHORITIES(id,authority)
 values('company','ROLE_COMPANY');
 insert into AUTHORITIES(id,authority)
-values('company1','ROLE_COMPANY');
+values('spring','ROLE_COMPANY');
 insert into AUTHORITIES(id,authority)
 values('member','ROLE_MEMBER');
 insert into AUTHORITIES(id,authority)
@@ -197,7 +197,7 @@ values('member1','ROLE_MEMBER');
 --board--
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'java','어려웡',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'sql','dsds',sysdate);
-insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'spring','ds',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
 
@@ -207,15 +207,36 @@ insert into INTRODUCE_CATEGORY(category_no,category_name) values('2','술');
 insert into INTRODUCE_CATEGORY(category_no,category_name) values('3','문화');
 
 --소개글--
-insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) values('2','장도뚝배기','낙성대','서울특별시 관악구 봉천로 삼영빌딩','24시간','02-877-4171','1','1');
-insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) values('6','치치','혜화','서울특별시 종로구 대학로 8가길 36','매일 17:00~05:00','02-766-6222','2','1');
+insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) 
+values('1','장도뚝배기','낙성대','서울특별시 관악구 봉천로 삼영빌딩','24시간','02-877-4171','1','1');
+insert into introduce(board_no,company_name,region,location,business_hours,tel,keyword_no,category_no) 
+values('6','치치','혜화','서울특별시 종로구 대학로 8가길 36','매일 17:00~05:00','02-766-6222','2','1');
 
 --키워드--
-insert into KEYWORD(keyword_no,keyword_name,board_no) values('1','#맛잇어여','2');
-insert into KEYWORD(keyword_no,keyword_name,board_no) values('1','#혼자가기에도 부담없어여','2');
-
+insert into KEYWORD(keyword_no,keyword_name,board_no) values(keyword_seq.nextval, '#맛잇어여','1');
+insert into KEYWORD(keyword_no,keyword_name,board_no) values(keyword_seq.nextval, '#혼자가기에도 부담없어여','1');
+select * from keyword
 --모임글--
 insert into meeting(board_no,title,region,location,interest) values('4','식사','판교','유스페이스','코딩');
 
 --후기글--
 insert into review(board_no,title) values('5','음식후기');
+
+--사진--
+insert into image(image_no, image_name, image_original_name, board_no) 
+values('1', sysdate, 'asdf', 1);
+insert into image(image_no, image_name, image_original_name, board_no) 
+values('2', sysdate, 'asdf', 1);
+select * from image
+select * from keyword
+
+---- 소개글 리스트 ( board_no 으로 찾아서 )
+-- 1) 사진,가게명,지역 뽑아오기
+select m.nickname, im.image_name, i.region
+from member m, board b, image im, introduce i
+where image_no=1 and m.id=b.id and b.board_no=im.board_no and b.board_no=i.board_no and b.board_no=1
+-- 2) keyword 뽑아오기
+select k.keyword_name
+from keyword k, introduce i
+where k.board_no=i.board_no and i.board_no=1
+
