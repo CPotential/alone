@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class BoardController {
 	
 	@Resource
-	private BoardService boardService;
+	private BoardService boardService; 
 	
 	@RequestMapping("getMeetingList.do")
 	public ModelAndView getMeetingList(){
@@ -34,7 +34,7 @@ public class BoardController {
 		System.out.println(region); 
 		List<MeetingVO> rList = boardService.getMeetingRegionList(region);
 		return rList; 
-	}
+	} 
 	
 	@RequestMapping("findMeetingList.do")
 	public ModelAndView findMeetingList(HttpServletRequest request){
@@ -50,5 +50,33 @@ public class BoardController {
 		}
 		mv.addObject("RegionList",boardService.getRegionInfo()); 
 		return mv; 
+	}
+
+	@RequestMapping("introduceList.do")
+	public ModelAndView introduceList(int categoryNo){
+		ModelAndView mv = new ModelAndView("board/introduce");
+		mv.addObject("introduceList", boardService.introduceList(categoryNo));
+		return mv;
+	}
+	
+	@RequestMapping("reviewList.do")
+	public ModelAndView reviewList(){
+		ModelAndView mav = new ModelAndView("board/review");
+		mav.addObject("reviewList",boardService.reviewList());
+		return mav;
+	}
+	
+	@RequestMapping("findByTitle.do")
+	public ModelAndView findByTitle(String searchKeyWord){
+		ModelAndView mav = new ModelAndView("board/review");
+		mav.addObject("reviewList",boardService.reviewTitleSearchList(searchKeyWord));
+		return mav;
+	}
+	
+	@RequestMapping("findByWriter.do")
+	public ModelAndView findByWriter(String searchKeyWord){
+		ModelAndView mav = new ModelAndView("board/review");
+		mav.addObject("reviewList",boardService.reviewWriterSearchList(searchKeyWord)); 
+		return mav; 
 	}
 }

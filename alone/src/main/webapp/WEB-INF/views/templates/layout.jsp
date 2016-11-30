@@ -13,6 +13,11 @@
 	
     <!-- CSS Global -->
     <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
+    
+    <!-- 부트스트랩 select -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+
+    
 
     <!-- CSS Plugins -->
     <link href="${pageContext.request.contextPath}/resources/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -60,6 +65,11 @@
     <script src="${pageContext.request.contextPath}/resources/js/custom_skills.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/custom_countto.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/custom_google-map.js"></script>
+    
+       <!--BootStrap Select  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+	
+     
 
 </body>
 </html>

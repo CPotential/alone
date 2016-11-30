@@ -4,32 +4,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 <mapper namespace="member">
-
-	<select id="findByMember" parameterType="string" resultType="memberVO">
-		select * from member where id=#{value}
-	</select>
-	<select id="findByAddress" resultType="memberVO">
-		select distinct(address) from member
-	</select>
-	<select id="loginMember" parameterType="memberVO" resultType="memberVO">
-		select id,name,address from member where id=#{id} and
+	<select id="memberLogin" parameterType="memberVO" resultType="memberVO">
+		select id,nickname,tel from member where id=#{id} and
 		password=#{password}
 	</select>
-	<select id="findByMemberAddress" parameterType="string"
-		resultType="memberVO">
-		select * from member where address=#{value}
+	<select id="gainAuthority" parameterType="memberVO" resultType="memberVO">
+		select authorities.authority from member member,authorities
+		authorities where member.id=authorities.id
 	</select>
-	<insert id="registerMember" parameterType="memberVO">
-		insert into member(id,password,name,address)
-		values(#{id},#{password},#{name},#{address})
-	</insert>
-	<select id="idCheck" resultType="string">
-		select count(*) from spring_member where id=#{value}
-	</select>
-	<update id="update" parameterType="memberVO">
-		update member set password=#{password} ,address=#{address} ,name=#{name}
-		where id=#{id}
-	</update>
+
 </mapper>
  
  
