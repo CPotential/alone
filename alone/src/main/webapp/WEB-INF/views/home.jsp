@@ -97,7 +97,7 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="img/general_2.jpg"
+											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/general_2.jpg"
 												alt="Portfolio Image">
 											</a>
 										</div>
@@ -114,7 +114,7 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="img/general_3.jpg"
+											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/general_3.jpg"
 												alt="Portfolio Image">
 											</a>
 										</div>
@@ -131,7 +131,7 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="img/general_4.jpg"
+											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/general_4.jpg"
 												alt="Portfolio Image">
 											</a>
 										</div>
@@ -190,7 +190,7 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="resources/img/general_7.jpg"
+											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/general_7.jpg"
 												alt="Portfolio Image">
 											</a>
 										</div>
@@ -207,7 +207,7 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="resources/img/general_8.jpg"
+											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/general_8.jpg"
 												alt="Portfolio Image">
 											</a>
 										</div>
