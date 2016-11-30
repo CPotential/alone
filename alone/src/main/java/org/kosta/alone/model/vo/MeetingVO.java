@@ -2,21 +2,21 @@ package org.kosta.alone.model.vo;
 
 import org.kosta.alone.model.vo.MemberVO;
 
-public class MeetingBoardVO extends BoardVO{
+public class MeetingVO extends BoardVO{
 	private String title;
 	private String region;
 	private String location;
 	private String interest;
 	private int hits;
 	
-	public MeetingBoardVO() {
+	public MeetingVO() {
 		super();
 	}
-	public MeetingBoardVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
+	public MeetingVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
 			ImageVO imageVO) {
 		super(boardNo, content, timePosted, boardEnabled, memberVO, imageVO);
 	}
-	public MeetingBoardVO(String title, String region, String location, String interest, int hits) {
+	public MeetingVO(String title, String region, String location, String interest, int hits) {
 		super();
 		this.title = title;
 		this.region = region;

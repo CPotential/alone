@@ -10,8 +10,8 @@ public class CompanyMemberVO extends MemberVO {
 		super();
 	}
 
-	public CompanyMemberVO(String id, String password, String name, String nickName, String tel, int enabled) {
-		super(id, password, name, nickName, tel, enabled);
+	public CompanyMemberVO(String id, String password, String name, String nickName, String tel,String authority ,int enabled) {
+		super(id, password, name, nickName, tel,authority ,enabled);
 	}
 
 	public CompanyMemberVO(String company, String address, String corporateRegistrationNumber, String approval) {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
+<mapper namespace="introduce">
+	<resultMap type="introduceVO" id="introduceRM">
+		<result column="image_name" property="imageVO.imageName"/>
+		<result column="nickname" property="memberVO.nickName"/>
+		<result column="board_no" property="boardNo"/>
+		<result column="company_name" property="companyName"/>
+		<result column="business_hours" property="businessHours"/>
+		<result column="category_no" property="categoryVO.categoryNo"/>
+	</resultMap>
+	<resultMap type="keyWordVO" id="keyWordRM">
+		<result column="keyword_name" property="keyWordName" />
+	</resultMap>
+	<select id="introduceList" resultType="introduceVO" resultMap="introduceRM">
+		select introduce.board_no, member.nickname, image.image_name, introduce.region 
+		from member member, board board, image image, introduce introduce 
+		where introduce.category_no=#{value}
+			and member.id=board.id and board.board_no=image.board_no and board.board_no=image.board_no
+	</select>
+	<select id="keyWordList" resultMap="keyWordRM" resultType="keyWordVO">
+		select keyword.keyword_name
+		from keyword keyword, introduce introduce
+		where keyword.board_no=introduce.board_no and introduce.board_no=#{value}
+	</select>
+	<select id="keyWordSize" resultType="int">
+		select count(*) from keyword where board_no=#{value}
+	</select>
+</mapper>
