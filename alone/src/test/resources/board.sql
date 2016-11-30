@@ -6,8 +6,8 @@ drop sequence introduce_category_seq;
 drop sequence board_seq;
 drop sequence keyword_seq;
 
-drop table introduce;
 drop table keyword;
+drop table introduce;
 drop table introduce_category;
 drop table meeting;
 drop table review;

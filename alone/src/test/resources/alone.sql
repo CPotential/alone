@@ -295,3 +295,15 @@ where keyword.board_no=introduce.board_no and introduce.board_no=1
 
 -----------------------여기서 막쓰세요 
 --확실한것만 board,member xml로 이동하여 저장시켜주세요.
+select * from board
+select * from introduce
+select * from image
+select introduce.board_no, member.id from member member,introduce introduce,board board
+where board.board_no = introduce.board_no and member.id=board.id
+
+-- 이미지 무조건 넣고 하세요
+select introduce.board_no, member.nickname, image.image_name, introduce.region 
+from member member, board board, image image, introduce introduce 
+where introduce.category_no=1
+and member.id=board.id and board.board_no=introduce.board_no 
+and board.board_no=image.board_no

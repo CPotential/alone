@@ -10,6 +10,7 @@ drop table boardcomment;
 
 drop sequence mileage_seq;
 drop sequence comment_seq;
+drop sequence image_seq;
 
 
 
