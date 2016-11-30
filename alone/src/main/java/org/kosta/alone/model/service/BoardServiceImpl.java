@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.kosta.alone.model.dao.ReviewDAO;
-import org.kosta.alone.model.vo.ReviewBoardVO;
+import org.kosta.alone.model.vo.ReviewVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,20 +15,18 @@ public class BoardServiceImpl implements BoardService {
 	private ReviewDAO reviewDAO;
 
 	@Override
-	public List<ReviewBoardVO> reviewList() {
+	public List<ReviewVO> reviewList() {
 		
 		return reviewDAO.reviewList();
 	}
 
 	@Override
-	public List<ReviewBoardVO> reviewTitleSearchList(String searchKeyWord) {
-		// TODO Auto-generated method stub
+	public List<ReviewVO> reviewTitleSearchList(String searchKeyWord) {
 		return reviewDAO.reviewTitleSearchList(searchKeyWord);
 	}
 
 	@Override
-	public List<ReviewBoardVO> reviewWriterSearchList(String searchKeyWord) {
-		// TODO Auto-generated method stub
+	public List<ReviewVO> reviewWriterSearchList(String searchKeyWord) {
 		return reviewDAO.reviewWriterSearchList(searchKeyWord);
 	}
 	

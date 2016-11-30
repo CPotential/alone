@@ -13,6 +13,7 @@ public class BoardController {
 	@Resource
 	private BoardService service;
 	
+	
 	@RequestMapping("reviewList.do")
 	public ModelAndView reviewList(){
 		ModelAndView mav = new ModelAndView("board/review");

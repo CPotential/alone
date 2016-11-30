@@ -6,20 +6,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="review">
 
 
-<select id="reviewList" resultType="reviewBoardVO">
+<select id="reviewList" resultType="reviewVO">
 select board.board_no as boardNo,member.nickname as "memberVO.nickName",
 to_char(board.time_posted,'yyyy.mm.dd') as timePosted,review.title,review.hits,review.likes 
 from board board,review review,member member where board.board_no=review.board_no and board.id=member.id
 </select>
 
-<select id="reviewTitleSearchList" resultType="reviewBoardVO" parameterType="string">
+<select id="reviewTitleSearchList" resultType="reviewVO" parameterType="string">
 select board.board_no as boardNo,member.nickname as "memberVO.nickName",
 to_char(board.time_posted,'yyyy.mm.dd') as timePosted,review.title,review.hits,review.likes 
 from board board,review review,member member where board.board_no=review.board_no and board.id=member.id and
 review.title=#{value}
 </select>
 
-<select id="reviewWriterSearchList" resultType="reviewBoardVO" parameterType="string">
+<select id="reviewWriterSearchList" resultType="reviewVO" parameterType="string">
 select board.board_no as boardNo,member.nickname as "memberVO.nickName",
 to_char(board.time_posted,'yyyy.mm.dd') as timePosted,review.title,review.hits,review.likes 
 from board board,review review,member member where board.board_no=review.board_no and board.id=member.id and
