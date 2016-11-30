@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BoardController {
+
 	@Resource
 	private BoardService boardService;
 	
@@ -18,4 +19,26 @@ public class BoardController {
 		mv.addObject("introduceList", boardService.introduceList(categoryNo));
 		return mv;
 	}
+	
+	@RequestMapping("reviewList.do")
+	public ModelAndView reviewList(){
+		ModelAndView mav = new ModelAndView("board/review");
+		mav.addObject("reviewList",boardService.reviewList());
+		return mav;
+	}
+	
+	@RequestMapping("findByTitle.do")
+	public ModelAndView findByTitle(String searchKeyWord){
+		ModelAndView mav = new ModelAndView("board/review");
+		mav.addObject("reviewList",boardService.reviewTitleSearchList(searchKeyWord));
+		return mav;
+	}
+	
+	@RequestMapping("findByWriter.do")
+	public ModelAndView findByWriter(String searchKeyWord){
+		ModelAndView mav = new ModelAndView("board/review");
+		mav.addObject("reviewList",boardService.reviewWriterSearchList(searchKeyWord));
+		return mav;
+	}
+
 }
