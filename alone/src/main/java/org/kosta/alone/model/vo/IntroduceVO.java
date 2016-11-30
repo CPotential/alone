@@ -2,7 +2,7 @@ package org.kosta.alone.model.vo;
 
 import org.kosta.alone.model.vo.MemberVO;
 
-public class IntroduceBoardVO extends BoardVO{
+public class IntroduceVO extends BoardVO{
 	private String companyName;
 	private String region;
 	private String location;
@@ -11,14 +11,14 @@ public class IntroduceBoardVO extends BoardVO{
 	private KeyWordVO keyWordVO;
 	private IntroduceCategoryVO categoryVO;
 	
-	public IntroduceBoardVO() {
+	public IntroduceVO() {
 		super();
 	}
-	public IntroduceBoardVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
+	public IntroduceVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
 			ImageVO imageVO) {
 		super(boardNo, content, timePosted, boardEnabled, memberVO, imageVO);
 	}
-	public IntroduceBoardVO(String companyName, String region, String location, String businessHours, String tel,
+	public IntroduceVO(String companyName, String region, String location, String businessHours, String tel,
 			KeyWordVO keyWordVO, IntroduceCategoryVO categoryVO) {
 		super();
 		this.companyName = companyName;
