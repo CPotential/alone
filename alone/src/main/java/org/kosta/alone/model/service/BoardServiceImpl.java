@@ -5,7 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.kosta.alone.model.dao.IntroduceDAO;
-import org.kosta.alone.model.dao.MeetingBoardDAO;
+import org.kosta.alone.model.dao.MeetingDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BoardServiceImpl implements BoardService {
 	@Resource
-	private MeetingBoardDAO meetingBoardDAO;
+	private MeetingDAO meetingDAO;
 	@Resource
 	private IntroduceDAO introduceDAO;
 	@Resource
@@ -24,27 +24,27 @@ public class BoardServiceImpl implements BoardService {
 
 
 	public List<MeetingVO> getMeetingList() {
-		return meetingBoardDAO.getMeetingList();
+		return meetingDAO.getMeetingList();
 	}
 
 	@Override
 	public List<MeetingVO> getMeetingRegionList(String region) {
-		return meetingBoardDAO.getMeetingRegionList(region);
+		return meetingDAO.getMeetingRegionList(region);
 	}
 
 	@Override
 	public List<MeetingVO> findNameMeetingList(String search) {
-		return meetingBoardDAO.findNameMeetingList(search);
+		return meetingDAO.findNameMeetingList(search);
 	}
 
 	@Override
 	public List<MeetingVO> findTitleMeetingList(String search) {
-		return meetingBoardDAO.findTitleMeetingList(search);
+		return meetingDAO.findTitleMeetingList(search);
 	}
 	
 	@Override
 	public List<MeetingVO> getRegionInfo() {
-		return meetingBoardDAO.getRegionInfo();
+		return meetingDAO.getRegionInfo();
 	}
 
 	@Override
@@ -81,5 +81,14 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<IntroduceCategoryVO> introduceCategoryList() {
 		return introduceDAO.introduceCategoryList();
+	}
+	
+	/**
+	 * 모임글 작성
+	 */
+	@Override
+	public void meetingWrite(MeetingVO meetingVO) {
+		meetingDAO.boardWrite(meetingVO);
+		meetingDAO.meetingWrite(meetingVO);
 	}
 }

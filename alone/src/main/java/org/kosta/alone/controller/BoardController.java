@@ -10,6 +10,7 @@ import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -104,5 +105,20 @@ public class BoardController {
 		return "board/meetingWriteForm";
 	}
 	
+	/**
+	 * 모임글 작성 후 상세보기로 이동
+	 * @param meetingVO
+	 * @return
+	 */
+	@RequestMapping(method=RequestMethod.POST, value="meetingWrite.do")
+	public String meetingWrite(MeetingVO meetingVO){
+		boardService.meetingWrite(meetingVO);
+		return "redirect:meetingDetail.do?board_no=" + meetingVO.getBoardNo();
+	}
 	
+	@RequestMapping("meetingDetail.do")
+	public ModelAndView meetingDetail(int boardNo){
+		System.out.println(boardNo);
+		return new ModelAndView("meetingDetail", "boardNo", boardNo);
+	}
 }
