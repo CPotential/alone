@@ -1,3 +1,28 @@
+--******************회원 이렇게 회원정보에 맞게 같이 만들어 주시면 좋겠습니다*****************************
+--******************************************게시판도 마찬가지 입니다********************************************
+-- 일반회원 정보
+insert into member(id, password, name, nickname, tel)
+values('json', '1234', '서현진', '개구리', '01078965412');
+insert into genericmember(id, birth, gender, mileage)
+values('json', '851201', '여자', 0);
+insert into authorities(id,authority)
+values('json','ROLE_MEMBER');
+-- 기업회원 정보
+insert into member(id, password, name, nickname, tel)
+values('jquery', '1234', '오해영', '담소', '01081234567');
+insert into companymember(id, address, corporate_registration_number)
+values('jquery', '판교', '654898123254');
+insert into authorities(id,authority)
+values('jquery','ROLE_COMPANY');
+-- 관리자 정보
+insert into member(id, password, name, nickname, tel)
+values('administer', '1234', '관리자', '관리자', '01043217894');
+insert into authorities(id, authority)
+values('administer', 'ROLE_ADMIN');
+
+
+
+--******************************************************************************************
 
 
 insert into MEMBER(id,password,name,nickname,tel) 
@@ -14,6 +39,7 @@ insert into MEMBER(id,password,name,nickname,tel)
 values('company','1234','관리자','company관리자','0101231678');
 insert into MEMBER(id,password,name,nickname,tel) 
 values('member','1234','관리자','member관리자','0106531678');
+
 
 -- 일반 회원 정보
 insert into GENERICMEMBER(id,birth,gender,mileage) 
@@ -79,11 +105,11 @@ insert into introduce(board_no,company_name,region,location,business_hours,tel,c
 insert into KEYWORD(keyword_no,keyword_name,board_no) values(keyword_seq.nextval, '#알바생존잘(?)','2');
 insert into KEYWORD(keyword_no,keyword_name,board_no) values(keyword_seq.nextval, '#뿌잉뿌잉','2');
 select * from keyword
+
 --모임글--
 
 insert into meeting(board_no,title,region,location,interest) values('5','식사','판교','유스페이스','코딩');
 insert into meeting(board_no,title,region,location,interest) values('6','식사','목동','현대타워','등산');
-
 insert into meeting(board_no,title,region,location,interest) values('24','식사','판교','유스페이스','코딩');
 
 
@@ -103,4 +129,12 @@ values('2', sysdate, 'asdf', 1);
 
 --기업회원 확인
 update COMPANYMEMBER set approval=1 where id='spring' --승인상태
+
+
+
+
+
+
+
+
 
