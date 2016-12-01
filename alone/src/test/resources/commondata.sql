@@ -58,12 +58,9 @@ insert into MEMBER(id,password,name,nickname,tel)
 values('company','1234','관리자','company관리자','0101231678');
 insert into MEMBER(id,password,name,nickname,tel) 
 values('member','1234','관리자','member관리자','0106531678');
-<<<<<<< HEAD
+
 select * from member;
-=======
 
-
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 -- 일반 회원 정보
 delete from GENERICMEMBER
 insert into GENERICMEMBER(id,birth,gender,mileage) 
@@ -125,17 +122,16 @@ values('1', '장도뚝배기', '낙성대', '서울특별시 관악구 봉천로
 insert into introduce(board_no, company_name, region, location, business_hours, tel, category_no) 
 values('2', '치치', '혜화', '서울특별시 종로구 대학로 8가길 36', '매일 17:00~05:00', '02-766-6222', '1');
 
-<<<<<<< HEAD
+
 insert into introduce(board_no,company_name,region,location,business_hours,tel,category_no) values('3','장도뚝배기','낙성대','서울특별시 관악구 봉천로 삼영빌딩','24시간','02-877-4171','1');
 insert into introduce(board_no,company_name,region,location,business_hours,tel,category_no) values('4','치치','혜화','서울특별시 종로구 대학로 8가길 36','매일 17:00~05:00','02-766-6222','1');
 select * from introduce;
-=======
+
 insert into introduce(board_no,company_name,region,location,business_hours,tel,category_no) 
 values('3','장도뚝배기','낙성대','서울특별시 관악구 봉천로 삼영빌딩','24시간','02-877-4171','1');
 insert into introduce(board_no,company_name,region,location,business_hours,tel,category_no) 
 values('4','치치','혜화','서울특별시 종로구 대학로 8가길 36','매일 17:00~05:00','02-766-6222','1');
 
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 
 --키워드--
 insert into KEYWORD(keyword_no,keyword_name,board_no) values(keyword_seq.nextval, '#알바생존잘(?)','2');
