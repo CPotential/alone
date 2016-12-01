@@ -14,16 +14,14 @@
 		<ul class="topbar-nav topbar-nav_right">
 
 			<!-- Account links -->
-		   <li><a href="${pageContext.request.contextPath}/myPageAdmin/selectMember.do">myPageAdmin</a></li>
+		   <li><a href="${pageContext.request.contextPath}/myPageAdmin/showInfo.do">myPageAdmin</a></li>
 		   <li><a href="${pageContext.request.contextPath}/myPageCompany/showInfo.do">myPageCompany</a></li>
 		   <li><a href="${pageContext.request.contextPath}/myPageGeneric/showInfo.do">myPageGeneric</a></li>
 			<!--  tile-config.xmp에 매핑되는 값이 없으면 viewResolver에서 매핑된다 -->
-			<li><a href="${pageContext.request.contextPath}/ui-elements.do">testLeft</a></li>
-		  <li><a href="${pageContext.request.contextPath}/ui-elements2.do">testLeft변경사항</a></li>
-			
+
 			<!-- ui-elements -->
-			<li><a href="login.do">Sign In</a></li>
-			<li><a href="register.jsp"> Sign Up</a></li>
+			<li><a href="${pageContext.request.contextPath}/login.do">Sign In</a></li>
+			<li><a href="${pageContext.request.contextPath}/register.jsp"> Sign Up</a></li>
 
 		</ul>
 	</div>
@@ -59,17 +57,17 @@
 					data-toggle="dropdown"> 가게 소개 <span class="fa fa-angle-down"></span>
 				</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="introduceList.do?categoryNo=1">음식</a></li>
-						<li><a href="introduceList.do?categoryNo=2">술</a></li>
-						<li><a href="introduceList.do?categoryNo=3">문화 생활</a></li>
+						<li><a href="${pageContext.request.contextPath}/introduceList.do?categoryNo=1">음식</a></li>
+						<li><a href="${pageContext.request.contextPath}/introduceList.do?categoryNo=2">술</a></li>
+						<li><a href="${pageContext.request.contextPath}/introduceList.do?categoryNo=3">문화 생활</a></li>
 					</ul></li>
 
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown"> 커뮤니티 <span class="fa fa-angle-down"></span>
 				</a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="getMeetingList.do">모임 게시판</a></li>
-						<li><a href="reviewList.do">리뷰 게시판</a></li>   
+						<li><a href="${pageContext.request.contextPath}/getMeetingList.do">모임 게시판</a></li>
+						<li><a href="${pageContext.request.contextPath}/reviewList.do">리뷰 게시판</a></li>   
 					</ul></li>
 			</ul>
 		</div>

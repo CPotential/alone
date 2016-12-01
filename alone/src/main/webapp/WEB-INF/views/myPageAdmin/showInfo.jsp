@@ -12,15 +12,15 @@
       <div class="row">
       <div class="col-sm-4 col-md-3 col-lg-2">
   
-         <ul class="list-unstyled profile-social center-block">
+            <ul class="list-unstyled profile-social center-block">
           <li>
-            <a href="${pageContext.request.contextPath}/myPageCompany/showInfo.do" class="btn btn-default btn-block">기업정보 </a>
+            <a href="${pageContext.request.contextPath}/myPageAdmin/showInfo.do" class="btn btn-default btn-block">메인</a>
           </li>
           <li>
-            <a href="${pageContext.request.contextPath}/myPageCompany/mileageDiscount.do" class="btn btn-default btn-block">마일리지 차감</a>
+            <a href="${pageContext.request.contextPath}/myPageAdmin/memberApprove.do" class="btn btn-default btn-block"> 회원승인</a>
           </li>
           <li>
-            <a href="${pageContext.request.contextPath}/myPageCompany/leave.do" class="btn btn-default btn-block"> 회원탈퇴</a>
+            <a href="${pageContext.request.contextPath}/myPageAdmin/memberRemove.do" class="btn btn-default btn-block"> 회원탈퇴</a>
           </li>
         </ul>
       </div>
@@ -30,7 +30,7 @@
           <!-- Tab content -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="personal-info">
-              <h3 class="header header_plain">Company Info</h3>
+              <h3 class="header header_plain">Admin Info</h3>
               <div class="table-responsive">
                 <table class="table">
                   <tbody>
@@ -78,7 +78,7 @@
                 </table>
               </div> <!-- / .table-responsive -->
             </div>
-            <a href="${pageContext.request.contextPath}/myPageCompany/update.do" class="btn btn-primary" >수정하기</a>
+        
           </div> <!-- / .tab-content -->
         </div>        
      

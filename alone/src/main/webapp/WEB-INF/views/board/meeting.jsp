@@ -15,11 +15,11 @@
     <title>Beatrix :: UI Elements</title>
 
     <!-- CSS Global -->
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
 
     <!-- CSS Plugins -->
     <link href="fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/animate.css" rel="stylesheet">
 
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>

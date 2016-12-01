@@ -15,15 +15,15 @@
     <div class="container">
          <div class="row">
       <div class="col-sm-4 col-md-3 col-lg-2">
-       <ul class="list-unstyled profile-social center-block">
+         <ul class="list-unstyled profile-social center-block">
           <li>
-            <a href="${pageContext.request.contextPath}/myPageGeneric/showInfo.do" class="btn btn-default btn-block">내정보 보기 </a>
+            <a href="${pageContext.request.contextPath}/myPageCompany/showInfo.do" class="btn btn-default btn-block">기업정보 </a>
           </li>
           <li>
-            <a href="${pageContext.request.contextPath}/myPageGeneric/showMileage.do" class="btn btn-default btn-block"> 마일리지</a>
+            <a href="${pageContext.request.contextPath}/myPageCompany/mileageDiscount.do" class="btn btn-default btn-block">마일리지 차감</a>
           </li>
           <li>
-            <a href="${pageContext.request.contextPath}/myPageGeneric/leave.do" class="btn btn-default btn-block"> 회원탈퇴</a>
+            <a href="${pageContext.request.contextPath}/myPageCompany/leave.do" class="btn btn-default btn-block"> 회원탈퇴</a>
           </li>
         </ul>
       </div>
@@ -93,3 +93,4 @@
             </div> <!-- / .row -->
   
     </div> <!-- / .container -->
+
