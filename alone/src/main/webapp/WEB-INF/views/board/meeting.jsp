@@ -109,7 +109,7 @@
           </div>
           <div class="col-sm-2">
           <div class="ui__section" id="ui_buttons">
-          	 <a href="board/meetingWrite.jsp" class="btn btn-sm btn-primary" >글작성</a>
+          	 <a href="${pageContext.request.contextPath}/meetingWriteForm.do" class="btn btn-sm btn-primary" >글작성</a>
           </div>
           </div>
           </div>
