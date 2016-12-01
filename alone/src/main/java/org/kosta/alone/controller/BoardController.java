@@ -101,7 +101,7 @@ public class BoardController {
 	 */
 	@RequestMapping("meetingWriteForm.do")
 	public String meetingWriteForm(){
-		return "board/meetingWrite";
+		return "board/meetingWriteForm";
 	}
 	
 	
