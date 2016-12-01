@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.kosta.alone.model.dao.IntroduceDAO;
 import org.kosta.alone.model.dao.MeetingBoardDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
+import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.ReviewVO;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-
 	@Resource
 	private MeetingBoardDAO meetingBoardDAO;
 	@Resource
@@ -22,22 +22,27 @@ public class BoardServiceImpl implements BoardService {
 	@Resource
 	private ReviewDAO reviewDAO;
 
+	@Override
 	public List<MeetingVO> getMeetingList() {
 		return meetingBoardDAO.getMeetingList();
 	}
 
+	@Override
 	public List<MeetingVO> getMeetingRegionList(String region) {
 		return meetingBoardDAO.getMeetingRegionList(region);
 	}
 
+	@Override
 	public List<MeetingVO> findNameMeetingList(String search) {
 		return meetingBoardDAO.findNameMeetingList(search);
 	}
 
+	@Override
 	public List<MeetingVO> findTitleMeetingList(String search) {
 		return meetingBoardDAO.findTitleMeetingList(search);
 	}
-
+	
+	@Override
 	public List<MeetingVO> getRegionInfo() {
 		return meetingBoardDAO.getRegionInfo();
 	}
@@ -56,7 +61,8 @@ public class BoardServiceImpl implements BoardService {
 	public List<ReviewVO> reviewWriterSearchList(String searchKeyWord) {
 		return reviewDAO.reviewWriterSearchList(searchKeyWord);
 	}
-
+	
+	// 소개글 리스트
 	@Override
 	public List<IntroduceVO> introduceList(int categoryNo) {
 		List<IntroduceVO> introduceList = null;
@@ -67,6 +73,13 @@ public class BoardServiceImpl implements BoardService {
 				introduceList.get(j).setKeyWordVO(introduceDAO.keyWordList(introduceList.get(j).getBoardNo()));
 			}
 		}
+		System.out.println(introduceList);
 		return introduceList;
+	}
+	
+	// 소개글 카테고리 리스트
+	@Override
+	public List<IntroduceCategoryVO> introduceCategoryList() {
+		return introduceDAO.introduceCategoryList();
 	}
 }

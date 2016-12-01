@@ -30,6 +30,7 @@ public class TestUnit {
 
 	@Test
 	public void test(){
+		System.out.println(boardService.introduceCategoryList());
 		System.out.println(boardService.introduceList(1));
 		MemberVO vo = new MemberVO();
 		vo.setId("java");

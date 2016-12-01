@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.KeyWordVO;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -27,5 +28,10 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 	@Override
 	public int keyWordSize(int boardNo) {
 		return sqlSessionTemplate.selectOne("introduce.keyWordSize", boardNo);
+	}
+
+	@Override
+	public List<IntroduceCategoryVO> introduceCategoryList() {
+		return sqlSessionTemplate.selectList("introduce.introduceCategoryList");
 	}
 }

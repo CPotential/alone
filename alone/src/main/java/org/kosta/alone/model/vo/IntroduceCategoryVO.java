@@ -33,7 +33,9 @@ public class IntroduceCategoryVO {
 
 	@Override
 	public String toString() {
-		return "CategoryVO [categoryNo=" + categoryNo + ", categoryName=" + categoryName + "]";
+		return "IntroduceCategoryVO [categoryNo=" + categoryNo + ", categoryName=" + categoryName + "]";
 	}
+
+
 
 }

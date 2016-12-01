@@ -6,8 +6,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.alone.model.service.BoardService;
+import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.MeetingVO;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,11 +21,11 @@ public class BoardController {
 	
 	@RequestMapping("getMeetingList.do")
 	public ModelAndView getMeetingList(){
-		ModelAndView mv = new ModelAndView("board/meeting");
+		ModelAndView mav = new ModelAndView("board/meeting");
 		List<MeetingVO> list = boardService.getMeetingList();
-		mv.addObject("RegionList",boardService.getRegionInfo()); 
-		mv.addObject("list",list);
-		return mv;
+		mav.addObject("RegionList",boardService.getRegionInfo()); 
+		mav.addObject("list",list);
+		return mav;
 	}
 	
 	@RequestMapping("getMeetingRegionList.do")
@@ -40,7 +40,7 @@ public class BoardController {
 	public ModelAndView findMeetingList(HttpServletRequest request){
 		String select = request.getParameter("select");
 		String search = request.getParameter("search");
-		ModelAndView mv = new ModelAndView("board/meeting");
+		ModelAndView mav = new ModelAndView("board/meeting");
 		if(select.equals("작성자")){
 			List<MeetingVO> list = boardService.findNameMeetingList(search);
 			request.setAttribute("list", list);
@@ -48,15 +48,20 @@ public class BoardController {
 			List<MeetingVO> list = boardService.findTitleMeetingList(search); 
 			request.setAttribute("list", list); 
 		}
-		mv.addObject("RegionList",boardService.getRegionInfo()); 
-		return mv; 
+		mav.addObject("RegionList",boardService.getRegionInfo()); 
+		return mav; 
 	}
-
+	
+	/**
+	 * 소개글 카테고리별 리스트 출력
+	 * @param categoryNo
+	 * @return
+	 */
 	@RequestMapping("introduceList.do")
 	public ModelAndView introduceList(int categoryNo){
-		ModelAndView mv = new ModelAndView("board/introduce");
-		mv.addObject("introduceList", boardService.introduceList(categoryNo));
-		return mv;
+		ModelAndView mav = new ModelAndView("board/introduce");
+		mav.addObject("introduceList", boardService.introduceList(categoryNo));
+		return mav;
 	}
 	
 	@RequestMapping("reviewList.do")
@@ -79,4 +84,25 @@ public class BoardController {
 		mav.addObject("reviewList",boardService.reviewWriterSearchList(searchKeyWord)); 
 		return mav; 
 	}
+	
+	/**
+	 * 소개글 카테고리 목록 ajax
+	 * @return
+	 */
+	@RequestMapping("introduceCategoryListAjax.do")
+	@ResponseBody
+	public List<IntroduceCategoryVO> introduceCategoryList(){
+		return boardService.introduceCategoryList();	
+	}
+	
+	/**
+	 * 모임글 작성 페이지 이동
+	 * @return
+	 */
+	@RequestMapping("meetingWriteForm.do")
+	public String meetingWriteForm(){
+		return "board/meetingWrite";
+	}
+	
+	
 }
