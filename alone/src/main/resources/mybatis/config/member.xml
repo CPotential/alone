@@ -14,14 +14,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 
-	<select id="idCheck" resultType="string">
+<!-- 	<select id="idCheck" resultType="string">
 		select count(*) from spring_member where id=#{value}
-	</select>
+	</select> -->
 	
 	<update id="update" parameterType="memberVO">
 		update member set password=#{password} ,address=#{address} ,name=#{name}
 		where id=#{id}
 	</update>
+	
+	<select id="idcheck" resultType="int">
+	select count(*) from member where id=#{value}
+	</select>
 	
 	<insert id="registerMember" parameterType="memberVO">
 		insert into member(id,password,name,nickname,tel)

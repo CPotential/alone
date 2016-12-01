@@ -11,6 +11,10 @@ public class MemberDAOImpl implements MemberDAO {
 	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	public int idcheck(String id) {
+		return sqlSessionTemplate.selectOne("member.idcheck",id);				
+	}
+	
 	@Override
 	public void registerMember(MemberVO vo){
 		sqlSessionTemplate.insert("member.registerMember", vo);

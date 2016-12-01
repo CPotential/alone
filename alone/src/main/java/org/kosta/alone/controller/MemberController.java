@@ -3,11 +3,13 @@ package org.kosta.alone.controller;
 import javax.annotation.Resource;
 
 import org.kosta.alone.model.vo.MemberVO;
+import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.GenericMemberVO;
 import org.kosta.alone.model.service.MemberService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -34,4 +36,20 @@ public class MemberController {
 		/*return "redirect:registerok.do?id=" + vo.getId();*/
 		return "redirect:/member/registerok.do";
 	}
+	
+	@RequestMapping(value = "registerCompanyMember.do", method = RequestMethod.POST)
+	public String registerMember(CompanyMemberVO vo) {	
+         System.out.println(vo);
+		memberService.registerMember(vo);
+		/*return "redirect:registerok.do?id=" + vo.getId();*/
+		return "redirect:/member/registerok.do";
+	}
+	
+	@RequestMapping("idcheckAjax.do")
+	@ResponseBody
+	public String idcheckAjax(String id) {		
+		int count=memberService.idcheck(id);
+		return (count==0) ? "ok":"fail"; 	
+	}
+	
 }

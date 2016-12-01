@@ -13,8 +13,15 @@
     <title>일반회원 가입</title>
     <script src="//code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript">
+
 	$(document).ready(function(){
-		var checkResultId="";		
+		var checkResultId="";
+		$("#cancel").click(function(){
+			alert("작성이 취소됩니다.");
+			location.href="${pageContext.request.contextPath}/homego.do";
+			return false;
+		}); 
+		
 		$("#registerMamberForm").submit(function(){			
 			if($(":input[name=id]").val().trim()==""){
 				alert("아이디를 입력하세요");				
@@ -36,15 +43,7 @@
 				alert("닉네임을 입력하세요");				
 				return false;
 			}
-			if($(":input[name=year]").val().trim()==""){
-				alert("생년월일을 입력하세요");				
-				return false;
-			}
-			if($(":input[name=month]").val().trim()==""){
-				alert("생년월일을 입력하세요");				
-				return false;
-			}
-			if($(":input[name=day]").val().trim()==""){
+			if($(":input[name=birth]").val().trim()==""){
 				alert("생년월일을 입력하세요");				
 				return false;
 			}
@@ -52,12 +51,34 @@
 				alert("전화번호를 입력하세요");				
 				return false;
 			}
-		/* 	if(checkResultId==""){
-				alert("아이디 중복확인을 하세요");
-				return false;
-			} */		
-		});
+		});//submit
+		
+		$(":input[name=id]").keyup(function(){
+			var id=$(this).val().trim();
+			if(id.length<2 || id.length>10){
+				$("#idCheckView").html("아이디는 2자이상 입력하세요").css("color", "red");
+				checkResultId="";
+				return;
+			}
+			$.ajax({
+				type:"POST",
+				url:"idcheckAjax.do",				
+				data:"id="+id,	
+				success:function(data){						
+					if(data=="fail"){
+					$("#idCheckView").html(id+" 사용불가!").css("color", "red");
+						checkResultId="";
+					}else{						
+						$("#idCheckView").html(id+" 사용가능!").css("color", "red");		
+						checkResultId=id;
+					}					
+				}//callback			
+			});//ajax
+		});//key
+
 	});//ready	
+
+
     </script>
     <!-- CSS Global -->
     <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
@@ -102,27 +123,28 @@
 
             <!-- Sign Up form -->
             <form role="form" action="${pageContext.request.contextPath}/registerMember.do" method="post" id="registerMamberForm">
-              <div class="col-sm-10 form-group">
-             	   <label for="sign-up__name" class="sr-only">ID</label>
-              	  <input type="text" class="form-control" id="sign-up__id" name="id" placeholder="아이디">
-              </div>
+              <div class="row">
+                <div class="col-sm-10">
+                	<div class="form-group">
+                	  <input type="text" class="form-control" id="sign-up__id" name="id" placeholder="아이디">
+                	   <span id="idCheckView"></span>
+                	</div>
+                </div>
+              </div>     
            <div class="form-group">
                 <div class="row">
                   <div class="col-sm-10">
                     <div class="form-group">
                       <label for="sign-up__password" class="sr-only">Password</label>
                       <input type="password" class="form-control" id="sign-up__password" name="password" placeholder="패스워드"> <br>
-<!--                     </div>
-                  </div>
-                  <div class="col-sm-10">
-                    <div class="form-group"> -->
                       <label for="sign-up__password_repeat" class="sr-only">Repeat Password</label>
                       <input type="password" class="form-control" id="sign-up__password_repeat" name="repeatPassword" placeholder="패스워드확인">
                     </div>
                   </div>
                	 </div>
-                </div>
-              <div class="form-group">
+               	  <div class="row">
+                  <div class="col-sm-10">
+               	 <div class=" form-group">
                 <label for="sign-up__name" class="sr-only">name</label>
                 <input type="text" class="form-control" id="sign-up__name" name="name" placeholder="이름">
               </div>
@@ -130,38 +152,37 @@
                 <label for="sign-up__name" class="sr-only">nickname</label>
                 <input type="text" class="form-control" id="sign-up__name"  name="nickName" placeholder="닉네임">
               </div>
-              
+                </div>
+                </div>
+                </div>
+		
               <div class="form-group">
                 <label for="sign-up__username" class="sr-only">gender</label>
                 <input type="radio" id="sign-up__gender" name="gender" value="여성">여성
                 <input type="radio"  id="sign-up__gender" name="gender" value="남성">남성
               </div>
-            
+            	 <div class="row">
+                  <div class="col-sm-10">
                 <div class="form-group">
                 <div class="row">
-                  <div class="col-sm-7">
+                  <div class="col-sm-10">
                     <div class="form-group">
                       <label for="sign-up__year" class="sr-only">birth</label>
                       <input type="text" class="form-control" id="sign-up__year" name="birth" placeholder="ex) 950101">
                     </div>
                   </div>
-    
+				    </div>
+				    </div>
               
-              <div class="col-sm-7 form-group">
+              <div class="col-sm-10 form-group">
              	   <label for="sign-up__tel" class="sr-only">tel</label>
-              	  <input type="text" class="form-control" id="sign-up__tel"  name="tel"  placeholder="tel">
+              	  <input type="text" class="form-control" id="sign-up__tel"  name="tel"  placeholder="연락처">
               </div>
    
                 </div>
               </div>
-              <!-- <div class="checkbox">
-                <label>
-                  <input type="checkbox"> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
-                </label>
-              </div> -->
-             <!--  <button type="submit" class="btn btn-primary btn-block btn-lg">가입하기</button> -->     
              <input type="submit" class="btn btn-primary btn-block btn-lg" value="가입하기"><br>
-             <button type="submit" class="btn btn-primary btn-block btn-lg">취소</button>
+             <button type="submit" class="btn btn-primary btn-block btn-lg"  id="cancel" >취소</button>
             </form>
 
             <!-- Sign In link -->
