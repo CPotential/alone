@@ -5,7 +5,6 @@
 
 <html lang="en">
   <head>
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -72,28 +71,20 @@
 </script>
 </head>
 <body>
-<div class="ui__section" id="ui_tables">
+
+	<div class="ui__section" id="ui_tables">
             <h3 class="header">관심있는 지역을 선택해 주세요</h3>
-<div class="row">
-<div class="col-sm-9">
-<select id="region">
-	<option>지역</option>
-	<c:forEach var="meetingList" items="${requestScope.RegionList}"> 
-	<option value="${meetingList.region}">${meetingList.region}</option>  
-	</c:forEach>
-</select>
+	<div class="row">
+	<div class="col-sm-9">
+	<select class="selectpicker" id="region">
+		<option>지역</option>
+		<c:forEach var="meetingList" items="${requestScope.RegionList}"> 
+		<option value="${meetingList.region}">${meetingList.region}</option>  
+		</c:forEach>
+	</select>
 </div>
 <div class="col-sm-3">
-	  <form class="form-inline topbar__search" role="form" action="findMeetingList.do">
-	  		  <select name="select">
-					<option>검색</option>
-					<option value="작성자">작성자</option>
-					<option value="제목">제목</option>    
-			  </select>
-              <label class="sr-only" for="nav-search">Search</label>
-              <input type="search" class="form-control" id="nav-search"  name="search" placeholder="Search here...">
-              <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
+
 </div>
 </div> 
 			<div class="table-responsive">
@@ -125,15 +116,28 @@
       		    </tbody>
               </table>
        		</div><!-- / .table-responsive -->
-          </div><!-- / ui__section -->
-          <div class="row">
-            <div class="col-sm-10">
+       		     <div class="row">
+       		     <div class="col-sm-5"></div>
+            <div class="col-sm-5">
+            	  <form class="form-inline topbar__search" role="form" action="findMeetingList.do">
+	  		  <select class="selectpicker" name="select">
+					<option>검색</option>
+					<option value="작성자">작성자</option>
+					<option value="제목">제목</option>    
+			  </select>
+              <label class="sr-only" for="nav-search">Search</label>
+              <input type="search" class="form-control" id="nav-search"  name="search" placeholder="Search here...">
+              <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+            
           </div>
           <div class="col-sm-2">
           <div class="ui__section" id="ui_buttons">
-          	 <a href="board/meetingWrite.jsp" class="btn btn-sm btn-default" >글작성</a>
+          	 <a href="board/meetingWrite.jsp" class="btn btn-sm btn-primary" >글작성</a>
           </div>
           </div>
           </div>
+          </div><!-- / ui__section -->
+     
 </body>
 </html> 

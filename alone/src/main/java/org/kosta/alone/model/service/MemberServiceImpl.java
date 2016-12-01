@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.kosta.alone.model.dao.CommonMemberDAO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -16,10 +17,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO memberLogin(MemberVO memberVO) {
 		
-		return commonMemberDAO.memberLogin(memberVO);
+		memberVO = commonMemberDAO.memberLogin(memberVO);
+		
+		if(memberVO.getAuthority().equals("ROLE_COMPANY")){
+			memberVO= commonMemberDAO.adminApproval(memberVO);
+		}
+		
+		return memberVO;
 	}
-	
-
-	
-
 }

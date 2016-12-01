@@ -4,13 +4,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 <mapper namespace="member">
+
 	<select id="memberLogin" parameterType="memberVO" resultType="memberVO">
-		select id,nickname,tel from member where id=#{id} and
-		password=#{password}
+		select member.id,member.nickname,authorities.authority 
+		from member member,authorities authorities
+		where member.id=#{id} and member.password=#{password} and member.id=authorities.id
+		and member.enabled=1
 	</select>
-	<select id="gainAuthority" parameterType="memberVO" resultType="memberVO">
-		select authorities.authority from member member,authorities
-		authorities where member.id=authorities.id
+	
+	<select id="adminApproval" parameterType="memberVO" resultType="companyMemberVO">
+	select companymember.id,member.nickname,companymember.approval
+	from companymember companymember,member member
+	where companymember.id=member.id and companymember.id=#{id}
 	</select>
 
 </mapper>

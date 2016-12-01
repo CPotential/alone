@@ -22,6 +22,7 @@ public class BoardServiceImpl implements BoardService {
 	@Resource
 	private ReviewDAO reviewDAO;
 
+	
 	public List<MeetingVO> getMeetingList() {
 		return meetingBoardDAO.getMeetingList();
 	}

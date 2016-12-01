@@ -307,3 +307,15 @@ from member member, board board, image image, introduce introduce
 where introduce.category_no=1
 and member.id=board.id and board.board_no=introduce.board_no 
 and board.board_no=image.board_no
+
+
+select member.id,member.nickname,authorities.authority 
+from member member,authorities authorities
+where member.id='java' and member.password='1234' and member.id=authorities.id
+and member.enabled=1
+
+select companymember.id,member.nickname 
+from companymember companymember,member member
+where companymember.id=member.id and companymember.approval=1
+
+select * from authorities
