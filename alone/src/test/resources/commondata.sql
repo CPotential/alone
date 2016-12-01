@@ -101,5 +101,6 @@ insert into image(image_no, image_name, image_original_name, board_no)
 values('2', sysdate, 'asdf', 1);
 
 
-
+--기업회원 확인
+update COMPANYMEMBER set approval=1 where id='spring' --승인상태
 

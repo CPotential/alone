@@ -25,6 +25,7 @@
 		}); // click
 	}); // ready
 </script>
+
 <!-- PRELOADER
     ============================== -->
 <div class="preloader">
@@ -37,16 +38,40 @@
 <div class="topbar hidden-xs hidden-sm">
 	<div class="container">
 		<ul class="topbar-nav topbar-nav_right">
-
+			
 			<!-- Account links -->
+		
+			<c:choose>
+			<c:when test="${empty sessionScope.mvo}">
 			<li><a href="login.do">Sign In</a></li>
-			<li><a href="register.jsp"> Sign Up</a></li>
+			<li><a href="register.do"> Sign Up</a></li>
+ 		</c:when>
+ 		
+			<c:otherwise>
+			  
 
+			<c:set var="authority" value="${sessionScope.mvo.authority}" />
+
+			<c:if test="${authority eq 'ROLE_MEMBER'}">
+    		<li><a href="register.jsp">MemberMyPage</a></li>
+			<li><a href="logout.do">로그아웃</a></li>
+			</c:if>
+			<c:if test="${authority eq 'ROLE_COMPANY'}">
+    		<li><a href="register.jsp">CompanyMyPage</a></li>
+			<li><a href="logout.do">로그아웃</a></li>
+			</c:if>
+			<c:if test="${authority eq 'ROLE_ADMIN'}">
+    		<li><a href="register.jsp">ADMINMyPage</a></li>
+			<li><a href="logout.do">로그아웃</a></li>
+			</c:if>
+			
+			</c:otherwise> 
+	 </c:choose>
 		</ul>
-	</div>
-	<!-- / .container -->
-</div>
-<!-- / .topbar -->
+	</div><!-- / .container -->
+
+</div><!-- / .topbar -->
+
 <div class="navbar__hr hidden-xs hidden-sm"></div>
 
 
