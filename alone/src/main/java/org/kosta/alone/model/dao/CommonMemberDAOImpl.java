@@ -2,6 +2,7 @@ package org.kosta.alone.model.dao;
 
 import javax.annotation.Resource;
 
+import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,13 +21,11 @@ public class CommonMemberDAOImpl implements CommonMemberDAO {
 
 
 	@Override
-	public MemberVO gainAuthority(MemberVO memberVO) {
+	public CompanyMemberVO adminApproval(MemberVO memberVO) {
 		
-		return template.selectOne("member.gainAuthority",memberVO);
+		return template.selectOne("member.adminApproval",memberVO);
 	}
-	
-	
-	
-	
+
+
 
 }

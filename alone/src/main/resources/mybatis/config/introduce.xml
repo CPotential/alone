@@ -15,11 +15,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="keyWordVO" id="keyWordRM">
 		<result column="keyword_name" property="keyWordName" />
 	</resultMap>
+	<resultMap type="introduceCategoryVO" id="introduceCategoryRM">
+		<result column="category_no" property="categoryNo" />
+		<result column="category_name" property="categoryName" />
+	</resultMap>
 	<select id="introduceList" resultType="introduceVO" resultMap="introduceRM">
 		select introduce.board_no, member.nickname, image.image_name, introduce.region 
 		from member member, board board, image image, introduce introduce 
 		where introduce.category_no=#{value}
-			and member.id=board.id and board.board_no=image.board_no and board.board_no=image.board_no
+			and member.id=board.id and board.board_no=introduce.board_no and board.board_no=image.board_no
 	</select>
 	<select id="keyWordList" resultMap="keyWordRM" resultType="keyWordVO">
 		select keyword.keyword_name
@@ -28,5 +32,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<select id="keyWordSize" resultType="int">
 		select count(*) from keyword where board_no=#{value}
+	</select>
+	<select id="introduceCategoryList" resultType="introduceCategoryVO" resultMap="introduceCategoryRM">
+		select category_no, category_name from introduce_category
 	</select>
 </mapper>

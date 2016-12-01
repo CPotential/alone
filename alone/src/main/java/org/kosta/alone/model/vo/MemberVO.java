@@ -12,6 +12,17 @@ public class MemberVO {
 	public MemberVO() {
 		super();
 	}
+	
+	
+
+	public MemberVO(String id, String password, String name, String nickName, String tel) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.nickName = nickName;
+		this.tel = tel;
+	}
 
 	public MemberVO(String id, String password, String name, String nickName, String tel,String authority,int enabled) {
 		super();
