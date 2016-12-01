@@ -22,44 +22,6 @@
 <!-- PAGE CONTENT
     ============================== -->
 <div class="container">
-	<%--
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="portfolio__nav">
-				<div class="row">
-					<div class="col-sm-8 col-md-9">
-						<!-- Categories -->
-						<ul class="nav nav-tabs nav-justified filter__nav" role="tablist">
-							<li role="presentation" class="active"><a href="#" role="tab" data-toggle="tab" data-filter="*">Food</a></li>
-							<li role="presentation"><a href="#" role="tab" data-toggle="tab" data-filter=".filter_modernism">Drink</a></li>
-							<li role="presentation"><a href="#" role="tab" data-toggle="tab" data-filter=".filter_impressionism">Art</a></li>
-						</ul>
-					</div>
-					<!-- Columns -->
-					<div class="col-sm-4 col-md-3">
-						<ul class="nav nav-tabs nav-justified columns__nav hidden-xs"
-							role="tablist">
-							<li role="presentation"><a href="#" role="tab"
-								data-toggle="tab" data-grid="col-sm-6"> <i
-									class="fa fa-columns"></i> 2
-							</a></li>
-							<li role="presentation" class="active"><a href="#"
-								role="tab" data-toggle="tab" data-grid="col-sm-4"> <i
-									class="fa fa-columns"></i> 3
-							</a></li>
-							<li role="presentation"><a href="#" role="tab"
-								data-toggle="tab" data-grid="col-sm-4 col-md-3"> <i
-									class="fa fa-columns"></i> 4
-							</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<!-- / .portfolio__nav -->
-		</div>
-	</div>
-	<!-- / .row -->
- --%>
 	<!-- Portfolio -->
 	<div class="portfolio__items">
 		<div class="row">

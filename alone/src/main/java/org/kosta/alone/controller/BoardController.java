@@ -48,7 +48,7 @@ public class BoardController {
 			List<MeetingVO> list = boardService.findTitleMeetingList(search); 
 			request.setAttribute("list", list); 
 		}
-		mav.addObject("RegionList",boardService.getRegionInfo()); 
+		mav.addObject("RegionList",boardService.getRegionInfo());  
 		return mav; 
 	}
 	
@@ -104,5 +104,13 @@ public class BoardController {
 		return "board/meetingWriteForm";
 	}
 	
+	@RequestMapping("meetingDetail.do")
+	public ModelAndView meetingDetail(String boardNo){
+		ModelAndView mav = new ModelAndView("board/meetingDetail");
+		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
+	
+		return mav;
+		
+	}
 	
 }

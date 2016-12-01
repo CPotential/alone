@@ -10,4 +10,5 @@ public interface MeetingBoardDAO {
 	public List<MeetingVO> findNameMeetingList(String search);
 	public List<MeetingVO> findTitleMeetingList(String search);
 	public List<MeetingVO> getRegionInfo();
+	public MeetingVO meetingDetail(String boardNo);
 }

@@ -24,6 +24,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getRegionInfo" resultType="meetingVO"> 
 	    select distinct(region) from meeting  
 	</select>
+	
+	<select id="meetingDetail" resultMap="meetingRM" parameterType="string" >
+	select meeting.board_no,meeting.title,meeting.region,meeting.interest,
+	meeting.hits,board.time_posted,member.nickname,board.content 
+	from board board,meeting meeting,member member where board.board_no = meeting.board_no 
+	and board.id = member.id and meeting.board_no= #{value}
+	
+	</select>
 </mapper> 
  
  

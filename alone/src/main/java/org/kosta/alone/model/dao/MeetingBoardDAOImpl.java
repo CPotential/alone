@@ -33,4 +33,10 @@ public class MeetingBoardDAOImpl implements MeetingBoardDAO {
 	public List<MeetingVO> getRegionInfo(){
 		return template.selectList("meeting.getRegionInfo");
 	}
+
+	@Override
+	public MeetingVO meetingDetail(String boardNo) {
+	
+		return template.selectOne("meeting.meetingDetail",boardNo);
+	}
 }

@@ -83,7 +83,7 @@
                     <td>${meetingList.boardNo}</td>  
                     <td>${meetingList.region}</td>
                     <td>${meetingList.interest}</td>
-                    <td>${meetingList.title}</td>  
+                    <td><a href="${pageContext.request.contextPath}/meetingDetail.do?boardNo=${meetingList.boardNo}">${meetingList.title}</a></td>  
                     <td>${meetingList.memberVO.nickName}</td> 
                     <td>${meetingList.timePosted}</td>
                     <td>${meetingList.hits}</td>  
