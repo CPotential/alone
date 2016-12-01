@@ -37,7 +37,7 @@
 						<div class="footer__content">
 							<div class="footer__post">
 								<div class="footer-post__img">
-									<img src="resources/img/general_1.jpg" alt="...">
+									<img src="${pageContext.request.contextPath}/resources/img/general_1.jpg" alt="...">
 								</div>
 								<div class="footer-post__content">
 									<p>
@@ -48,7 +48,7 @@
 							</div>
 							<div class="footer__post">
 								<div class="footer-post__img">
-									<img src="resources/img/general_2.jpg" alt="...">
+									<img src="${pageContext.request.contextPath}/resources/img/general_2.jpg" alt="...">
 								</div>
 								<div class="footer-post__content">
 									<p>
@@ -59,7 +59,7 @@
 							</div>
 							<div class="footer__post">
 								<div class="footer-post__img">
-									<img src="resources/img/general_3.jpg" alt="...">
+									<img src="${pageContext.request.contextPath}/resources/img/general_3.jpg" alt="...">
 								</div>
 								<div class="footer-post__content">
 									<p>
