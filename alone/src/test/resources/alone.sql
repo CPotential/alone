@@ -97,6 +97,18 @@ CREATE TABLE MEETING(
 	constraint fk_meeting foreign key(board_no) references board(board_no)
 )
 
+select meeting.board_no as boardNo,meeting.title,meeting.region,meeting.interest,meeting.hits,board.time_posted as timePosted,
+member.nickname as nickName from board board,meeting meeting,member member 
+where board.board_no = meeting.board_no and board.id = member.id;
+
+select meeting.board_no,meeting.region,meeting.title,meeting.interest,meeting.hits,
+board.time_posted,member.nickname from board board,meeting meeting,member member 
+where board.board_no = meeting.board_no and board.id = member.id;
+
+select * from board
+select * from meeting;
+
+
 drop table review;
 -- 후기글 정보
 CREATE TABLE REVIEW(
@@ -225,6 +237,7 @@ insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'ora
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'oracle','ds',sysdate);
 
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'spring','os',sysdate);
+
 select * from board
 select * from introduce
 
@@ -248,8 +261,10 @@ insert into KEYWORD(keyword_no,keyword_name,board_no) values(keyword_seq.nextval
 insert into KEYWORD(keyword_no,keyword_name,board_no) values(keyword_seq.nextval, '#뿌잉뿌잉','2');
 select * from keyword
 --모임글--
+
 insert into meeting(board_no,title,region,location,interest) values('4','식사','판교','유스페이스','코딩');
 insert into meeting(board_no,title,region,location,interest) values('22','식사','목동','현대타워','등산');
+
 insert into meeting(board_no,title,region,location,interest) values('24','식사','판교','유스페이스','코딩');
 
 --후기글--
@@ -274,17 +289,17 @@ select keyword.keyword_name
 from keyword keyword, introduce introduce
 where keyword.board_no=introduce.board_no and introduce.board_no=1
 
-select * from keyword
-select count(*) from keyword where board_no=1
+-----------------------여기서 막쓰세요 
+--확실한것만 board,member xml로 이동하여 저장시켜주세요.
+select * from board
+select * from introduce
+select * from image
+select introduce.board_no, member.id from member member,introduce introduce,board board
+where board.board_no = introduce.board_no and member.id=board.id
 
-select * from member
-select * from BOARD
-select * from review
-select board.board_no as boardNo,member.nickname as "memberVO.nickName",
-to_char(board.time_posted,'yyyy.mm.dd') as timePosted,review.title,review.hits,review.likes 
-from board board,review review,member member where board.board_no=review.board_no and board.id=member.id and
-review.title='음식후기'
-
-select * from authorities
-select authorities.authority from member member,authorities authorities where member.id=authorities.id and member.id='java'
-
+-- 이미지 무조건 넣고 하세요
+select introduce.board_no, member.nickname, image.image_name, introduce.region 
+from member member, board board, image image, introduce introduce 
+where introduce.category_no=1
+and member.id=board.id and board.board_no=introduce.board_no 
+and board.board_no=image.board_no
