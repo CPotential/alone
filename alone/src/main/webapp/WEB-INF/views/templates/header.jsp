@@ -5,7 +5,7 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#introduce").click(function() {
-			$.ajax({
+			$.ajax({ 
 				type : "get",
 				url : "introduceCategoryListAjax.do",
 				dataType : "json",
@@ -39,41 +39,33 @@
 	<div class="container">
 		<ul class="topbar-nav topbar-nav_right">
 			
-			<!-- Account links -->
+	         <!-- Account links -->
+         <c:choose>
+         <c:when test="${empty sessionScope.mvo}">
+         <li><a href="login.do">Sign In</a></li>
+         <li><a href="register.do"> Sign Up</a></li>
+       </c:when>
+       
+         <c:otherwise>
+           
 
-		   <li><a href="${pageContext.request.contextPath}/myPageAdmin/showInfo.do">myPageAdmin</a></li>
-		   <li><a href="${pageContext.request.contextPath}/myPageCompany/showInfo.do">myPageCompany</a></li>
-		   <li><a href="${pageContext.request.contextPath}/myPageGeneric/showInfo.do">myPageGeneric</a></li>
-			<!--  tile-config.xmp에 매핑되는 값이 없으면 viewResolver에서 매핑된다 -->
+         <c:set var="authority" value="${sessionScope.mvo.authority}" />
 
-
-			<c:choose>
-			<c:when test="${empty sessionScope.mvo}">
-			<li><a href="${pageContext.request.contextPath}/login.do">Sign In</a></li>
-			<li><a href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
- 		</c:when>
- 		
-			<c:otherwise>
-			  
-
-
-			<c:set var="authority" value="${sessionScope.mvo.authority}" />
-
-			<c:if test="${authority eq 'ROLE_MEMBER'}">
-    		<li><a href="register.jsp">MemberMyPage</a></li>
-			<li><a href="logout.do">로그아웃</a></li>
-			</c:if>
-			<c:if test="${authority eq 'ROLE_COMPANY'}">
-    		<li><a href="register.jsp">CompanyMyPage</a></li>
-			<li><a href="logout.do">로그아웃</a></li>
-			</c:if>
-			<c:if test="${authority eq 'ROLE_ADMIN'}">
-    		<li><a href="register.jsp">ADMINMyPage</a></li>
-			<li><a href="logout.do">로그아웃</a></li>
-			</c:if>
-			
-			</c:otherwise> 
-	 </c:choose>
+         <c:if test="${authority eq 'ROLE_MEMBER'}">
+          <li><a href="${pageContext.request.contextPath}/myPageGeneric/showInfo.do">myPageGeneric</a></li>
+         <li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+         </c:if>
+         <c:if test="${authority eq 'ROLE_COMPANY'}">
+             <li><a href="${pageContext.request.contextPath}/myPageCompany/showInfo.do">myPageCompany</a></li>
+         <li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+         </c:if>
+         <c:if test="${authority eq 'ROLE_ADMIN'}">
+           <li><a href="${pageContext.request.contextPath}/myPageAdmin/showInfo.do">myPageAdmin</a></li>
+         <li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li> 
+         </c:if>
+         
+         </c:otherwise> 
+          </c:choose>
 		</ul>
 	</div><!-- / .container -->
 
@@ -95,7 +87,7 @@
 					class="icon-bar"></span>
 			</button>
 			<!-- Brand name -->
-			<a class="navbar-brand" href="home.do">혼자서도 잘해요</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/home.do">혼자서도 잘해요</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<!-- Navbar links -->
@@ -125,10 +117,7 @@
 
 						<li><a href="${pageContext.request.contextPath}/getMeetingList.do">모임 게시판</a></li>
 						<li><a href="${pageContext.request.contextPath}/reviewList.do">리뷰 게시판</a></li>   
-
-						<li><a href="getMeetingList.do">모임 게시판</a></li>
-						<li><a href="reviewList.do">리뷰 게시판</a></li>
-				</ul></li>
+					</ul></li>
 			</ul>
 		</div>
 	</div>

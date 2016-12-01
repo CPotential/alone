@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
 
 		
 		memberVO = commonMemberDAO.memberLogin(memberVO);
-		System.out.println(memberVO);
+		
 		if(memberVO.getAuthority().equals("ROLE_COMPANY")){
 			memberVO= commonMemberDAO.adminApproval(memberVO);
 		}
@@ -46,12 +46,16 @@ public class MemberServiceImpl implements MemberService {
 	public void registerMember(GenericMemberVO vo){
 		memberDAO.registerMember(vo);  //pk 넣어주고
 		genericMemberDAO.registerMember(vo); //fk로 pk가져왔으니깐 상관없음
+		vo.setAuthority("ROLE_MEMBER");
+		commonMemberDAO.registerAuthority(vo);
 	}
 	
 	@Transactional
 	public void registerMember(CompanyMemberVO vo){
 		memberDAO.registerMember(vo);
 		companyMemberDAO.registerMember(vo);
+		vo.setAuthority("ROLE_COMPANY");
+		commonMemberDAO.registerAuthority(vo);
 	}
 
 
