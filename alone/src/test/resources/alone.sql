@@ -97,6 +97,8 @@ CREATE TABLE MEETING(
 	constraint fk_meeting foreign key(board_no) references board(board_no)
 )
 
+select meeting.board_no as boardNo,meeting.title,meeting.region,meeting.interest,meeting.hits,board.time_posted as timePosted,member.nickname as nickName from board board,meeting meeting,member member where board.board_no = meeting.board_no and board.id = member.id;
+select meeting.board_no,meeting.region,meeting.title,meeting.interest,meeting.hits,board.time_posted,member.nickname from board board,meeting meeting,member member where board.board_no = meeting.board_no and board.id = member.id;
 select meeting.board_no as boardNo,meeting.title,meeting.region,meeting.interest,meeting.hits,board.time_posted as timePosted,
 member.nickname as nickName from board board,meeting meeting,member member 
 where board.board_no = meeting.board_no and board.id = member.id;
@@ -194,7 +196,9 @@ values('member','1234','관리자','member관리자','0106531678');
 insert into MEMBER(id,password,name,nickname,tel) 
 values('member1','1234','관리자','member관리자1','0154545678');
 
-
+select * from member;
+select * from GENERICMEMBER;
+select * from COMPANYMEMBER;
 -- 일반 회원 정보
 insert into GENERICMEMBER(id,birth,gender,mileage) 
 values('java','0320','여',10);
@@ -270,7 +274,6 @@ insert into meeting(board_no,title,region,location,interest) values('22','식사
 
 insert into meeting(board_no,title,region,location,interest) values('24','식사','판교','유스페이스','코딩');
 
-
 --후기글--
 insert into review(board_no,title) values('29','하상현 멍청이1213');
 
@@ -314,8 +317,9 @@ from member member,authorities authorities
 where member.id='java' and member.password='1234' and member.id=authorities.id
 and member.enabled=1
 
-select companymember.id,member.nickname 
-from companymember companymember,member member
-where companymember.id=member.id and companymember.approval=1
+select companymember.id,member.nickname,authorities.authority
+from companymember companymember,member member,authorities authorities
+where companymember.id=member.id and companymember.approval=1 and member.id=authorities.id
 
 select * from authorities
+select * from member

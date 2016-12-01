@@ -30,7 +30,10 @@ public class TestUnit {
 
 	@Test
 	public void test(){
-		//System.out.println(boardService.introduceList(1));
+
+		System.out.println(boardService.introduceCategoryList());
+		System.out.println(boardService.introduceList(1));
+
 		MemberVO vo = new MemberVO();
 		vo.setId("spring");
 		vo.setPassword("1234");
