@@ -9,6 +9,7 @@ import org.kosta.alone.model.dao.MeetingBoardDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
+import org.kosta.alone.model.vo.KeyWordVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.springframework.stereotype.Service;
@@ -63,17 +64,24 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	// 소개글 리스트
+	/**
+	 * 1)카테고리에 해당하는 게시물 리스트를 뽑는다 :introduceList
+	 * 2)첫번째 소개글에 게시물 번호를 얻어와 해당 게시물에 키워드가 몇개 등록되었는지 확인 한다 :keyWordSize
+	 * 3) 게시물이 가지고있는 키워드의 이름을 뽀는다
+	 * introduceList.get(i).getBoardNo()게시물 번호
+	 */
 	@Override
 	public List<IntroduceVO> introduceList(int categoryNo) {
 		List<IntroduceVO> introduceList = null;
 		introduceList = introduceDAO.introduceList(categoryNo);
-		int keyWordSize = introduceDAO.keyWordSize(introduceDAO.introduceList(categoryNo).get(0).getBoardNo());
+		List<KeyWordVO> keyWordVO =null; 
+		
 		for (int i = 0; i < introduceList.size(); i++) {
-			for (int j = 0; j < keyWordSize; j++) {
-				introduceList.get(j).setKeyWordVO(introduceDAO.keyWordList(introduceList.get(j).getBoardNo()));
-			}
+			keyWordVO = introduceDAO.keyWordList(introduceList.get(i).getBoardNo());			
+			introduceList.get(i).setKeyWordVO(keyWordVO);
 		}
-		System.out.println(introduceList);
+		
+		
 		return introduceList;
 	}
 	
@@ -81,5 +89,10 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<IntroduceCategoryVO> introduceCategoryList() {
 		return introduceDAO.introduceCategoryList();
+	}
+	@Override
+	public MeetingVO meetingDetail(String boardNo) {
+		
+		return meetingBoardDAO.meetingDetail(boardNo);
 	}
 }

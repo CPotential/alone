@@ -20,11 +20,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="category_name" property="categoryName" />
 	</resultMap>
 	<select id="introduceList" resultType="introduceVO" resultMap="introduceRM">
-		select introduce.board_no, member.nickname, image.image_name, introduce.region 
-		from member member, board board, image image, introduce introduce 
-		where introduce.category_no=#{value}
-			and member.id=board.id and board.board_no=introduce.board_no and board.board_no=image.board_no
+select introduce.board_no, member.nickname,introduce.region 
+      from member member, board board,  introduce introduce 
+      where introduce.category_no=#{category_no}
+       and member.id=board.id and board.board_no=introduce.board_no 
 	</select>
+	
 	<select id="keyWordList" resultMap="keyWordRM" resultType="keyWordVO">
 		select keyword.keyword_name
 		from keyword keyword, introduce introduce

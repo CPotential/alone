@@ -111,12 +111,15 @@ values(board_seq.nextval,'oracle','졸린다 자자',sysdate);
 
 select * from board;
 -- 카테고리--
-insert into INTRODUCE_CATEGORY(category_no,category_name) values('1','음식점');
-insert into INTRODUCE_CATEGORY(category_no,category_name) values('2','술');
-insert into INTRODUCE_CATEGORY(category_no,category_name) values('3','문화');
+
+insert into INTRODUCE_CATEGORY(category_no,category_name) values(1,'음식점');
+insert into INTRODUCE_CATEGORY(category_no,category_name) values(2,'술');
+insert into INTRODUCE_CATEGORY(category_no,category_name) values(3,'문화');
+delete INTRODUCE_CATEGORY;
 select * from INTRODUCE_CATEGORY;
 --소개글--
 delete from introduce;
+select * from introduce;
 insert into introduce(board_no, company_name, region, location, business_hours, tel, category_no) 
 values('1', '장도뚝배기', '낙성대', '서울특별시 관악구 봉천로 삼영빌딩', '24시간', '02-877-4171', '1');
 insert into introduce(board_no, company_name, region, location, business_hours, tel, category_no) 
@@ -125,13 +128,13 @@ values('2', '치치', '혜화', '서울특별시 종로구 대학로 8가길 36'
 
 insert into introduce(board_no,company_name,region,location,business_hours,tel,category_no) values('3','장도뚝배기','낙성대','서울특별시 관악구 봉천로 삼영빌딩','24시간','02-877-4171','1');
 insert into introduce(board_no,company_name,region,location,business_hours,tel,category_no) values('4','치치','혜화','서울특별시 종로구 대학로 8가길 36','매일 17:00~05:00','02-766-6222','1');
-select * from introduce;
 
 insert into introduce(board_no,company_name,region,location,business_hours,tel,category_no) 
 values('3','장도뚝배기','낙성대','서울특별시 관악구 봉천로 삼영빌딩','24시간','02-877-4171','1');
 insert into introduce(board_no,company_name,region,location,business_hours,tel,category_no) 
 values('4','치치','혜화','서울특별시 종로구 대학로 8가길 36','매일 17:00~05:00','02-766-6222','1');
 
+delete from introduce where board_no='4';
 
 --키워드--
 insert into KEYWORD(keyword_no,keyword_name,board_no) values(keyword_seq.nextval, '#알바생존잘(?)','2');
@@ -162,8 +165,11 @@ insert into image(image_no, image_name, image_original_name, board_no)
 values('1', sysdate, 'asdf', 1);
 insert into image(image_no, image_name, image_original_name, board_no) 
 values('2', sysdate, 'asdf', 1);
+insert into image(image_no, image_name, image_original_name, board_no) 
+values('3', sysdate, 'asdf', 2);
 select * from image;
 
+select * from member
 --기업회원 확인
 update COMPANYMEMBER set approval=1 where id='spring' --승인상태
 
