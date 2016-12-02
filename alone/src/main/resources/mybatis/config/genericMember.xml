@@ -12,6 +12,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="registerAuthority" parameterType="genericMemberVO">
 		insert into AUTHORITIES (id,authority) values (#{id},#{authority})
 	</insert>
+
+	<update id="updateGenericMember" parameterType="genericMemberVO">
+		update GENERICMEMBER 
+		
+		set gender=#{gender}
+	
+		where id=#{id}
+	
+	</update>
 	
 	
 </mapper>

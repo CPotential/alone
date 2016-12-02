@@ -14,7 +14,6 @@
 				alert("검색어를 입력하세요!");
 			} else {
 				var command = $("#findType").val() + ".do";
-				alert(command)
 				location.href = command + "?searchKeyWord=" + searchKeyWord;
 			}
 		}); // click 이벤트

@@ -10,4 +10,6 @@ public interface MemberService {
 	void registerMember(CompanyMemberVO vo);
 	void registerMember(GenericMemberVO vo);
 	public int idcheck(String id);
+	public void updateInfo(GenericMemberVO genericMemberVO);
+	public int nickNamecheck(String nickname);
 }

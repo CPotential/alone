@@ -16,4 +16,7 @@ public class GenericMemberDAOImpl implements GenericMemberDAO {
 		
 		sqlSessionTemplate.insert("genericMember.registerMember", vo);
 	}
+	public void updateMember(GenericMemberVO genericMemberVO){
+		sqlSessionTemplate.update("genericMember.updateGenericMember",genericMemberVO);
+	}
 }

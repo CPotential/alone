@@ -24,12 +24,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from spring_member where id=#{value}
 	</select> -->
 	
-	<update id="update" parameterType="memberVO">
-		update member set password=#{password} ,address=#{address} ,name=#{name}
+	<update id="updateMember" parameterType="memberVO">
+		update member 
+		<set>
+		<if test="password != null  and password != ''">password=#{password},</if>
+		<if test="name != null and name != ''">name=#{name},</if>
+		<if test="nickName != null and nickName != ''">nickName=#{nickName},</if>
+		<if test="tel != null and tel != ''" >tel=#{tel},</if>
+		</set>
 		where id=#{id}
 	</update>
 	
-	<select id="idcheck" resultType="int">
+	<select id="idcheck" resultType="int" parameterType="string">
+	select count(*) from member where id=#{value}
+	</select>
+	<select id="nickNamecheck" resultType="int" parameterType="string">
 	select count(*) from member where id=#{value}
 	</select>
 	

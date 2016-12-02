@@ -25,9 +25,11 @@ public class MemberController {
 	@RequestMapping(method=RequestMethod.POST,value="loginCheck.do")
 	public ModelAndView memberLogin(MemberVO memberVO,HttpSession session){
 		ModelAndView mav = null;
-		memberVO =memberService.memberLogin(memberVO);
+		memberVO = memberService.memberLogin(memberVO);
+		
 		if(memberVO ==null){
 			mav =new ModelAndView("member/login_fail");
+			return mav;
 		}else if(memberVO instanceof CompanyMemberVO){
 			
 			CompanyMemberVO companyMemberVO = (CompanyMemberVO) memberVO;
@@ -35,15 +37,15 @@ public class MemberController {
 			if(companyMemberVO.getApproval().equals("0")){
 				mav=new ModelAndView("member/login_companyfail");
 			}else{
-				System.out.println(memberVO);
 				session.setAttribute("mvo", memberVO);
 				mav=new ModelAndView("member/login_result");
 			}
+			return mav;
 		}else{
 			session.setAttribute("mvo", memberVO);
 			mav=new ModelAndView("member/login_result");
+			return mav;
 		}
-		return mav;
 	}
 	
 
@@ -82,6 +84,24 @@ public class MemberController {
 	public String idcheckAjax(String id) {		
 		int count=memberService.idcheck(id);
 		return (count==0) ? "ok":"fail"; 	
+	}
+	@RequestMapping("nickNamecheckAjax.do")
+	@ResponseBody
+	public String nickNamecheckAjax(String nickname) {		
+		int count=memberService.nickNamecheck(nickname);
+		return (count==0) ? "ok":"fail"; 	
+	}
+	
+	//일반회원 정보 수정
+	@RequestMapping("updateInfo.do")
+	public ModelAndView myPageMemberupdate(GenericMemberVO genericMemberVO,HttpSession session){
+	
+		ModelAndView mav = new ModelAndView("myPageGeneric/myPageMemberupdate");
+		System.out.println(genericMemberVO);
+		memberService.updateInfo(genericMemberVO);
+		
+		return mav;
+		
 	}
 	
 

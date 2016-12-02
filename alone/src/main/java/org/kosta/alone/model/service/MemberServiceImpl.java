@@ -27,15 +27,18 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO memberLogin(MemberVO memberVO) {
 
-		
 		memberVO = commonMemberDAO.memberLogin(memberVO);
 		//아이디 패스워드 확인
-		
-		if(memberVO.getAuthority().equals("ROLE_COMPANY")){
+		if(memberVO == null){
+			return memberVO;
+		}
+	
+		if(memberVO.getAuthority().equals("ROLE_COMPANY") && memberVO != null){
 			return commonMemberDAO.adminApproval(memberVO);
 			//관리자가 기업 승인 여부 확인해야한다.
 		}
 		return memberVO;
+		
 	}
 
 	
@@ -58,6 +61,23 @@ public class MemberServiceImpl implements MemberService {
 		companyMemberDAO.registerMember(vo);
 		vo.setAuthority("ROLE_COMPANY"); //권한 셋팅
 		commonMemberDAO.registerAuthority(vo); //권한 DB에 인서트
+	}
+
+
+	@Override
+	@Transactional
+	public void updateInfo(GenericMemberVO genericMemberVO) {
+		memberDAO.updateMember(genericMemberVO);
+		if(genericMemberVO.getGender() != null){
+			genericMemberDAO.updateMember(genericMemberVO);
+		}
+		
+	}
+
+
+	@Override
+	public int nickNamecheck(String nickname) {
+		return  memberDAO.nickNamecheck(nickname);
 	}
 
 

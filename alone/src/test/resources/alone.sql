@@ -1,13 +1,6 @@
--- 공통 회원 정보
-DROP TABLE MEMBER;
-CREATE TABLE MEMBER( 
-	id varchar2(50) primary key,
-	password varchar2(50) not null,
-	name varchar2(50) not null,
-	nickname varchar2(50) not null,
-	tel varchar2(50) not null,
-	enabled number default 1 -- 탈퇴여부 : 탈퇴시 0 으로 변경
-)
+
+select * from genericmember
+
 
 drop table genericmember;
 -- 일반 회원 정보

@@ -42,8 +42,8 @@
 	         <!-- Account links -->
          <c:choose>
          <c:when test="${empty sessionScope.mvo}">
-         <li><a href="login.do">Sign In</a></li>
-         <li><a href="register.do"> Sign Up</a></li>
+         <li><a href="${pageContext.request.contextPath}/login.do">Sign In</a></li>
+         <li><a href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
        </c:when>
        
          <c:otherwise>

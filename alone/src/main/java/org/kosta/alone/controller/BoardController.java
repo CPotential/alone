@@ -61,6 +61,7 @@ public class BoardController {
 	public ModelAndView introduceList(int categoryNo){
 		ModelAndView mav = new ModelAndView("board/introduce");
 		mav.addObject("introduceList", boardService.introduceList(categoryNo));
+		
 		return mav;
 	}
 	

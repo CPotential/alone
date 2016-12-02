@@ -6,4 +6,6 @@ public interface MemberDAO {
 
 	void registerMember(MemberVO vo);
 	public int idcheck(String id);
+	public void updateMember(MemberVO memberVO);
+	int nickNamecheck(String nickname);
 }
