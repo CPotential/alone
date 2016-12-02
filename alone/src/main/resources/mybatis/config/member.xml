@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="adminApproval" parameterType="memberVO" resultType="companyMemberVO">
 	select companymember.id,member.nickname,authorities.authority,companymember.approval
 	from companymember companymember,member member,authorities authorities
-	where companymember.id=member.id and companymember.approval=1 and member.id=authorities.id
+	where companymember.id=member.id and member.id=authorities.id
 	and companymember.id=#{id}
 	</select>
 

@@ -32,4 +32,8 @@ public interface BoardService {
 	
 	public void reviewWrite(ReviewVO reviewVO);
 	
+	public void meetingWrite(MeetingVO meetingVO);
+
+	public MeetingVO meetingDetail(String boardNo);
+
 }

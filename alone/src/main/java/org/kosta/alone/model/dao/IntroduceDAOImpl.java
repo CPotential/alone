@@ -26,11 +26,6 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 	}
 
 	@Override
-	public int keyWordSize(int boardNo) {
-		return sqlSessionTemplate.selectOne("introduce.keyWordSize", boardNo);
-	}
-
-	@Override
 	public List<IntroduceCategoryVO> introduceCategoryList() {
 		return sqlSessionTemplate.selectList("introduce.introduceCategoryList");
 	}

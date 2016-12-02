@@ -4,14 +4,11 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import org.kosta.alone.model.dao.IntroduceDAO;
-import org.kosta.alone.model.service.BoardService;
-
 import org.kosta.alone.model.dao.CommonMemberDAO;
+import org.kosta.alone.model.dao.IntroduceDAO;
+import org.kosta.alone.model.dao.MeetingDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
-import org.kosta.alone.model.vo.MemberVO;
-
+import org.kosta.alone.model.service.BoardService;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -24,20 +21,16 @@ public class TestUnit {
 	@Resource
 	private BoardService boardService;
 	@Resource
+	private MeetingDAO meetingDAO;
+	@Resource
 	ReviewDAO dao;
 	@Resource
 	CommonMemberDAO cdao;
 
 	@Test
 	public void test(){
-
-		System.out.println(boardService.introduceCategoryList());
-		System.out.println(boardService.introduceList(1));
-
-		MemberVO vo = new MemberVO();
-		vo.setId("spring");
-		vo.setPassword("1234");
-		vo=cdao.adminApproval(vo);
-		System.out.println(vo);
+		
+		
+	
 	}
 }

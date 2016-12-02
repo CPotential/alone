@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 
 
     <div class="container">
@@ -72,7 +72,9 @@
                 </table>
               </div> <!-- / .table-responsive -->
             </div>
-            <a href="${pageContext.request.contextPath}/myPageGeneric/update.do" class="btn btn-primary" >수정하기</a>
+            <a href="${pageContext.request.contextPath}/myPageGeneric/updateInfo.do" class="btn btn-default btn-block">수정하기 </a>
+            <a href="${pageContext.request.contextPath}/myPageGeneric/showInfo.do" class="btn btn-primary" >취소</a>
+       
           </div> <!-- / .tab-content -->
         </div>        
      
