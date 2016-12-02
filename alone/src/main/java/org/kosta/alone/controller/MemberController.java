@@ -28,6 +28,7 @@ public class MemberController {
 		ModelAndView mav = null;
 
 		memberVO =memberService.memberLogin(memberVO);
+	
 
 		if(memberVO ==null){
 			mav =new ModelAndView("member/login_fail");
@@ -35,17 +36,17 @@ public class MemberController {
 		}else if(memberVO instanceof CompanyMemberVO){
 			
 			CompanyMemberVO companyMemberVO = (CompanyMemberVO) memberVO;
-			System.out.println(companyMemberVO);
 			
-			if(companyMemberVO.getApproval().equals("0")){
+			if(companyMemberVO.getApproval().equals("0"))
 				mav=new ModelAndView("member/login_companyfail");
+			
 			}else{
-
 				session.setAttribute("memberVO", memberVO);
 				mav=new ModelAndView("member/login_result");
-			}
-			return mav;
+		
 		}
+		return mav;
+	
 	}
 	
 

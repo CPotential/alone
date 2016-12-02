@@ -30,14 +30,8 @@
                   <tbody>
                     <tr>
                       <th scope="row">아이디</th>
-
-                      <td>Los Angeles, CA</td>
                       <td>${requestScope.gvo.id}</td>
                     </tr>
-                    <tr>
-                      <th scope="row">비밀번호</th>
-                      <td>Designer</td>
-                       </tr>
                        <tr>
                       <th scope="row">이름</th>
                       <td> ${gvo.name} </td>
@@ -64,7 +58,6 @@
               </div> <!-- / .table-responsive -->
             </div>
             <a href="${pageContext.request.contextPath}/myPageGeneric/myPageMemberupdate.do" class="btn btn-primary" >수정하기</a>
-              <a href="${pageContext.request.contextPath}/myPageGeneric/update.do" class="btn btn-primary" >수정하기2</a>
           </div> <!-- / .tab-content -->
         </div>        
      
