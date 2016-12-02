@@ -165,7 +165,7 @@ values('2', sysdate, 'asdf', 1);
 select * from image;
 
 --기업회원 확인
-update COMPANYMEMBER set approval=1 where id='spring' --승인상태
+update COMPANYMEMBER set approval=1 where id='company' --승인상태
 
 
 

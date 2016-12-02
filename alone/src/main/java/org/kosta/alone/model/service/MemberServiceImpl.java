@@ -26,12 +26,13 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public MemberVO memberLogin(MemberVO memberVO) {
-
+System.out.println("company member Login");
 		
 		memberVO = commonMemberDAO.memberLogin(memberVO);
-		
+		System.out.println("memberLogin:  "+memberVO);
 		if(memberVO.getAuthority().equals("ROLE_COMPANY")){
 			memberVO= commonMemberDAO.adminApproval(memberVO);
+			System.out.println("adminApproval"+memberVO);
 		}
 		return memberVO;
 	}

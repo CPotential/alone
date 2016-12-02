@@ -8,7 +8,11 @@ CREATE TABLE MEMBER(
 	tel varchar2(50) not null,
 	enabled number default 1 -- 탈퇴여부 : 탈퇴시 0 으로 변경
 )
-
+	select companymember.id,member.nickname,authorities.authority,companymember.approval
+	from companymember companymember,member member,authorities authorities
+	where companymember.id=member.id and member.id=authorities.id
+	and companymember.id='company'
+	
 drop table genericmember;
 -- 일반 회원 정보
 CREATE TABLE GENERICMEMBER(
@@ -323,3 +327,4 @@ where companymember.id=member.id and companymember.approval=1 and member.id=auth
 
 select * from authorities
 select * from member
+select * from companymember

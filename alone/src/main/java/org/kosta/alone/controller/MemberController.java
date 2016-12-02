@@ -31,6 +31,7 @@ public class MemberController {
 		}else if(memberVO instanceof CompanyMemberVO){
 			
 			CompanyMemberVO companyMemberVO = (CompanyMemberVO) memberVO;
+			System.out.println(companyMemberVO);
 			
 			if(companyMemberVO.getApproval().equals("0")){
 				mav=new ModelAndView("member/login_companyfail");
@@ -43,6 +44,7 @@ public class MemberController {
 			session.setAttribute("mvo", memberVO);
 			mav=new ModelAndView("member/login_result");
 		}
+		System.out.println(memberVO);
 		return mav;
 	}
 	
