@@ -29,7 +29,14 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public List<ReviewVO> reviewWriterSearchList(String searchKeyWord) {
 		// TODO Auto-generated method stub
 		return template.selectList("review.reviewWriterSearchList",searchKeyWord);
-
+	}
+	
+	public void reviewBoardWrite(ReviewVO reviewVO){ 
+		template.insert("review.reviewBoardWrite",reviewVO);
+	}
+	
+	public void reviewWrite(ReviewVO reviewVO){
+		template.insert("review.reviewWrite",reviewVO);
 	}
 	
 	

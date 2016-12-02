@@ -1,5 +1,7 @@
 package org.kosta.alone.model.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.alone.model.dao.CommonMemberDAO;
@@ -57,6 +59,16 @@ public class MemberServiceImpl implements MemberService {
 		vo.setAuthority("ROLE_COMPANY");
 		commonMemberDAO.registerAuthority(vo);
 	}
-
-
+	
+	public List<CompanyMemberVO> NonApporvalCompanyList(){
+		return companyMemberDAO.NonApporvalCompanyList();
+	}
+	
+	public List<CompanyMemberVO> ApporvalCompanyList(){
+		return companyMemberDAO.ApporvalCompanyList();
+	}
+	
+	public void updateApproval(String id){
+		companyMemberDAO.updateApproval(id); 
+	}
 }

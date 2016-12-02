@@ -97,7 +97,7 @@
 		</div>
 		<div class="col-sm-2">
 			<p>
-				<a class="btn btn-sm btn-primary" id="writeReview">작성</a>
+				<a href="${pageContext.request.contextPath}/reviewWriteForm.do"class="btn btn-sm btn-primary">글작성</a>
 			</p>
 		</div>
 	</div>

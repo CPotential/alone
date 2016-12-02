@@ -1,5 +1,7 @@
 package org.kosta.alone.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -84,5 +86,24 @@ public class MemberController {
 		return (count==0) ? "ok":"fail"; 	
 	}
 	
-
+	//미승인 기업회원 리스트 출력
+	@RequestMapping("NonApporvalCompanyList.do")
+	public ModelAndView NonApporvalCompanyList(){
+	    List<CompanyMemberVO> NonApprovalCList = memberService.NonApporvalCompanyList();
+		return new ModelAndView("myPageAdmin/memberApprove","NonApprovalCList",NonApprovalCList); 
+	} 
+	
+	//승인 기업회원 리스트 출력
+	@RequestMapping("ApporvalCompanyList.do")
+	public ModelAndView ApporvalCompanyList(){
+		List<CompanyMemberVO> ApprovalCList = memberService.ApporvalCompanyList();
+		return new ModelAndView("myPageAdmin/approveCompanyList","ApprovalCList",ApprovalCList);
+	}
+	
+	//미승인 기업회원 승인하기
+	@RequestMapping("updateApproval.do")
+	public ModelAndView updateApproval(String id){
+		memberService.updateApproval(id);
+		return new ModelAndView("redirect:ApporvalCompanyList.do");  
+	}
 }

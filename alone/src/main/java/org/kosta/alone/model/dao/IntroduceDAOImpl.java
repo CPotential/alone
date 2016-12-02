@@ -34,4 +34,8 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 	public List<IntroduceCategoryVO> introduceCategoryList() {
 		return sqlSessionTemplate.selectList("introduce.introduceCategoryList");
 	}
+	
+	public IntroduceVO introduceDetail(int boardNo){
+		return sqlSessionTemplate.selectOne("introduce.introduceDetail",boardNo); 
+	}
 }

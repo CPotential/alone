@@ -195,6 +195,12 @@ insert into MEMBER(id,password,name,nickname,tel)
 values('member','1234','관리자','member관리자','0106531678');
 insert into MEMBER(id,password,name,nickname,tel) 
 values('member1','1234','관리자','member관리자1','0154545678');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('sss','1234','유1','우리식당','0154545678');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('ss','1234','유3','새마을식당','0154545678');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('s','1234','유4','CGV','0154545678');
 
 select * from member;
 select * from GENERICMEMBER;
@@ -213,7 +219,12 @@ insert into COMPANYMEMBER(id,address,corporate_registration_number)
 values('oracle','종로','12315152364');
 insert into COMPANYMEMBER(id,address,corporate_registration_number) 
 values('spring','판교','12365452364');
-
+insert into COMPANYMEMBER(id,address,corporate_registration_number) 
+values('sss','판교','12365452364');
+insert into COMPANYMEMBER(id,address,corporate_registration_number) 
+values('ss','판교','12365452364');
+insert into COMPANYMEMBER(id,address,corporate_registration_number) 
+values('s','판교','12365452364');
 
 -- 회원 권한
 insert into AUTHORITIES(id,authority)
