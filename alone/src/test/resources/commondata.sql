@@ -38,11 +38,11 @@ insert into KEYWORD(keyword_no,keyword_name,board_no)
 values(keyword_seq.nextval, '#소문난 맛집','1');
 --4) image -- image_name 이건 나중에 파일등록할때 서비스(아마도)에서 이름을 만들어줘서 보내줘야 할거같습니다
 insert into image(image_no, image_name, image_original_name, board_no) 
-values(image_seq.nextval, sysdate, 'asdfsas', 1);
+values(image_seq.nextval, 'a', 'asdfsas', 1);
 insert into image(image_no, image_name, image_original_name, board_no) 
-values(image_seq.nextval, sysdate, 'asdfsda', 1);
+values(image_seq.nextval, 'b', 'asdfsda', 1);
 --******************************************************************************************
-
+delete from image
 
 insert into MEMBER(id,password,name,nickname,tel) 
 values('java','1234','아이유','유','01231231');

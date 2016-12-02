@@ -321,5 +321,27 @@ select companymember.id,member.nickname,authorities.authority
 from companymember companymember,member member,authorities authorities
 where companymember.id=member.id and companymember.approval=1 and member.id=authorities.id
 
-select * from authorities
+select * from authorities 
 select * from member
+select * from companymember
+
+	select companymember.id,member.nickname,authorities.authority,companymember.approval
+	from companymember companymember,member member,authorities authorities
+	where companymember.id=member.id and member.id=authorities.id
+	and companymember.id='oracle'
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	select meeting.board_no,meeting.title,meeting.region,meeting.interest,
+	meeting.hits,board.time_posted,member.nickname 
+	from board board,meeting meeting,member member where board.board_no = meeting.board_no 
+	and board.id = member.id and meeting.board_no= 5

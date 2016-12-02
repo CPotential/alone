@@ -67,10 +67,10 @@ public class BoardServiceImpl implements BoardService {
 	public List<IntroduceVO> introduceList(int categoryNo) {
 		List<IntroduceVO> introduceList = null;
 		introduceList = introduceDAO.introduceList(categoryNo);
-		int keyWordSize = introduceDAO.keyWordSize(introduceDAO.introduceList(categoryNo).get(0).getBoardNo());
 		for (int i = 0; i < introduceList.size(); i++) {
+			int keyWordSize = introduceDAO.keyWordSize(introduceDAO.introduceList(categoryNo).get(0).getBoardNo());
 			for (int j = 0; j < keyWordSize; j++) {
-				introduceList.get(j).setKeyWordVO(introduceDAO.keyWordList(introduceList.get(j).getBoardNo()));
+				introduceList.get(i).setKeyWordVO(introduceDAO.keyWordList(introduceList.get(j).getBoardNo()));
 			}
 		}
 		System.out.println(introduceList);
@@ -90,5 +90,10 @@ public class BoardServiceImpl implements BoardService {
 	public void meetingWrite(MeetingVO meetingVO) {
 		meetingDAO.boardWrite(meetingVO);
 		meetingDAO.meetingWrite(meetingVO);
+	}
+	
+	@Override
+	public MeetingVO meetingDetail(String boardNo) {
+		return meetingDAO.meetingDetail(boardNo);
 	}
 }

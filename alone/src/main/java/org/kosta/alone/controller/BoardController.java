@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.BoardService;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.MeetingVO;
+import org.kosta.alone.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +51,7 @@ public class BoardController {
 			List<MeetingVO> list = boardService.findTitleMeetingList(search); 
 			request.setAttribute("list", list); 
 		}
-		mav.addObject("RegionList",boardService.getRegionInfo()); 
+		mav.addObject("RegionList",boardService.getRegionInfo());  
 		return mav; 
 	}
 	
@@ -111,14 +113,23 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping(method=RequestMethod.POST, value="meetingWrite.do")
-	public String meetingWrite(MeetingVO meetingVO){
-		boardService.meetingWrite(meetingVO);
-		return "redirect:meetingDetail.do?board_no=" + meetingVO.getBoardNo();
+	public String meetingWrite(HttpServletRequest request, MeetingVO meetingVO){
+		HttpSession session = request.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		System.out.println(memberVO);
+		MeetingVO mvo = new MeetingVO();
+		mvo = meetingVO;
+		mvo.getMemberVO().setId(memberVO.getId());
+		System.out.println(mvo);
+		boardService.meetingWrite(mvo);
+		System.out.println(mvo.getBoardNo());
+		return "redirect:meetingDetail.do?board_no=" + mvo.getBoardNo();
 	}
 	
 	@RequestMapping("meetingDetail.do")
-	public ModelAndView meetingDetail(int boardNo){
-		System.out.println(boardNo);
-		return new ModelAndView("meetingDetail", "boardNo", boardNo);
+	public ModelAndView meetingDetail(String boardNo){
+		ModelAndView mav = new ModelAndView("board/meetingDetail");
+		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
+		return mav;
 	}
 }

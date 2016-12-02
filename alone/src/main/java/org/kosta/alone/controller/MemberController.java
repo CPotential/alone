@@ -20,8 +20,6 @@ public class MemberController {
 	@Resource
 	private MemberService memberService;
 
-
-	
 	@RequestMapping(method=RequestMethod.POST,value="loginCheck.do")
 	public ModelAndView memberLogin(MemberVO memberVO,HttpSession session){
 		ModelAndView mav = null;
@@ -36,11 +34,11 @@ public class MemberController {
 				mav=new ModelAndView("member/login_companyfail");
 			}else{
 				System.out.println(memberVO);
-				session.setAttribute("mvo", memberVO);
+				session.setAttribute("memverVO", memberVO);
 				mav=new ModelAndView("member/login_result");
 			}
 		}else{
-			session.setAttribute("mvo", memberVO);
+			session.setAttribute("memberVO", memberVO);
 			mav=new ModelAndView("member/login_result");
 		}
 		return mav;

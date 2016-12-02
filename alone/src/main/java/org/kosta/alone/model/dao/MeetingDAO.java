@@ -18,4 +18,6 @@ public interface MeetingDAO {
 	public void boardWrite(MeetingVO meetingVO);
 
 	public void meetingWrite(MeetingVO meetingVO);
+	
+	public MeetingVO meetingDetail(String boardNo);
 }
