@@ -1,6 +1,9 @@
 package org.kosta.alone.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.MemberService;
@@ -20,30 +23,27 @@ public class MemberController {
 	@Resource
 	private MemberService memberService;
 
-
-	
 	@RequestMapping(method=RequestMethod.POST,value="loginCheck.do")
 	public ModelAndView memberLogin(MemberVO memberVO,HttpSession session){
 		ModelAndView mav = null;
-		memberVO = memberService.memberLogin(memberVO);
-		
+
+		memberVO =memberService.memberLogin(memberVO);
+
 		if(memberVO ==null){
 			mav =new ModelAndView("member/login_fail");
 			return mav;
 		}else if(memberVO instanceof CompanyMemberVO){
 			
 			CompanyMemberVO companyMemberVO = (CompanyMemberVO) memberVO;
+			System.out.println(companyMemberVO);
 			
 			if(companyMemberVO.getApproval().equals("0")){
 				mav=new ModelAndView("member/login_companyfail");
 			}else{
-				session.setAttribute("mvo", memberVO);
+
+				session.setAttribute("memberVO", memberVO);
 				mav=new ModelAndView("member/login_result");
 			}
-			return mav;
-		}else{
-			session.setAttribute("mvo", memberVO);
-			mav=new ModelAndView("member/login_result");
 			return mav;
 		}
 	}
@@ -85,6 +85,8 @@ public class MemberController {
 		int count=memberService.idcheck(id);
 		return (count==0) ? "ok":"fail"; 	
 	}
+
+	
 	@RequestMapping("nickNamecheckAjax.do")
 	@ResponseBody
 	public String nickNamecheckAjax(String nickname) {		
@@ -103,6 +105,36 @@ public class MemberController {
 		return mav;
 		
 	}
+
 	
+
+	//미승인 기업회원 리스트 출력
+	@RequestMapping("NonApporvalCompanyList.do")
+	public ModelAndView NonApporvalCompanyList(){
+	    List<CompanyMemberVO> NonApprovalCList = memberService.NonApporvalCompanyList();
+		return new ModelAndView("myPageAdmin/memberApprove","NonApprovalCList",NonApprovalCList); 
+	} 
+	
+	//승인 기업회원 리스트 출력
+	@RequestMapping("ApporvalCompanyList.do")
+	public ModelAndView ApporvalCompanyList(){
+		List<CompanyMemberVO> ApprovalCList = memberService.ApporvalCompanyList();
+		return new ModelAndView("myPageAdmin/approveCompanyList","ApprovalCList",ApprovalCList);
+	}
+	
+	//미승인 기업회원 승인하기
+	@RequestMapping("updateApproval.do")
+	public ModelAndView updateApproval(String id){
+		memberService.updateApproval(id);
+		return new ModelAndView("redirect:ApporvalCompanyList.do");  
+	}
+	
+	@RequestMapping("showGmemberinfo.do")
+	public ModelAndView showGmemberinfo(HttpSession session){
+		MemberVO vo=  (MemberVO) session.getAttribute("memberVO");
+	
+		return new ModelAndView("myPageGeneric/showInfo","gvo",memberService.showGenericmember(vo));
+	}
+
 
 }

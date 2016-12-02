@@ -18,11 +18,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where companymember.id=member.id and member.id=authorities.id
 	and companymember.id=#{id}
 	</select>
-
-
-<!-- 	<select id="idCheck" resultType="string">
-		select count(*) from spring_member where id=#{value}
-	</select> -->
 	
 	<update id="updateMember" parameterType="memberVO">
 		update member 
@@ -46,7 +41,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into member(id,password,name,nickname,tel)
 		values(#{id},#{password},#{name},#{nickName},#{tel})
 	</insert>
-	
 
 </mapper>
  

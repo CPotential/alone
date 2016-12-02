@@ -7,10 +7,13 @@ import org.junit.runner.RunWith;
 import org.kosta.alone.model.dao.CommonMemberDAO;
 import org.kosta.alone.model.dao.GenericMemberDAO;
 import org.kosta.alone.model.dao.IntroduceDAO;
+import org.kosta.alone.model.dao.MeetingDAO;
 import org.kosta.alone.model.dao.MemberDAO;
+//github.com/CPotential/alone.git
 import org.kosta.alone.model.dao.ReviewDAO;
 import org.kosta.alone.model.service.BoardService;
 import org.kosta.alone.model.vo.GenericMemberVO;
+//github.com/CPotential/alone.git
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -23,6 +26,8 @@ public class TestUnit {
 	@Resource
 	private BoardService boardService;
 	@Resource
+	private MeetingDAO meetingDAO;
+	@Resource
 	ReviewDAO dao;
 	@Resource
 	CommonMemberDAO cdao;
@@ -34,11 +39,13 @@ public class TestUnit {
 	@Test
 	public void test(){
 		
+
 		GenericMemberVO gmVO =new GenericMemberVO();
 		gmVO.setId("java");
 		gmVO.setNickName("착한커피");
 		memberDAO.updateMember(gmVO);
 		//gmdao.updateMember(gmVO);
+
 		
 	
 	}

@@ -1,5 +1,7 @@
 package org.kosta.alone.model.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.alone.model.vo.CompanyMemberVO;
@@ -14,5 +16,17 @@ public class CompanyMemberDAOImpl implements CompanyMemberDAO {
 	@Override
 	public void registerMember(CompanyMemberVO vo){
 		sqlSessionTemplate.insert("companyMember.registerMember", vo);
+	}
+	
+	public List<CompanyMemberVO> NonApporvalCompanyList(){
+		return sqlSessionTemplate.selectList("companyMember.NonApporvalCompanyList");
+	}
+	
+	public List<CompanyMemberVO> ApporvalCompanyList(){ 
+		return sqlSessionTemplate.selectList("companyMember.ApporvalCompanyList");
+	}
+	
+	public void updateApproval(String id){
+		sqlSessionTemplate.update("companyMember.updateApproval",id);
 	}
 }

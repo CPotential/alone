@@ -13,8 +13,6 @@ public class MemberVO {
 		super();
 	}
 	
-	
-
 	public MemberVO(String id, String password, String name, String nickName, String tel) {
 		super();
 		this.id = id;

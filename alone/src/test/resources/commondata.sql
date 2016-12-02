@@ -38,17 +38,17 @@ insert into board(board_no, id, content, time_posted)
 values(board_seq.nextval, 'abcd', '혼자서도 오세ㅇ', sysdate);
 --2) introduce
 insert into introduce(board_no, company_name, region, location, business_hours, tel, category_no) 
-values('21', '혼밥', '부산', '부산시 해운대구', '24시간', '051-704-7854', '1');
+values('17', '혼밥', '부산', '부산시 해운대구', '24시간', '051-704-7854', '1');
 --3) keyword
 insert into KEYWORD(keyword_no,keyword_name,board_no) 
-values(keyword_seq.nextval, '#부산','21');
+values(keyword_seq.nextval, '#부산','17');
 insert into KEYWORD(keyword_no,keyword_name,board_no) 
-values(keyword_seq.nextval, '#혼자가 좋다','21');
+values(keyword_seq.nextval, '#혼자가 좋다','17');
 --4) image -- image_name 이건 나중에 파일등록할때 서비스(아마도)에서 이름을 만들어줘서 보내줘야 할거같습니다
 insert into image(image_no, image_name, image_original_name, board_no) 
-values(image_seq.nextval, 'c', 'asdfsda', 21);
+values(image_seq.nextval, 'c', 'asdfsda', 17);
 insert into image(image_no, image_name, image_original_name, board_no) 
-values(image_seq.nextval, 'd', 'asdfsas', 21);
+values(image_seq.nextval, 'd', 'asdfsas', 17);
 --1) board
 insert into board(board_no, id, content, time_posted) 
 values(board_seq.nextval, 'jquery', '순대국밥 한그릇 어떤가요?', sysdate);
@@ -65,8 +65,28 @@ insert into image(image_no, image_name, image_original_name, board_no)
 values(image_seq.nextval, 'a', 'asdfsas', 1);
 insert into image(image_no, image_name, image_original_name, board_no) 
 values(image_seq.nextval, 'b', 'asdfsda', 1);
---******************************************************************************************
 
+--1) board
+insert into board(board_no, id, content, time_posted) 
+values(board_seq.nextval, 'abcd', '맛술', sysdate);
+--2) introduce
+insert into introduce(board_no, company_name, region, location, business_hours, tel, category_no) 
+values('18', '혼술', '부산', '부산시 해운대구', '24시간', '051-704-7854', '2');
+--3) keyword
+insert into KEYWORD(keyword_no,keyword_name,board_no) 
+values(keyword_seq.nextval, '#부산','18');
+insert into KEYWORD(keyword_no,keyword_name,board_no) 
+values(keyword_seq.nextval, '#나는 혼자','18');
+--4) image -- image_name 이건 나중에 파일등록할때 서비스(아마도)에서 이름을 만들어줘서 보내줘야 할거같습니다
+insert into image(image_no, image_name, image_original_name, board_no) 
+values(image_seq.nextval, 'e', 'asdfsda', 18);
+insert into image(image_no, image_name, image_original_name, board_no) 
+values(image_seq.nextval, 'f', 'asdfsas', 18);
+--******************************************************************************************
+select * from board
+select * from image
+select * from introduce
+select image_name from image where board_no=18
 
 insert into MEMBER(id,password,name,nickname,tel) 
 values('java','1234','아이유','유','01231231');
@@ -189,7 +209,10 @@ values('2', sysdate, 'asdf', 1);
 select * from image;
 
 --기업회원 확인
+
+update COMPANYMEMBER set approval=1 where id='company' --승인상태
 update COMPANYMEMBER set approval=1 where id='abcd' --승인상태
+
 
 
 

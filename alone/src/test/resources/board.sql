@@ -109,3 +109,6 @@ where introduce.category_no=1 and member.id=board.id and board.board_no=image.bo
 select keyword.keyword_name
 from keyword keyword, introduce introduce
 where keyword.board_no=introduce.board_no and introduce.board_no=1
+
+select * from board;
+select * from review;

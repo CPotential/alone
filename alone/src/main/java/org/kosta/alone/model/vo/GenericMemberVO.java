@@ -18,7 +18,7 @@ public class GenericMemberVO extends MemberVO{
 	public GenericMemberVO(String id, String password, String name, String nickName, String tel, String authority,int enabled) {
 		super(id, password, name, nickName, tel,authority,enabled);
 	}
-	
+
 	public GenericMemberVO(String birth, String gender, int mileage, MileageVO mileageVO) {
 		super();
 		this.birth = birth;

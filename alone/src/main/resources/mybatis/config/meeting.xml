@@ -5,63 +5,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 <mapper namespace="meeting">
 	<resultMap type="meetingVO" id="meetingRM">
-		<result property="timePosted" column="time_posted" /> 
-		<result property="memberVO.nickName" column="nickname" /> 
-		<result property="boardNo" column="board_no" />
-	</resultMap>  
-	<select id="getMeetingList" resultMap="meetingRM">  
-		select meeting.board_no,meeting.title,meeting.region,meeting.interest,meeting.hits,board.time_posted,member.nickname from board board,meeting meeting,member member where board.board_no = meeting.board_no and board.id = member.id  
+		<result column="time_posted" property="timePosted"/>
+		<result column="nickname" property="memberVO.nickName"/>
+		<result column="board_no" property="boardNo"/>
+	</resultMap>
+	<select id="getMeetingList" resultMap="meetingRM">
+		select meeting.board_no, meeting.title, meeting.region, meeting.interest, meeting.hits, board.time_posted, member.nickname
+		from board board, meeting meeting, member member
+		where board.board_no = meeting.board_no and board.id = member.id
 	</select>
 	<select id="getMeetingRegionList" resultMap="meetingRM" parameterType="string">
-		select meeting.board_no,meeting.title,meeting.region,meeting.interest,meeting.hits,board.time_posted,member.nickname from board board,meeting meeting,member member where board.board_no = meeting.board_no and board.id = member.id and meeting.region = #{value} 
+		select meeting.board_no, meeting.title, meeting.region, meeting.interest, meeting.hits, board.time_posted, member.nickname
+		from board board, meeting meeting, member member 
+		where board.board_no = meeting.board_no and board.id = member.id and meeting.region = #{value}
 	</select>
 	<select id="findNameMeetingList" resultMap="meetingRM" parameterType="string">
-		select meeting.board_no,meeting.title,meeting.region,meeting.interest,meeting.hits,board.time_posted,member.nickname from board board,meeting meeting,member member where board.board_no = meeting.board_no and board.id = member.id and member.nickname = #{value}
+		select meeting.board_no, meeting.title, meeting.region, meeting.interest, meeting.hits, board.time_posted, member.nickname
+		from board board, meeting meeting, member member 
+		where board.board_no = meeting.board_no and board.id = member.id and member.nickname = #{value}
 	</select>
-	<select id="findTitleMeetingList" resultMap="meetingRM" parameterType="string"> 
-		select meeting.board_no,meeting.title,meeting.region,meeting.interest,meeting.hits,board.time_posted,member.nickname from board board,meeting meeting,member member where board.board_no = meeting.board_no and board.id = member.id and meeting.title = #{value}
+	<select id="findTitleMeetingList" resultMap="meetingRM" parameterType="string">
+		select meeting.board_no,meeting.title,meeting.region,meeting.interest,meeting.hits,board.time_posted,member.nickname
+		from board board,meeting meeting,member member 
+		where board.board_no = meeting.board_no and board.id = member.id and meeting.title = #{value}
 	</select>
-	<select id="getRegionInfo" resultType="meetingVO"> 
-	    select distinct(region) from meeting  
+	<select id="getRegionInfo" resultType="meetingVO">
+		select distinct(region) from meeting
 	</select>
-	
+	<insert id="boardWrite" parameterType="meetingVO">
+		<selectKey resultType="integer" keyProperty="boardNo" order="BEFORE">
+			select board_seq.nextval from dual
+		</selectKey>
+		insert into board(board_no, id, content, time_posted)
+		values(#{boardNo}, #{memberVO.id}, #{content}, sysdate)
+	</insert>
+	<insert id="meetingWrite" parameterType="meetingVO">
+		insert into meeting(board_no, title, region, location, interest)
+		values(#{boardNo}, #{title}, #{region}, #{location}, #{interest})
+	</insert>
 	<select id="meetingDetail" resultMap="meetingRM" parameterType="string" >
-	select meeting.board_no,meeting.title,meeting.region,meeting.interest,
-	meeting.hits,board.time_posted,member.nickname,board.content 
-	from board board,meeting meeting,member member where board.board_no = meeting.board_no 
-	and board.id = member.id and meeting.board_no= #{value}
-	
+		select meeting.board_no, meeting.title, meeting.region, meeting.interest, meeting.hits, board.time_posted, member.nickname, board.content 
+		from board board, meeting meeting, member member 
+		where board.board_no = meeting.board_no 	and board.id = member.id and meeting.board_no= #{value}
 	</select>
 </mapper> 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -27,6 +27,13 @@ public interface BoardService {
 	public List<IntroduceVO> introduceList(int categoryNo);
 	
 	public List<IntroduceCategoryVO> introduceCategoryList();
+	
+	public IntroduceVO introduceDetail(int boardNo);
+	
+	public void reviewWrite(ReviewVO reviewVO);
+	
+	public void meetingWrite(MeetingVO meetingVO);
 
 	public MeetingVO meetingDetail(String boardNo);
+
 }
