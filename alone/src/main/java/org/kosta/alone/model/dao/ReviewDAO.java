@@ -12,6 +12,8 @@ public interface ReviewDAO {
 
 	public List<ReviewVO> reviewWriterSearchList(String searchKeyWord);
 
+	public void reviewBoardWrite(ReviewVO reviewVO);
 	
+	public void reviewWrite(ReviewVO reviewVO);
 
 }

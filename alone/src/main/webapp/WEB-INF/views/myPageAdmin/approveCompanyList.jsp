@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container">
-
 	<div class="row">
 		<div class="col-sm-4 col-md-3 col-lg-2">
 			<ul class="list-unstyled profile-social center-block">
@@ -28,9 +27,11 @@
 
 				<!-- PAGE HEADER
     ============================== -->
+
+
 				<div class="row">
 					<div class="col-xs-12">
-						<h2 class="page-header__title">미승인 기업회원 리스트</h2>
+						<h2 class="page-header__title">승인 기업회원 리스트</h2>
 						<ol class="breadcrumb page-header__breadcrumb">
 							<li><a
 								href="${pageContext.request.contextPath}/ApporvalCompanyList.do">ApprovalCompany</a></li>
@@ -55,20 +56,17 @@
 								<th>기업명</th>
 								<th>사업자번호</th>
 								<th>대표번호</th>
-								<th>기업회원 승인</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="Nonlist" items="${requestScope.NonApprovalCList}">
+							<c:forEach var="ApprovalList"
+								items="${requestScope.ApprovalCList}">
 								<tr>
-									<td>${Nonlist.id}</td>
-									<td>${Nonlist.name}</td>
-									<td>${Nonlist.nickName}</td>
-									<td>${Nonlist.corporateRegistrationNumber}</td>
-									<td>${Nonlist.tel}</td>
-									<td><a
-										href="${pageContext.request.contextPath}/updateApproval.do?id=${Nonlist.id}"
-										class="btn btn-primary">approve</a></td>
+									<td>${ApprovalList.id}</td>
+									<td>${ApprovalList.name}</td>
+									<td>${ApprovalList.nickName}</td>
+									<td>${ApprovalList.corporateRegistrationNumber}</td>
+									<td>${ApprovalList.tel}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

@@ -15,6 +15,7 @@ import org.kosta.alone.model.vo.KeyWordVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -88,6 +89,15 @@ public class BoardServiceImpl implements BoardService {
 		return introduceDAO.introduceCategoryList();
 	}
 
+	public IntroduceVO introduceDetail(int boardNo){
+		return introduceDAO.introduceDetail(boardNo);  
+	}
+	
+	@Transactional
+	public void reviewWrite(ReviewVO reviewVO){
+		reviewDAO.reviewBoardWrite(reviewVO); 
+		reviewDAO.reviewWrite(reviewVO);
+	}
 	/**
 	 * 모임글 작성
 	 */

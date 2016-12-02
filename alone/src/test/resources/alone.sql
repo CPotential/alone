@@ -10,6 +10,12 @@ CREATE TABLE MEMBER(
 )
 select * from member where id='del'
 update member set enabled=1 where id='del'
+	select companymember.id,member.nickname,authorities.authority,companymember.approval
+	from companymember companymember,member member,authorities authorities
+	where companymember.id=member.id and member.id=authorities.id
+	and companymember.id='company'
+	
+
 drop table genericmember;
 -- 일반 회원 정보
 CREATE TABLE GENERICMEMBER(
@@ -196,10 +202,21 @@ insert into MEMBER(id,password,name,nickname,tel)
 values('member','1234','관리자','member관리자','0106531678');
 insert into MEMBER(id,password,name,nickname,tel) 
 values('member1','1234','관리자','member관리자1','0154545678');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('sss','1234','유1','우리식당','0154545678');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('ss','1234','유3','새마을식당','0154545678');
+insert into MEMBER(id,password,name,nickname,tel) 
+values('s','1234','유4','CGV','0154545678');
 
 select * from member;
 select * from GENERICMEMBER;
 select * from COMPANYMEMBER;
+
+select member.id,member.nickname,authorities.authority 
+		from member member,authorities authorities
+		where member.id='sss' and member.password='1234' and member.id=authorities.id
+		and member.enabled=1
 -- 일반 회원 정보
 insert into GENERICMEMBER(id,birth,gender,mileage) 
 values('java','0320','여',10);
@@ -214,7 +231,12 @@ insert into COMPANYMEMBER(id,address,corporate_registration_number)
 values('oracle','종로','12315152364');
 insert into COMPANYMEMBER(id,address,corporate_registration_number) 
 values('spring','판교','12365452364');
-
+insert into COMPANYMEMBER(id,address,corporate_registration_number) 
+values('sss','판교','12365452364');
+insert into COMPANYMEMBER(id,address,corporate_registration_number) 
+values('ss','판교','12365452364');
+insert into COMPANYMEMBER(id,address,corporate_registration_number) 
+values('s','판교','12365452364');
 
 -- 회원 권한
 insert into AUTHORITIES(id,authority)
@@ -232,7 +254,13 @@ values('member1','ROLE_MEMBER');
 insert into AUTHORITIES(id,authority)
 values('java','ROLE_MEMBER')
 insert into AUTHORITIES(id,authority)
-values('java','ROLE_COMPANY');
+values('java','ROLE_COMPANY'); 
+insert into AUTHORITIES(id,authority)
+values('sss','ROLE_COMPANY');
+insert into AUTHORITIES(id,authority)
+values('s','ROLE_COMPANY');
+insert into AUTHORITIES(id,authority)
+values('ss','ROLE_COMPANY');
 
 --board--
 insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'java','싫다 싫어',sysdate);
@@ -323,6 +351,7 @@ select companymember.id,member.nickname,authorities.authority
 from companymember companymember,member member,authorities authorities
 where companymember.id=member.id and companymember.approval=1 and member.id=authorities.id
 
+
 select * from authorities 
 select * from member
 select * from companymember
@@ -331,8 +360,10 @@ select * from companymember
 	from companymember companymember,member member,authorities authorities
 	where companymember.id=member.id and member.id=authorities.id
 	and companymember.id='abcd'
-	
-	
+
+	select gmember.id,member.name,member.nickname,gmember.gender,gmember.birth,member.tel
+	from member member, genericmember gmember
+	where member.id=gmember.id
 	
 	select * from board
 	select image.image_name
@@ -357,21 +388,26 @@ select * from companymember
 	
 	select image_name from image where image_no =(	select min(image.image_no) from image image, board board where board.board_no=18 and board.board_no=image.board_no);
 	
+
 	select meeting.board_no,meeting.title,meeting.region,meeting.interest,
 	meeting.hits,board.time_posted,member.nickname 
 	from board board,meeting meeting,member member where board.board_no = meeting.board_no 
+
+	and board.id = member.id and meeting.board_no= 5
+
+select meeting.board_no,meeting.region,meeting.title,meeting.interest,meeting.hits,
+board.time_posted,member.nickname from board board,meeting meeting,member member 
+where board.board_no = meeting.board_no and board.id = member.id;
+
+select gmember.id,member.name,member.nickname,gmember.gender,gmember.birth,member.tel
+from member member, genericmember gmember
+where member.id=gmember.id and gmember.id='json'
+
 	and board.id = member.id and meeting.board_no= 5
 	
 	
 	select * from auth
-	
-	
-	
-	
-	
-	
-	
-	
+	select * from AUTHORITIES
 	
 	
 	

@@ -14,6 +14,7 @@
 				alert("검색어를 입력하세요!");
 			} else {
 				var command = $("#findType").val() + ".do";
+				alert(command)
 				location.href = command + "?searchKeyWord=" + searchKeyWord;
 			}
 		}); // click 이벤트
@@ -23,13 +24,12 @@
 
 
 <div class="ui__section" id="ui_tables">
-	<h2 class="header">후기 게시판</h2>
+	<h2 class="header">후기 정보</h2>
 	<div class="table-responsive">
 		<table class="table table-striped table-bordered">
 			<caption>자유로운 리뷰 남겨주세요</caption>
 			<thead>
 				<tr>
-					<th>글번호</th>
 					<th class="col-md-6">제목</th>
 					<th class="col-md-1">작성자</th>
 					<th class="col-md-1">작성일</th>
@@ -41,7 +41,7 @@
 				<c:forEach items="${reviewList}" var="list">
 					<tr>
 						<th scope="row">${list.boardNo}</th>
-						<td class="col-md-6"><a href="${pageContext.request.contextPath}/board/reviewDetail.do?boardNo=${list.boardNo}">${list.title}</a></td>
+						<td class="col-md-6"><a href="reviewDetail.do?boardNo=${list.boardNo}">${list.title}</a></td>
 						<!-- 상세정보로 이동하는 링크입니다. -->
 						<td class="col-md-1">${list.memberVO.nickName}</td>
 						<td class="col-md-1">${list.timePosted}</td>
@@ -49,30 +49,7 @@
 						<td class="col-md-1">${list.likes}</td>
 					</tr>
 				</c:forEach>
-				<tr>
-					<th scope="row">1</th>
-					<td class="col-md-6">제목은 엄청 길텐데 되나 이게</td>
-					<td class="col-md-1">Otto</td>
-					<td class="col-md-1">@mdo</td>
-					<td class="col-md-1">0</td>
-					<td class="col-md-1">0</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td class="col-md-6">Jacob</td>
-					<td class="col-md-1">Thornton</td>
-					<td class="col-md-1">@fat</td>
-					<td class="col-md-1">0</td>
-					<td class="col-md-1">0</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td class="col-md-6">Larry</td>
-					<td class="col-md-1">the Bird</td>
-					<td class="col-md-1">@twitter</td>
-					<td class="col-md-1">0</td>
-					<td class="col-md-1">0</td>
-				</tr>
+
 			</tbody>
 		</table>
 	</div>
@@ -95,7 +72,7 @@
 		</div>
 		<div class="col-sm-2">
 			<p>
-				<a href="${pageContext.request.contextPath}/reviewWriteForm.do"class="btn btn-sm btn-primary">글작성</a>
+				<a class="btn btn-sm btn-primary" id="writeReview">작성</a>
 			</p>
 		</div>
 	</div>

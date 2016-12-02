@@ -13,4 +13,6 @@ public interface IntroduceDAO {
 	public List<KeyWordVO> keyWordList(int boardNo);
 	
 	public List<IntroduceCategoryVO> introduceCategoryList();
+	
+	public IntroduceVO introduceDetail(int boardNo);
 }
