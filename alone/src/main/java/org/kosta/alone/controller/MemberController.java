@@ -34,7 +34,7 @@ public class MemberController {
 				mav=new ModelAndView("member/login_companyfail");
 			}else{
 				System.out.println(memberVO);
-				session.setAttribute("memverVO", memberVO);
+				session.setAttribute("memberVO", memberVO);
 				mav=new ModelAndView("member/login_result");
 			}
 		}else{

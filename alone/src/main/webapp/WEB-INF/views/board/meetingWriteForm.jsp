@@ -20,6 +20,10 @@
 				alert("관심사항을 입력하세요");				
 				return false;
 			}
+			if($("#form_meetingWrite :input[name=content]").val().trim()==""){
+				alert("정보를 입력하세요");				
+				return false;
+			}
 		}); // submit
 		
 	}); // ready

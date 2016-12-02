@@ -290,7 +290,8 @@ select * from keyword
 -- 1) 사진,가게명,지역 뽑아오기
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce 
-where introduce.category_no=1 and member.id=board.id and board.board_no=image.board_no and board.board_no=image.board_no
+where introduce.category_no=1 and member.id=board.id 
+and board.board_no=image.board_no and board.board_no=image.board_no
 -- 2) keyword 뽑아오기
 select keyword.keyword_name
 from keyword keyword, introduce introduce
@@ -305,11 +306,11 @@ select introduce.board_no, member.id from member member,introduce introduce,boar
 where board.board_no = introduce.board_no and member.id=board.id
 
 -- 이미지 무조건 넣고 하세요
-select introduce.board_no, member.nickname, image.image_name, introduce.region 
-from member member, board board, image image, introduce introduce 
-where introduce.category_no=1
+select introduce.board_no, member.nickname, introduce.region 
+from member member, board board, introduce introduce 
+where introduce.category_no=2
 and member.id=board.id and board.board_no=introduce.board_no 
-and board.board_no=image.board_no and image.image_no=(select min(image_no) from image where board_no=1)
+
 
 
 select member.id,member.nickname,authorities.authority 
@@ -328,20 +329,49 @@ select * from companymember
 	select companymember.id,member.nickname,authorities.authority,companymember.approval
 	from companymember companymember,member member,authorities authorities
 	where companymember.id=member.id and member.id=authorities.id
-	and companymember.id='oracle'
+	and companymember.id='abcd'
 	
 	
 	
+	select * from board
+	select image.image_name
+		from image image, board board 
+		where image.board_no=board.board_no and board.board_no=18 and image.image_no=(select min(image_no) from image)
+	--해당 게시물의 이미지중에서
+	select image.image_no
+		from image image, board board 
+		where image.board_no=board.board_no and board.board_no=18 --7,8
+		
+  --가장 이미지 번호가 작은것 --7
+  select min(	select image.image_no
+		from image image, board board 
+		where image.board_no=board.board_no and board.board_no=18) from image
+	
+		-- sub
+	select min(image.image_no) from image image, board board where board.board_no=17 and board.board_no=image.board_no
+	
+	-- image name
+	select image.image_name from (select min(image.image_no) from image image, board board where board.board_no=17 and board.board_no=image.board_no)
 	
 	
-	
-	
-	
-	
-	
-	
+	select image_name from image where image_no =(	select min(image.image_no) from image image, board board where board.board_no=18 and board.board_no=image.board_no);
 	
 	select meeting.board_no,meeting.title,meeting.region,meeting.interest,
 	meeting.hits,board.time_posted,member.nickname 
 	from board board,meeting meeting,member member where board.board_no = meeting.board_no 
 	and board.id = member.id and meeting.board_no= 5
+	
+	
+	select * from auth
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

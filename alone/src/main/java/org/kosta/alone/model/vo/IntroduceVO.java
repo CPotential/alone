@@ -16,7 +16,7 @@ public class IntroduceVO extends BoardVO {
 	}
 
 	public IntroduceVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
-			ImageVO imageVO, String companyName, String region, String location, String businessHours, String tel,
+			List<ImageVO> imageVO, String companyName, String region, String location, String businessHours, String tel,
 			List<KeyWordVO> keyWordVO, IntroduceCategoryVO categoryVO) {
 		super(boardNo, content, timePosted, boardEnabled, memberVO, imageVO);
 		this.companyName = companyName;
