@@ -52,7 +52,7 @@
          <c:set var="authority" value="${sessionScope.mvo.authority}" />
 
          <c:if test="${authority eq 'ROLE_MEMBER'}">
-          <li><a href="${pageContext.request.contextPath}/myPageGeneric/showInfo.do">myPageGeneric</a></li>
+          <li><a href="${pageContext.request.contextPath}/showGmemberinfo.do">myPageGeneric</a></li>
          <li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
          </c:if>
          <c:if test="${authority eq 'ROLE_COMPANY'}">

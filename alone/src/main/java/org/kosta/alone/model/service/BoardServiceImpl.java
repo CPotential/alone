@@ -82,4 +82,10 @@ public class BoardServiceImpl implements BoardService {
 	public List<IntroduceCategoryVO> introduceCategoryList() {
 		return introduceDAO.introduceCategoryList();
 	}
+
+	@Override
+	public MeetingVO meetingDetail(String boardNo) {
+		
+		return meetingBoardDAO.meetingDetail(boardNo);
+	}
 }

@@ -27,4 +27,6 @@ public interface BoardService {
 	public List<IntroduceVO> introduceList(int categoryNo);
 	
 	public List<IntroduceCategoryVO> introduceCategoryList();
+
+	public MeetingVO meetingDetail(String boardNo);
 }

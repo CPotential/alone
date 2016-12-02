@@ -325,6 +325,29 @@ select companymember.id,member.nickname,authorities.authority
 from companymember companymember,member member,authorities authorities
 where companymember.id=member.id and companymember.approval=1 and member.id=authorities.id
 
-select * from authorities
+
+select * from authorities 
 select * from member
 select * from companymember
+
+	select companymember.id,member.nickname,authorities.authority,companymember.approval
+	from companymember companymember,member member,authorities authorities
+	where companymember.id=member.id and member.id=authorities.id
+	and companymember.id='oracle'
+	
+	select gmember.id,member.name,member.nickname,gmember.gender,gmember.birth,member.tel
+	from member member, genericmember gmember
+	where member.id=gmember.id
+
+	select meeting.board_no,meeting.title,meeting.region,meeting.interest,
+	meeting.hits,board.time_posted,member.nickname 
+	from board board,meeting meeting,member member where board.board_no = meeting.board_no 
+	and board.id = member.id and meeting.board_no= 5
+
+select meeting.board_no,meeting.region,meeting.title,meeting.interest,meeting.hits,
+board.time_posted,member.nickname from board board,meeting meeting,member member 
+where board.board_no = meeting.board_no and board.id = member.id;
+
+select gmember.id,member.name,member.nickname,gmember.gender,gmember.birth,member.tel
+from member member, genericmember gmember
+where member.id=gmember.id and gmember.id='json'

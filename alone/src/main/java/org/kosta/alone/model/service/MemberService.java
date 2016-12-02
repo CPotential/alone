@@ -10,4 +10,5 @@ public interface MemberService {
 	void registerMember(CompanyMemberVO vo);
 	void registerMember(GenericMemberVO vo);
 	public int idcheck(String id);
+	public GenericMemberVO showGenericmember(MemberVO mvo);
 }

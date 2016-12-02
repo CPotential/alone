@@ -1,6 +1,7 @@
 package org.kosta.alone.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.MemberService;
@@ -86,5 +87,14 @@ public class MemberController {
 		return (count==0) ? "ok":"fail"; 	
 	}
 	
+	@RequestMapping("showGmemberinfo.do")
+	public ModelAndView showGmemberinfo(HttpSession session){
+		MemberVO vo=  (MemberVO) session.getAttribute("mvo");
+	
+		//System.out.println("controller:"+vo);
+		//System.out.println("result:"+memberService.showGenericmember(vo));
+		//,"gvo",memberService.showGenericmember(vo)
+		return new ModelAndView("myPageGeneric/showInfo","gvo",memberService.showGenericmember(vo));
+	}
 
 }

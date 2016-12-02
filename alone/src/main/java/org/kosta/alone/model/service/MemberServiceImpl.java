@@ -30,9 +30,13 @@ System.out.println("company member Login");
 		
 		memberVO = commonMemberDAO.memberLogin(memberVO);
 		System.out.println("memberLogin:  "+memberVO);
+		//아이디 패스워드 확인
+		
 		if(memberVO.getAuthority().equals("ROLE_COMPANY")){
 			memberVO= commonMemberDAO.adminApproval(memberVO);
 			System.out.println("adminApproval"+memberVO);
+			return commonMemberDAO.adminApproval(memberVO);
+			//관리자가 기업 승인 여부 확인해야한다.
 		}
 		return memberVO;
 	}
@@ -47,17 +51,20 @@ System.out.println("company member Login");
 	public void registerMember(GenericMemberVO vo){
 		memberDAO.registerMember(vo);  //pk 넣어주고
 		genericMemberDAO.registerMember(vo); //fk로 pk가져왔으니깐 상관없음
-		vo.setAuthority("ROLE_MEMBER");
-		commonMemberDAO.registerAuthority(vo);
+		vo.setAuthority("ROLE_MEMBER"); //권한 셋팅
+		commonMemberDAO.registerAuthority(vo); //권한 DB에 인서트
 	}
 	
 	@Transactional
 	public void registerMember(CompanyMemberVO vo){
 		memberDAO.registerMember(vo);
 		companyMemberDAO.registerMember(vo);
-		vo.setAuthority("ROLE_COMPANY");
-		commonMemberDAO.registerAuthority(vo);
+		vo.setAuthority("ROLE_COMPANY"); //권한 셋팅
+		commonMemberDAO.registerAuthority(vo); //권한 DB에 인서트
 	}
 
+	public GenericMemberVO showGenericmember(MemberVO mvo){
+	     return genericMemberDAO.showGenericmember(mvo);
+	}
 
 }

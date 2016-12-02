@@ -13,6 +13,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into AUTHORITIES (id,authority) values (#{id},#{authority})
 	</insert>
 	
+  <select id="showGenericmember" parameterType="memberVO"  resultType="genericMemberVO">
+  	select gmember.id,member.name,member.nickname,gmember.gender,gmember.birth,member.tel
+	from member member, genericmember gmember
+	where member.id=gmember.id and gmember.id=#{id}
+  </select>
 	
 </mapper>
  
