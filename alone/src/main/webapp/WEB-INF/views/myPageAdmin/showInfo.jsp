@@ -16,8 +16,8 @@
           <li>
             <a href="${pageContext.request.contextPath}/myPageAdmin/showInfo.do" class="btn btn-default btn-block">메인</a>
           </li>
-          <li>
-            <a href="${pageContext.request.contextPath}/myPageAdmin/memberApprove.do" class="btn btn-default btn-block"> 회원승인</a>
+          <li> 
+            <a href="${pageContext.request.contextPath}/NonApporvalCompanyList.do" class="btn btn-default btn-block"> 회원승인</a> 
           </li>
           <li>
             <a href="${pageContext.request.contextPath}/myPageAdmin/memberRemove.do" class="btn btn-default btn-block"> 회원탈퇴</a>

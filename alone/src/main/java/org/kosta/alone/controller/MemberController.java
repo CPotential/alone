@@ -1,5 +1,7 @@
 package org.kosta.alone.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,11 +23,10 @@ public class MemberController {
 	@Resource
 	private MemberService memberService;
 
-
-	
 	@RequestMapping(method=RequestMethod.POST,value="loginCheck.do")
 	public ModelAndView memberLogin(MemberVO memberVO,HttpSession session){
 		ModelAndView mav = null;
+
 		memberVO =memberService.memberLogin(memberVO);
 		if(memberVO ==null){
 			mav =new ModelAndView("member/login_fail");
@@ -38,11 +39,11 @@ public class MemberController {
 				mav=new ModelAndView("member/login_companyfail");
 			}else{
 				System.out.println(memberVO);
-				session.setAttribute("mvo", memberVO);
+				session.setAttribute("memberVO", memberVO);
 				mav=new ModelAndView("member/login_result");
 			}
 		}else{
-			session.setAttribute("mvo", memberVO);
+			session.setAttribute("memberVO", memberVO);
 			mav=new ModelAndView("member/login_result");
 		}
 		System.out.println(memberVO);
@@ -87,13 +88,32 @@ public class MemberController {
 		return (count==0) ? "ok":"fail"; 	
 	}
 	
+
+	//미승인 기업회원 리스트 출력
+	@RequestMapping("NonApporvalCompanyList.do")
+	public ModelAndView NonApporvalCompanyList(){
+	    List<CompanyMemberVO> NonApprovalCList = memberService.NonApporvalCompanyList();
+		return new ModelAndView("myPageAdmin/memberApprove","NonApprovalCList",NonApprovalCList); 
+	} 
+	
+	//승인 기업회원 리스트 출력
+	@RequestMapping("ApporvalCompanyList.do")
+	public ModelAndView ApporvalCompanyList(){
+		List<CompanyMemberVO> ApprovalCList = memberService.ApporvalCompanyList();
+		return new ModelAndView("myPageAdmin/approveCompanyList","ApprovalCList",ApprovalCList);
+	}
+	
+	//미승인 기업회원 승인하기
+	@RequestMapping("updateApproval.do")
+	public ModelAndView updateApproval(String id){
+		memberService.updateApproval(id);
+		return new ModelAndView("redirect:ApporvalCompanyList.do");  
+	}
+	
 	@RequestMapping("showGmemberinfo.do")
 	public ModelAndView showGmemberinfo(HttpSession session){
-		MemberVO vo=  (MemberVO) session.getAttribute("mvo");
+		MemberVO vo=  (MemberVO) session.getAttribute("memberVO");
 	
-		//System.out.println("controller:"+vo);
-		//System.out.println("result:"+memberService.showGenericmember(vo));
-		//,"gvo",memberService.showGenericmember(vo)
 		return new ModelAndView("myPageGeneric/showInfo","gvo",memberService.showGenericmember(vo));
 	}
 

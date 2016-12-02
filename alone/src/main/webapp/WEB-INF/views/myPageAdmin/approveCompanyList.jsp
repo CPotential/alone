@@ -15,7 +15,7 @@
           <li> 
             <a href="${pageContext.request.contextPath}/NonApporvalCompanyList.do" class="btn btn-default btn-block"> 회원승인</a>
           </li>
-          <li>
+          <li> 
             <a href="${pageContext.request.contextPath}/memberRemove.do" class="btn btn-default btn-block"> 회원탈퇴</a>
           </li>
         </ul>
@@ -35,14 +35,14 @@
            
    <div class="row">
           <div class="col-xs-12">
-            <h2 class="page-header__title">미승인 기업회원 리스트</h2>             
-            <ol class="breadcrumb page-header__breadcrumb">  
+            <h2 class="page-header__title">승인 기업회원 리스트</h2>              
+            <ol class="breadcrumb page-header__breadcrumb"> 
               <li><a href="${pageContext.request.contextPath}/ApporvalCompanyList.do">ApprovalCompany</a></li>
               <li><a href="${pageContext.request.contextPath}/NonApporvalCompanyList.do">NonApprovalCompany</a></li>
               <li class="#">Main</li>
             </ol> 
           </div>
-     </div>
+     </div> 
      
         <!--     <h3 class="header">승인 요청목록</h3> -->
             <!-- <div class="table-responsive"> -->
@@ -52,26 +52,24 @@
             <div class="table-responsive shopping-cart__table">
             <table class="table table-striped">
                 <thead>
-                  <tr>
-                    <th>ID</th> 
+                  <tr> 
+                    <th>ID</th>
                     <th>대표이름</th>
                     <th>기업명</th>
                    <th>사업자번호</th>
                    <th>대표번호</th>
-                   <th>기업회원 승인</th>
                   </tr>
                 </thead>
                 <tbody>
-   			    <c:forEach var="Nonlist" items="${requestScope.NonApprovalCList}">
-                <tr>  
-                   	<td>${Nonlist.id}</td> 
-                    <td>${Nonlist.name}</td>
-                    <td>${Nonlist.nickName}</td>
-                    <td>${Nonlist.corporateRegistrationNumber}</td>
-                    <td>${Nonlist.tel}</td> 
-                    <td> <a href="${pageContext.request.contextPath}/updateApproval.do?id=${Nonlist.id}" class="btn btn-primary">approve</a></td>
-                  </tr> 
-                  </c:forEach>
+   			  	<c:forEach var="ApprovalList" items="${requestScope.ApprovalCList}">
+   			  		<tr> 
+	                  	<td>${ApprovalList.id}</td> 
+	                    <td>${ApprovalList.name}</td>
+	                    <td>${ApprovalList.nickName}</td> 
+	                    <td>${ApprovalList.corporateRegistrationNumber}</td>
+	                    <td>${ApprovalList.tel}</td> 
+	                </tr>
+              </c:forEach> 
               </tbody>
               </table>
             </div> <!-- / .table-responsive -->

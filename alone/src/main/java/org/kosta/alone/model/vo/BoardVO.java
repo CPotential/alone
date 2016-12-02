@@ -1,6 +1,6 @@
 package org.kosta.alone.model.vo;
 
-import org.kosta.alone.model.vo.MemberVO;
+import java.util.List;
 
 public class BoardVO {
 	private int boardNo;
@@ -8,14 +8,14 @@ public class BoardVO {
 	private String timePosted;
 	private int boardEnabled;
 	private MemberVO memberVO;
-	private ImageVO imageVO;
+	private List<ImageVO> imageVO;
 	
 	public BoardVO() {
 		super();
 	}
 
 	public BoardVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
-			ImageVO imageVO) {
+			List<ImageVO> imageVO) {
 		super();
 		this.boardNo = boardNo;
 		this.content = content;
@@ -65,11 +65,11 @@ public class BoardVO {
 		this.memberVO = memberVO;
 	}
 
-	public ImageVO getImageVO() {
+	public List<ImageVO> getImageVO() {
 		return imageVO;
 	}
 
-	public void setImageVO(ImageVO imageVO) {
+	public void setImageVO(List<ImageVO> imageVO) {
 		this.imageVO = imageVO;
 	}
 
@@ -78,5 +78,4 @@ public class BoardVO {
 		return "BoardVO [boardNo=" + boardNo + ", content=" + content + ", timePosted=" + timePosted + ", boardEnabled="
 				+ boardEnabled + ", memberVO=" + memberVO + ", imageVO=" + imageVO + "]";
 	}
-	
 }

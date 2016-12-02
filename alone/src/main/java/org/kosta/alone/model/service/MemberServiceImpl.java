@@ -1,5 +1,7 @@
 package org.kosta.alone.model.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.alone.model.dao.CommonMemberDAO;
@@ -29,12 +31,11 @@ public class MemberServiceImpl implements MemberService {
 System.out.println("company member Login");
 		
 		memberVO = commonMemberDAO.memberLogin(memberVO);
-		System.out.println("memberLogin:  "+memberVO);
-		//아이디 패스워드 확인
-		
+
+		if(memberVO == null){
+			return memberVO;
+		} 
 		if(memberVO.getAuthority().equals("ROLE_COMPANY")){
-			memberVO= commonMemberDAO.adminApproval(memberVO);
-			System.out.println("adminApproval"+memberVO);
 			return commonMemberDAO.adminApproval(memberVO);
 			//관리자가 기업 승인 여부 확인해야한다.
 		}
@@ -62,7 +63,19 @@ System.out.println("company member Login");
 		vo.setAuthority("ROLE_COMPANY"); //권한 셋팅
 		commonMemberDAO.registerAuthority(vo); //권한 DB에 인서트
 	}
-
+	
+	public List<CompanyMemberVO> NonApporvalCompanyList(){
+		return companyMemberDAO.NonApporvalCompanyList();
+	}
+	
+	public List<CompanyMemberVO> ApporvalCompanyList(){
+		return companyMemberDAO.ApporvalCompanyList();
+	}
+	
+	public void updateApproval(String id){
+		companyMemberDAO.updateApproval(id); 
+	}
+	
 	public GenericMemberVO showGenericmember(MemberVO mvo){
 	     return genericMemberDAO.showGenericmember(mvo);
 	}

@@ -27,6 +27,8 @@ CREATE TABLE COMPANYMEMBER(
 	approval number default 0, -- 가입승인 여부 : 가입 승인 시 1로 변경
 	constraint fk_companymember foreign key(id) references member(id)
 )
+
+select * from companymember
 CREATE TABLE AUTHORITIES(
 	id varchar2(50) not null,
 	authority varchar2(30) not null, -- 권한

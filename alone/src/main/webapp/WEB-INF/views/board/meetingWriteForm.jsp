@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#meetingWrite").submit(function(){
+		$("#form_meetingWrite").submit(function(){
 			if($("#form_meetingWrite :input[name=title]").val().trim()==""){
 				alert("제목을 입력하세요");				
 				return false;
@@ -18,6 +18,10 @@
 			}
 			if($("#form_meetingWrite :input[name=interest]").val().trim()==""){
 				alert("관심사항을 입력하세요");				
+				return false;
+			}
+			if($("#form_meetingWrite :input[name=content]").val().trim()==""){
+				alert("정보를 입력하세요");				
 				return false;
 			}
 		}); // submit
@@ -47,7 +51,7 @@
 			</script>
 			<!-- Please carefully read the README.txt file in order to setup
                the PHP contact form properly -->
-			<form role="form" id="form_meetingWrite">
+			<form method="post" role="form" action="${pageContext.request.contextPath}/meetingWrite.do" id="form_meetingWrite">
 				<!-- <div class="form-group">
 					<label for="email">Your email address</label> 
 					<input type="email" 	name="email" class="form-control" id="email" placeholder="E-mail" 	data-original-title="" title=""> 
@@ -85,10 +89,9 @@
 						<div class="row">
 							<div class="col-xs-12 col-md-12">
 								<p>
-									<span class="recaptcha_only_if_image">Can't read the
-										words below?</span><span class="recaptcha_only_if_audio">Can't
-										hear the sound?</span> <a href="javascript:Recaptcha.reload()">Get
-										another CAPTCHA</a> or <span class="recaptcha_only_if_image"><a
+									<span class="recaptcha_only_if_image">Can't read the words below?</span>
+									<span class="recaptcha_only_if_audio">Can't hear the sound?</span> 
+									<a href="javascript:Recaptcha.reload()">Get another CAPTCHA</a> or <span class="recaptcha_only_if_image"><a
 										href="javascript:Recaptcha.switch_type('audio')">try an
 											audio CAPTCHA</a></span><span class="recaptcha_only_if_audio"><a
 										href="javascript:Recaptcha.switch_type('image')">try an
@@ -126,42 +129,9 @@
 				</div>
 				<!-- / reCAPTCHA -->
 				<button type="submit" class="btn btn-primary" id="meetingWrite">모임글 작성</button>
-				<button type="submit" class="btn btn-primary" id="meetingWriteCancel">작성 취소</button>
+				<button type="button" class="btn btn-primary" id="meetingWriteCancel">작성 취소</button>
 			</form>
 		</div>
-<%----------------------------------------------------------------------------------------------------------%>
-		<div class="col-sm-4">
-			<h3 class="header">Social Media</h3>
-			<ul class="list-unstyled profile-social">
-				<li><a href="#" class="btn btn-default btn-block"><i
-						class="fa fa-google-plus-square"></i> Find us on Google</a></li>
-				<li><a href="#" class="btn btn-default btn-block"><i
-						class="fa fa-facebook-square"></i> Find us on Facebook</a></li>
-				<li><a href="#" class="btn btn-default btn-block"><i
-						class="fa fa-twitter-square"></i> Find us on Twitter</a></li>
-			</ul>
-
-			<h3 class="header">Contact Info</h3>
-			<div class="contact__info">
-				<div class="contact-info__icon contact-info__icon_small">
-					<i class="fa fa-phone"></i>
-				</div>
-				<div class="contact-info__content">(987)654-32-10</div>
-			</div>
-			<div class="contact__info">
-				<div class="contact-info__icon contact-info__icon_small">
-					<i class="fa fa-fax"></i>
-				</div>
-				<div class="contact-info__content">(987)654-32-11</div>
-			</div>
-			<div class="contact__info">
-				<div class="contact-info__icon contact-info__icon_small">
-					<i class="fa fa-envelope-o"></i>
-				</div>
-				<div class="contact-info__content">support@example.com</div>
-			</div>
-		</div>
-
 	</div>
 	<!-- / .row -->
 </div>
