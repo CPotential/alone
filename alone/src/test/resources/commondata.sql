@@ -21,6 +21,13 @@ insert into companymember(id, address, corporate_registration_number)
 values('abcd', '부산', '65142334521231');
 insert into authorities(id,authority)
 values('abcd','ROLE_COMPANY');
+
+insert into member(id, password, name, nickname, tel)
+values('del', '1234', '딜리트', '삭제용', '01081241231');
+insert into companymember(id, address, corporate_registration_number)
+values('del', '감옥', '652532124331');
+insert into authorities(id,authority)
+values('del','ROLE_COMPANY');
 -- 관리자 정보
 insert into member(id, password, name, nickname, tel)
 values('administer', '1234', '관리자', '관리자', '01043217894');
@@ -209,7 +216,7 @@ values('2', sysdate, 'asdf', 1);
 select * from image;
 
 --기업회원 확인
-update COMPANYMEMBER set approval=1 where id='abcd' --승인상태
+update COMPANYMEMBER set approval=1 where id='del' --승인상태
 
 
 

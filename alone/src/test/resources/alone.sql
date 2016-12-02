@@ -8,7 +8,8 @@ CREATE TABLE MEMBER(
 	tel varchar2(50) not null,
 	enabled number default 1 -- 탈퇴여부 : 탈퇴시 0 으로 변경
 )
-
+select * from member where id='del'
+update member set enabled=1 where id='del'
 drop table genericmember;
 -- 일반 회원 정보
 CREATE TABLE GENERICMEMBER(

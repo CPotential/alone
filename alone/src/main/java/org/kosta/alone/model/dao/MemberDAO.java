@@ -1,6 +1,5 @@
 package org.kosta.alone.model.dao;
 
-import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
 
 public interface MemberDAO {
@@ -9,4 +8,7 @@ public interface MemberDAO {
 	
 	public int idcheck(String id);
 	
+	public void deleteMember(String id);
+	
+	public int passwordCheck(MemberVO memberVO);
 }

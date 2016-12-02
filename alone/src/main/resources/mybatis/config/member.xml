@@ -13,12 +13,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="adminApproval" parameterType="memberVO" resultType="companyMemberVO">
-	select companymember.id,member.nickname,authorities.authority,companymember.approval
-	from companymember companymember,member member,authorities authorities
+	select companymember.id, member.nickname, authorities.authority, companymember.approval
+	from companymember companymember, member member, authorities authorities
 	where companymember.id=member.id and member.id=authorities.id
 	and companymember.id=#{id}
 	</select>
-
 
 <!-- 	<select id="idCheck" resultType="string">
 		select count(*) from spring_member where id=#{value}
@@ -38,7 +37,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{id},#{password},#{name},#{nickName},#{tel})
 	</insert>
 	
-
+	<update id="deleteMember" parameterType="memberVO">
+		update member set enabled=0 where id=#{value}
+	</update>
+	<select id="passwordCheck" resultType="int" parameterType="MemberVO">
+		select count(*) from member where id=#{id} and password=#{password}
+	</select>
 </mapper>
  
  

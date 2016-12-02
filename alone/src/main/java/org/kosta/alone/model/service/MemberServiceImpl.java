@@ -26,11 +26,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public MemberVO memberLogin(MemberVO memberVO) {
-
-		
 		memberVO = commonMemberDAO.memberLogin(memberVO);
 		//아이디 패스워드 확인
-		
 		if(memberVO.getAuthority().equals("ROLE_COMPANY")){
 			return commonMemberDAO.adminApproval(memberVO);
 			//관리자가 기업 승인 여부 확인해야한다.
@@ -58,6 +55,22 @@ public class MemberServiceImpl implements MemberService {
 		companyMemberDAO.registerMember(vo);
 		vo.setAuthority("ROLE_COMPANY"); //권한 셋팅
 		commonMemberDAO.registerAuthority(vo); //권한 DB에 인서트
+	}
+
+	/**
+	 * 회원 탈퇴
+	 */
+	@Override
+	public void deleteMember(String id) {
+		memberDAO.deleteMember(id);
+	}
+
+	/**
+	 * 비밀번호 체크
+	 */
+	@Override
+	public int passwordCheck(MemberVO memberVO) {
+		return memberDAO.passwordCheck(memberVO);
 	}
 
 

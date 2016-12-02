@@ -1,6 +1,7 @@
 package org.kosta.alone.controller;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.MemberService;
@@ -43,16 +44,13 @@ public class MemberController {
 		}
 		return mav;
 	}
-	
 
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session){
 		if(session!=null)
 			session.invalidate();
-		
 		return "home";
 	}
-	
 	
 	@RequestMapping("homego.do")
 		public String home(){
@@ -82,5 +80,32 @@ public class MemberController {
 		return (count==0) ? "ok":"fail"; 	
 	}
 	
-
+	/**
+	 * 회원 탈퇴
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("deleteMember.do")
+	public String deleteMember(HttpServletRequest request){
+		HttpSession session = request.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		memberService.deleteMember(memberVO.getId());
+		return "redirect:logout.do";
+	}
+	
+	/**
+	 * 비밀번호 체크 ajax
+	 * @param password
+	 * @return
+	 */
+	@RequestMapping("passwordCheckAjax.do")
+	@ResponseBody
+	public String passwordCheckAjax(HttpServletRequest request, String password){
+		
+		HttpSession session = request.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		memberVO.setPassword(password);
+		int count = memberService.passwordCheck(memberVO);
+		return (count==1) ? "ok":"fail";
+	}
 }
