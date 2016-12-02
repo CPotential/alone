@@ -99,6 +99,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public MeetingVO meetingDetail(String boardNo) {
+		System.out.println(meetingDAO.meetingDetail(boardNo));
 		return meetingDAO.meetingDetail(boardNo);
 	}
 }

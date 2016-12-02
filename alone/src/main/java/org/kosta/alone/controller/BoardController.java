@@ -117,13 +117,12 @@ public class BoardController {
 		HttpSession session = request.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		System.out.println(memberVO);
-		MeetingVO mvo = new MeetingVO();
-		mvo = meetingVO;
-		mvo.getMemberVO().setId(memberVO.getId());
+		MeetingVO mvo = meetingVO;
+		mvo.setMemberVO(memberVO);
 		System.out.println(mvo);
 		boardService.meetingWrite(mvo);
 		System.out.println(mvo.getBoardNo());
-		return "redirect:meetingDetail.do?board_no=" + mvo.getBoardNo();
+		return "redirect:meetingDetail.do?boardNo=" + mvo.getBoardNo();
 	}
 	
 	@RequestMapping("meetingDetail.do")
