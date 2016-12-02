@@ -290,7 +290,8 @@ select * from keyword
 -- 1) 사진,가게명,지역 뽑아오기
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce 
-where introduce.category_no=1 and member.id=board.id and board.board_no=image.board_no and board.board_no=image.board_no
+where introduce.category_no=1 and member.id=board.id 
+and board.board_no=image.board_no and board.board_no=image.board_no
 -- 2) keyword 뽑아오기
 select keyword.keyword_name
 from keyword keyword, introduce introduce

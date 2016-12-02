@@ -9,6 +9,7 @@ import org.kosta.alone.model.dao.MeetingBoardDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
+import org.kosta.alone.model.vo.KeyWordVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.springframework.stereotype.Service;
@@ -67,13 +68,14 @@ public class BoardServiceImpl implements BoardService {
 	public List<IntroduceVO> introduceList(int categoryNo) {
 		List<IntroduceVO> introduceList = null;
 		introduceList = introduceDAO.introduceList(categoryNo);
-		int keyWordSize = introduceDAO.keyWordSize(introduceDAO.introduceList(categoryNo).get(0).getBoardNo());
+		List<KeyWordVO> keyWordVO =null; 
+		
 		for (int i = 0; i < introduceList.size(); i++) {
-			for (int j = 0; j < keyWordSize; j++) {
-				introduceList.get(j).setKeyWordVO(introduceDAO.keyWordList(introduceList.get(j).getBoardNo()));
-			}
+			keyWordVO = introduceDAO.keyWordList(introduceList.get(i).getBoardNo());			
+			introduceList.get(i).setKeyWordVO(keyWordVO);
 		}
-		System.out.println(introduceList);
+		
+		
 		return introduceList;
 	}
 	

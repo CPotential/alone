@@ -31,13 +31,10 @@ public class TestUnit {
 	@Test
 	public void test(){
 
-		System.out.println(boardService.introduceCategoryList());
 		System.out.println(boardService.introduceList(1));
-
-		MemberVO vo = new MemberVO();
-		vo.setId("spring");
-		vo.setPassword("1234");
-		vo=cdao.adminApproval(vo);
-		System.out.println(vo);
+		//System.out.println(introduceDAO.introduceList(1));
+		//System.out.println(introduceDAO.keyWordSize(introduceDAO.introduceList(1).get(0).getBoardNo()));
+		
+	
 	}
 }
