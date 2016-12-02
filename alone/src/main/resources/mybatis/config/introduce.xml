@@ -31,9 +31,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from keyword keyword, introduce introduce
 		where keyword.board_no=introduce.board_no and introduce.board_no=#{value}
 	</select>
-	<select id="keyWordSize" resultType="int">
-		select count(*) from keyword where board_no=#{value}
-	</select>
 	<select id="introduceCategoryList" resultType="introduceCategoryVO" resultMap="introduceCategoryRM">
 		select category_no, category_name from introduce_category
 	</select>
