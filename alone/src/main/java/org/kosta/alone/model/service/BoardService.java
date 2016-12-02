@@ -28,5 +28,8 @@ public interface BoardService {
 	
 	public List<IntroduceCategoryVO> introduceCategoryList();
 
+	public void meetingWrite(MeetingVO meetingVO);
+
+
 	public MeetingVO meetingDetail(String boardNo);
 }

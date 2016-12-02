@@ -1,6 +1,6 @@
 package org.kosta.alone.model.vo;
 
-import org.kosta.alone.model.vo.MemberVO;
+import java.util.List;
 
 public class MeetingVO extends BoardVO{
 	private String title;
@@ -13,7 +13,7 @@ public class MeetingVO extends BoardVO{
 		super();
 	}
 	public MeetingVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
-			ImageVO imageVO) {
+			List<ImageVO> imageVO) {
 		super(boardNo, content, timePosted, boardEnabled, memberVO, imageVO);
 	}
 	public MeetingVO(String title, String region, String location, String interest, int hits) {

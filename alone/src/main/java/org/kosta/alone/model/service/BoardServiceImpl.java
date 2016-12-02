@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.alone.model.dao.BoardDAO;
 import org.kosta.alone.model.dao.IntroduceDAO;
-import org.kosta.alone.model.dao.MeetingBoardDAO;
+import org.kosta.alone.model.dao.MeetingDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
+import org.kosta.alone.model.vo.ImageVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.KeyWordVO;
@@ -17,35 +19,36 @@ import org.springframework.stereotype.Service;
 @Service
 public class BoardServiceImpl implements BoardService {
 	@Resource
-	private MeetingBoardDAO meetingBoardDAO;
+	private MeetingDAO meetingDAO;
 	@Resource
 	private IntroduceDAO introduceDAO;
 	@Resource
 	private ReviewDAO reviewDAO;
-
+	@Resource
+	private BoardDAO boardDAO;
 
 	public List<MeetingVO> getMeetingList() {
-		return meetingBoardDAO.getMeetingList();
+		return meetingDAO.getMeetingList();
 	}
 
 	@Override
 	public List<MeetingVO> getMeetingRegionList(String region) {
-		return meetingBoardDAO.getMeetingRegionList(region);
+		return meetingDAO.getMeetingRegionList(region);
 	}
 
 	@Override
 	public List<MeetingVO> findNameMeetingList(String search) {
-		return meetingBoardDAO.findNameMeetingList(search);
+		return meetingDAO.findNameMeetingList(search);
 	}
 
 	@Override
 	public List<MeetingVO> findTitleMeetingList(String search) {
-		return meetingBoardDAO.findTitleMeetingList(search);
+		return meetingDAO.findTitleMeetingList(search);
 	}
-	
+
 	@Override
 	public List<MeetingVO> getRegionInfo() {
-		return meetingBoardDAO.getRegionInfo();
+		return meetingDAO.getRegionInfo();
 	}
 
 	@Override
@@ -62,7 +65,7 @@ public class BoardServiceImpl implements BoardService {
 	public List<ReviewVO> reviewWriterSearchList(String searchKeyWord) {
 		return reviewDAO.reviewWriterSearchList(searchKeyWord);
 	}
-	
+
 	// 소개글 리스트
 	/**
 	 * 1)카테고리에 해당하는 게시물 리스트를 뽑는다 :introduceList
@@ -73,26 +76,48 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<IntroduceVO> introduceList(int categoryNo) {
 		List<IntroduceVO> introduceList = null;
+		List<ImageVO> imageList = null;
+		List<KeyWordVO> keyWordVO = null;
 		introduceList = introduceDAO.introduceList(categoryNo);
-		List<KeyWordVO> keyWordVO =null; 
+
 		
+
+
 		for (int i = 0; i < introduceList.size(); i++) {
-			keyWordVO = introduceDAO.keyWordList(introduceList.get(i).getBoardNo());			
+
+			keyWordVO = introduceDAO.keyWordList(introduceList.get(i).getBoardNo());
 			introduceList.get(i).setKeyWordVO(keyWordVO);
+			imageList = boardDAO.introduceFirstImage(introduceList.get(i).getBoardNo());
+			introduceList.get(i).setImageVO(imageList);
+
 		}
+
 		
-		
+
+
 		return introduceList;
 	}
-	
+
 	// 소개글 카테고리 리스트
 	@Override
 	public List<IntroduceCategoryVO> introduceCategoryList() {
 		return introduceDAO.introduceCategoryList();
 	}
+
+
+	/**
+	 * 모임글 작성
+	 */
+	@Override
+	public void meetingWrite(MeetingVO meetingVO) {
+		meetingDAO.boardWrite(meetingVO);
+		meetingDAO.meetingWrite(meetingVO);
+	}
+
 	@Override
 	public MeetingVO meetingDetail(String boardNo) {
-		
-		return meetingBoardDAO.meetingDetail(boardNo);
+
+		return meetingDAO.meetingDetail(boardNo);
+
 	}
 }

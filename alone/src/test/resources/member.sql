@@ -20,11 +20,14 @@ CREATE TABLE GENERICMEMBER(
 	mileage number default 0,
 	constraint fk_genericmember foreign key(id) references member(id)
 )
+DROP TABLE COMPANYMEMBER
 CREATE TABLE COMPANYMEMBER( 
 	id varchar2(50) primary key,
 	address varchar2(50) not null,
 	corporate_registration_number varchar2(50) not null,
 	approval number default 0, -- 가입승인 여부 : 가입 승인 시 1로 변경
+	write number default 0,
+	
 	constraint fk_companymember foreign key(id) references member(id)
 )
 CREATE TABLE AUTHORITIES(
