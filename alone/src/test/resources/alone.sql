@@ -410,5 +410,8 @@ where member.id=gmember.id and gmember.id='json'
 	select * from AUTHORITIES
 	
 	
-	
+	select boardcomment.comment_no,boardcomment.content,member.nickname as "memberVO.nickName",
+	to_char(boardcomment.time_posted,'yyyy.mm.dd') as timePosted from BOARDCOMMENT boardcomment,member member 
+	where boardcomment.id=member.id and boardcomment.board_no=5
+	ORDER BY boardcomment.comment_no ASC
 	

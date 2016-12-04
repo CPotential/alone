@@ -45,15 +45,15 @@ insert into board(board_no, id, content, time_posted)
 values(board_seq.nextval, 'abcd', '혼자서도 오세ㅇ', sysdate);
 --2) introduce
 insert into introduce(board_no, company_name, region, location, business_hours, tel, category_no) 
-values('17', '혼밥', '부산', '부산시 해운대구', '24시간', '051-704-7854', '1');
+values('1', '혼밥', '부산', '부산시 해운대구', '24시간', '051-704-7854', '1');
 --3) keyword
 insert into KEYWORD(keyword_no,keyword_name,board_no) 
-values(keyword_seq.nextval, '#부산','17');
+values(keyword_seq.nextval, '#부산','1');
 insert into KEYWORD(keyword_no,keyword_name,board_no) 
-values(keyword_seq.nextval, '#혼자가 좋다','17');
+values(keyword_seq.nextval, '#혼자가 좋다','1');
 --4) image -- image_name 이건 나중에 파일등록할때 서비스(아마도)에서 이름을 만들어줘서 보내줘야 할거같습니다
 insert into image(image_no, image_name, image_original_name, board_no) 
-values(image_seq.nextval, 'c', 'asdfsda', 17);
+values(image_seq.nextval, 'c', 'asdfsda', 1);
 insert into image(image_no, image_name, image_original_name, board_no) 
 values(image_seq.nextval, 'd', 'asdfsas', 17);
 --1) board
@@ -61,34 +61,34 @@ insert into board(board_no, id, content, time_posted)
 values(board_seq.nextval, 'jquery', '순대국밥 한그릇 어떤가요?', sysdate);
 --2) introduce
 insert into introduce(board_no, company_name, region, location, business_hours, tel, category_no) 
-values('1', '담소', '판교', '경기도 성남시 분당구 판교역로 231 에이치스퀘어 에스동', '24시간', '031-789-3821', '1');
+values('2', '담소', '판교', '경기도 성남시 분당구 판교역로 231 에이치스퀘어 에스동', '24시간', '031-789-3821', '1');
 --3) keyword
 insert into KEYWORD(keyword_no,keyword_name,board_no) 
-values(keyword_seq.nextval, '#싸다','1');
+values(keyword_seq.nextval, '#싸다','2');
 insert into KEYWORD(keyword_no,keyword_name,board_no) 
-values(keyword_seq.nextval, '#소문난 맛집','1');
+values(keyword_seq.nextval, '#소문난 맛집','2');
 --4) image -- image_name 이건 나중에 파일등록할때 서비스(아마도)에서 이름을 만들어줘서 보내줘야 할거같습니다
 insert into image(image_no, image_name, image_original_name, board_no) 
-values(image_seq.nextval, 'a', 'asdfsas', 1);
+values(image_seq.nextval, 'a', 'asdfsas', 2);
 insert into image(image_no, image_name, image_original_name, board_no) 
-values(image_seq.nextval, 'b', 'asdfsda', 1);
+values(image_seq.nextval, 'b', 'asdfsda', 2);
 
 --1) board
 insert into board(board_no, id, content, time_posted) 
 values(board_seq.nextval, 'abcd', '맛술', sysdate);
 --2) introduce
 insert into introduce(board_no, company_name, region, location, business_hours, tel, category_no) 
-values('18', '혼술', '부산', '부산시 해운대구', '24시간', '051-704-7854', '2');
+values('3', '혼술', '부산', '부산시 해운대구', '24시간', '051-704-7854', '2');
 --3) keyword
 insert into KEYWORD(keyword_no,keyword_name,board_no) 
-values(keyword_seq.nextval, '#부산','18');
+values(keyword_seq.nextval, '#부산','3');
 insert into KEYWORD(keyword_no,keyword_name,board_no) 
-values(keyword_seq.nextval, '#나는 혼자','18');
+values(keyword_seq.nextval, '#나는 혼자','3');
 --4) image -- image_name 이건 나중에 파일등록할때 서비스(아마도)에서 이름을 만들어줘서 보내줘야 할거같습니다
 insert into image(image_no, image_name, image_original_name, board_no) 
-values(image_seq.nextval, 'e', 'asdfsda', 18);
+values(image_seq.nextval, 'e', 'asdfsda', 3);
 insert into image(image_no, image_name, image_original_name, board_no) 
-values(image_seq.nextval, 'f', 'asdfsas', 18);
+values(image_seq.nextval, 'f', 'asdfsas', 3);
 --******************************************************************************************
 select * from board
 select * from image
@@ -215,6 +215,16 @@ insert into image(image_no, image_name, image_original_name, board_no)
 values('2', sysdate, 'asdf', 1);
 select * from image;
 
+--댓글 작성 부분
+insert into BOARDCOMMENT(comment_no,board_no,content,time_posted,id)
+values (COMMENT_SEQ.nextval,4,'졸린다 졸려 자자',sysdate,'java');
+insert into BOARDCOMMENT(comment_no,board_no,content,time_posted,id)
+values (COMMENT_SEQ.nextval,4,'낭만닥터',sysdate,'json');
+insert into BOARDCOMMENT(comment_no,board_no,content,time_posted,id)
+values (COMMENT_SEQ.nextval,5,'김사부',sysdate,'java');
+insert into BOARDCOMMENT(comment_no,board_no,content,time_posted,id)
+values (COMMENT_SEQ.nextval,5,'호랑이',sysdate,'json');
+;
 --기업회원 확인
 update COMPANYMEMBER set approval=1 where id='del' --승인상태
 

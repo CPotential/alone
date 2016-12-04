@@ -162,7 +162,20 @@ public class BoardController {
 	public ModelAndView meetingDetail(String boardNo){
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
+		mav.addObject("commentList",boardService.commentList(boardNo));
+		
 		return mav;
 
 	}
+	
+	
+	@RequestMapping("commentList.do")
+	public ModelAndView commentList(String boardNo){
+		ModelAndView mav = new ModelAndView("board/meetingDetail");
+		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
+		return mav;
+
+	}
+	
+	
 }
