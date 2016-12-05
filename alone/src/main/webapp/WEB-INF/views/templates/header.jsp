@@ -7,7 +7,7 @@
 		$("#introduce").click(function() {
 			$.ajax({
 				type : "get",
-				url : "introduceCategoryListAjax.do",
+				url : "${pageContext.request.contextPath}/introduceCategoryListAjax.do",
 				dataType : "json",
 				success : function(result) {
 					var data = "";
@@ -42,8 +42,8 @@
 			<!-- Account links -->
 			<c:choose>
 				<c:when test="${empty sessionScope.memberVO}">
-					<li><a href="login.do">Sign In</a></li>
-					<li><a href="register.do"> Sign Up</a></li>
+					<li><a href="${pageContext.request.contextPath}/login.do">Sign In</a></li>
+					<li><a href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
 				</c:when>
 
 				<c:otherwise>

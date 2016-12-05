@@ -34,6 +34,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select category_no, category_name from introduce_category
 	</select>
 		<select id="introduceDetail" resultMap="introduceRM" parameterType="int"> 
-		select  board.content,introduce.location,introduce.business_hours,introduce.tel from introduce introduce,board board where board.board_no=introduce.board_no and introduce.board_no=#{value}
+		select  board.content, introduce.location, introduce.business_hours, introduce.tel 
+		from introduce introduce,board board 
+		where board.board_no=introduce.board_no and introduce.board_no=#{value}
 		</select>
 </mapper>

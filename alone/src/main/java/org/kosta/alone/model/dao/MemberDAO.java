@@ -10,6 +10,10 @@ public interface MemberDAO {
 
 	public void updateMember(MemberVO memberVO);
 	
+	public void deleteMember(String id);
+	
+	public int passwordCheck(MemberVO memberVO);
+
 	int nickNamecheck(String nickname);
 
 }

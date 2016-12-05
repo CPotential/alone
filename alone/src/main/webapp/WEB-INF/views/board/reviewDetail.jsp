@@ -24,6 +24,7 @@
 
 
 <div class="ui__section" id="ui_tables">
+
 	<h2 class="header">후기 정보</h2>
 	<div class="table-responsive">
 		<table class="table table-striped table-bordered">
@@ -76,6 +77,5 @@
 			</p>
 		</div>
 	</div>
-
-</div>
-<!-- / ui__section -->
+	
+	</div><!-- / ui__section -->

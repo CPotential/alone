@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+		<script type="text/javascript">
+				var RecaptchaOptions = {
+					theme : 'custom',
+					custom_theme_widget : 'recaptcha_widget'
+				};
+			</script>
     <script type="text/javascript">
        function reviewWrite(){
     		var reviewInfo = document.reviewWriteForm;
@@ -21,46 +27,43 @@
     </script>
 
 
- <div class="container">
+
+<div class="container">
 	<div class="row">
 		<div class="col-sm-8">
 			<h3 class="header">Review Write</h3>
-			<p class="text-muted">
-				회원들이 경험한 내용들을 써주세요
-			</p>
+			<p class="text-muted">회원들이 경험한 내용들을 써주세요</p>
 			<!-- Alert message -->
 			<div class="alert" id="form_message" role="alert"></div>
 			<!-- Setting the custom theme for reCaptcha.
                Default themes and customization: 
                https://developers.google.com/recaptcha/docs/customization -->
-			<script type="text/javascript">
-				var RecaptchaOptions = {
-					theme : 'custom',
-					custom_theme_widget : 'recaptcha_widget'
-				};
-			</script>
+
 			<!-- Please carefully read the README.txt file in order to setup
                the PHP contact form properly -->
-			<form role="form" name="reviewWriteForm" action="${pageContext.request.contextPath}/reviewWrite.do" onsubmit="return reviewWrite()"> 
+			<form role="form" name="reviewWriteForm"
+				action="${pageContext.request.contextPath}/reviewWrite.do"
+				onsubmit="return reviewWrite()">
 				<!-- <div class="form-group">
 					<label for="email">Your email address</label> 
 					<input type="email" 	name="email" class="form-control" id="email" placeholder="E-mail" 	data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div> -->
-				<div class="form-group"> 
-					<label for="title">Title</label> 
-					<input type="text" name="title" class="form-control" id="title" placeholder="title"  data-original-title="" title=""> 
-					<span class="help-block"></span>
+				<div class="form-group">
+					<label for="title">Title</label> <input type="text" name="title"
+						class="form-control" id="title" placeholder="title"
+						data-original-title="" title=""> <span class="help-block"></span>
 				</div>
 				<div class="form-group">
-					<label for="content">Content</label>  
-					<textarea cols="20" rows="20" name="content" class="form-control" id="content" placeholder="content"  data-original-title="" title=""></textarea><br>
-					<span class="help-block"></span>
+					<label for="content">Content</label>
+					<textarea cols="20" rows="20" name="content" class="form-control"
+						id="content" placeholder="content" data-original-title="" title=""></textarea>
+					<br> <span class="help-block"></span>
 				</div>
-				<div class="form-group"> 
-					<label for="image">image</label> 
-					<input type="text" name="image" class="form-control" id="image" placeholder="picture" data-original-title="" title=""> 
-					<span class="help-block"></span>
+				<div class="form-group">
+					<label for="image">image</label> <input type="text" name="image"
+						class="form-control" id="image" placeholder="picture"
+						data-original-title="" title=""> <span class="help-block"></span>
 				</div>
 				<!-- reCAPTCHA -->
 				<div class="form-group" id="form-captcha">
@@ -110,6 +113,11 @@
 				</div>
 				<!-- / reCAPTCHA -->
 				<button type="submit" class="btn btn-primary">후기글 작성</button>
-				<button type="button" class="btn btn-primary" onclick="reviewWriteCancel()">작성 취소</button>
+				<button type="button" class="btn btn-primary"
+					onclick="reviewWriteCancel()">작성 취소</button>
 			</form>
+
 		</div>
+
+		</div>
+

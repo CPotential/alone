@@ -1,8 +1,3 @@
-
-
-select * from genericmember
-
-
 -- 공통 회원 정보
 DROP TABLE MEMBER;
 CREATE TABLE MEMBER( 
@@ -13,6 +8,8 @@ CREATE TABLE MEMBER(
 	tel varchar2(50) not null,
 	enabled number default 1 -- 탈퇴여부 : 탈퇴시 0 으로 변경
 )
+select * from member where id='del'
+update member set enabled=1 where id='del'
 	select companymember.id,member.nickname,authorities.authority,companymember.approval
 	from companymember companymember,member member,authorities authorities
 	where companymember.id=member.id and member.id=authorities.id
@@ -413,5 +410,8 @@ where member.id=gmember.id and gmember.id='json'
 	select * from AUTHORITIES
 	
 	
-	
+	select boardcomment.comment_no,boardcomment.content,member.nickname as "memberVO.nickName",
+	to_char(boardcomment.time_posted,'yyyy.mm.dd') as timePosted from BOARDCOMMENT boardcomment,member member 
+	where boardcomment.id=member.id and boardcomment.board_no=5
+	ORDER BY boardcomment.comment_no ASC
 	
