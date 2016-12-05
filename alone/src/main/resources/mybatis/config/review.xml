@@ -39,6 +39,16 @@ member.nickname=#{value}
 <insert id="reviewWrite" parameterType="reviewVO">
 	insert into review(board_no,title) values(#{boardNo},#{title})   
 </insert>
+<!--  resultMap="reviewRM" -->
+<select id="reviewDetail"  resultType ="reviewVO" resultMap="reviewRM"  parameterType="string" >
+select
+r.board_no,b.id,m.nickname,to_char(b.time_posted,'YYYY.MM.DD HH:mm:ss') as time_posted,
+r.hits,r.likes,b.content,r.title
+from board b,review r,member m
+where b.id=m.id and b.board_no=r.board_no  and r.board_no=#{value}
+</select>
+
+
 </mapper>
  
  

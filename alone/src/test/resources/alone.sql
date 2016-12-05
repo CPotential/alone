@@ -11,7 +11,7 @@ CREATE TABLE MEMBER(
 	select companymember.id,member.nickname,authorities.authority,companymember.approval
 	from companymember companymember,member member,authorities authorities
 	where companymember.id=member.id and member.id=authorities.id
-	and companymember.id='company'
+	and companymember.id='company'	
 	
 drop table genericmember;
 -- 일반 회원 정보
@@ -406,6 +406,23 @@ where member.id=gmember.id and gmember.id='json'
 	select * from auth
 	select * from AUTHORITIES
 	
+--후기상세정보 조회
+select
+r.board_no,b.id,m.nickname,to_char(b.time_posted,'YYYY.MM.DD HH:mm:ss') as time_posted,
+r.hits,r.likes,b.content
+from board b,review r,member m
+where b.id=m.id and b.board_no=r.board_no  and r.board_no='10'
 	
+select
+b.no,b.title,to_char(b.time_posted,'YYYY.MM.DD HH:mm:ss') 
+as time_posted,b.content,b.hits,m.id,m.name 
+from spring_board_inst b,spring_member m 
+where
+b.id=m.id and b.board no=#{value}	
+
 	
-	
+select
+r.board_no,b.id,m.nickname,to_char(b.time_posted,'YYYY.MM.DD HH:mm:ss') as time_posted,
+r.hits,r.likes,b.content
+from board b,review r,member m
+where b.id=m.id and b.board_no=r.board_no  and r.board_no=10

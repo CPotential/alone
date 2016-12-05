@@ -48,4 +48,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from board board, meeting meeting, member member 
 		where board.board_no = meeting.board_no 	and board.id = member.id and meeting.board_no= #{value}
 	</select>
+	
+    <select id="getTotalContentCount" resultType="int">
+		select count(*) from meeting
+	</select>
 </mapper> 

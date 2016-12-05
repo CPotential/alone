@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.kosta.alone.model.service.BoardService;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
+import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
@@ -24,14 +25,14 @@ public class BoardController {
 	@Resource
 	private BoardService boardService; 
 	
-	@RequestMapping("getMeetingList.do")
+/*	@RequestMapping("getMeetingList.do")
 	public ModelAndView getMeetingList(){
 		ModelAndView mav = new ModelAndView("board/meeting");
 		List<MeetingVO> list = boardService.getMeetingList();
 		mav.addObject("RegionList",boardService.getRegionInfo()); 
 		mav.addObject("list",list);
 		return mav;
-	}
+	}*/
 	
 	@RequestMapping("getMeetingRegionList.do")
 	@ResponseBody
@@ -164,4 +165,41 @@ public class BoardController {
 		return mav;
 
 	}
+	
+	@RequestMapping("reviewdetail.do")
+	public ModelAndView reviewDetail(String boardNo, HttpSession session){
+		ModelAndView mav = new ModelAndView("board/reviewDetail");
+		System.out.println("session:"+session);
+		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+		mav.addObject("rvo",boardService.reviewDetail(boardNo)); 
+		mav.addObject("mvo",mvo);
+		return mav;
+	}
+	
+	
+	/*	@RequestMapping("getMeetingList.do")
+	public ModelAndView getMeetingList(){
+		ModelAndView mav = new ModelAndView("board/meeting");
+		List<MeetingVO> list = boardService.getMeetingList();
+		mav.addObject("RegionList",boardService.getRegionInfo()); 
+		mav.addObject("list",list);
+		return mav;
+	}*/
+	
+	/**
+	 * 최근 게시물  보여주는 메서드
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("getMeetingList.do")
+	public ModelAndView getMeetingList(){
+		ModelAndView mav = new ModelAndView("board/meeting");
+		//List<MeetingVO> list = boardService.getMeetingList();
+		ListVO<MeetingVO>list =boardService.getMeetingList();
+		mav.addObject("RegionList", boardService.getRegionInfo()); 
+		mav.addObject("list",list);
+		return mav;
+	}
+	
 }

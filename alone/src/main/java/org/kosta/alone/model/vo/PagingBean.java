@@ -5,13 +5,29 @@ public class PagingBean {
 	// 현재 페이지/
 	private int nowPage = 1;
 	// 페이지당 게시물수/
-	private int contentNumberPerPage = 5;
+	private int contentNumberPerPage = 0;
 	// 페이지 그룹당 페이지수/
-	private int pageNumberPerPageGroup = 4;
+	private int pageNumberPerPageGroup = 0;
 	/*
 	 * database에 저장된 총게시물수
 	 */
 	private int totalContents;
+
+	public int getContentNumberPerPage() {
+		return contentNumberPerPage;
+	}
+
+	public void setContentNumberPerPage(int contentNumberPerPage) {
+		this.contentNumberPerPage = contentNumberPerPage;
+	}
+
+	public int getPageNumberPerPageGroup() {
+		return pageNumberPerPageGroup;
+	}
+
+	public void setPageNumberPerPageGroup(int pageNumberPerPageGroup) {
+		this.pageNumberPerPageGroup = pageNumberPerPageGroup;
+	}
 
 	public PagingBean() {
 	}

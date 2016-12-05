@@ -12,7 +12,9 @@ import org.kosta.alone.model.vo.ImageVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.KeyWordVO;
+import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
+import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,9 +30,9 @@ public class BoardServiceImpl implements BoardService {
 	@Resource
 	private BoardDAO boardDAO;
 
-	public List<MeetingVO> getMeetingList() {
+/*	public List<MeetingVO> getMeetingList() {
 		return meetingDAO.getMeetingList();
-	}
+	}*/
 
 	@Override
 	public List<MeetingVO> getMeetingRegionList(String region) {
@@ -111,5 +113,33 @@ public class BoardServiceImpl implements BoardService {
 	public MeetingVO meetingDetail(String boardNo) {
 		System.out.println(meetingDAO.meetingDetail(boardNo));
 		return meetingDAO.meetingDetail(boardNo);
+	}
+	
+	public ReviewVO reviewDetail(String boardNo){
+		return reviewDAO.reviewDetail(boardNo);
+	}
+	
+	
+	@Override
+	public ListVO<MeetingVO> getMeetingList(){				
+		return getMeetingList("1");
+	}
+	@Override
+	public ListVO<MeetingVO> getMeetingList(String pageNo){			
+		int totalCount=meetingDAO.getTotalContentCount();
+		PagingBean pagingBean=null;
+		if(pageNo==null)
+		pagingBean=new PagingBean(totalCount);
+		pagingBean.setContentNumberPerPage(10);
+		pagingBean.setPageNumberPerPageGroup(5);
+		List<MeetingVO> list=new List<MeetingVO>(pageNo);
+
+		else
+      	pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));	
+		pagingBean.setContentNumberPerPage(10);
+		pagingBean.setPageNumberPerPageGroup(5);
+
+		return new ListVO<MeetingVO>(list, pagingBean);
+
 	}
 }

@@ -1,6 +1,7 @@
 package org.kosta.alone.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -47,5 +48,16 @@ public class MeetingDAOImpl implements MeetingDAO {
 	@Override
 	public MeetingVO meetingDetail(String boardNo) {
 		return sqlSessionTemplate.selectOne("meeting.meetingDetail",boardNo);
+	}
+	
+	//paging
+	
+	@Override
+	public int getTotalContentCount(){
+		return sqlSessionTemplate.selectOne("meeting.getTotalContentCount");
+	}
+	
+	public List<MeetingVO> getMeetingList(Map<String, Integer> pagingConfig) {
+		return sqlSessionTemplate.selectList("meeting.getMeetingList",pagingConfig);
 	}
 }

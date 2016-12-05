@@ -42,7 +42,7 @@
 				<c:forEach items="${reviewList}" var="list">
 					<tr>
 						<th scope="row">${list.boardNo}</th>
-						<td class="col-md-6"><a href="${pageContext.request.contextPath}/board/reviewDetail.do?boardNo=${list.boardNo}">${list.title}</a></td>
+						<td class="col-md-6"><a href="${pageContext.request.contextPath}/reviewdetail.do?boardNo=${list.boardNo}">${list.title}</a></td>
 						<!-- 상세정보로 이동하는 링크입니다. -->
 						<td class="col-md-1">${list.memberVO.nickName}</td>
 						<td class="col-md-1">${list.timePosted}</td>

@@ -16,4 +16,5 @@ public interface ReviewDAO {
 	
 	public void reviewWrite(ReviewVO reviewVO);
 
+	public ReviewVO reviewDetail(String  boardNo);
 }

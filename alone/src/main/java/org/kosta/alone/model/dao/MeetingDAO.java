@@ -1,6 +1,7 @@
 package org.kosta.alone.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.kosta.alone.model.vo.MeetingVO;
 
@@ -20,4 +21,8 @@ public interface MeetingDAO {
 	public void meetingWrite(MeetingVO meetingVO);
 	
 	public MeetingVO meetingDetail(String boardNo);
+	
+	public int getTotalContentCount();
+	
+	public List<MeetingVO> getMeetingList(Map<String, Integer> pagingConfig);
 }

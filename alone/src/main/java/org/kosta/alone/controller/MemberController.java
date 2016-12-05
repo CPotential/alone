@@ -69,7 +69,6 @@ public class MemberController {
 	public String registerMember(GenericMemberVO vo) {	
          System.out.println(vo);
 		memberService.registerMember(vo);
-		/*return "redirect:registerok.do?id=" + vo.getId();*/
 		return "redirect:/member/registerok.do";
 	}
 	
@@ -77,7 +76,6 @@ public class MemberController {
 	public String registerMember(CompanyMemberVO vo) {	
          System.out.println(vo);
 		memberService.registerMember(vo);
-		/*return "redirect:registerok.do?id=" + vo.getId();*/
 		return "redirect:/member/registerok.do";
 	}
 	
@@ -113,7 +111,6 @@ public class MemberController {
 	@RequestMapping("showGmemberinfo.do")
 	public ModelAndView showGmemberinfo(HttpSession session){
 		MemberVO vo=  (MemberVO) session.getAttribute("memberVO");
-	
 		return new ModelAndView("myPageGeneric/showInfo","gvo",memberService.showGenericmember(vo));
 	}
 
