@@ -83,10 +83,8 @@
 								</p>
 								<!-- reCAPTCHA image -->
 								<div id="recaptcha_image"></div>
-								<div class="recaptcha_only_if_image">Enter the words
-									above:</div>
-								<div class="recaptcha_only_if_audio">Enter the numbers you
-									hear:</div>
+								<div class="recaptcha_only_if_image">Enter the words above:</div>
+								<div class="recaptcha_only_if_audio">Enter the numbers you hear:</div>
 								<!-- reCAPTCHA input -->
 								<input class="form-control input-sm" type="text"
 									id="recaptcha_response_field" name="recaptcha_response_field" />
@@ -94,21 +92,15 @@
 						</div>
 					</div>
 					<!-- / #recaptcha_widget -->
-					<script type="text/javascript"
-						src="http://www.google.com/recaptcha/api/challenge?k=your_public_key">
-						// Insert your public key here
-					</script>
+
+
 					<noscript>
-						<iframe
-							src="http://www.google.com/recaptcha/api/noscript?k=your_public_key"
-							height="300" width="500" frameborder="0"></iframe>
 						<br>
 						<textarea name="recaptcha_challenge_field" rows="3" cols="40">
                  </textarea>
 						<input type="hidden" name="recaptcha_response_field"
 							value="manual_challenge">
 					</noscript>
-					<!-- End reCAPTCHA -->
 					<span class="help-block"></span>
 				</div>
 				<!-- / reCAPTCHA -->
@@ -119,5 +111,6 @@
 
 		</div>
 
+		</div>
 		</div>
 

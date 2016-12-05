@@ -36,9 +36,7 @@
 
 	}); // ready
 </script>
-<!-- PAGE CONTENT
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
-    ============================== -->
+<!-- PAGE CONTENT-->
 <div class="container">
 	<div class="row">
 		<div class="col-sm-4 col-md-3 col-lg-2">
@@ -76,12 +74,10 @@
 					<br>
 					<button type="submit" class="btn btn-primary btn-block btn-lg">탈퇴하기</button>
 				</form>
-
 			</div>
 		</div>
 	</div>
 	<!-- / .row -->
-
 </div>
 <!-- / .container -->
 

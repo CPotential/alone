@@ -23,30 +23,24 @@ public class MemberController {
 	private MemberService memberService;
 
 	@RequestMapping(method = RequestMethod.POST, value = "loginCheck.do")
-	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session) {
-		ModelAndView mav = null;
-		
-		memberVO = memberService.memberLogin(memberVO);
+	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session,HttpServletRequest request) {
+		String Referer = request.getHeader("referer");
+		System.out.println(Referer);
+		ModelAndView mav = null;	
+		memberVO = memberService.memberLogin(memberVO);	
 		
 		if (memberVO == null) {
 			mav = new ModelAndView("member/login_fail");
 			return mav;
 		}else if (memberVO instanceof CompanyMemberVO) {
-
 			CompanyMemberVO companyMemberVO = (CompanyMemberVO) memberVO;
-
-
 			if(companyMemberVO.getApproval().equals("0")){
-
 				mav=new ModelAndView("member/login_companyfail");
 				return mav;
 			}
 		}
-		
 		session.setAttribute("memberVO", memberVO);
-		mav = new ModelAndView("member/login_result");
-		System.out.println(memberVO+"secont");
-		
+		mav = new ModelAndView("member/login_result");	
 		return mav;
 	}
 
@@ -123,7 +117,6 @@ public class MemberController {
 	@RequestMapping("updateInfo.do")
 	public ModelAndView myPageMemberupdate(GenericMemberVO genericMemberVO, HttpSession session) {
 		ModelAndView mav = new ModelAndView("myPageGeneric/myPageMemberupdate");
-		System.out.println(genericMemberVO);
 		memberService.updateInfo(genericMemberVO);
 		return mav;
 
@@ -153,7 +146,6 @@ public class MemberController {
 	@RequestMapping("showGmemberinfo.do")
 	public ModelAndView showGmemberinfo(HttpSession session) {
 		MemberVO vo = (MemberVO) session.getAttribute("memberVO");
-		System.out.println(vo);
 		return new ModelAndView("myPageGeneric/showInfo", "gvo", memberService.showGenericmember(vo));
 	}
 
