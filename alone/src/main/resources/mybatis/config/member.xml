@@ -6,12 +6,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="member">
 
 	<select id="memberLogin" parameterType="memberVO" resultType="memberVO">
-		select member.id,member.nickname,authorities.authority 
+		select member.id,member.nickname,authorities.authority
 		from member member,authorities authorities
-		where member.id=#{id} and member.password=#{password} and member.id=authorities.id
-		and member.enabled=1
+		where member.id=#{id} and
+		member.password=#{password} and member.id=authorities.id
+		and
+		member.enabled=1
 	</select>
-	
+
 	<select id="adminApproval" parameterType="memberVO" resultType="companyMemberVO">
 	select companymember.id,member.nickname,authorities.authority,companymember.approval,companymember.write
 	from companymember companymember,member member,authorities authorities
@@ -19,29 +21,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	and companymember.id=#{id}
 	</select>
 	
+
 	<update id="updateMember" parameterType="memberVO">
-		update member 
+		update member
 		<set>
-		<if test="password != null  and password != ''">password=#{password},</if>
-		<if test="name != null and name != ''">name=#{name},</if>
-		<if test="nickName != null and nickName != ''">nickName=#{nickName},</if>
-		<if test="tel != null and tel != ''" >tel=#{tel},</if>
+			<if test="password != null  and password != ''">password=#{password},</if>
+			<if test="name != null and name != ''">name=#{name},</if>
+			<if test="nickName != null and nickName != ''">nickName=#{nickName},</if>
+			<if test="tel != null and tel != ''">tel=#{tel},</if>
 		</set>
 		where id=#{id}
 	</update>
-	
+
 	<select id="idcheck" resultType="int" parameterType="string">
-	select count(*) from member where id=#{value}
+		select count(*) from member where id=#{value}
 	</select>
 	<select id="nickNamecheck" resultType="int" parameterType="string">
-	select count(*) from member where id=#{value}
+		select count(*) from member where id=#{value}
 	</select>
-	
+
 	<insert id="registerMember" parameterType="memberVO">
 		insert into member(id,password,name,nickname,tel)
-		values(#{id},#{password},#{name},#{nickName},#{tel})
+		values(#{id}, #{password}, #{name}, #{nickName}, #{tel})
 	</insert>
 
+	<update id="deleteMember" parameterType="memberVO">
+		update member set 	enabled=0 where id=#{value}
+	</update>
+	<select id="passwordCheck" resultType="int" parameterType="MemberVO">
+		select count(*) from member where id=#{id} and password=#{password}
+	</select>
 </mapper>
  
  

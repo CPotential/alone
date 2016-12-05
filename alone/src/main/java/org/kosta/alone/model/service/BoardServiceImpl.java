@@ -8,6 +8,7 @@ import org.kosta.alone.model.dao.BoardDAO;
 import org.kosta.alone.model.dao.IntroduceDAO;
 import org.kosta.alone.model.dao.MeetingDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
+import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.ImageVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
@@ -138,5 +139,11 @@ public class BoardServiceImpl implements BoardService {
 
 		return meetingDAO.meetingDetail(boardNo);
 
+	}
+
+	@Override
+	public List<CommentVO> commentList(String boardNo) {
+		// TODO Auto-generated method stub
+		return boardDAO.commentList(boardNo);
 	}
 }

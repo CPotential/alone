@@ -2,6 +2,7 @@ package org.kosta.alone.model.service;
 
 import java.util.List;
 
+import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.MeetingVO;
@@ -38,6 +39,11 @@ public interface BoardService {
 
 	public MeetingVO meetingDetail(String boardNo);
 
+
 	void introduceWrite(IntroduceVO introduceVO);
+
+	
+	public List<CommentVO> commentList(String boardNo);
+
 
 }

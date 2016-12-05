@@ -1,7 +1,3 @@
-
-
-
-
 drop sequence introduce_category_seq;
 drop sequence board_seq;
 drop sequence keyword_seq;

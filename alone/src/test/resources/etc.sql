@@ -43,3 +43,5 @@ CREATE TABLE BOARDCOMMENT(
 	constraint fk_comment_board foreign key(board_no) references board(board_no),
 	constraint fk_comment_id foreign key(id) references member(id)
 )
+
+

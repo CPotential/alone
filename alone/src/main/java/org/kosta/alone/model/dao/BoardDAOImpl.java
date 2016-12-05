@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.ImageVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,10 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<ImageVO> introduceFirstImage(int boardNo){
 		return sqlSessionTemplate.selectList("board.introduceFirstImage", boardNo);
+	}
+
+	@Override
+	public List<CommentVO> commentList(String boardNo) {
+		return sqlSessionTemplate.selectList("board.commentList", boardNo);
 	}
 }

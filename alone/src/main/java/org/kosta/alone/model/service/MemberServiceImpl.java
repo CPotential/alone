@@ -23,17 +23,13 @@ public class MemberServiceImpl implements MemberService {
 	@Resource
 	private CommonMemberDAO commonMemberDAO;
 	@Resource
-    private CompanyMemberDAO companyMemberDAO;
-	
-	
-	@Override
+	private CompanyMemberDAO companyMemberDAO;
+
+
+
 	public MemberVO memberLogin(MemberVO memberVO) {
-
-
-
-
-
 		memberVO = commonMemberDAO.memberLogin(memberVO);
+
 
 		//아이디 패스워드 확인
 		if(memberVO == null){
@@ -53,61 +49,73 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-	
-	public int idcheck(String id){
+
+	public int idcheck(String id) {
 		return memberDAO.idcheck(id);
 	}
-	
+
 	@Override
 	@Transactional
-	public void registerMember(GenericMemberVO vo){
-		memberDAO.registerMember(vo);  //pk 넣어주고
-		genericMemberDAO.registerMember(vo); //fk로 pk가져왔으니깐 상관없음
-		vo.setAuthority("ROLE_MEMBER"); //권한 셋팅
-		commonMemberDAO.registerAuthority(vo); //권한 DB에 인서트
+	public void registerMember(GenericMemberVO vo) {
+		memberDAO.registerMember(vo); // pk 넣어주고
+		genericMemberDAO.registerMember(vo); // fk로 pk가져왔으니깐 상관없음
+		vo.setAuthority("ROLE_MEMBER"); // 권한 셋팅
+		commonMemberDAO.registerAuthority(vo); // 권한 DB에 인서트
 	}
-	
+
 	@Transactional
-	public void registerMember(CompanyMemberVO vo){
+	public void registerMember(CompanyMemberVO vo) {
 		memberDAO.registerMember(vo);
 		companyMemberDAO.registerMember(vo);
-		vo.setAuthority("ROLE_COMPANY"); //권한 셋팅
-		commonMemberDAO.registerAuthority(vo); //권한 DB에 인서트
+		vo.setAuthority("ROLE_COMPANY"); // 권한 셋팅
+		commonMemberDAO.registerAuthority(vo); // 권한 DB에 인서트
 	}
-	
-	public List<CompanyMemberVO> NonApporvalCompanyList(){
+
+	public List<CompanyMemberVO> NonApporvalCompanyList() {
 		return companyMemberDAO.NonApporvalCompanyList();
 	}
-
-
 
 	@Override
 	@Transactional
 	public void updateInfo(GenericMemberVO genericMemberVO) {
 		memberDAO.updateMember(genericMemberVO);
-		if(genericMemberVO.getGender() != null){
+		if (genericMemberVO.getGender() != null) {
 			genericMemberDAO.updateMember(genericMemberVO);
 		}
-		
+
 	}
 
-	//닉네임 중복체크
+	/**
+	 * 회원 탈퇴
+	 */
+	@Override
+	public void deleteMember(String id) {
+		memberDAO.deleteMember(id);
+	}
+
+	/**
+	 * 비밀번호 체크
+	 */
+	@Override
+	public int passwordCheck(MemberVO memberVO) {
+		return memberDAO.passwordCheck(memberVO);
+	}
+
+	// 닉네임 중복체크
 	@Override
 	public int nickNamecheck(String nickname) {
-		return  memberDAO.nickNamecheck(nickname);
+		return memberDAO.nickNamecheck(nickname);
 	}
 
-	public List<CompanyMemberVO> ApporvalCompanyList(){
+	public List<CompanyMemberVO> ApporvalCompanyList() {
 		return companyMemberDAO.ApporvalCompanyList();
 	}
-	
-	public void updateApproval(String id){
-		companyMemberDAO.updateApproval(id); 
-	}
-	
-	public GenericMemberVO showGenericmember(MemberVO mvo){
-	     return genericMemberDAO.showGenericmember(mvo);
+
+	public void updateApproval(String id) {
+		companyMemberDAO.updateApproval(id);
 	}
 
-
+	public GenericMemberVO showGenericmember(MemberVO mvo) {
+		return genericMemberDAO.showGenericmember(mvo);
+	}
 }

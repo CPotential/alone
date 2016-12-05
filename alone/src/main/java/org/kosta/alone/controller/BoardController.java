@@ -163,10 +163,13 @@ public class BoardController {
 	public ModelAndView meetingDetail(String boardNo){
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
+		mav.addObject("commentList",boardService.commentList(boardNo));
+		
 		return mav;
 
 	}
 	
+
 	/**
 	 * 소개글작성후 소개글리스트로 이동
 	 * @param request
@@ -194,4 +197,15 @@ public class BoardController {
 		return "redirect:introduceDetail.do?boardNo="+introduceVO.getBoardNo();
 
 	}
+
+	
+	@RequestMapping("commentList.do")
+	public ModelAndView commentList(String boardNo){
+		ModelAndView mav = new ModelAndView("board/meetingDetail");
+		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
+		return mav;
+
+	}
+	
+
 }

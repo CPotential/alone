@@ -86,3 +86,7 @@ select * from introduce;
 delete from introduce where board_no='28';
 insert into introduce(board_no, company_name, region, location, business_hours,tel,category_no )
 		values('28', '홍콩반점', '건대', '건대 사거리','24시간','01022222828','1')
+
+		
+		
+select * from BOARDCOMMENT;

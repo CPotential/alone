@@ -22,6 +22,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where board.board_no=#{value} and board.board_no=image.board_no
 		)
 	</select>
+	
+	<select id="commentList" resultType="commentVO">
+	select boardcomment.content,member.nickname as "memberVO.nickName",
+	to_char(boardcomment.time_posted,'yyyy.mm.dd') as timePosted from BOARDCOMMENT boardcomment,member member 
+	where boardcomment.id=member.id and boardcomment.board_no=#{value}
+	ORDER BY boardcomment.comment_no ASC
+	</select>
+	
 </mapper>
  
  

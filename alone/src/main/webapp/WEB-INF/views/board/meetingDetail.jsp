@@ -1,119 +1,154 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<form class="form-horizontal">
-	<fieldset>
+<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
 
-		<!-- Text input-->
-		<div class="form-group">
-			<label class="col-md-2 control-label" for="textinput"></label>
-			<div class="col-md-3">
-				<input id="textinput" name="textinput" type="text" value="${meetingVO.title}" placeholder="제목" class="form-control input-md">
-			</div>
-			<div class="col-md-2">
-				<input id="textinput" name="textinput" type="text" placeholder="작성자" value="${meetingVO.memberVO.nickName}"
-					class="form-control input-md">
-			</div>
-			<div class="col-md-2">
-				<input id="textinput" name="textinput" type="text" placeholder="작성일" value="${meetingVO.timePosted}" class="form-control input-md">
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-md-3 control-label" for="textinput"></label>
-
-			<div class="col-md-2">
-				<input id="textinput" name="textinput" type="text" placeholder="지역" value="${meetingVO.region}" class="form-control input-md">
-			</div>
-			<div class="col-md-2">
-				<input id="textinput" name="textinput" type="text" placeholder="관심사항" value="${meetingVO.interest}" class="form-control input-md">
-			</div>
-			<div class="col-md-2">
-				<input id="textinput" name="textinput" type="text" placeholder="조회수" value="${meetingVO.hits}" class="form-control input-md">
-			</div>
-		</div>
-
-		<!-- Textarea -->
-		<div class="form-group">
-			<label class="col-md-2 control-label" for="textarea"></label>
-			<div class="col-md-8">
-				<textarea class="form-control" id="textarea" name="textarea">${meetingVO.content}</textarea>
-			</div>
-		</div>
-
-		<!-- Button (Double) -->
-		<div class="form-group">
-			<label class="col-md-4 control-label" for="button1id"></label>
-			<div class="col-md-8">
-				<button id="button1id" name="button1id" class="btn btn-success">글목록 가기</button>
-			</div>
-		</div>
-
-	</fieldset>
-</form>
-
-  <div class="ui__section" id="ui_typography">
-   <h3 class="header">${meetingVO.title}</h3>
-   <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" 
-                    aria-expanded="true" aria-controls="collapseOne">
-                      지역
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                  <div class="panel-body">
-                     ${meetingVO.region}
-                  </div>
-                </div>
-              </div>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingTwo">
-                  <h4 class="panel-title">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" 
-                    aria-expanded="false" aria-controls="collapseTwo">
-                    관심사항
-                    </a>
-                  </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                  <div class="panel-body">
-                          ${meetingVO.interest}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-      <div class="col-sm-8">
-      <span class="label label-default text-right">조회수 ${meetingVO.hits}</span>
-	<span class="label label-default text-right">날자 ${meetingVO.timePosted}</span>
-
-     <div class="panel-heading">
-        <h2 class="text-center" style="color: #fff">${meetingVO.title}</h2>
-        <p class="text-right">작성자  ${meetingVO.memberVO.nickName}</p>
-     </div>
-   </div>
-   
-     <div class="panel-body">
-       <p class="lead">${meetingVO.content}</p>
-     </div>
-     
-     <div class="panel-footer">
-         <div class="btn-group btn-group-justified">
-            <a href="DispatcherServlet?command=reviewBoard" class="btn btn-default">목 록</a>
-       <%--   <c:choose>
-            <c:when test="${rvo.id==sessionScope.mvo.id}">
-               <a href="DispatcherServlet?command=reviewUpdate&review_num=${rvo.review_num}"
-               class = "btn btn-default">수 정</a>
-               <a href="DispatcherServlet?command=reviewDelete&review_num=${rvo.review_num}
-               &id=${sessionScope.mvo.id}" class="btn btn-default">삭 제</a>
-            </c:when>
-         </c:choose> --%>
+		 <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <a href="#"><span class="badge">No. 01</span></a>
+        <a href="#"><span class="badge">조회수 : ${meetingVO.hits}</span></a>
+        <a href="#"><span class="badge">날짜 : ${meetingVO.timePosted}</span></a>
+      </div>
+      <div class="nav nav-pills col-md-8 pull-right" role="tablist">
+        <li role="presentation" class="pull-right"><a href="#">지역 : ${meetingVO.region}</a></li>
+        <li role="presentation" class="pull-right"><a href="#">관심사항 : ${meetingVO.interest}</a></li>
+        <li role="presentation" class="pull-right"><a href="#">작성자 : ${meetingVO.memberVO.nickName}</a></li>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="well well">${meetingVO.title}</div>
+        <div class="panel-body">
+          <table>
+            <tr>
+              <td>${meetingVO.content}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="panel-footer">
+        
+          <div class="container">
+          <div class = "row">
          
-         </div>
-   </div>
-   </div>
-</div>
+          <div class="btn-group btn-group-justified">
+            <a href="#" class="btn btn-default">목 록</a>
+            <a href="#" class="btn btn-default">수 정</a>
+            <a href="#" class="btn btn-default">삭 제</a>
+            </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+    </div>
+       
+       
+       
+
+<!--  jquery 사용처입니다. -->
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#sendComment").click(function() {
+			var searchKeyWord = $("#searchKeyWord").val(); //검색어 값 받아오기
+			if (searchKeyWord == "") {
+				alert("검색어를 입력하세요!");
+			} else {
+				var command = $("#findType").val() + ".do";
+				alert(command)
+				location.href = command + "?searchKeyWord=" + searchKeyWord;
+			}
+		}); // click 이벤트
+	}); // ready
+</script> --%>
+
+
+ <div class="container">
+    <div class="row">
+       <div class="col-sm-8 col-md-9">
+        <a href="#"><span class="badge">No. 01</span></a>
+        <a href="#"><span class="badge">조회수 : ${meetingVO.hits}</span></a>
+        <a href="#"><span class="badge">날짜 : ${meetingVO.timePosted}</span></a>
+      </div>
+      <div class="nav nav-pills col-md-8 pull-right" role="tablist">
+      <ul>
+        <li role="presentation" class="pull-right"><a href="#">지역 : ${meetingVO.region}</a></li>
+        <li role="presentation" class="pull-right"><a href="#">관심사항 : ${meetingVO.interest}</a></li>
+        <li role="presentation" class="pull-right"><a href="#">작성자 : ${meetingVO.memberVO.nickName}</a></li>
+       </ul>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+         <div class="col-sm-8 col-md-9">
+        <div class="well well">${meetingVO.title}</div>
+        <div class="panel-body">
+          <table>
+            <tr>
+              <td>${meetingVO.content}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="panel-footer">
+          <div class="btn-group btn-group-justified">
+            <a href="#" class="btn btn-default">목 록</a>
+            <a href="#" class="btn btn-default">수 정</a>
+            <a href="#" class="btn btn-default">삭 제</a>
+          		</div>
+        	</div>
+        </div>
+      </div>
+    </div>
+  <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-9">
+<div class="comment comment_new">
+              <div class="comment__author_img">
+                 ${memberVO.nickName}
+              </div>
+              <div class="comment__content">
+                <form>
+                  <div class="form-group">
+                    <label for="comment-new__textarea" class="sr-only">Enter your comment</label>
+                    <textarea class="form-control" rows="2" id="comment" placeholder="Enter your comment"></textarea>
+                  </div>
+                  <button type="submit" id="sendComment"class="btn btn-primary">Send Comment</button>
+                </form>
+              </div> <!-- / .comment__content -->
+            </div> <!-- / .comment__new -->
+
+            <!-- Comments header -->
+            <div class="comment__header">
+              <span>List of Comments</span>
+            </div>
+
+            <!-- All comments -->
+            <c:forEach var="commentList" items="${requestScope.commentList}">
+            <div class="comment">
+              <div class="comment__author_img">
+                 ${commentList.memberVO.nickName}
+              </div>
+              <div class="comment__content">
+                <div class="comment__author_name">  ${commentList.memberVO.nickName}</div>
+                <time datetime="2015-01-30" class="comment__date">  ${commentList.timePosted}</time>
+                <p>
+                  ${commentList.content}
+                </p>
+                <div class="btn-group pull-right" role="group" aria-label="comment__actions">
+                  <a href="#" class="btn btn-default btn-xs"><i class="fa fa-times"></i> Remove</a>
+                  <a href="#" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                  <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-reply"></i> Answer</a>
+                </div>
+              </div> <!-- / .comment__content -->
+            </div> <!-- / .comment -->
+            </c:forEach>
+          
+       
+	</div><!-- col-sm-8 col-md-9 -->
+	</div><!-- row -->
+	</div><!-- container -->
+    </div>
