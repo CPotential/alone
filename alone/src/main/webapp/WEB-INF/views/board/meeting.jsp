@@ -169,7 +169,7 @@
 					class="btn btn-sm btn-primary">글작성</a>
 			</div>
 		</div>
-	</div>
+	</div> 
 </div>
 <!-- / ui__section -->
 

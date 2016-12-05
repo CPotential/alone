@@ -128,18 +128,18 @@ public class BoardServiceImpl implements BoardService {
 	public ListVO<MeetingVO> getMeetingList(String pageNo){			
 		int totalCount=meetingDAO.getTotalContentCount();
 		PagingBean pagingBean=null;
-		if(pageNo==null)
+		if(pageNo==null){
 		pagingBean=new PagingBean(totalCount);
 		pagingBean.setContentNumberPerPage(10);
 		pagingBean.setPageNumberPerPageGroup(5);
-		List<MeetingVO> list=new List<MeetingVO>(pageNo);
-
-		else
+		
+		}
+		else{
       	pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));	
 		pagingBean.setContentNumberPerPage(10);
 		pagingBean.setPageNumberPerPageGroup(5);
-
+		
 		return new ListVO<MeetingVO>(list, pagingBean);
-
+		}
 	}
 }
