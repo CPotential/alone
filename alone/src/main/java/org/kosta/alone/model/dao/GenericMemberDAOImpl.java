@@ -3,6 +3,7 @@ package org.kosta.alone.model.dao;
 import javax.annotation.Resource;
 
 import org.kosta.alone.model.vo.GenericMemberVO;
+import org.kosta.alone.model.vo.MemberVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,14 @@ public class GenericMemberDAOImpl implements GenericMemberDAO {
 	
 	@Override
 	public void registerMember(GenericMemberVO vo){
-		
 		sqlSessionTemplate.insert("genericMember.registerMember", vo);
+	}
+	
+	public void updateMember(GenericMemberVO genericMemberVO){
+		sqlSessionTemplate.update("genericMember.updateGenericMember",genericMemberVO);
+	}
+
+	public GenericMemberVO showGenericmember(MemberVO vo){
+		return sqlSessionTemplate.selectOne("genericMember.showGenericmember", vo);
 	}
 }

@@ -19,4 +19,16 @@ public class MemberDAOImpl implements MemberDAO {
 	public void registerMember(MemberVO vo){
 		sqlSessionTemplate.insert("member.registerMember", vo);
 	}
+
+	@Override
+	public void updateMember(MemberVO memberVO) {
+		sqlSessionTemplate.update("member.updateMember",memberVO);
+	}
+
+	@Override
+	public int nickNamecheck(String nickname) {
+		
+		return sqlSessionTemplate.selectOne("member.nickNamecheck",nickname);
+	}
+	
 }

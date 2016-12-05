@@ -29,4 +29,25 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 	public List<IntroduceCategoryVO> introduceCategoryList() {
 		return sqlSessionTemplate.selectList("introduce.introduceCategoryList");
 	}
+	@Override
+	public IntroduceVO introduceDetail(int boardNo){
+		return sqlSessionTemplate.selectOne("introduce.introduceDetail",boardNo); 
+	}
+	
+	@Override
+	public void boardWrite(IntroduceVO introduceVO){
+		sqlSessionTemplate.insert("introduce.boardWrite",introduceVO);
+	}
+	@Override
+	public void introduceWrite(IntroduceVO introduceVO){ 
+		sqlSessionTemplate.insert("introduce.introduceWrite",introduceVO);
+	}
+	/**
+	 * 기업회원 write를 update
+	 */
+	@Override
+    public void updateWrite(String id){
+		sqlSessionTemplate.update("introduce.updateWrite",id);
+    	
+    }
 }

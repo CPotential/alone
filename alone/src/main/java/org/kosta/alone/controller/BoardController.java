@@ -7,9 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.BoardService;
+import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
+import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
+import org.kosta.alone.model.vo.ReviewVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,6 +67,7 @@ public class BoardController {
 	public ModelAndView introduceList(int categoryNo){
 		ModelAndView mav = new ModelAndView("board/introduce");
 		mav.addObject("introduceList", boardService.introduceList(categoryNo));
+		
 		return mav;
 	}
 	
@@ -104,9 +108,16 @@ public class BoardController {
 	 */
 	@RequestMapping("meetingWriteForm.do")
 	public String meetingWriteForm(){
-		return "board/meetingWriteForm";
+		return "board/meetingWriteForm"; 
 	}
 	
+
+	//소개글 상세정보
+	@RequestMapping("introduceDetail.do")
+	public ModelAndView introduceDetail(int boardNo){
+		IntroduceVO introVO = boardService.introduceDetail(boardNo);
+		return new ModelAndView("board/introduceDetail","introVO",introVO);
+	}
 	/**
 	 * 모임글 작성 후 상세보기로 이동
 	 * @param meetingVO
@@ -123,6 +134,29 @@ public class BoardController {
 		boardService.meetingWrite(mvo);
 		System.out.println(mvo.getBoardNo());
 		return "redirect:meetingDetail.do?boardNo=" + mvo.getBoardNo();
+
+	}
+	
+	//후기게시글 작성형식
+	@ RequestMapping("reviewWriteForm.do")
+	public String reviewWriteForm(){
+		return "board/reviewWriteForm"; 
+	}
+	
+	//후기게시글 작성 취소시 후기게시판리스트 이동 
+	@RequestMapping("review.do")
+	public String review(){
+		return "board/review";
+	}
+	
+	//후기게시판 작성 
+	@RequestMapping("reviewWrite.do")
+	public ModelAndView reviewWrite(ReviewVO reviewVO,HttpSession session){
+		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+		reviewVO.setMemberVO(mvo);
+		boardService.reviewWrite(reviewVO);
+		//상세정보가 없어서 일단 review list로 보냄
+		return new ModelAndView("redirect:reviewList.do");  
 	}
 	
 	@RequestMapping("meetingDetail.do")
@@ -130,5 +164,34 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
 		return mav;
+
+	}
+	
+	/**
+	 * 소개글작성후 소개글리스트로 이동
+	 * @param request
+	 * @param meetingVO
+	 * @return
+	 */
+	@RequestMapping("introduceWrite.do")
+	public String introduceWrite(HttpServletRequest request,IntroduceVO introduceVO){
+		HttpSession session = request.getSession(false);
+		//기업회원은 기업회원객체를 가지고있다
+		CompanyMemberVO memberVO = (CompanyMemberVO) session.getAttribute("memberVO");
+		//로그인한 기업회원정보 출력
+		//System.out.println("memberVO: "+memberVO);
+	
+		introduceVO.setMemberVO(memberVO);
+		//intoduceVO에 기업회원 정보 세팅한후 출력
+		//System.out.println("introduceVO: "+introduceVO);
+		//introduceVO에 기업회원 정보까지 세팅한후 전달
+		//데이터베이스의  companyMember의 write가 1로 변경
+		boardService.introduceWrite(introduceVO);
+		// 
+		//세션의 CompanyMember의 write도 1로 변경하여 업데이트해준도
+		memberVO.setWrite("1");
+		session.setAttribute("memberVO", memberVO);
+		return "redirect:introduceDetail.do?boardNo="+introduceVO.getBoardNo();
+
 	}
 }

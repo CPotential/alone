@@ -30,6 +30,8 @@ CREATE TABLE COMPANYMEMBER(
 	
 	constraint fk_companymember foreign key(id) references member(id)
 )
+
+select * from companymember
 CREATE TABLE AUTHORITIES(
 	id varchar2(50) not null,
 	authority varchar2(30) not null, -- 권한

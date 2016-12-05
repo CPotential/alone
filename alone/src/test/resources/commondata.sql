@@ -217,7 +217,15 @@ select * from image;
 select * from member
 select * from COMPANYMEMBER
 --기업회원 확인
+
 update COMPANYMEMBER set approval=1 where id='spring' --승인상태
+
+
+update COMPANYMEMBER set approval=1 where id='company' --승인상태
+update COMPANYMEMBER set approval=1 where id='abcd' --승인상태
+
+
+
 
 
 

@@ -6,27 +6,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#form_meetingWrite").submit(function(){
-			if($("#form_meetingWrite :input[name=title]").val().trim()==""){
-				alert("제목을 입력하세요");				
+		alert("ready");
+		$("#form_introduceWrite").submit(function(){
+			if($("#form_introduceWrite :input[name=companyName]").val().trim()==""){
+				alert("회사이름을 입력하세요");				
 				return false;
 			}
-			if($("#form_meetingWrite :input[name=region]").val().trim()==""){
+			if($("#form_introduceWrite :input[name=keyword]").val().trim()==""){
+				alert("키워드를 입력하세요");				
+				return false;
+			}
+			if($("#form_introduceWrite :input[name=region]").val().trim()==""){
 				alert("지역을 입력하세요");				
 				return false;
 			}
-			if($("#form_meetingWrite :input[name=location]").val().trim()==""){
+			if($("#form_introduceWrite :input[name=location]").val().trim()==""){
 				alert("장소를 입력하세요");				
 				return false;
 			}
-			if($("#form_meetingWrite :input[name=interest]").val().trim()==""){
-				alert("관심사항을 입력하세요");				
+			if($("#form_introduceWrite :input[name=businessHours]").val().trim()==""){
+				alert("영업시간을 입력하세요");				
 				return false;
 			}
-			if($("#form_meetingWrite :input[name=content]").val().trim()==""){
-				alert("정보를 입력하세요");				
+			if($("#form_introduceWrite :input[name=tel]").val().trim()==""){
+				alert("시간을 입력하세요");				
 				return false;
 			}
+			if($("#form_introduceWrite :input[name=content]").val().trim()==""){
+				alert("상세정보를 입력하세요");				
+				return false;
+			}
+			if($("#form_introduceWrite :input[name=mainImage]").val().trim()==""){
+				alert("메인 이미지를 입력하세요");				
+				return false;
+			}
+			if($("#form_introduceWrite :input[name=Image]").val().trim()==""){
+				alert("그외 이미지를 입력하세요");				
+				return false;
+			}
+			if($("#form_introduceWrite :input[name=categoryVO.categoryNo]").val() =="0")
+				{
+				
+			alert("카테고리번호를 선택하세요");				
+			return false;
+				}
 		}); // submit
 		
 	}); // ready
@@ -87,7 +110,7 @@
 			</script>
 			<!-- Please carefully read the README.txt file in order to setup
                the PHP contact form properly -->
-			<form method="post" role="form" action="${pageContext.request.contextPath}/meetingWrite.do" id="form_meetingWrite">
+			<form method="post" role="form" action="${pageContext.request.contextPath}/introduceWrite.do" id="form_introduceWrite">
 				<!-- <div class="form-group">
 					<label for="email">Your email address</label> 
 					<input type="email" 	name="email" class="form-control" id="email" placeholder="E-mail" 	data-original-title="" title=""> 
@@ -95,51 +118,74 @@
 				</div> -->
 				<div class="form-group">
 					<label for="title">가게명</label> 
-					<input type="text" name="title" class="form-control" id="title" placeholder="company_name"  data-original-title="" title=""> 
+					<input type="text" name="companyName" class="form-control" id="company_name" placeholder="company_name"  data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="region">키워드</label> 
-					<input type="text" name="region" class="form-control" id="region" placeholder="keyword" data-original-title="" title=""> 
+					<input type="text" name="keyword" class="form-control" id="keyword" placeholder="keyword" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="location">지역</label> 
-					<input type="text" name="location" class="form-control" id="region" placeholder="region" data-original-title="" title=""> 
+					<input type="text" name="region" class="form-control" id="region" placeholder="region" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="interest">상세주소</label> 
-					<input type="text" name="interest" class="form-control" id="interest" placeholder="location" data-original-title="" title=""> 
+					<input type="text" name="location" class="form-control" id="location" placeholder="location" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="interest">영업시간</label> 
-					<input type="text" name="interest" class="form-control" id="interest" placeholder="business_hours" data-original-title="" title=""> 
+					<input type="text" name="businessHours" class="form-control" id="business_hours" placeholder="business_hours" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="interest">전화번호</label> 
-					<input type="text" name="interest" class="form-control" id="interest" placeholder="tel" data-original-title="" title=""> 
+					<input type="text" name="tel" class="form-control" id="tel" placeholder="tel" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="content">Content</label>
-					<textarea name="content" class="form-control" rows="3" id="content" placeholder="Content"></textarea>
+					<textarea name="content" class="form-control" rows="5" id="content" placeholder="content"></textarea>
 					<span class="help-block"></span>
 				</div>
 					<div class="form-group">
 					<label for="interest">메인사진 첨부</label> 
-					<input type="text" name="interest" class="form-control" id="interest" placeholder="Insert" data-original-title="" title=""> 
+					<input type="text" name="mainImage" class="form-control" id="mainImage" placeholder="mainImage" data-original-title="" title=""> 
 					<button type="button" class="btn btn-xs btn-primary">선택</button>
 					<span class="help-block"></span>
 				</div>
 					<div class="form-group">
 					<label for="interest">사진첨부</label> 
-					<input type="text" name="interest" class="form-control" id="interest" placeholder="Insert" data-original-title="" title=""> 
+					<input type="text" name="Image" class="form-control" id="Image" placeholder="Image" data-original-title="" title=""> 
 					<button type="button" class="btn btn-xs btn-primary">선택</button>
 					<span class="help-block"></span>
 				</div>
+		
+			<!-- 	<div class="row"> -->
+      <div class="form-group">
+		<label for="interest">카테고리</label> 
+		<div></div>
+	
+		<div class="row">
+
+		<div class="col-sm-5">
+		<!-- 	<form class="form-inline topbar__search" role="form"
+				action="findMeetingList.do"> -->
+				<select class="selectpicker"name="categoryVO.categoryNo" id="category_no">
+					<option value="0">카테고리</option>
+					<option value="1">음식</option>
+					<option value="2">술</option>
+					<option value="3">문화</option>
+			</select>
+			</div>
+		
+	    </div>
+	
+	  <div class="form-group"></div>
+	</div>
 				<!-- reCAPTCHA -->
 				<div class="form-group" id="form-captcha">
 					<!-- Start reCAPTCHA -->

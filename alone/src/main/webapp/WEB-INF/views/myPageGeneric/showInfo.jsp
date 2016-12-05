@@ -24,55 +24,40 @@
           <!-- Tab content -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="personal-info">
-              <h3 class="header header_plain">Personal Info</h3>
+              <h3 class="header header_plain">일반회원</h3>
               <div class="table-responsive">
                 <table class="table">
                   <tbody>
                     <tr>
-                      <th scope="row">Location</th>
-                      <td>Los Angeles, CA</td>
+                      <th scope="row">아이디</th>
+                      <td>${requestScope.gvo.id}</td>
+                    </tr>
+                       <tr>
+                      <th scope="row">이름</th>
+                      <td> ${gvo.name} </td>
                     </tr>
                     <tr>
-                      <th scope="row">Occupation</th>
-                      <td>Designer</td>
+                      <th scope="row">닉네임</th>
+                      <td>${gvo.nickName}</td>
                     </tr>
                     <tr>
-                      <th scope="row">Skills</th>
-                      <td>HTML, CSS, JS, Bootstrap</td>
+                      <th scope="row">성별</th>
+                      <td>${gvo.gender}</td>
                     </tr>
                     <tr>
-                      <th scope="row">Experience</th>
-                      <td>5 years</td>
+				     <th scope="row">생년월일</th>
+                      <td>${gvo.birth}</td>
                     </tr>
                     <tr>
-                      <th scope="row">Education</th>
-                      <td>California State University, Los Angeles</td>
+                      <th scope="row">전화번호</th>
+                      <td>${gvo.tel}</td>
                     </tr>
-                    <tr>
-                      <th scope="row">Username</th>
-                      <td>@SuperJohn</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Type</th>
-                      <td>Individual</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Member Since</th>
-                      <td>May 2012</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Page URL</th>
-                      <td>http://www.yoursite.com/profile</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Verified User</th>
-                      <td>Yes</td>
-                    </tr>
+
                   </tbody>
                 </table>
               </div> <!-- / .table-responsive -->
             </div>
-            <a href="${pageContext.request.contextPath}/myPageGeneric/update.do" class="btn btn-primary" >수정하기</a>
+            <a href="${pageContext.request.contextPath}/myPageGeneric/myPageMemberupdate.do" class="btn btn-primary" >수정하기</a>
           </div> <!-- / .tab-content -->
         </div>        
      

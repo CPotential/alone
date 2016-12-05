@@ -38,6 +38,7 @@
 	<div class="container">
 		<ul class="topbar-nav topbar-nav_right">
 
+
 			<!-- Account links -->
 			<c:choose>
 				<c:when test="${empty sessionScope.memberVO}">
@@ -48,7 +49,7 @@
 				<c:otherwise>
 					<c:set var="authority" value="${sessionScope.memberVO.authority}" />
 					<c:if test="${authority eq 'ROLE_MEMBER'}">
-						<li><a href="${pageContext.request.contextPath}/myPageGeneric/showInfo.do">myPageGeneric</a></li>
+						<li><a href="${pageContext.request.contextPath}/showGmemberinfo.do">myPageGeneric</a></li>
 						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 					</c:if>
 					<c:if test="${authority eq 'ROLE_COMPANY'}">
@@ -62,6 +63,7 @@
 
 				</c:otherwise>
 			</c:choose>
+
 		</ul>
 	</div>
 	<!-- / .container -->
@@ -103,12 +105,12 @@
 
 				<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> 커뮤니티 <span class="fa fa-angle-down"></span>
 				</a>
-					<ul class="dropdown-menu" role="menu">
+
+					<ul class="dropdown-menu" role="menu"> 
 						<li><a href="${pageContext.request.contextPath}/getMeetingList.do">모임 게시판</a></li>
 						<li><a href="${pageContext.request.contextPath}/reviewList.do">리뷰 게시판</a></li>
 					</ul></li>
-			</ul>
-		</div>
+			</div>
 	</div>
 </div>
 
