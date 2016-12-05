@@ -20,7 +20,7 @@ public class GenericMemberDAOImpl implements GenericMemberDAO {
 	public void updateMember(GenericMemberVO genericMemberVO){
 		sqlSessionTemplate.update("genericMember.updateGenericMember",genericMemberVO);
 	}
-
+ 
 	public GenericMemberVO showGenericmember(MemberVO vo){
 		return sqlSessionTemplate.selectOne("genericMember.showGenericmember", vo);
 	}

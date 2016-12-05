@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="corporateRegistrationNumber" column="corporate_registration_number" />
 		<result property="nickName" column="nickname" />
 	</resultMap>
-	  
+	
 	<insert id="registerMember" parameterType="companyMemberVO">
 		insert into COMPANYMEMBER(id,address,corporate_registration_number)
 		values(#{id},#{address},#{corporateRegistrationNumber})
@@ -25,6 +25,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<update id="updateApproval" parameterType="string">
 		update companymember set approval = approval+1 where id=#{value} 
+	</update>
+	<select id="showCompanyMember"  parameterType="memberVO" resultMap="comMemberRM">
+		select companymember.id,member.name,member.nickname,companymember.corporate_registration_number,companymember.address,member.tel 
+		from member member,companymember companymember 
+		where member.id=companymember.id and companymember.id=#{id} 
+	</select>
+	<update id="updateCompanyMember" parameterType="companyMemberVO">
+		update companymember set address = #{address},corporate_registration_number = #{corporateRegistrationNumber} where id=#{id} 
 	</update>
 </mapper>
  

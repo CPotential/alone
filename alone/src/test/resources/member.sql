@@ -5,6 +5,7 @@ drop table genericmember
 drop table COMPANYMEMBER
 drop table authorities;
 
+
 CREATE TABLE MEMBER( 
 	id varchar2(50) primary key,
 	password varchar2(50) not null,
@@ -13,6 +14,7 @@ CREATE TABLE MEMBER(
 	tel varchar2(50) not null,
 	enabled number default 1 -- 탈퇴여부 : 탈퇴시 0 으로 변경
 )
+
 CREATE TABLE GENERICMEMBER(
 	id varchar2(50) primary key,
 	birth varchar2(50) not null,

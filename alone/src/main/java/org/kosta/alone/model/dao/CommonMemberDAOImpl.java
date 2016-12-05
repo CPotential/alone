@@ -34,5 +34,4 @@ public class CommonMemberDAOImpl implements CommonMemberDAO {
 	public void registerAuthority(CompanyMemberVO vo) {
 		template.insert("companyMember.registerAuthority", vo);
 	}
-
 }

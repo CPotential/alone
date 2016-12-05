@@ -7,7 +7,7 @@ public class MemberVO {
 	private String nickName;
 	private String tel;
 	private String authority;
-	private int enabled;
+	private int enabled; 
 	
 	public MemberVO() {
 		super();

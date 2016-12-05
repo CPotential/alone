@@ -1,5 +1,6 @@
 package org.kosta.alone.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,11 +9,14 @@ import org.kosta.alone.model.dao.BoardDAO;
 import org.kosta.alone.model.dao.IntroduceDAO;
 import org.kosta.alone.model.dao.MeetingDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
+import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.ImageVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.KeyWordVO;
+import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
+import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,9 +57,25 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<ReviewVO> reviewList() {
-		return reviewDAO.reviewList();
-	}
+	public ListVO reviewList(String nowPage) {
+		   int totalCount = reviewDAO.getTotalContentCount(); 
+			
+					if(nowPage == null){
+						PagingBean  pagingBean = new PagingBean(totalCount);
+						pagingBean.setContentNumberPerPage(10);
+						pagingBean.setPageNumberPerPageGroup(5); 
+						List<ReviewVO> list =  reviewDAO.reviewList(pagingBean);
+						ListVO vo = new ListVO(list,pagingBean);
+						return vo;  
+					}else{
+						PagingBean pagingBean = new PagingBean(totalCount,Integer.parseInt(nowPage));
+						pagingBean.setContentNumberPerPage(10);
+						pagingBean.setPageNumberPerPageGroup(5);
+						List<ReviewVO> list = reviewDAO.reviewList(pagingBean);
+						ListVO vo = new ListVO(list,pagingBean);
+						return vo;
+					}
+		}
 
 	@Override
 	public List<ReviewVO> reviewTitleSearchList(String searchKeyWord) {

@@ -2,6 +2,7 @@ package org.kosta.alone.model.dao;
 
 import javax.annotation.Resource;
 
+import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,4 +32,7 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSessionTemplate.selectOne("member.nickNamecheck",nickname);
 	}
 	
+	public void updateCompanyMember(CompanyMemberVO cvo){
+		sqlSessionTemplate.update("member.updateCompanyMember",cvo); 
+	}
 }

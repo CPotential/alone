@@ -69,24 +69,24 @@
 			<!-- Please carefully read the README.txt file in order to setup
                the PHP contact form properly -->
 			<form role="form" name="reviewWriteForm" action="${pageContext.request.contextPath}/reviewWrite.do" onsubmit="return reviewWrite()"> 
-				<!-- <div class="form-group">
+				<!-- <div class="form-group"> 
 					<label for="email">Your email address</label> 
 					<input type="email" 	name="email" class="form-control" id="email" placeholder="E-mail" 	data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div> -->
 				<div class="form-group"> 
 					<label for="title">Title</label> 
-					<input type="text" name="title" class="form-control" id="title" placeholder="title"  data-original-title="" title=""> 
+					<input type="text" name="title" class="form-control" id="title" placeholder="title" > 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="content">Content</label>  
-					<textarea cols="20" rows="20" name="content" class="form-control" id="content" placeholder="content"  data-original-title="" title=""></textarea><br>
+					<textarea cols="20" rows="20" name="content" class="form-control" id="content" placeholder="content" ></textarea><br>
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group"> 
 					<label for="image">image</label> 
-					<input type="text" name="image" class="form-control" id="image" placeholder="picture" data-original-title="" title=""> 
+					<input type="text" name="image" class="form-control" id="image" placeholder="picture"> 
 					<span class="help-block"></span>
 				</div>
 				<!-- reCAPTCHA -->

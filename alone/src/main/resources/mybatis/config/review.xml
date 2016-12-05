@@ -10,10 +10,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="memberVO.id" column="id" />  
 		<result property="boardNo" column="board_no" />
 	</resultMap> 
-<select id="reviewList" resultType="reviewVO">
-select board.board_no as boardNo,member.nickname as "memberVO.nickName",
-to_char(board.time_posted,'yyyy.mm.dd') as timePosted,review.title,review.hits,review.likes 
-from board board,review review,member member where board.board_no=review.board_no and board.id=member.id order by review.board_no desc
+<select id="reviewList" resultType="reviewVO" parameterType="pagingBean"> 
+select board_no as boardNo,nickname as "memberVO.nickName",
+time_posted as timePosted,title,hits,likes from
+(select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,
+to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes 
+from board board,review review,member member 
+where board.board_no=review.board_no and board.id=member.id) 
+where rnum between #{startRowNumber} and #{endRowNumber} 
 </select>
 
 <select id="reviewTitleSearchList" resultType="reviewVO" parameterType="string">
@@ -37,8 +41,11 @@ member.nickname=#{value}
 		values(#{boardNo},#{memberVO.id},#{content},sysdate)
 </insert>
 <insert id="reviewWrite" parameterType="reviewVO">
-	insert into review(board_no,title) values(#{boardNo},#{title})   
+	insert into review(board_no,title) values(#{boardNo},#{title})    
 </insert>
+<select id="getTotalContentCount" resultType="int">  
+	select count(*) from review 
+</select>
 </mapper>
  
  

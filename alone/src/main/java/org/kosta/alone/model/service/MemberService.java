@@ -20,6 +20,7 @@ public interface MemberService {
 	public List<CompanyMemberVO> ApporvalCompanyList();
 	public void updateApproval(String id); 
 	public GenericMemberVO showGenericmember(MemberVO mvo);
-
+	public CompanyMemberVO showCompanyMember(MemberVO mvo);
+	public void CmemberUpdateInfo(CompanyMemberVO cvo);
 
 }
