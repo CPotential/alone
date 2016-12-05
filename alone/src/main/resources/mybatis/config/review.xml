@@ -5,10 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 <mapper namespace="review">
 	<resultMap type="reviewVO" id="reviewRM">
-		<result property="timePosted" column="time_posted" /> 
+		<result property="timePosted" column="time_posted" />
 		<result property="memberVO.nickName" column="nickname" />
-		<result property="memberVO.id" column="id" />  
+		<result property="memberVO.id" column="id" />
 		<result property="boardNo" column="board_no" />
+
 	</resultMap> 
 <select id="reviewList" resultType="reviewVO" parameterType="pagingBean"> 
 select board_no as boardNo,nickname as "memberVO.nickName",
@@ -20,33 +21,35 @@ where board.board_no=review.board_no and board.id=member.id)
 where rnum between #{startRowNumber} and #{endRowNumber} 
 </select>
 
-<select id="reviewTitleSearchList" resultType="reviewVO" parameterType="string">
-select board.board_no as boardNo,member.nickname as "memberVO.nickName",
-to_char(board.time_posted,'yyyy.mm.dd') as timePosted,review.title,review.hits,review.likes 
-from board board,review review,member member where board.board_no=review.board_no and board.id=member.id and
-review.title=#{value}
-</select>
+	<select id="reviewTitleSearchList" resultType="reviewVO" parameterType="string">
+		select board.board_no as boardNo, member.nickname as "memberVO.nickName", to_char(board.time_posted,'yyyy.mm.dd') as timePosted, review.title, review.hits, review.likes
+		from board board,review review,member member 
+		where board.board_no=review.board_no and board.id=member.id and review.title=#{value}
+	</select>
 
-<select id="reviewWriterSearchList" resultType="reviewVO" parameterType="string">
-select board.board_no as boardNo,member.nickname as "memberVO.nickName",
-to_char(board.time_posted,'yyyy.mm.dd') as timePosted,review.title,review.hits,review.likes 
-from board board,review review,member member where board.board_no=review.board_no and board.id=member.id and
-member.nickname=#{value}
-</select>
-<insert id="reviewBoardWrite" parameterType="reviewVO">
+	<select id="reviewWriterSearchList" resultType="reviewVO" parameterType="string">
+		select board.board_no as boardNo, member.nickname as "memberVO.nickName", to_char(board.time_posted,'yyyy.mm.dd') as timePosted, review.title, review.hits, review.likes
+		from board board,review review,member member 
+		where board.board_no=review.board_no and board.id=member.id and member.nickname=#{value}
+	</select>
+	
+	<insert id="reviewBoardWrite" parameterType="reviewVO">
 		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
 			select board_seq.nextval from dual
 		</selectKey>
 		insert into board(board_no,id,content,time_posted)
 		values(#{boardNo},#{memberVO.id},#{content},sysdate)
-</insert>
-<insert id="reviewWrite" parameterType="reviewVO">
-	insert into review(board_no,title) values(#{boardNo},#{title})    
-</insert>
-<select id="getTotalContentCount" resultType="int">  
-	select count(*) from review 
-</select>
-</mapper>
+	</insert>
+
+	<insert id="reviewWrite" parameterType="reviewVO">
+		insert into review(board_no,title) values(#{boardNo},#{title})    
+	</insert>
+	
+	<select id="getTotalContentCount" resultType="int">  
+		select count(*) from review 
+	</select>
+
+</mapper> 
  
  
  

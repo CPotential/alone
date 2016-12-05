@@ -79,15 +79,15 @@
 </div>
 <!-- / ui__section -->
 <!--페이징 -->
-<div class="ui__section" id="ui_pagination">
+<div class="ui__section" id="ui_pagination" align="center">
 	<nav>
-		<ul class="pagination"> 
+		<ul class="pagination">  
 		<c:if  test="${requestScope.ListVO.pagingBean.previousPageGroup}">
-			<li class="disabled"><a href="${pageContext.request.contextPath}/reviewList.do?pageNo=${requestScope.ListVO.pagingBean.startPageOfPageGroup-1}" aria-label="Previous"><span
+			<li><a href="${pageContext.request.contextPath}/reviewList.do?pageNo=${requestScope.ListVO.pagingBean.startPageOfPageGroup-1}" aria-label="Previous"><span
 					aria-hidden="true">«</span></a></li>
 		</c:if>
 		<c:forEach var ="pb" begin = "${requestScope.ListVO.pagingBean.startPageOfPageGroup}" end = "${requestScope.ListVO.pagingBean.endPageOfPageGroup}">
-			<li class="active"><a href="${pageContext.request.contextPath}/reviewList.do?pageNo=${pb}">${pb} <span class="sr-only">(current)</span></a></li> 
+			<li class="active"><a href="${pageContext.request.contextPath}/reviewList.do?pageNo=${pb}">${pb}<span class="sr-only" >(current)</span></a></li> 
 		</c:forEach>	 
 		<c:if test= "${requestScope.ListVO.pagingBean.nextPageGroup}">  
 			<li><a href="${pageContext.request.contextPath}/reviewList.do?pageNo=${requestScope.ListVO.pagingBean.endPageOfPageGroup+1}" aria-label="Next"><span aria-hidden="true">»</span></a></li>

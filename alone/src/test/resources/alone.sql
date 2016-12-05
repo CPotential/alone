@@ -1,22 +1,16 @@
-
-
-select * from genericmember
-
-
--- 공통 회원 정보
-DROP TABLE MEMBER;
-CREATE TABLE MEMBER( 
-	id varchar2(50) primary key,
-	password varchar2(50) not null,
-	name varchar2(50) not null,
-	nickname varchar2(50) not null,
-	tel varchar2(50) not null,
-	enabled number default 1 -- 탈퇴여부 : 탈퇴시 0 으로 변경
-)
+	select boardcomment.content,member.nickname as "memberVO.nickName",member.id,
+	to_char(boardcomment.time_posted,'yyyy.mm.dd') as timePosted 
+	from BOARDCOMMENT boardcomment,member member 
+	where boardcomment.id=member.id and boardcomment.board_no=23
+	ORDER BY boardcomment.comment_no ASC
+	
+select * from member where id='del'
+update member set enabled=1 where id='del'
 	select companymember.id,member.nickname,authorities.authority,companymember.approval
 	from companymember companymember,member member,authorities authorities
 	where companymember.id=member.id and member.id=authorities.id
 	and companymember.id='company'
+	
 	
 
 drop table genericmember;
@@ -413,5 +407,31 @@ where member.id=gmember.id and gmember.id='json'
 	select * from AUTHORITIES
 	
 	
+	select boardcomment.comment_no,boardcomment.content,member.nickname as "memberVO.nickName",
+	to_char(boardcomment.time_posted,'yyyy.mm.dd') as timePosted from BOARDCOMMENT boardcomment,member member 
+	where boardcomment.id=member.id and boardcomment.board_no=5
+	ORDER BY boardcomment.comment_no ASC
+	
+	COMPANYMEMBER set approval=1 where id='abcd' --승인상태
+	update boardcomment set content = '트레이서' where comment_no='47'
 	
 	
+select board_no as boardNo,nickname as "memberVO.nickName",
+time_posted as timePosted,title,hits,likes from
+(select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,
+to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes 
+from board board,review review,member member 
+where board.board_no=review.board_no and board.id=member.id) 
+where rnum between 1 and 5 
+
+select companymember.id,member.nickname,authorities.authority,companymember.approval,companymember.write
+	from companymember companymember,member member,authorities authorities
+	where companymember.id=member.id and member.id=authorities.id
+
+
+select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,
+to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes 
+from board board,review review,member member 
+where board.board_no=review.board_no and board.id=member.id
+
+alter table COMPANYMEMBER add write number default 0

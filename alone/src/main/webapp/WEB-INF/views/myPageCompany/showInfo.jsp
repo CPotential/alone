@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
     <!-- PRELOADER (uncomment to enable)
@@ -22,6 +24,22 @@
           <li>
             <a href="${pageContext.request.contextPath}/leave.do" class="btn btn-default btn-block"> 회원탈퇴</a>
           </li>
+              	<c:set var="write" value="${sessionScope.memberVO.write}" />
+          	<c:choose>
+    
+				<c:when test="${write eq 0 }">
+			  <li>
+              <a href="${pageContext.request.contextPath}/myPageCompany/introduceWriteForm.do" class="btn btn-default btn-block"> 소개글쓰기</a>
+             </li>
+				</c:when>
+        
+				<c:otherwise>
+				  <li>
+              <a href="$#" class="btn btn-default btn-block"> 소개글수정</a>
+             </li>
+
+				</c:otherwise>
+			</c:choose>
         </ul>
       </div>
         

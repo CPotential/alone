@@ -25,7 +25,6 @@ public class MemberController {
 	@RequestMapping(method = RequestMethod.POST, value = "loginCheck.do")
 	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session) {
 		ModelAndView mav = null;
-
 		memberVO = memberService.memberLogin(memberVO);
 
 		if (memberVO == null) {
@@ -44,7 +43,6 @@ public class MemberController {
 		mav = new ModelAndView("member/login_result");
 
 		return mav;
-
 	}
 
 	@RequestMapping("logout.do")
@@ -83,6 +81,36 @@ public class MemberController {
 		return (count == 0) ? "ok" : "fail";
 	}
 
+	/**
+	 * 회원 탈퇴
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("deleteMember.do")
+	public String deleteMember(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		memberService.deleteMember(memberVO.getId());
+		return "redirect:logout.do";
+	}
+
+	/**
+	 * 비밀번호 체크 ajax
+	 * @param password
+	 * @return
+	 */
+	@RequestMapping("passwordCheckAjax.do")
+	@ResponseBody
+	public String passwordCheckAjax(HttpServletRequest request, String password) {
+
+		HttpSession session = request.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		memberVO.setPassword(password);
+		int count = memberService.passwordCheck(memberVO);
+		return (count == 1) ? "ok" : "fail";
+
+	}
+
 	@RequestMapping("nickNamecheckAjax.do")
 	@ResponseBody
 	public String nickNamecheckAjax(String nickname) {
@@ -93,11 +121,9 @@ public class MemberController {
 	// 일반회원 정보 수정
 	@RequestMapping("updateInfo.do")
 	public ModelAndView myPageMemberupdate(GenericMemberVO genericMemberVO, HttpSession session) {
-
 		ModelAndView mav = new ModelAndView("myPageGeneric/myPageMemberupdate");
 		System.out.println(genericMemberVO);
 		memberService.updateInfo(genericMemberVO);
-
 		return mav;
 
 	}
@@ -126,10 +152,9 @@ public class MemberController {
 	@RequestMapping("showGmemberinfo.do")
 	public ModelAndView showGmemberinfo(HttpSession session) {
 		MemberVO vo = (MemberVO) session.getAttribute("memberVO");
-
 		return new ModelAndView("myPageGeneric/showInfo", "gvo", memberService.showGenericmember(vo));
 	}
-
+	
 	@RequestMapping("showCmemberInfo.do")
 	public ModelAndView showCmemberInfo(HttpSession session) {
  

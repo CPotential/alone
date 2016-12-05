@@ -39,6 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into board(board_no, id, content, time_posted)
 		values(#{boardNo}, #{memberVO.id}, #{content}, sysdate)
 	</insert>
+	
 	<insert id="meetingWrite" parameterType="meetingVO">
 		insert into meeting(board_no, title, region, location, interest)
 		values(#{boardNo}, #{title}, #{region}, #{location}, #{interest})

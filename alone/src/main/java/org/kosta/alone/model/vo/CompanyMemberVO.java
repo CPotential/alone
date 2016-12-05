@@ -5,6 +5,8 @@ public class CompanyMemberVO extends MemberVO {
 	private String address;
 	private String corporateRegistrationNumber;
 	private String approval;
+	private String write;
+	
 
 	public CompanyMemberVO() {
 		super();
@@ -62,10 +64,25 @@ public class CompanyMemberVO extends MemberVO {
 		this.approval = approval;
 	}
 
+	
+	public String getWrite() {
+		return write;
+	}
+
+
+	public void setWrite(String write) {
+		this.write = write;
+	}
+
+
 	@Override
 	public String toString() {
-		return super.toString() + "CompanyMemberVO [company=" + company + ", address=" + address
-				+ ", corporateRegistrationNumber=" + corporateRegistrationNumber + ", approval=" + approval + "]";
+		return "CompanyMemberVO [company=" + company + ", address=" + address + ", corporateRegistrationNumber="
+				+ corporateRegistrationNumber + ", approval=" + approval + ", write=" + write + "]";
 	}
+
+
+
+
 
 }

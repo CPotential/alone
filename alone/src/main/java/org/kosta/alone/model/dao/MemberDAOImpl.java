@@ -20,6 +20,22 @@ public class MemberDAOImpl implements MemberDAO {
 	public void registerMember(MemberVO vo){
 		sqlSessionTemplate.insert("member.registerMember", vo);
 	}
+	
+	/**
+	 * 회원탈퇴
+	 */
+	@Override
+	public void deleteMember(String id) {
+		sqlSessionTemplate.update("member.deleteMember", id);
+	}
+	
+	/**
+	 * 비밀번호 체크
+	 */
+	@Override
+	public int passwordCheck(MemberVO memberVO) {
+		return sqlSessionTemplate.selectOne("member.passwordCheck", memberVO);
+	}
 
 	@Override
 	public void updateMember(MemberVO memberVO) {
@@ -28,10 +44,9 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public int nickNamecheck(String nickname) {
-		
 		return sqlSessionTemplate.selectOne("member.nickNamecheck",nickname);
 	}
-	
+
 	public void updateCompanyMember(CompanyMemberVO cvo){
 		sqlSessionTemplate.update("member.updateCompanyMember",cvo); 
 	}
