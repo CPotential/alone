@@ -8,7 +8,7 @@
   
        <ul class="list-unstyled profile-social center-block">
           <li>
-            <a href="${pageContext.request.contextPath}/myPageGeneric/showInfo.do" class="btn btn-default btn-block">내정보 보기 </a>
+            <a href="${pageContext.request.contextPath}/showGmemberinfo.do" class="btn btn-default btn-block">내정보 보기 </a>
           </li>
           <li>
             <a href="${pageContext.request.contextPath}/myPageGeneric/showMileage.do" class="btn btn-default btn-block"> 마일리지</a>
