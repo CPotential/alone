@@ -25,9 +25,7 @@ public class MemberController {
 	@RequestMapping(method = RequestMethod.POST, value = "loginCheck.do")
 	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session) {
 		ModelAndView mav = null;
-		System.out.println(memberVO+"111");
 		memberVO = memberService.memberLogin(memberVO);
-		System.out.println(memberVO);
 		if (memberVO == null) {
 			mav = new ModelAndView("member/login_fail");
 			return mav;
@@ -59,7 +57,6 @@ public class MemberController {
 
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
 	public String registerMember(GenericMemberVO vo) {
-		System.out.println(vo);
 		memberService.registerMember(vo);
 		/* return "redirect:registerok.do?id=" + vo.getId(); */
 		return "redirect:/member/registerok.do";
@@ -67,7 +64,6 @@ public class MemberController {
 
 	@RequestMapping(value = "registerCompanyMember.do", method = RequestMethod.POST)
 	public String registerMember(CompanyMemberVO vo) {
-		System.out.println(vo);
 		memberService.registerMember(vo);
 		/* return "redirect:registerok.do?id=" + vo.getId(); */
 		return "redirect:/member/registerok.do";
@@ -89,7 +85,6 @@ public class MemberController {
 	public String deleteMember(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-		System.out.println(memberVO);
 		memberService.deleteMember(memberVO.getId());
 		return "redirect:logout.do";
 	}

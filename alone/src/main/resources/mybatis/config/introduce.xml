@@ -25,14 +25,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where introduce.category_no=#{category_no}
 			and member.id=board.id and board.board_no=introduce.board_no
 	</select>
+	
 	<select id="keyWordList" resultMap="keyWordRM" resultType="keyWordVO">
 		select keyword.keyword_name
 		from keyword keyword, introduce introduce
 		where keyword.board_no=introduce.board_no and introduce.board_no=#{value}
 	</select>
+	
 	<select id="introduceCategoryList" resultType="introduceCategoryVO" resultMap="introduceCategoryRM">
 		select category_no, category_name from introduce_category
 	</select>
+	
 		<select id="introduceDetail" resultMap="introduceRM" parameterType="int"> 
 		select  board.content, introduce.location, introduce.business_hours, introduce.tel 
 		from introduce introduce,board board 

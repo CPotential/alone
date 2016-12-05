@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.BoardService;
+import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.MeetingVO;
@@ -36,7 +37,6 @@ public class BoardController {
 	@RequestMapping("getMeetingRegionList.do")
 	@ResponseBody
 	public List<MeetingVO> getMeetingRegionList(String region){
-		System.out.println(region); 
 		List<MeetingVO> rList = boardService.getMeetingRegionList(region);
 		return rList; 
 	} 
@@ -126,12 +126,9 @@ public class BoardController {
 	public String meetingWrite(HttpServletRequest request, MeetingVO meetingVO){
 		HttpSession session = request.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-		System.out.println(memberVO);
 		MeetingVO mvo = meetingVO;
 		mvo.setMemberVO(memberVO);
-		System.out.println(mvo);
 		boardService.meetingWrite(mvo);
-		System.out.println(mvo.getBoardNo());
 		return "redirect:meetingDetail.do?boardNo=" + mvo.getBoardNo();
 
 	}
@@ -169,12 +166,23 @@ public class BoardController {
 	}
 	
 	
-	@RequestMapping("commentList.do")
-	public ModelAndView commentList(String boardNo){
-		ModelAndView mav = new ModelAndView("board/meetingDetail");
-		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
-		return mav;
+	@RequestMapping("sendCommentAjax.do")
+	@ResponseBody
+	public List<CommentVO> commentList(String comment,HttpServletRequest request,String boardNo){
+		HttpSession session = request.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		
+		boardService.insertComment(memberVO,comment,boardNo);
+		
+		return boardService.commentList(boardNo);
 
+	}
+	@RequestMapping("updateCommentAjax")
+	@ResponseBody
+	public List<CommentVO> updateComment(CommentVO commentVO){
+		
+		boardService.updateComment(commentVO);
+		return boardService.commentList(Integer.toString(commentVO.getBoardNo()));
 	}
 	
 	

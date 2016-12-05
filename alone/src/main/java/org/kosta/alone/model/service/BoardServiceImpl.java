@@ -14,6 +14,7 @@ import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.KeyWordVO;
 import org.kosta.alone.model.vo.MeetingVO;
+import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -110,13 +111,28 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public MeetingVO meetingDetail(String boardNo) {
-		System.out.println(meetingDAO.meetingDetail(boardNo));
 		return meetingDAO.meetingDetail(boardNo);
 	}
 
 	@Override
 	public List<CommentVO> commentList(String boardNo) {
-		// TODO Auto-generated method stub
 		return boardDAO.commentList(boardNo);
+	}
+
+	@Override
+	public void insertComment(MemberVO memberVO, String comment,String boardNo) {
+		CommentVO commentVO = new CommentVO();
+		commentVO.setMemberVO(memberVO);
+		commentVO.setContent(comment);
+		commentVO.setBoardNo(Integer.parseInt(boardNo));
+		
+		boardDAO.insertComment(commentVO);
+		
+		
+	}
+
+	@Override
+	public void updateComment(CommentVO commentVO) {
+		boardDAO.updateComment(commentVO);
 	}
 }

@@ -13,4 +13,8 @@ public interface BoardDAO {
 
 	List<CommentVO> commentList(String boardNo);
 
+	void insertComment(CommentVO commentVO);
+
+	void updateComment(CommentVO commentVO);
+
 }

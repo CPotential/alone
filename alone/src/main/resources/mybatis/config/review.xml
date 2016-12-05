@@ -34,6 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into board(board_no,id,content,time_posted)
 		values(#{boardNo},#{memberVO.id},#{content},sysdate)
 	</insert>
+	
 	<insert id="reviewWrite" parameterType="reviewVO">
 		insert into review(board_no,title) values(#{boardNo},#{title})
 	</insert>

@@ -6,6 +6,7 @@ import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.MeetingVO;
+import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
 
 public interface BoardService { 
@@ -38,5 +39,9 @@ public interface BoardService {
 	public MeetingVO meetingDetail(String boardNo);
 	
 	public List<CommentVO> commentList(String boardNo);
+
+	public void insertComment(MemberVO memberVO, String comment, String boardNo);
+
+	public void updateComment(CommentVO commentVO);
 
 }

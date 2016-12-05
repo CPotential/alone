@@ -28,4 +28,16 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<CommentVO> commentList(String boardNo) {
 		return sqlSessionTemplate.selectList("board.commentList", boardNo);
 	}
+
+	@Override
+	public void insertComment(CommentVO commentVO) {
+		sqlSessionTemplate.insert("board.insertComment",commentVO);
+		
+	}
+
+	@Override
+	public void updateComment(CommentVO commentVO) {
+		sqlSessionTemplate.update("board.updateComment",commentVO);
+		
+	}
 }

@@ -2,68 +2,129 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%-- <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
 
-		 <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <a href="#"><span class="badge">No. 01</span></a>
-        <a href="#"><span class="badge">조회수 : ${meetingVO.hits}</span></a>
-        <a href="#"><span class="badge">날짜 : ${meetingVO.timePosted}</span></a>
-      </div>
-      <div class="nav nav-pills col-md-8 pull-right" role="tablist">
-        <li role="presentation" class="pull-right"><a href="#">지역 : ${meetingVO.region}</a></li>
-        <li role="presentation" class="pull-right"><a href="#">관심사항 : ${meetingVO.interest}</a></li>
-        <li role="presentation" class="pull-right"><a href="#">작성자 : ${meetingVO.memberVO.nickName}</a></li>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="well well">${meetingVO.title}</div>
-        <div class="panel-body">
-          <table>
-            <tr>
-              <td>${meetingVO.content}
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div class="panel-footer">
-        
-          <div class="container">
-          <div class = "row">
-         
-          <div class="btn-group btn-group-justified">
-            <a href="#" class="btn btn-default">목 록</a>
-            <a href="#" class="btn btn-default">수 정</a>
-            <a href="#" class="btn btn-default">삭 제</a>
-            </div>
-            </div>
-
-        </div>
-      </div>
-    </div>
-    </div>
-       
-       
-       
 
 <!--  jquery 사용처입니다. -->
+
 <script type="text/javascript">
 	$(document).ready(function() {
-
+		
+		var boardNo = ${param.boardNo}
+		var content="";
+		var commentNo="";
+		
 		$("#sendComment").click(function() {
-			var searchKeyWord = $("#searchKeyWord").val(); //검색어 값 받아오기
-			if (searchKeyWord == "") {
-				alert("검색어를 입력하세요!");
-			} else {
-				var command = $("#findType").val() + ".do";
-				alert(command)
-				location.href = command + "?searchKeyWord=" + searchKeyWord;
-			}
-		}); // click 이벤트
-	}); // ready
-</script> --%>
+			var comment =$("#sendContent").val()
+		
+			alert(comment);
+			$.ajax({
+				type:"GET",
+				url:"${pageContext.request.contextPath}/sendCommentAjax.do",				
+				data:"comment="+comment+"&boardNo="+boardNo,	
+				success:function(data){	
+					var json = "";
+					for (var i = 0; i < data.length ; i++) {				
+						json += "<div class='comment'>";
+						json +=" <div class='comment__author_img'>"
+						json += data[i].memberVO.nickName;
+						json += "</div> <div class='comment__content' id='commentresetView'>";
+						json +="<div class='comment__author_name'>"
+						json += data[i].memberVO.nickName;
+						json += "</div>";
+						json += "<time datetime="
+						json += data[i].timePosted;
+						json += "class='comment__date'> </time>";
+						json +="<p>";
+						json += data[i].content;
+						json +="</p>";
+						<c:set var="id" value="${sessionScope.memberVO.id }"/>
+						var id =data[i].memberVO.id;
+						var nowid= '<c:out value="${id}"/>'
+						
+					  	
+						if(id ==nowid ){
+						json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
+						json += " <a href='#' class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
+						json += " <a href='#' id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
+						json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
+						json +="</div>"
+						}
+						json +="<input type='text' id='commentNo'  value="
+						json += data[i].commentNo
+						json +=">"
+						json += "</div></div>"; 
+					}
+					$("#commentView").html(json);
+
+				}//callback			
+			}); //ajax
+		}); // sendCommentclick 이벤트
+		
+	
+		$("#commentView").on("click","#editComment",function() {
+			
+			content = $(this).parent().prev().html().trim();
+			commentNo = $(this).parent().next().val();
+			$("#commentresetView").empty();
+			
+			$("#commentresetView").html("<textarea class='form-control'"
+					+"rows='2' id='comment'>"+content+"</textarea>"
+					+"<a href='#' id='updateComment' class='btn btn-default btn-xs'>"
+					+"<i class='fa fa-edit'></i> 수정하기</a>");
+		  	
+			});//editComment (댓글 수정)
+			
+		$("#commentView").on("click","#updateComment",function(){
+				
+				content = $(this).prev().val();
+				
+				$.ajax({
+					type:"GET",
+					url:"${pageContext.request.contextPath}/updateCommentAjax.do",				
+					data:"content="+content+"&commentNo="+commentNo+"&boardNo="+boardNo,	
+					success:function(data){	
+						var json = "";
+						for (var i = 0; i < data.length ; i++) {				
+							json += "<div class='comment'>";
+							json +=" <div class='comment__author_img'>"
+							json += data[i].memberVO.nickName;
+							json += "</div> <div class='comment__content' id='commentresetView'>";
+							json +="<div class='comment__author_name'>"
+							json += data[i].memberVO.nickName;
+							json += "</div>";
+							json += "<time datetime="
+							json += data[i].timePosted;
+							json += "class='comment__date'> </time>";
+							json +="<p>";
+							json += data[i].content;
+							json +="</p>";
+							<c:set var="id" value="${sessionScope.memberVO.id }"/>
+							var id =data[i].memberVO.id;
+							var nowid= '<c:out value="${id}"/>'
+							
+						  	
+							if(id ==nowid ){
+							json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
+							json += " <a href='#' class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
+							json += " <a href='#'  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
+							json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
+							json +="</div>"
+							}
+							json +="<input type='text' id='commentNo'  value="
+							json += data[i].commentNo
+							json +=">"
+							json += "</div></div>"; 
+						} 
+						$("#commentView").html(json);
+					}
+				});  //ajax
+				
+				
+			}); //commentView 수정하기 버튼
+		}); // ready
+
+</script>
 
 
  <div class="container">
@@ -114,9 +175,9 @@
                 <form>
                   <div class="form-group">
                     <label for="comment-new__textarea" class="sr-only">Enter your comment</label>
-                    <textarea class="form-control" rows="2" id="comment" placeholder="Enter your comment"></textarea>
+                    <textarea class="form-control" rows="2" id="sendContent" placeholder="Enter your comment"></textarea>
                   </div>
-                  <button type="submit" id="sendComment"class="btn btn-primary">Send Comment</button>
+                  <button type="button" id="sendComment"class="btn btn-primary">Send Comment</button>
                 </form>
               </div> <!-- / .comment__content -->
             </div> <!-- / .comment__new -->
@@ -127,25 +188,33 @@
             </div>
 
             <!-- All comments -->
+            <div id="commentView">
             <c:forEach var="commentList" items="${requestScope.commentList}">
             <div class="comment">
               <div class="comment__author_img">
-                 ${commentList.memberVO.nickName}
+                  ${commentList.memberVO.id}
               </div>
-              <div class="comment__content">
+              <div class="comment__content" id="commentresetView">
                 <div class="comment__author_name">  ${commentList.memberVO.nickName}</div>
                 <time datetime="2015-01-30" class="comment__date">  ${commentList.timePosted}</time>
                 <p>
                   ${commentList.content}
                 </p>
-                <div class="btn-group pull-right" role="group" aria-label="comment__actions">
-                  <a href="#" class="btn btn-default btn-xs"><i class="fa fa-times"></i> Remove</a>
-                  <a href="#" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>
+                
+                <c:set var="id" value="${sessionScope.memberVO.id }"/>
+                <c:set var="nowid" value="${commentList.memberVO.id}"/>
+                <c:if test="${id eq nowid}">
+                <div class="btn-group pull-right" role="group" aria-label="comment__actions" >
+                  <a href="#"  class="btn btn-default btn-xs"><i class="fa fa-times"></i> Remove</a>
+                  <a href="#" id="editComment" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>
                   <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-reply"></i> Answer</a>
                 </div>
+                <input type="hidden" id="commentNo"  value="${commentList.commentNo}">
+                </c:if>
               </div> <!-- / .comment__content -->
             </div> <!-- / .comment -->
             </c:forEach>
+            </div>
           
        
 	</div><!-- col-sm-8 col-md-9 -->
