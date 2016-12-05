@@ -15,15 +15,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="adminApproval" parameterType="memberVO" resultType="companyMemberVO">
-		select companymember.id, member.nickname, authorities.authority,
-		companymember.approval
-		from companymember companymember, member member, authorities authorities
-		where companymember.id=member.id and member.id=authorities.id
-		and companymember.id=#{id}
+	select companymember.id,member.nickname,authorities.authority,companymember.approval,companymember.write
+	from companymember companymember,member member,authorities authorities
+	where companymember.id=member.id and member.id=authorities.id
+	and companymember.id=#{id}
 	</select>
-
-	<!-- <select id="idCheck" resultType="string"> select count(*) from spring_member 
-		where id=#{value} </select> -->
+	
 
 	<update id="updateMember" parameterType="memberVO">
 		update member

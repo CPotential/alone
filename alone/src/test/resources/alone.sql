@@ -424,8 +424,14 @@ from board board,review review,member member
 where board.board_no=review.board_no and board.id=member.id) 
 where rnum between 1 and 5 
 
+select companymember.id,member.nickname,authorities.authority,companymember.approval,companymember.write
+	from companymember companymember,member member,authorities authorities
+	where companymember.id=member.id and member.id=authorities.id
+
 
 select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,
 to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes 
 from board board,review review,member member 
 where board.board_no=review.board_no and board.id=member.id
+
+alter table COMPANYMEMBER add write number default 0

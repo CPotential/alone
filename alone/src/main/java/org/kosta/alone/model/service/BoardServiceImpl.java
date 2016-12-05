@@ -70,18 +70,34 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 소개글 리스트
+	/**
+	 * 1)카테고리에 해당하는 게시물 리스트를 뽑는다 :introduceList
+	 * 2)첫번째 소개글에 게시물 번호를 얻어와 해당 게시물에 키워드가 몇개 등록되었는지 확인 한다 :keyWordSize
+	 * 3) 게시물이 가지고있는 키워드의 이름을 뽀는다
+	 * introduceList.get(i).getBoardNo()게시물 번호
+	 */
 	@Override
 	public List<IntroduceVO> introduceList(int categoryNo) {
 		List<IntroduceVO> introduceList = null;
 		List<ImageVO> imageList = null;
 		List<KeyWordVO> keyWordVO = null;
 		introduceList = introduceDAO.introduceList(categoryNo);
+
+		
+
+
 		for (int i = 0; i < introduceList.size(); i++) {
+
 			keyWordVO = introduceDAO.keyWordList(introduceList.get(i).getBoardNo());
 			introduceList.get(i).setKeyWordVO(keyWordVO);
 			imageList = boardDAO.introduceFirstImage(introduceList.get(i).getBoardNo());
 			introduceList.get(i).setImageVO(imageList);
+
 		}
+
+		
+
+
 		return introduceList;
 	}
 
@@ -90,6 +106,18 @@ public class BoardServiceImpl implements BoardService {
 	public List<IntroduceCategoryVO> introduceCategoryList() {
 		return introduceDAO.introduceCategoryList();
 	}
+
+	/**
+	 * 소개글 작성
+	 */
+	@Override
+	@Transactional
+	public void introduceWrite(IntroduceVO introduceVO) {
+		introduceDAO.boardWrite(introduceVO);
+		introduceDAO.introduceWrite(introduceVO);
+		introduceDAO.updateWrite(introduceVO.getMemberVO().getId());
+	}
+	
 
 	public IntroduceVO introduceDetail(int boardNo){
 		return introduceDAO.introduceDetail(boardNo);  
@@ -100,9 +128,7 @@ public class BoardServiceImpl implements BoardService {
 		reviewDAO.reviewBoardWrite(reviewVO); 
 		reviewDAO.reviewWrite(reviewVO);
 	}
-	/**
-	 * 모임글 작성
-	 */
+
 	@Override
 	public void meetingWrite(MeetingVO meetingVO) {
 		meetingDAO.boardWrite(meetingVO);
@@ -112,6 +138,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public MeetingVO meetingDetail(String boardNo) {
 		return meetingDAO.meetingDetail(boardNo);
+
 	}
 
 	@Override

@@ -25,20 +25,27 @@ public class MemberController {
 	@RequestMapping(method = RequestMethod.POST, value = "loginCheck.do")
 	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session) {
 		ModelAndView mav = null;
+		
 		memberVO = memberService.memberLogin(memberVO);
+		
 		if (memberVO == null) {
 			mav = new ModelAndView("member/login_fail");
 			return mav;
 		}else if (memberVO instanceof CompanyMemberVO) {
+
 			CompanyMemberVO companyMemberVO = (CompanyMemberVO) memberVO;
-			if (companyMemberVO.getApproval().equals("0")){
-				mav = new ModelAndView("member/login_companyfail");
+
+
+			if(companyMemberVO.getApproval().equals("0")){
+
+				mav=new ModelAndView("member/login_companyfail");
 				return mav;
 			}
 		}
 		
 		session.setAttribute("memberVO", memberVO);
 		mav = new ModelAndView("member/login_result");
+		System.out.println(memberVO+"secont");
 		
 		return mav;
 	}
@@ -149,5 +156,6 @@ public class MemberController {
 		System.out.println(vo);
 		return new ModelAndView("myPageGeneric/showInfo", "gvo", memberService.showGenericmember(vo));
 	}
+
 
 }

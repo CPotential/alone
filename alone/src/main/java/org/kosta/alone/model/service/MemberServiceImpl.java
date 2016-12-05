@@ -29,20 +29,21 @@ public class MemberServiceImpl implements MemberService {
 
 	public MemberVO memberLogin(MemberVO memberVO) {
 		memberVO = commonMemberDAO.memberLogin(memberVO);
-		// 아이디 패스워드 확인
-	
-
-			// 아이디 패스워드 확인
-			if (memberVO == null) {
-				return memberVO;
-			}
-			if (memberVO.getAuthority().equals("ROLE_COMPANY")) {
-				return commonMemberDAO.adminApproval(memberVO);
-				// 관리자가 기업 승인 여부 확인해야한다.
-			}
 		
+		//아이디 패스워드 확인
+		if(memberVO == null){
+			return memberVO;
+		} 
+		
+		if(memberVO.getAuthority().equals("ROLE_COMPANY")){
+			return commonMemberDAO.adminApproval(memberVO);
+			//관리자가 기업 승인 여부 확인해야한다.
+		}
 		return memberVO;
+		
 	}
+
+
 
 	public int idcheck(String id) {
 		return memberDAO.idcheck(id);

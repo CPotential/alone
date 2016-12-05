@@ -37,6 +37,7 @@
 	}); // ready
 </script>
 <!-- PAGE CONTENT
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
     ============================== -->
 <div class="container">
 	<div class="row">
@@ -57,6 +58,7 @@
 		<!-- PAGE CONTENT
     ============================== -->
 		<div class="col-sm-8 col-md-9 col-lg-10">
+
 
 			<div class="body-plain__title">
 				<h1 class="text-center">회원 탈퇴</h1>

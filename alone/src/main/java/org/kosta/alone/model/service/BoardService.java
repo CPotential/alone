@@ -29,6 +29,7 @@ public interface BoardService {
 	public List<IntroduceVO> introduceList(int categoryNo);
 	
 	public List<IntroduceCategoryVO> introduceCategoryList();
+
 	
 	public IntroduceVO introduceDetail(int boardNo);
 	
@@ -36,12 +37,18 @@ public interface BoardService {
 	
 	public void meetingWrite(MeetingVO meetingVO);
 
+
 	public MeetingVO meetingDetail(String boardNo);
+
+
+	void introduceWrite(IntroduceVO introduceVO);
+
 	
 	public List<CommentVO> commentList(String boardNo);
 
 	public void insertComment(MemberVO memberVO, String comment, String boardNo);
 
 	public void updateComment(CommentVO commentVO);
+
 
 }

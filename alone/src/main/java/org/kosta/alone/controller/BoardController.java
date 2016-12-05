@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.BoardService;
 import org.kosta.alone.model.vo.CommentVO;
+import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.MeetingVO;
@@ -165,6 +166,35 @@ public class BoardController {
 
 	}
 	
+
+	/**
+	 * 소개글작성후 소개글리스트로 이동
+	 * @param request
+	 * @param meetingVO
+	 * @return
+	 */
+	@RequestMapping("introduceWrite.do")
+	public String introduceWrite(HttpServletRequest request,IntroduceVO introduceVO){
+		HttpSession session = request.getSession(false);
+		//기업회원은 기업회원객체를 가지고있다
+		CompanyMemberVO memberVO = (CompanyMemberVO) session.getAttribute("memberVO");
+		//로그인한 기업회원정보 출력
+		//System.out.println("memberVO: "+memberVO);
+	
+		introduceVO.setMemberVO(memberVO);
+		//intoduceVO에 기업회원 정보 세팅한후 출력
+		//System.out.println("introduceVO: "+introduceVO);
+		//introduceVO에 기업회원 정보까지 세팅한후 전달
+		//데이터베이스의  companyMember의 write가 1로 변경
+		boardService.introduceWrite(introduceVO);
+		// 
+		//세션의 CompanyMember의 write도 1로 변경하여 업데이트해준도
+		memberVO.setWrite("1");
+		session.setAttribute("memberVO", memberVO);
+		return "redirect:introduceDetail.do?boardNo="+introduceVO.getBoardNo();
+
+	}
+
 	
 	@RequestMapping("sendCommentAjax.do")
 	@ResponseBody
@@ -185,5 +215,5 @@ public class BoardController {
 		return boardService.commentList(Integer.toString(commentVO.getBoardNo()));
 	}
 	
-	
+
 }
