@@ -19,6 +19,7 @@
 						data += "</a></li>";
 					}
 					$("#list").html(data);
+					
 				}
 			}) // ajax
 		}); // click

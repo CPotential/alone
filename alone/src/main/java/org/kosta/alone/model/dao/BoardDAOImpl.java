@@ -40,4 +40,8 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSessionTemplate.update("board.updateComment",commentVO);
 		
 	}
+	
+	public void deleteComment(CommentVO commentVO){
+		sqlSessionTemplate.delete("board.deleteComment",commentVO);
+	}
 }

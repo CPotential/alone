@@ -234,6 +234,8 @@ insert into COMPANYMEMBER(id,address,corporate_registration_number)
 values('ss','판교','12365452364');
 insert into COMPANYMEMBER(id,address,corporate_registration_number) 
 values('s','판교','12365452364');
+insert into COMPANYMEMBER(id,address,corporate_registration_number) 
+values('company','판교','12365452364');
 
 -- 회원 권한
 insert into AUTHORITIES(id,authority)

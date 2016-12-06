@@ -1,6 +1,6 @@
 package org.kosta.alone.model.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,7 +9,6 @@ import org.kosta.alone.model.dao.BoardDAO;
 import org.kosta.alone.model.dao.IntroduceDAO;
 import org.kosta.alone.model.dao.MeetingDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
-import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.ImageVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
@@ -17,8 +16,8 @@ import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.KeyWordVO;
 import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
-import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.MemberVO;
+import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,23 +95,50 @@ public class BoardServiceImpl implements BoardService {
 	 * introduceList.get(i).getBoardNo()게시물 번호
 	 */
 	@Override
-	public List<IntroduceVO> introduceList(int categoryNo) {
-		List<IntroduceVO> introduceList = null;
+	public ListVO<IntroduceVO> introduceList(int categoryNo,String nowPage) {
 		List<ImageVO> imageList = null;
 		List<KeyWordVO> keyWordVO = null;
-		introduceList = introduceDAO.introduceList(categoryNo);
+		int totalCount = introduceDAO.getTotalContentCount(categoryNo);    
+		HashMap<String,Object> map = new HashMap<String, Object>();
+		
+		if (nowPage == null) {
+			PagingBean pagingBean = new PagingBean(totalCount);
+			pagingBean.setContentNumberPerPage(6);
+			pagingBean.setPageNumberPerPageGroup(4);
+			map.put("categoryNo",categoryNo); 
+			map.put("pagingBean",pagingBean);
+			map.get("categoryNo");
+			List<IntroduceVO> list = introduceDAO.introduceList(map);
+			
+			for (int i = 0; i < list.size(); i++) {
 
-		for (int i = 0; i < introduceList.size(); i++) {
+				keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
+				list.get(i).setKeyWordVO(keyWordVO);
+				imageList = boardDAO.introduceFirstImage(list.get(i).getBoardNo()); 
+				list.get(i).setImageVO(imageList);
+			}
+			ListVO<IntroduceVO> vo = new ListVO<IntroduceVO>(list, pagingBean);
+			return vo;
+		}else {
+			PagingBean pagingBean = new PagingBean(totalCount, Integer.parseInt(nowPage));
+			pagingBean.setContentNumberPerPage(6);
+			pagingBean.setPageNumberPerPageGroup(4);
+			map.put("categoryNo",categoryNo); 
+			map.put("pagingBean",pagingBean);
+			map.get("categoryNo");
+			List<IntroduceVO> list = introduceDAO.introduceList(map); 
+			
+			for (int i = 0; i < list.size(); i++) {
 
-			keyWordVO = introduceDAO.keyWordList(introduceList.get(i).getBoardNo());
-			introduceList.get(i).setKeyWordVO(keyWordVO);
-			imageList = boardDAO.introduceFirstImage(introduceList.get(i).getBoardNo());
-			introduceList.get(i).setImageVO(imageList);
-
+				keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
+				list.get(i).setKeyWordVO(keyWordVO);
+				imageList = boardDAO.introduceFirstImage(list.get(i).getBoardNo()); 
+				list.get(i).setImageVO(imageList);
+			}
+			ListVO<IntroduceVO> vo = new ListVO<IntroduceVO>(list, pagingBean);
+			return vo;
 		}
-
-		return introduceList;
-	}
+}
 
 	// 소개글 카테고리 리스트
 	@Override
@@ -172,5 +198,9 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void updateComment(CommentVO commentVO) {
 		boardDAO.updateComment(commentVO);
+	}
+	
+	public void deleteComment(CommentVO commentVO){
+		boardDAO.deleteComment(commentVO); 
 	}
 }

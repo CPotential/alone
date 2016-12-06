@@ -64,9 +64,11 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping("introduceList.do")
-	public ModelAndView introduceList(int categoryNo){
+	public ModelAndView introduceList(int categoryNo,String pageNo){
 		ModelAndView mav = new ModelAndView("board/introduce");
-		mav.addObject("introduceList", boardService.introduceList(categoryNo));
+		String nowPage = pageNo;
+		mav.addObject("categoryNo",categoryNo);  
+		mav.addObject("ListVO", boardService.introduceList(categoryNo,nowPage));
 		
 		return mav;
 	}
@@ -212,6 +214,13 @@ public class BoardController {
 	public List<CommentVO> updateComment(CommentVO commentVO){
 		
 		boardService.updateComment(commentVO);
+		return boardService.commentList(Integer.toString(commentVO.getBoardNo()));
+	}
+	@RequestMapping("deleteCommentAjax.do")
+	@ResponseBody
+	public List<CommentVO> deleteComment(CommentVO commentVO){
+		
+		boardService.deleteComment(commentVO); 
 		return boardService.commentList(Integer.toString(commentVO.getBoardNo()));
 	}
 	

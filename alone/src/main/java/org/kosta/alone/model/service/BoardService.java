@@ -27,11 +27,10 @@ public interface BoardService {
 	
     public  List<ReviewVO> reviewWriterSearchList(String searchKeyWord);
     
-	public List<IntroduceVO> introduceList(int categoryNo);
+    public ListVO<IntroduceVO> introduceList(int categoryNo,String nowPage);
 	
 	public List<IntroduceCategoryVO> introduceCategoryList();
-
-	
+   
 	public IntroduceVO introduceDetail(int boardNo);
 	
 	public void reviewWrite(ReviewVO reviewVO);
@@ -50,6 +49,8 @@ public interface BoardService {
 	public void insertComment(MemberVO memberVO, String comment, String boardNo);
 
 	public void updateComment(CommentVO commentVO);
+	
+	public void deleteComment(CommentVO commentVO);
 
 
 }

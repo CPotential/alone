@@ -25,7 +25,7 @@
 	<!-- Portfolio -->
 	<div class="portfolio__items">
 		<div class="row">
-			<c:forEach items="${introduceList }" var="list">
+			<c:forEach items="${ListVO.list}" var="list">
 				<div class="col-xs-12 col-sm-4 filter__item filter_modernism">
 					<div class="portfolio__item">
 						<!-- Image -->
@@ -56,7 +56,22 @@
 		<!-- / .row -->
 	</div>
 	<!-- / .portfolio__items -->
-
 </div>
 <!-- / .container -->
-
+<!--페이징 -->
+<div class="ui__section" id="ui_pagination" align="center">
+	<nav>
+		<ul class="pagination">   
+		<c:if  test="${requestScope.ListVO.pagingBean.previousPageGroup}">
+			<li><a href="${pageContext.request.contextPath}/introduceList.do?pageNo=${requestScope.ListVO.pagingBean.startPageOfPageGroup-1}&categoryNo=${requestScope.categoryNo}" aria-label="Previous"><span
+					aria-hidden="true">«</span></a></li>  
+		</c:if>
+		<c:forEach var ="pb" begin = "${requestScope.ListVO.pagingBean.startPageOfPageGroup}" end = "${requestScope.ListVO.pagingBean.endPageOfPageGroup}">
+			<li class="active"><a href="${pageContext.request.contextPath}/introduceList.do?pageNo=${pb}&categoryNo=${requestScope.categoryNo}">${pb}<span class="sr-only" >(current)</span></a></li> 
+		</c:forEach>	  
+		<c:if test= "${requestScope.ListVO.pagingBean.nextPageGroup}">  
+			<li><a href="${pageContext.request.contextPath}/introduceList.do?pageNo=${requestScope.ListVO.pagingBean.endPageOfPageGroup+1}&categoryNo=${requestScope.categoryNo}" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+		</c:if> 
+		</ul>
+	</nav>
+</div>

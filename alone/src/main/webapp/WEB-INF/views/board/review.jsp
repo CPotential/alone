@@ -21,7 +21,7 @@
 	}); // ready
 </script>
 
-<div class="ui__section" id="ui_tables">
+<div class="ui__section" id="ui_tables">  
 	<h2 class="header">후기 게시판</h2>
 	<div class="table-responsive">
 		<table class="table table-striped table-bordered">
@@ -56,7 +56,7 @@
 
 	<div class="row">
 		<div class="col-sm-5"></div>
-		<div class="col-sm-5">
+		<div class="col-sm-5">    
 			<form class="form-inline topbar__search" role="form">
 				<select class="selectpicker" id="findType">
 					<option value="findByTitle">제목</option>

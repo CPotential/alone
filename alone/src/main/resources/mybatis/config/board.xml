@@ -45,6 +45,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update boardcomment set content = #{content} where comment_no=#{commentNo}
 	</update>
 	
+	<delete id="deleteComment" parameterType="commentVO">
+		delete from boardcomment where comment_no = #{commentNo} 
+	</delete>
+	
 </mapper>
  
  
