@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+
+
 <!-- HERO BLOCK
     ============================== -->
 <div class="hero hero__bs">
@@ -235,3 +238,6 @@
 	<!-- / .container -->
 </div>
 <!-- / .section -->
+
+
+   

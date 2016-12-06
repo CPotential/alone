@@ -2,6 +2,8 @@ package org.kosta.alone.model.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
@@ -9,9 +11,11 @@ import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
+import org.kosta.alone.model.vo.UploadFileVO;
 
 public interface BoardService { 
-	public List<MeetingVO> getMeetingList();
+
+	public ListVO<MeetingVO> getMeetingList(String pageNo);
 	
 	public List<MeetingVO> getMeetingRegionList(String region);
 	
@@ -21,36 +25,38 @@ public interface BoardService {
 	
 	public List<MeetingVO> getRegionInfo();
 	
-	public ListVO reviewList(String nowPage); 
+	public ListVO<ReviewVO> reviewList(String nowPage); 
 	
-	public List<ReviewVO> reviewTitleSearchList(String searchKeyWord);
-	
-    public  List<ReviewVO> reviewWriterSearchList(String searchKeyWord);
     
     public ListVO<IntroduceVO> introduceList(int categoryNo,String nowPage);
 	
 	public List<IntroduceCategoryVO> introduceCategoryList();
-   
+
 	public IntroduceVO introduceDetail(int boardNo);
 	
 	public void reviewWrite(ReviewVO reviewVO);
 	
-	public void meetingWrite(MeetingVO meetingVO);
-
-
-	public MeetingVO meetingDetail(String boardNo);
-
+	public void meetingWrite(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO);
+	
+	public MeetingVO meetingDetail(int boardNo);
 
 	void introduceWrite(IntroduceVO introduceVO);
 
-	
-	public List<CommentVO> commentList(String boardNo);
+	public List<CommentVO> commentList(int boardNo);
 
-	public void insertComment(MemberVO memberVO, String comment, String boardNo);
+	public void insertComment(MemberVO memberVO, String comment, int boardNo);
 
 	public void updateComment(CommentVO commentVO);
 	
 	public void deleteComment(CommentVO commentVO);
 
+	public ReviewVO reviewDetail(int boardNo);
+
+	public ListVO<ReviewVO> reviewSerachList(String pageNo, String searchKeyWord, String command);
+
+	public ReviewVO reviewNotHitDetail(int boardNo);
+
 
 }
+
+

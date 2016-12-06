@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="boardNo" column="board_no" />
 
 	</resultMap> 
+	
 <select id="reviewList" resultType="reviewVO" parameterType="pagingBean"> 
 select board_no as boardNo,nickname as "memberVO.nickName",
 time_posted as timePosted,title,hits,likes from
@@ -21,16 +22,24 @@ where board.board_no=review.board_no and board.id=member.id)
 where rnum between #{startRowNumber} and #{endRowNumber} 
 </select>
 
-	<select id="reviewTitleSearchList" resultType="reviewVO" parameterType="string">
-		select board.board_no as boardNo, member.nickname as "memberVO.nickName", to_char(board.time_posted,'yyyy.mm.dd') as timePosted, review.title, review.hits, review.likes
-		from board board,review review,member member 
-		where board.board_no=review.board_no and board.id=member.id and review.title=#{value}
+	<select id="reviewTitleSearchList" resultType="reviewVO" parameterType="pagingBean">
+select board_no as boardNo,nickname as "memberVO.nickName",
+time_posted as timePosted,title,hits,likes from
+(select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,
+to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes 
+from board board,review review,member member 
+where board.board_no=review.board_no and board.id=member.id and review.title=#{keyword}) 
+where rnum between #{pb.startRowNumber} and #{pb.endRowNumber} 
 	</select>
 
-	<select id="reviewWriterSearchList" resultType="reviewVO" parameterType="string">
-		select board.board_no as boardNo, member.nickname as "memberVO.nickName", to_char(board.time_posted,'yyyy.mm.dd') as timePosted, review.title, review.hits, review.likes
-		from board board,review review,member member 
-		where board.board_no=review.board_no and board.id=member.id and member.nickname=#{value}
+	<select id="reviewWriterSearchList" resultType="reviewVO" parameterType="pagingBean">
+select board_no as boardNo,nickname as "memberVO.nickName",
+time_posted as timePosted,title,hits,likes from
+(select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,
+to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes 
+from board board,review review,member member 
+where board.board_no=review.board_no and board.id=member.id and member.nickname=#{keyword}) 
+where rnum between  #{pb.startRowNumber} and #{pb.endRowNumber} 
 	</select>
 	
 	<insert id="reviewBoardWrite" parameterType="reviewVO">
@@ -48,8 +57,31 @@ where rnum between #{startRowNumber} and #{endRowNumber}
 	<select id="getTotalContentCount" resultType="int">  
 		select count(*) from review 
 	</select>
+	
+	<select id="getTitleSearchContentCount" resultType="int" parameterType="string">
+		select count(*) from board board,review review
+		where board.board_no=review.board_no and review.title=#{value}
+	</select>
+	
+		<select id="getWriterSearchCount" resultType="int" parameterType="string">
+		select count(*) from board board,review review,member member 
+		where board.board_no=review.board_no and member.nickname=#{value} and board.id=member.id
+	</select>
+	
+<select id="reviewDetail"  resultType ="reviewVO" resultMap="reviewRM"  parameterType="int" > 
+	select
+	r.board_no,b.id,m.nickname,to_char(b.time_posted,'YYYY.MM.DD HH:mm:ss') as time_posted,
+	r.hits,r.likes,b.content,r.title
+	from board b,review r,member m
+	where b.id=m.id and b.board_no=r.board_no  and r.board_no=#{value}
+</select>
+
+	<update id="updateHitBoard" parameterType="int">
+	update review set hits=hits+1 where board_no=#{value}
+	</update>
 
 </mapper> 
+
  
  
  

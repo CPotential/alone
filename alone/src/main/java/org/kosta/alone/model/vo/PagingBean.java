@@ -5,6 +5,7 @@ public class PagingBean {
 	// 현재 페이지/
 	private int nowPage = 1; 
 	// 페이지당 게시물수/
+
 	private int contentNumberPerPage = 0; 
 	// 페이지 그룹당 페이지수/
 	private int pageNumberPerPageGroup = 0;
@@ -14,6 +15,8 @@ public class PagingBean {
 	private int totalContents;
     
 	
+
+
 	public int getContentNumberPerPage() {
 		return contentNumberPerPage;
 	}

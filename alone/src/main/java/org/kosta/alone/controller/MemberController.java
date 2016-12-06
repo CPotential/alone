@@ -22,7 +22,7 @@ public class MemberController {
 	@Resource
 	private MemberService memberService;
 
-	@RequestMapping(method = RequestMethod.POST, value = "loginCheck.do")
+	@RequestMapping(value = "loginCheck.do", method = RequestMethod.POST)
 	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session) {
 		ModelAndView mav = null;
 		memberVO = memberService.memberLogin(memberVO);
@@ -31,9 +31,7 @@ public class MemberController {
 			mav = new ModelAndView("member/login_fail");
 			return mav;
 		} else if (memberVO instanceof CompanyMemberVO) {
-
 			CompanyMemberVO companyMemberVO = (CompanyMemberVO) memberVO;
-
 			if (companyMemberVO.getApproval().equals("0")) {
 				mav = new ModelAndView("member/login_companyfail");
 				return mav;
@@ -49,7 +47,6 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		if (session != null)
 			session.invalidate();
-
 		return "home";
 	}
 
@@ -62,7 +59,6 @@ public class MemberController {
 	public String registerMember(GenericMemberVO vo) {
 		System.out.println(vo);
 		memberService.registerMember(vo);
-		/* return "redirect:registerok.do?id=" + vo.getId(); */
 		return "redirect:/member/registerok.do";
 	}
 
@@ -70,7 +66,6 @@ public class MemberController {
 	public String registerMember(CompanyMemberVO vo) {
 		System.out.println(vo);
 		memberService.registerMember(vo);
-		/* return "redirect:registerok.do?id=" + vo.getId(); */
 		return "redirect:/member/registerok.do";
 	}
 
@@ -119,10 +114,12 @@ public class MemberController {
 	}
 
 	// 일반회원 정보 수정
-	@RequestMapping("updateInfo.do")
-	public ModelAndView myPageMemberupdate(GenericMemberVO genericMemberVO, HttpSession session) {
-		ModelAndView mav = new ModelAndView("myPageGeneric/myPageMemberupdate");
-		System.out.println(genericMemberVO);
+	@RequestMapping(value = "genericUpdate.do", method = RequestMethod.POST)
+	public ModelAndView myPageMemberupdate(GenericMemberVO genericMemberVO, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("redirect:showGenericInfo.do");
+		HttpSession session = request.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		genericMemberVO.setId(memberVO.getId());
 		memberService.updateInfo(genericMemberVO);
 		return mav;
 
@@ -132,14 +129,14 @@ public class MemberController {
 	@RequestMapping("NonApporvalCompanyList.do")
 	public ModelAndView NonApporvalCompanyList() {
 		List<CompanyMemberVO> NonApprovalCList = memberService.NonApporvalCompanyList();
-		return new ModelAndView("myPageAdmin/memberApprove", "NonApprovalCList", NonApprovalCList);
+		return new ModelAndView("myPage/admin/memberApprove", "NonApprovalCList", NonApprovalCList);
 	}
 
 	// 승인 기업회원 리스트 출력
 	@RequestMapping("ApporvalCompanyList.do")
 	public ModelAndView ApporvalCompanyList() {
 		List<CompanyMemberVO> ApprovalCList = memberService.ApporvalCompanyList();
-		return new ModelAndView("myPageAdmin/approveCompanyList", "ApprovalCList", ApprovalCList);
+		return new ModelAndView("myPage/admin/approveCompanyList", "ApprovalCList", ApprovalCList);
 	}
 
 	// 미승인 기업회원 승인하기
@@ -148,29 +145,49 @@ public class MemberController {
 		memberService.updateApproval(id);
 		return new ModelAndView("redirect:ApporvalCompanyList.do");
 	}
-
-	@RequestMapping("showGmemberinfo.do")
+	
+	/**
+	 * 일반 회원 정보 페이지
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("showGenericInfo.do")
 	public ModelAndView showGmemberinfo(HttpSession session) {
-		MemberVO vo = (MemberVO) session.getAttribute("memberVO");
-		return new ModelAndView("myPageGeneric/showInfo", "gvo", memberService.showGenericmember(vo));
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		return new ModelAndView("myPage/generic/showInfo", "gvo", memberService.showGenericmember(memberVO));
 	}
 	
-	@RequestMapping("showCmemberInfo.do")
+
+	/**
+	 * 기업 회원 정보 페이지
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("showCompanyInfo.do")
 	public ModelAndView showCmemberInfo(HttpSession session) {
- 
-		MemberVO mvo = (MemberVO) session.getAttribute("memberVO"); 
-		 
-		return new ModelAndView("myPageCompany/showInfo", "cvo", memberService.showCompanyMember(mvo));
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO"); 
+		return new ModelAndView("myPage/company/showInfo", "cvo", memberService.showCompanyMember(memberVO));
 	}
 	
-	@RequestMapping("MypageCmemberUpdateForm.do") 
+	/**
+	 * 기업 회원 정보 수정 페이지로 이동
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("companyUpdateForm.do") 
 	public ModelAndView companyUpdateForm(String id){
-		return new ModelAndView("myPageCompany/myPageCompanyMemberUpdate","id",id);
+		return new ModelAndView("myPage/company/memberUpdateForm", "id", id);
 	}
 	
-	@RequestMapping("CmemberUpdateInfo.do")
+	/**
+	 * 기업 회원 정보 수정
+	 * @param cvo
+	 * @return
+	 */
+	@RequestMapping("companyUpdate.do")
 	public ModelAndView CmemberUpdateInfo(CompanyMemberVO cvo){
 		memberService.CmemberUpdateInfo(cvo);  
-		return new ModelAndView("redirect:showCmemberInfo.do");
+		return new ModelAndView("redirect:showCompanyInfo.do");
 	}
+	
 }

@@ -5,14 +5,20 @@
 	ORDER BY boardcomment.comment_no ASC
 	
 select * from member where id='del'
+select * from image
 update member set enabled=1 where id='del'
 	select companymember.id,member.nickname,authorities.authority,companymember.approval
 	from companymember companymember,member member,authorities authorities
 	where companymember.id=member.id and member.id=authorities.id
-	and companymember.id='company'
+	and companymember.id='company'	
+	
+	select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,
+to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes 
+from board board,review review,member member 
+where board.board_no=review.board_no and board.id=member.id and member.nickname='정신머리'
 	
 	
-
+select * from image
 drop table genericmember;
 -- 일반 회원 정보
 CREATE TABLE GENERICMEMBER(
@@ -302,6 +308,29 @@ insert into meeting(board_no,title,region,location,interest) values('22','식사
 
 insert into meeting(board_no,title,region,location,interest) values('24','식사','판교','유스페이스','코딩');
 
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'json','qw',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'json','re1',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'json','323qs',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'json','qwe53',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'json','sgwy1',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'json','sd',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'json','15asd',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'json','12',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'json','524',sysdate);
+insert into board(board_no,id,content,time_posted) values(board_seq.nextval,'json','ge5sgg',sysdate);
+
+insert into meeting(board_no,title,region,location,interest) values('21','식사','판교','유스페이스','코딩');
+insert into meeting(board_no,title,region,location,interest) values('22','닭발번개','판교','유스페이스','코딩');
+insert into meeting(board_no,title,region,location,interest) values('23','식사','목동','국밥집','독서');
+insert into meeting(board_no,title,region,location,interest) values('24','식사','수원','수원역','코딩');
+insert into meeting(board_no,title,region,location,interest) values('25','식사','용인','.','코딩');
+insert into meeting(board_no,title,region,location,interest) values('26','라멘','건대','우마이도','라멘맛집');
+insert into meeting(board_no,title,region,location,interest) values('27','칵테일','건대','건대입구','코딩');
+insert into meeting(board_no,title,region,location,interest) values('28','식사','판교','유스페이스','코딩');
+insert into meeting(board_no,title,region,location,interest) values('29','식사~','판교','유스페이스','코딩');
+insert into meeting(board_no,title,region,location,interest) values('30','식사!!','판교','유스페이스','코딩');
+
+select *from board
 --후기글--
 insert into review(board_no,title) values('29','하상현 멍청이1213');
 
@@ -385,7 +414,7 @@ select * from companymember
 	select image.image_name from (select min(image.image_no) from image image, board board where board.board_no=17 and board.board_no=image.board_no)
 	
 	
-	select image_name from image where image_no =(	select min(image.image_no) from image image, board board where board.board_no=18 and board.board_no=image.board_no);
+	select image_name from image where image_no =(	select min(image.image_no) from image image, board board where board.board_no=1 and board.board_no=image.board_no);
 	
 
 	select meeting.board_no,meeting.title,meeting.region,meeting.interest,
@@ -408,7 +437,14 @@ where member.id=gmember.id and gmember.id='json'
 	select * from auth
 	select * from AUTHORITIES
 	
+--후기상세정보 조회
+select
+r.board_no,b.id,m.nickname,to_char(b.time_posted,'YYYY.MM.DD HH:mm:ss') as time_posted,
+r.hits,r.likes,b.content
+from board b,review r,member m
+where b.id=m.id and b.board_no=r.board_no  and r.board_no='10'
 	
+
 	select boardcomment.comment_no,boardcomment.content,member.nickname as "memberVO.nickName",
 	to_char(boardcomment.time_posted,'yyyy.mm.dd') as timePosted from BOARDCOMMENT boardcomment,member member 
 	where boardcomment.id=member.id and boardcomment.board_no=5
@@ -436,4 +472,35 @@ to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,
 from board board,review review,member member 
 where board.board_no=review.board_no and board.id=member.id
 
+select board_no, title, region, 
+		interest, hits, time_posted, nickname from
+		(select row_number() over(order by board.board_no) as rnum,
+		board.board_no,meeting.title,meeting.region, 
+		meeting.interest, meeting.hits,to_char(board.time_posted,'YYYY.MM.DD') as time_posted,
+		member.nickname
+		from board board, meeting meeting, member member
+		where board.board_no = meeting.board_no and board.id = member.id)
+		where rnum between 1 and 5
+	
+
 alter table COMPANYMEMBER add write number default 0
+
+select
+b.no,b.title,to_char(b.time_posted,'YYYY.MM.DD HH:mm:ss') 
+as time_posted,b.content,b.hits,m.id,m.name 
+from spring_board_inst b,spring_member m 
+where
+b.id=m.id and b.board no=#{value}	
+
+	
+select
+r.board_no,b.id,m.nickname,to_char(b.time_posted,'YYYY.MM.DD HH:mm:ss') as time_posted,
+r.hits,r.likes,b.content
+from board b,review r,member m
+where b.id=m.id and b.board_no=r.board_no  and r.board_no=10
+
+select count(*) from board board,review review
+where board.board_no=review.board_no and review.title='손재만1213'
+
+select * from MEETING 
+update MEETING set hits=hits+1 where board_no=5
