@@ -83,26 +83,25 @@ public class BoardController {
 	}
 	
 	@RequestMapping("reviewList.do")
-	public ModelAndView reviewList(String pageNo){
+	public ModelAndView reviewList(String pageNo,String searchKeyWord,String command){
 		ModelAndView mav = new ModelAndView("board/review");
-		String nowPage = pageNo; 
-		mav.addObject("ListVO",boardService.reviewList(nowPage));
+		ListVO<ReviewVO> list = null;
+		System.out.println(pageNo+"    "+searchKeyWord+"     "+command);
+		if(command ==null || command.trim() ==""){
+			System.out.println(pageNo);
+			list = boardService.reviewList(pageNo);
+		}else{
+			list = boardService.reviewSerachList(pageNo,searchKeyWord,command);
+			mav.addObject("keyword",searchKeyWord);
+			mav.addObject("command",command);
+		}
+		
+		
+		mav.addObject("ListVO",list);
 		return mav;
 	}
 	
-	@RequestMapping("findByTitle.do")
-	public ModelAndView findByTitle(String searchKeyWord){
-		ModelAndView mav = new ModelAndView("board/review");
-		mav.addObject("ListVO",boardService.reviewTitleSearchList(searchKeyWord));
-		return mav;
-	}
-	
-	@RequestMapping("findByWriter.do")
-	public ModelAndView findByWriter(String searchKeyWord){
-		ModelAndView mav = new ModelAndView("board/review");
-		mav.addObject("ListVO",boardService.reviewWriterSearchList(searchKeyWord)); 
-		return mav; 
-	}
+
 	
 	/**
 	 * 소개글 카테고리 목록 ajax
@@ -220,12 +219,16 @@ public class BoardController {
 	}
 	
 	@RequestMapping("reviewdetail.do")
-	public ModelAndView reviewDetail(String boardNo, HttpSession session){
+	public ModelAndView reviewDetail(String boardNo){
 		ModelAndView mav = new ModelAndView("board/reviewDetail");
-		System.out.println("session:"+session);
-		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
 		mav.addObject("rvo",boardService.reviewDetail(boardNo)); 
-		mav.addObject("mvo",mvo);
+		return mav;
+	}
+	
+	@RequestMapping("reviewNotHitdetail.do")
+	public ModelAndView reviewNotHitdetail(String boardNo){
+		ModelAndView mav = new ModelAndView("board/reviewDetail");
+		mav.addObject("rvo",boardService.reviewNotHitDetail(boardNo)); 
 		return mav;
 	}
 

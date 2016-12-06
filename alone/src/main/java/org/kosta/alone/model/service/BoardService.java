@@ -22,11 +22,8 @@ public interface BoardService {
 	
 	public List<MeetingVO> getRegionInfo();
 	
-	public ListVO reviewList(String nowPage); 
+	public ListVO<ReviewVO> reviewList(String nowPage); 
 	
-	public List<ReviewVO> reviewTitleSearchList(String searchKeyWord);
-	
-    public  List<ReviewVO> reviewWriterSearchList(String searchKeyWord);
     
 	public List<IntroduceVO> introduceList(int categoryNo);
 	
@@ -53,5 +50,9 @@ public interface BoardService {
 	public void updateComment(CommentVO commentVO);
 
 	public ReviewVO reviewDetail(String boardNo);
+
+	public ListVO<ReviewVO> reviewSerachList(String pageNo, String searchKeyWord, String command);
+
+	public ReviewVO reviewNotHitDetail(String boardNo);
 
 }

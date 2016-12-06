@@ -14,8 +14,8 @@
 			if (searchKeyWord == "") {
 				alert("검색어를 입력하세요!");
 			} else {
-				var command = $("#findType").val() + ".do";
-				location.href = command + "?searchKeyWord=" + searchKeyWord;
+				var command = $("#findType").val();
+				location.href = "reviewList.do?command="+ command+ "&searchKeyWord=" + searchKeyWord;
 			}
 		}); // click 이벤트
 	}); // ready
@@ -88,10 +88,13 @@
 					aria-hidden="true">«</span></a></li>
 		</c:if>
 		<c:forEach var ="pb" begin = "${requestScope.ListVO.pagingBean.startPageOfPageGroup}" end = "${requestScope.ListVO.pagingBean.endPageOfPageGroup}">
-			<li class="active"><a href="${pageContext.request.contextPath}/reviewList.do?pageNo=${pb}">${pb}<span class="sr-only" >(current)</span></a></li> 
+			<li class="active">
+			<a href="${pageContext.request.contextPath}/reviewList.do?pageNo=${pb}&command=${command}&searchKeyWord=${keyword}">${pb}
+			<span class="sr-only" >(current)</span></a></li> 
 		</c:forEach>	 
 		<c:if test= "${requestScope.ListVO.pagingBean.nextPageGroup}">  
-			<li><a href="${pageContext.request.contextPath}/reviewList.do?pageNo=${requestScope.ListVO.pagingBean.endPageOfPageGroup+1}" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+			<li><a href="${pageContext.request.contextPath}/reviewList.do?pageNo=${requestScope.ListVO.pagingBean.endPageOfPageGroup+1}"
+			 aria-label="Next"><span aria-hidden="true">»</span></a></li>
 		</c:if> 
 		</ul>
 	</nav>

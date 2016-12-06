@@ -11,6 +11,11 @@ update member set enabled=1 where id='del'
 	where companymember.id=member.id and member.id=authorities.id
 	and companymember.id='company'	
 	
+	select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,
+to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes 
+from board board,review review,member member 
+where board.board_no=review.board_no and board.id=member.id and member.nickname='정신머리'
+	
 	
 
 drop table genericmember;
@@ -490,3 +495,9 @@ r.board_no,b.id,m.nickname,to_char(b.time_posted,'YYYY.MM.DD HH:mm:ss') as time_
 r.hits,r.likes,b.content
 from board b,review r,member m
 where b.id=m.id and b.board_no=r.board_no  and r.board_no=10
+
+select count(*) from board board,review review
+where board.board_no=review.board_no and review.title='손재만1213'
+
+select * from MEETING 
+update MEETING set hits=hits+1 where board_no=5

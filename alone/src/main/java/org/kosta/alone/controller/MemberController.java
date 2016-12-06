@@ -117,7 +117,7 @@ public class MemberController {
 	}
 
 	// 일반회원 정보 수정
-	@RequestMapping("updateInfo.do")
+	@RequestMapping(value = "updateInfo.do", method = RequestMethod.POST)
 	public ModelAndView myPageMemberupdate(GenericMemberVO genericMemberVO, HttpSession session) {
 		ModelAndView mav = new ModelAndView("myPageGeneric/myPageMemberupdate");
 		memberService.updateInfo(genericMemberVO);

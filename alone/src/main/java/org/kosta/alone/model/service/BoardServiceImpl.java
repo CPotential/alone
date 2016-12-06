@@ -1,6 +1,8 @@
 package org.kosta.alone.model.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -77,15 +79,7 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
-	@Override
-	public List<ReviewVO> reviewTitleSearchList(String searchKeyWord) {
-		return reviewDAO.reviewTitleSearchList(searchKeyWord);
-	}
 
-	@Override
-	public List<ReviewVO> reviewWriterSearchList(String searchKeyWord) {
-		return reviewDAO.reviewWriterSearchList(searchKeyWord);
-	}
 
 	// 소개글 리스트
 	/**
@@ -172,6 +166,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	public ReviewVO reviewDetail(String boardNo){
+		reviewDAO.updateHit(boardNo);
 		return reviewDAO.reviewDetail(boardNo);
 	}
 	
@@ -197,6 +192,59 @@ public class BoardServiceImpl implements BoardService {
 		ListVO<MeetingVO> mtvo = new ListVO<MeetingVO>(list, pagingBean);	
 		return mtvo;
 		}
-	}	
+	}
+	
+
+	@Override
+	public ListVO<ReviewVO> reviewSerachList(String pageNo, String searchKeyWord, String command) {
+		int totalCount=0;
+		PagingBean pagingBean=null;
+		Map<String, Object> map =null;
+		List<ReviewVO> list=null;
+		ListVO<ReviewVO> vo =null;
+		if(command.equals("findByTitle")){
+			totalCount=reviewDAO.getTitleSearchContentCount(searchKeyWord);
+			if(pageNo==null){
+				pagingBean=new PagingBean(totalCount);
+			}else{
+				pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
+			}
+			
+			pagingBean.setContentNumberPerPage(10);
+			pagingBean.setPageNumberPerPageGroup(5);
+			map=new HashMap<String,Object>();
+			map.put("keyword", searchKeyWord);
+			map.put("pb", pagingBean);
+			list = reviewDAO.reviewTitleSearchList(map);	
+			vo=new ListVO<>(list, pagingBean);
+		}else{
+			if(pageNo==null){
+				pagingBean=new PagingBean(totalCount);
+			}else{
+				pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
+			}
+			totalCount = reviewDAO.getWriterSearchCount(searchKeyWord);
+			pagingBean=new PagingBean(totalCount);
+			pagingBean.setContentNumberPerPage(10);
+			pagingBean.setPageNumberPerPageGroup(5);	
+			map=new HashMap<String,Object>();
+			map.put("keyword",searchKeyWord);
+			map.put("pb", pagingBean);
+			list = reviewDAO.reviewWriterSearchList(map);	
+			vo=new ListVO<>(list, pagingBean);
+			
+		}
+		
+				
+		return vo;
+		
+	}
+
+	@Override
+	public ReviewVO reviewNotHitDetail(String boardNo) {
+		return reviewDAO.reviewDetail(boardNo);
+	}
+
+
 	
 }
