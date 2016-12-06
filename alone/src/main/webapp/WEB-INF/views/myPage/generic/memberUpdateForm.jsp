@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
 
 <!--  jquery 사용처입니다. -->
 <script type="text/javascript">
@@ -10,7 +9,7 @@
 		var passwordCheck; // 패스워드 체크 변수
 		var nicknameCheck; // nickName 체크 변수
 
-		$("#updateMamberForm").submit(	function() {
+		$("#memberUpdateForm").submit(	function() {
 			if ($("#password").val() != "" && $("#passwordCheck").val() == "") {
 				alert("비밀번호를 다시 한번 입력하세요");
 				return false;
@@ -68,8 +67,7 @@
 	<div class="row">
 
 		<div class="col-sm-8 col-md-9 col-lg-10">
-			<form action="${pageContext.request.contextPath}/updateInfo.do"
-				method="post" id="updateMamberForm">
+			<form action="${pageContext.request.contextPath}/genericUpdate.do" method="post" id="memberUpdateForm">
 				<!-- Tab content -->
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="personal-info">
@@ -127,7 +125,7 @@
 
 
 					<input type="submit" class="btn btn-primary btn-block btn-lg" value="수정하기"><br> 
-					<a 	href="${pageContext.request.contextPath}/myPageGeneric/showInfo.do" class="btn btn-primary">취소</a>
+					<a 	href="${pageContext.request.contextPath}/showCompnayInfo.do" class="btn btn-primary">취소</a>
 
 				</div>
 				<!-- / .tab-content -->

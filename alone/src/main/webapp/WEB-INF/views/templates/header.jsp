@@ -25,13 +25,6 @@
 	}); // ready
 </script>
 
-<!-- PRELOADER
-    ============================== -->
-<div class="preloader">
-	<img src="resources/img/preloader.gif" alt="Loading..."
-		class="preloader__img">
-</div>
-
 <!-- STATIC TOPBAR
     ============================== -->
 <div class="topbar hidden-xs hidden-sm">
@@ -49,11 +42,11 @@
 				<c:otherwise>
 					<c:set var="authority" value="${sessionScope.memberVO.authority}" />
 					<c:if test="${authority eq 'ROLE_MEMBER'}">
-						<li><a href="${pageContext.request.contextPath}/showGmemberinfo.do">myPageGeneric</a></li>
+						<li><a href="${pageContext.request.contextPath}/showGenericInfo.do">myPageGeneric</a></li>
 						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 					</c:if>
 					<c:if test="${authority eq 'ROLE_COMPANY'}">
-						<li><a href="${pageContext.request.contextPath}/myPage/company/showInfo.do">myPageCompany</a></li>
+						<li><a href="${pageContext.request.contextPath}/showCompanyInfo.do">myPageCompany</a></li>
 						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 					</c:if>
 					<c:if test="${authority eq 'ROLE_ADMIN'}">

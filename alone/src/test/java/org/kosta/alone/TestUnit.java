@@ -35,5 +35,7 @@ public class TestUnit {
 
 	@Test
 	public void test(){
+		//		System.out.println(meetingDAO.getMeetingList());
+		
 	}
 }

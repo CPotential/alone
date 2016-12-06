@@ -15,4 +15,8 @@ public interface BoardDAO {
 
 	public void imageUpload(ImageVO imageVO);
 
+	void insertComment(CommentVO commentVO);
+
+	void updateComment(CommentVO commentVO);
+
 }

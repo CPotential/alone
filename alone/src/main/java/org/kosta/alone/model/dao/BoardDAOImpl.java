@@ -36,4 +36,14 @@ public class BoardDAOImpl implements BoardDAO {
 	public void imageUpload(ImageVO imageVO){
 		sqlSessionTemplate.insert("board.imageUpload", imageVO);
 	}
+	
+	@Override
+	public void insertComment(CommentVO commentVO) {
+		sqlSessionTemplate.insert("board.insertComment",commentVO);
+	}
+
+	@Override
+	public void updateComment(CommentVO commentVO) {
+		sqlSessionTemplate.update("board.updateComment",commentVO);
+	}
 }

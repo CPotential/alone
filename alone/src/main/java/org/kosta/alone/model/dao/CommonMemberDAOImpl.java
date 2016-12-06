@@ -21,7 +21,6 @@ public class CommonMemberDAOImpl implements CommonMemberDAO {
 
 	@Override
 	public CompanyMemberVO adminApproval(MemberVO memberVO) {
-	
 		return template.selectOne("member.adminApproval", memberVO);
 	}
 
@@ -34,5 +33,4 @@ public class CommonMemberDAOImpl implements CommonMemberDAO {
 	public void registerAuthority(CompanyMemberVO vo) {
 		template.insert("companyMember.registerAuthority", vo);
 	}
-
 }

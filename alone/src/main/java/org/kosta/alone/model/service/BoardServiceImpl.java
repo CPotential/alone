@@ -16,7 +16,10 @@ import org.kosta.alone.model.vo.ImageVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.KeyWordVO;
+import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
+import org.kosta.alone.model.vo.MemberVO;
+import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.kosta.alone.model.vo.UploadFileVO;
 import org.springframework.stereotype.Service;
@@ -35,9 +38,10 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO boardDAO;
 	private String uploadPath;
 
-	public List<MeetingVO> getMeetingList() {
-		return meetingDAO.getMeetingList();
-	}
+	/*
+	 * public List<MeetingVO> getMeetingList() { return
+	 * meetingDAO.getMeetingList(); }
+	 */
 
 	@Override
 	public List<MeetingVO> getMeetingRegionList(String region) {
@@ -60,8 +64,24 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<ReviewVO> reviewList() {
-		return reviewDAO.reviewList();
+	public ListVO<ReviewVO> reviewList(String nowPage) {
+		int totalCount = reviewDAO.getTotalContentCount();
+
+		if (nowPage == null) {
+			PagingBean pagingBean = new PagingBean(totalCount);
+			pagingBean.setContentNumberPerPage(10);
+			pagingBean.setPageNumberPerPageGroup(5);
+			List<ReviewVO> list = reviewDAO.reviewList(pagingBean);
+			ListVO<ReviewVO> vo = new ListVO<ReviewVO>(list, pagingBean);
+			return vo;
+		} else {
+			PagingBean pagingBean = new PagingBean(totalCount, Integer.parseInt(nowPage));
+			pagingBean.setContentNumberPerPage(10);
+			pagingBean.setPageNumberPerPageGroup(5);
+			List<ReviewVO> list = reviewDAO.reviewList(pagingBean);
+			ListVO<ReviewVO> vo = new ListVO<ReviewVO>(list, pagingBean);
+			return vo;
+		}
 	}
 
 	@Override
@@ -75,18 +95,27 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	// 소개글 리스트
+	/**
+	 * 1)카테고리에 해당하는 게시물 리스트를 뽑는다 :introduceList 2)첫번째 소개글에 게시물 번호를 얻어와 해당 게시물에
+	 * 키워드가 몇개 등록되었는지 확인 한다 :keyWordSize 3) 게시물이 가지고있는 키워드의 이름을 뽀는다
+	 * introduceList.get(i).getBoardNo()게시물 번호
+	 */
 	@Override
 	public List<IntroduceVO> introduceList(int categoryNo) {
 		List<IntroduceVO> introduceList = null;
 		List<ImageVO> imageList = null;
 		List<KeyWordVO> keyWordVO = null;
 		introduceList = introduceDAO.introduceList(categoryNo);
+
 		for (int i = 0; i < introduceList.size(); i++) {
+
 			keyWordVO = introduceDAO.keyWordList(introduceList.get(i).getBoardNo());
 			introduceList.get(i).setKeyWordVO(keyWordVO);
 			imageList = boardDAO.introduceFirstImage(introduceList.get(i).getBoardNo());
 			introduceList.get(i).setImageVO(imageList);
+
 		}
+
 		return introduceList;
 	}
 
@@ -98,6 +127,17 @@ public class BoardServiceImpl implements BoardService {
 
 	public IntroduceVO introduceDetail(int boardNo) {
 		return introduceDAO.introduceDetail(boardNo);
+	}
+
+	/**
+	 * 소개글 작성
+	 */
+	@Override
+	@Transactional
+	public void introduceWrite(IntroduceVO introduceVO) {
+		introduceDAO.boardWrite(introduceVO);
+		introduceDAO.introduceWrite(introduceVO);
+		introduceDAO.updateWrite(introduceVO.getMemberVO().getId());
 	}
 
 	@Transactional
@@ -116,15 +156,15 @@ public class BoardServiceImpl implements BoardService {
 		meetingDAO.meetingWrite(meetingVO);
 		imageUpload(request, meetingVO, uploadFileVO);
 	}
-	
+
 	/**
 	 * 이미지 업로드
+	 * 
 	 * @param request
 	 * @param meetingVO
 	 * @param imageVO
 	 */
 	public void imageUpload(HttpServletRequest request, BoardVO boardVO, UploadFileVO uploadFileVO) {
-		System.out.println(uploadFileVO);
 		ImageVO imageVO = new ImageVO();
 		imageVO.setBoardNo(boardVO.getBoardNo());
 		uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload/");
@@ -151,17 +191,15 @@ public class BoardServiceImpl implements BoardService {
 			}
 		}
 	}
-	
+
 	/**
 	 * 모임글 상세보기
 	 */
 	@Override
 	public MeetingVO meetingDetail(int boardNo) {
-		System.out.println("서비스 진입(모임 디테일)" + boardNo);
 		MeetingVO meetingVO = null;
 		meetingVO = meetingDAO.meetingDetail(boardNo);
 		List<ImageVO> imageList = null;
-		System.out.println("서비스 이미지 dao 진입 전 " + boardNo);
 		imageList = boardDAO.imageList(boardNo);
 		meetingVO.setImageVO(imageList);
 		System.out.println(meetingVO);
@@ -170,12 +208,44 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<CommentVO> commentList(int boardNo) {
-		System.out.println("서비스 진입(댓글)" + boardNo);
 		return boardDAO.commentList(boardNo);
 	}
 
-	@Override
-	public void imageUpload(String originalFilename) {
+	public void insertComment(MemberVO memberVO, String comment, int boardNo) {
+		CommentVO commentVO = new CommentVO();
+		commentVO.setMemberVO(memberVO);
+		commentVO.setContent(comment);
+		commentVO.setBoardNo(boardNo);
+		boardDAO.insertComment(commentVO);
+	}
 
+	@Override
+	public void updateComment(CommentVO commentVO) {
+		boardDAO.updateComment(commentVO);
+	}
+
+	public ReviewVO reviewDetail(int boardNo) {
+		return reviewDAO.reviewDetail(boardNo);
+	}
+
+	@Override
+	public ListVO<MeetingVO> getMeetingList(String pageNo) {
+		int totalCount = meetingDAO.getTotalContentCount();
+		PagingBean pagingBean = null;
+		if (pageNo == null) {
+			pagingBean = new PagingBean(totalCount);
+			pagingBean.setContentNumberPerPage(10);
+			pagingBean.setPageNumberPerPageGroup(5);
+			List<MeetingVO> list = meetingDAO.getMeetingList(pagingBean);
+			ListVO<MeetingVO> mtvo = new ListVO<MeetingVO>(list, pagingBean);
+			return mtvo;
+		} else {
+			pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
+			pagingBean.setContentNumberPerPage(10);
+			pagingBean.setPageNumberPerPageGroup(5);
+			List<MeetingVO> list = meetingDAO.getMeetingList(pagingBean);
+			ListVO<MeetingVO> mtvo = new ListVO<MeetingVO>(list, pagingBean);
+			return mtvo;
+		}
 	}
 }

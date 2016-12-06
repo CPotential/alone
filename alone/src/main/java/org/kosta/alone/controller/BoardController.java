@@ -7,8 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.BoardService;
+import org.kosta.alone.model.vo.CommentVO;
+import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
+import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
@@ -25,9 +28,9 @@ public class BoardController {
 	private BoardService boardService; 
 	
 	@RequestMapping("getMeetingList.do")
-	public ModelAndView getMeetingList(){
+	public ModelAndView getMeetingList(String pageNo){
 		ModelAndView mav = new ModelAndView("board/meeting");
-		List<MeetingVO> list = boardService.getMeetingList();
+		ListVO<MeetingVO> list =  boardService.getMeetingList(pageNo);
 		mav.addObject("RegionList",boardService.getRegionInfo()); 
 		mav.addObject("list",list);
 		return mav;
@@ -36,7 +39,6 @@ public class BoardController {
 	@RequestMapping("getMeetingRegionList.do")
 	@ResponseBody
 	public List<MeetingVO> getMeetingRegionList(String region){
-		System.out.println(region); 
 		List<MeetingVO> rList = boardService.getMeetingRegionList(region);
 		return rList; 
 	} 
@@ -70,23 +72,24 @@ public class BoardController {
 	}
 	
 	@RequestMapping("reviewList.do")
-	public ModelAndView reviewList(){
+	public ModelAndView reviewList(String pageNo){
 		ModelAndView mav = new ModelAndView("board/review");
-		mav.addObject("reviewList",boardService.reviewList());
+		String nowPage = pageNo; 
+		mav.addObject("ListVO",boardService.reviewList(nowPage));
 		return mav;
 	}
 	
 	@RequestMapping("findByTitle.do")
 	public ModelAndView findByTitle(String searchKeyWord){
 		ModelAndView mav = new ModelAndView("board/review");
-		mav.addObject("reviewList",boardService.reviewTitleSearchList(searchKeyWord));
+		mav.addObject("ListVO",boardService.reviewTitleSearchList(searchKeyWord));
 		return mav;
 	}
 	
 	@RequestMapping("findByWriter.do")
 	public ModelAndView findByWriter(String searchKeyWord){
 		ModelAndView mav = new ModelAndView("board/review");
-		mav.addObject("reviewList",boardService.reviewWriterSearchList(searchKeyWord)); 
+		mav.addObject("ListVO",boardService.reviewWriterSearchList(searchKeyWord)); 
 		return mav; 
 	}
 	
@@ -145,7 +148,7 @@ public class BoardController {
 	
 	//후기게시판 작성 
 	@RequestMapping("reviewWrite.do")
-	public ModelAndView reviewWrite(ReviewVO reviewVO,HttpSession session){
+	public ModelAndView reviewWrite(ReviewVO reviewVO, HttpSession session){
 		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
 		reviewVO.setMemberVO(mvo);
 		boardService.reviewWrite(reviewVO);
@@ -167,10 +170,60 @@ public class BoardController {
 		return mav;
 	}
 	
+	/**
+	 * 소개글작성후 소개글리스트로 이동
+	 * @param request
+	 * @param meetingVO
+	 * @return
+	 */
+	@RequestMapping("introduceWrite.do")
+	public String introduceWrite(HttpServletRequest request, IntroduceVO introduceVO){
+		HttpSession session = request.getSession(false);
+		//기업회원은 기업회원객체를 가지고있다
+		CompanyMemberVO memberVO = (CompanyMemberVO) session.getAttribute("memberVO");
+		//로그인한 기업회원정보 출력
+		introduceVO.setMemberVO(memberVO);
+		//intoduceVO에 기업회원 정보 세팅한후 출력
+		//introduceVO에 기업회원 정보까지 세팅한후 전달
+		//데이터베이스의  companyMember의 write가 1로 변경
+		boardService.introduceWrite(introduceVO);
+		//세션의 CompanyMember의 write도 1로 변경하여 업데이트해준도
+		memberVO.setWrite("1");
+		session.setAttribute("memberVO", memberVO);
+		return "redirect:introduceDetail.do?boardNo="+introduceVO.getBoardNo();
+	}
+	
+/*	혹시 몰라서 주석
 	@RequestMapping("commentList.do")
 	public ModelAndView commentList(int boardNo){
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
+		return mav;
+	}
+*/
+	@RequestMapping("sendCommentAjax.do")
+	@ResponseBody
+	public List<CommentVO> commentList(String comment, HttpServletRequest request, int boardNo){
+		HttpSession session = request.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");	
+		boardService.insertComment(memberVO,comment,boardNo);	
+		return boardService.commentList(boardNo);
+	}
+	
+	@RequestMapping("updateCommentAjax")
+	@ResponseBody
+	public List<CommentVO> updateComment(CommentVO commentVO){
+		boardService.updateComment(commentVO);
+		return boardService.commentList(commentVO.getBoardNo());
+	}
+	
+	@RequestMapping("reviewdetail.do")
+	public ModelAndView reviewDetail(int boardNo, HttpSession session){
+		ModelAndView mav = new ModelAndView("board/reviewDetail");
+		System.out.println("session:"+session);
+		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+		mav.addObject("rvo",boardService.reviewDetail(boardNo)); 
+		mav.addObject("mvo",mvo);
 		return mav;
 	}
 }

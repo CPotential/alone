@@ -9,11 +9,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="nickname" property="memberVO.nickName"/>
 		<result column="board_no" property="boardNo"/>
 	</resultMap>
-	<select id="getMeetingList" resultMap="meetingRM">
-		select meeting.board_no, meeting.title, meeting.region, meeting.interest, meeting.hits, board.time_posted, member.nickname
+	
+	<select id="getMeetingList" resultMap="meetingRM" parameterType="pagingBean">
+		select board_no, title, region, 
+		interest, hits, time_posted, nickname from
+		(select row_number() over(order by board.board_no) as rnum,
+		board.board_no,meeting.title,meeting.region, 
+		meeting.interest, meeting.hits,to_char(board.time_posted,'YYYY.MM.DD') as time_posted,
+		member.nickname
 		from board board, meeting meeting, member member
-		where board.board_no = meeting.board_no and board.id = member.id
+		where board.board_no = meeting.board_no and board.id = member.id)
+		where rnum between #{startRowNumber} and #{endRowNumber}
 	</select>
+	
 	<select id="getMeetingRegionList" resultMap="meetingRM" parameterType="string">
 		select meeting.board_no, meeting.title, meeting.region, meeting.interest, meeting.hits, board.time_posted, member.nickname
 		from board board, meeting meeting, member member 
@@ -39,13 +47,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into board(board_no, id, content, time_posted)
 		values(#{boardNo}, #{memberVO.id}, #{content}, sysdate)
 	</insert>
+	
 	<insert id="meetingWrite" parameterType="meetingVO">
 		insert into meeting(board_no, title, region, location, interest)
 		values(#{boardNo}, #{title}, #{region}, #{location}, #{interest})
 	</insert>
-	<select id="meetingDetail" resultMap="meetingRM">
-		select meeting.board_no, meeting.title, meeting.region, meeting.interest, meeting.hits, board.time_posted, member.nickname, board.content 
+	<select id="meetingDetail" resultMap="meetingRM" parameterType="int">
+		select meeting.board_no, meeting.title, meeting.region, meeting.interest, meeting.hits, board.time_posted,
+		member.nickname, board.content,meeting.location
 		from board board, meeting meeting, member member 
 		where board.board_no = meeting.board_no 	and board.id = member.id and meeting.board_no= #{value}
+	</select>
+	
+    <select id="getTotalContentCount" resultType="int">
+		select count(*) from meeting
 	</select>
 </mapper> 
