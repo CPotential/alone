@@ -7,7 +7,7 @@
 		$("#introduce").click(function() {
 			$.ajax({
 				type : "get",
-				url : "introduceCategoryListAjax.do",
+				url : "${pageContext.request.contextPath}/introduceCategoryListAjax.do",
 				dataType : "json",
 				success : function(result) {
 					var data = "";
@@ -25,24 +25,18 @@
 	}); // ready
 </script>
 
-<!-- PRELOADER
-    ============================== -->
-<div class="preloader">
-	<img src="resources/img/preloader.gif" alt="Loading..."
-		class="preloader__img">
-</div>
-
 <!-- STATIC TOPBAR
     ============================== -->
 <div class="topbar hidden-xs hidden-sm">
 	<div class="container">
 		<ul class="topbar-nav topbar-nav_right">
 
+
 			<!-- Account links -->
 			<c:choose>
 				<c:when test="${empty sessionScope.memberVO}">
-					<li><a href="login.do">Sign In</a></li>
-					<li><a href="register.do"> Sign Up</a></li>
+					<li><a href="${pageContext.request.contextPath}/login.do">Sign In</a></li>
+					<li><a href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
 				</c:when>
 
 				<c:otherwise>
@@ -51,8 +45,8 @@
 						<li><a href="${pageContext.request.contextPath}/showGmemberinfo.do">myPageGeneric</a></li>
 						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 					</c:if>
-					<c:if test="${authority eq 'ROLE_COMPANY'}">
-						<li><a href="${pageContext.request.contextPath}/myPageCompany/showInfo.do">myPageCompany</a></li>
+					<c:if test="${authority eq 'ROLE_COMPANY'}"> 
+						<li><a href="${pageContext.request.contextPath}/showCmemberInfo.do">myPageCompany</a></li> 
 						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 					</c:if>
 					<c:if test="${authority eq 'ROLE_ADMIN'}">

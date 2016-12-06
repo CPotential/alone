@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.alone.model.vo.ListVO;
+import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -15,8 +17,12 @@ public class ReviewDAOImpl implements ReviewDAO {
 	private SqlSessionTemplate template;
 
 	@Override
-	public List<ReviewVO> reviewList() {
-		return template.selectList("review.reviewList");
+	public List<ReviewVO> reviewList(PagingBean pagingBean) {
+		return template.selectList("review.reviewList",pagingBean);
+	}
+	
+	public int getTotalContentCount(){
+		return template.selectOne("review.getTotalContentCount"); 
 	}
 
 	@Override

@@ -20,20 +20,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="category_name" property="categoryName" />
 	</resultMap>
 	<select id="introduceList" resultType="introduceVO" resultMap="introduceRM">
-		select introduce.board_no, member.nickname, introduce.region 
-		from member member, board board, introduce introduce 
-		where introduce.category_no=#{category_no}
-			and member.id=board.id and board.board_no=introduce.board_no
+     select introduce.board_no, member.nickname,introduce.region 
+      from member member, board board,  introduce introduce 
+      where introduce.category_no=#{category_no}
+       and member.id=board.id and board.board_no=introduce.board_no 
+
 	</select>
+	
 	<select id="keyWordList" resultMap="keyWordRM" resultType="keyWordVO">
 		select keyword.keyword_name
 		from keyword keyword, introduce introduce
 		where keyword.board_no=introduce.board_no and introduce.board_no=#{value}
 	</select>
+	
 	<select id="introduceCategoryList" resultType="introduceCategoryVO" resultMap="introduceCategoryRM">
 		select category_no, category_name from introduce_category
 	</select>
+	
 		<select id="introduceDetail" resultMap="introduceRM" parameterType="int"> 
-		select  board.content,introduce.location,introduce.business_hours,introduce.tel from introduce introduce,board board where board.board_no=introduce.board_no and introduce.board_no=#{value}
+		select  board.content, introduce.location, introduce.business_hours, introduce.tel 
+		from introduce introduce,board board 
+		where board.board_no=introduce.board_no and introduce.board_no=#{value}
 		</select>
+		
+    <insert id="boardWrite" parameterType="introduceVO">
+		<selectKey resultType="int" keyProperty="boardNo" order="BEFORE">
+			select board_seq.nextval from dual
+		</selectKey>
+		insert into board(board_no, id, content, time_posted)
+		values(#{boardNo}, #{memberVO.id}, #{content}, sysdate)
+	</insert>
+	
+	<update id="updateWrite" parameterType="string">
+	
+		update companymember set write = write+1 where id=#{value} 
+	</update>
+	
+	<insert id="introduceWrite" parameterType="introduceVO" >
+		insert into introduce(board_no, company_name, region, location, business_hours,tel,category_no )
+		values(#{boardNo}, #{companyName}, #{region}, #{location}, #{businessHours},#{tel},#{categoryVO.categoryNo})
+	</insert>
 </mapper>

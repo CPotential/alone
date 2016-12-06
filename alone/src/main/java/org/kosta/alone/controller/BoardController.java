@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.BoardService;
+import org.kosta.alone.model.vo.CommentVO;
+import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.ListVO;
@@ -34,10 +36,19 @@ public class BoardController {
 		return mav;
 	}*/
 	
+	@RequestMapping("getMeetingList.do")
+	public ModelAndView getMeetingList(String pageNo){
+		ModelAndView mav = new ModelAndView("board/meeting");
+		ListVO<MeetingVO> list =  boardService.getMeetingList(pageNo);
+		mav.addObject("RegionList",boardService.getRegionInfo()); 
+		mav.addObject("list",list);
+		return mav;
+	}
+	
+	
 	@RequestMapping("getMeetingRegionList.do")
 	@ResponseBody
 	public List<MeetingVO> getMeetingRegionList(String region){
-		System.out.println(region); 
 		List<MeetingVO> rList = boardService.getMeetingRegionList(region);
 		return rList; 
 	} 
@@ -67,27 +78,29 @@ public class BoardController {
 	public ModelAndView introduceList(int categoryNo){
 		ModelAndView mav = new ModelAndView("board/introduce");
 		mav.addObject("introduceList", boardService.introduceList(categoryNo));
+		
 		return mav;
 	}
 	
 	@RequestMapping("reviewList.do")
-	public ModelAndView reviewList(){
+	public ModelAndView reviewList(String pageNo){
 		ModelAndView mav = new ModelAndView("board/review");
-		mav.addObject("reviewList",boardService.reviewList());
+		String nowPage = pageNo; 
+		mav.addObject("ListVO",boardService.reviewList(nowPage));
 		return mav;
 	}
 	
 	@RequestMapping("findByTitle.do")
 	public ModelAndView findByTitle(String searchKeyWord){
 		ModelAndView mav = new ModelAndView("board/review");
-		mav.addObject("reviewList",boardService.reviewTitleSearchList(searchKeyWord));
+		mav.addObject("ListVO",boardService.reviewTitleSearchList(searchKeyWord));
 		return mav;
 	}
 	
 	@RequestMapping("findByWriter.do")
 	public ModelAndView findByWriter(String searchKeyWord){
 		ModelAndView mav = new ModelAndView("board/review");
-		mav.addObject("reviewList",boardService.reviewWriterSearchList(searchKeyWord)); 
+		mav.addObject("ListVO",boardService.reviewWriterSearchList(searchKeyWord)); 
 		return mav; 
 	}
 	
@@ -126,12 +139,9 @@ public class BoardController {
 	public String meetingWrite(HttpServletRequest request, MeetingVO meetingVO){
 		HttpSession session = request.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-		System.out.println(memberVO);
 		MeetingVO mvo = meetingVO;
 		mvo.setMemberVO(memberVO);
-		System.out.println(mvo);
 		boardService.meetingWrite(mvo);
-		System.out.println(mvo.getBoardNo());
 		return "redirect:meetingDetail.do?boardNo=" + mvo.getBoardNo();
 
 	}
@@ -162,8 +172,57 @@ public class BoardController {
 	public ModelAndView meetingDetail(String boardNo){
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
+		mav.addObject("commentList",boardService.commentList(boardNo));
+		
 		return mav;
 
+	}
+	
+	/**
+	 * 소개글작성후 소개글리스트로 이동
+	 * @param request
+	 * @param meetingVO
+	 * @return
+	 */
+	@RequestMapping("introduceWrite.do")
+	public String introduceWrite(HttpServletRequest request,IntroduceVO introduceVO){
+		HttpSession session = request.getSession(false);
+		//기업회원은 기업회원객체를 가지고있다
+		CompanyMemberVO memberVO = (CompanyMemberVO) session.getAttribute("memberVO");
+		//로그인한 기업회원정보 출력
+		//System.out.println("memberVO: "+memberVO);
+	
+		introduceVO.setMemberVO(memberVO);
+		//intoduceVO에 기업회원 정보 세팅한후 출력
+		//System.out.println("introduceVO: "+introduceVO);
+		//introduceVO에 기업회원 정보까지 세팅한후 전달
+		//데이터베이스의  companyMember의 write가 1로 변경
+		boardService.introduceWrite(introduceVO);
+		// 
+		//세션의 CompanyMember의 write도 1로 변경하여 업데이트해준도
+		memberVO.setWrite("1");
+		session.setAttribute("memberVO", memberVO);
+		return "redirect:introduceDetail.do?boardNo="+introduceVO.getBoardNo();
+
+	}
+
+	@RequestMapping("sendCommentAjax.do")
+	@ResponseBody
+	public List<CommentVO> commentList(String comment,HttpServletRequest request,String boardNo){
+		HttpSession session = request.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		
+		boardService.insertComment(memberVO,comment,boardNo);
+		
+		return boardService.commentList(boardNo);
+
+	}
+	@RequestMapping("updateCommentAjax")
+	@ResponseBody
+	public List<CommentVO> updateComment(CommentVO commentVO){
+		
+		boardService.updateComment(commentVO);
+		return boardService.commentList(Integer.toString(commentVO.getBoardNo()));
 	}
 	
 	@RequestMapping("reviewdetail.do")
@@ -175,31 +234,5 @@ public class BoardController {
 		mav.addObject("mvo",mvo);
 		return mav;
 	}
-	
-	
-	/*	@RequestMapping("getMeetingList.do")
-	public ModelAndView getMeetingList(){
-		ModelAndView mav = new ModelAndView("board/meeting");
-		List<MeetingVO> list = boardService.getMeetingList();
-		mav.addObject("RegionList",boardService.getRegionInfo()); 
-		mav.addObject("list",list);
-		return mav;
-	}*/
-	
-	/**
-	 * 최근 게시물  보여주는 메서드
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping("getMeetingList.do")
-	public ModelAndView getMeetingList(){
-		ModelAndView mav = new ModelAndView("board/meeting");
-		//List<MeetingVO> list = boardService.getMeetingList();
-		ListVO<MeetingVO>list =boardService.getMeetingList();
-		mav.addObject("RegionList", boardService.getRegionInfo()); 
-		mav.addObject("list",list);
-		return mav;
-	}
-	
+
 }

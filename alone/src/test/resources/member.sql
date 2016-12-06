@@ -5,6 +5,7 @@ drop table genericmember
 drop table COMPANYMEMBER
 drop table authorities;
 
+
 CREATE TABLE MEMBER( 
 	id varchar2(50) primary key,
 	password varchar2(50) not null,
@@ -13,6 +14,7 @@ CREATE TABLE MEMBER(
 	tel varchar2(50) not null,
 	enabled number default 1 -- 탈퇴여부 : 탈퇴시 0 으로 변경
 )
+
 CREATE TABLE GENERICMEMBER(
 	id varchar2(50) primary key,
 	birth varchar2(50) not null,
@@ -20,14 +22,17 @@ CREATE TABLE GENERICMEMBER(
 	mileage number default 0,
 	constraint fk_genericmember foreign key(id) references member(id)
 )
+DROP TABLE COMPANYMEMBER
 CREATE TABLE COMPANYMEMBER( 
 	id varchar2(50) primary key,
 	address varchar2(50) not null,
 	corporate_registration_number varchar2(50) not null,
 	approval number default 0, -- 가입승인 여부 : 가입 승인 시 1로 변경
+	write number default 0,
+	
 	constraint fk_companymember foreign key(id) references member(id)
 )
-
+alter table COMPANYMEMBER add write number default 0
 select * from companymember
 CREATE TABLE AUTHORITIES(
 	id varchar2(50) not null,

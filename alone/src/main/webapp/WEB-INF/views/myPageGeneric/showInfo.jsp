@@ -8,7 +8,7 @@
   
        <ul class="list-unstyled profile-social center-block">
           <li>
-            <a href="${pageContext.request.contextPath}/myPageGeneric/showInfo.do" class="btn btn-default btn-block">내정보 보기 </a>
+            <a href="${pageContext.request.contextPath}/showGmemberinfo.do" class="btn btn-default btn-block">내정보 보기 </a>
           </li>
           <li>
             <a href="${pageContext.request.contextPath}/myPageGeneric/showMileage.do" class="btn btn-default btn-block"> 마일리지</a>
@@ -32,7 +32,7 @@
                       <th scope="row">아이디</th>
                       <td>${requestScope.gvo.id}</td>
                     </tr>
-                    <tr>
+                       <tr>
                       <th scope="row">이름</th>
                       <td> ${gvo.name} </td>
                     </tr>
@@ -45,19 +45,19 @@
                       <td>${gvo.gender}</td>
                     </tr>
                     <tr>
-                      <th scope="row">생년월일</th>
+				     <th scope="row">생년월일</th>
                       <td>${gvo.birth}</td>
                     </tr>
                     <tr>
                       <th scope="row">전화번호</th>
                       <td>${gvo.tel}</td>
                     </tr>
-                  
+
                   </tbody>
                 </table>
               </div> <!-- / .table-responsive -->
             </div>
-            <a href="${pageContext.request.contextPath}/myPageGeneric/update.do" class="btn btn-primary" >수정하기</a>
+            <a href="${pageContext.request.contextPath}/myPageGeneric/myPageMemberupdate.do" class="btn btn-primary" >수정하기</a>
           </div> <!-- / .tab-content -->
         </div>        
      

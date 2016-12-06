@@ -14,10 +14,13 @@ public class GenericMemberDAOImpl implements GenericMemberDAO {
 	
 	@Override
 	public void registerMember(GenericMemberVO vo){
-		
 		sqlSessionTemplate.insert("genericMember.registerMember", vo);
 	}
 	
+	public void updateMember(GenericMemberVO genericMemberVO){
+		sqlSessionTemplate.update("genericMember.updateGenericMember",genericMemberVO);
+	}
+ 
 	public GenericMemberVO showGenericmember(MemberVO vo){
 		return sqlSessionTemplate.selectOne("genericMember.showGenericmember", vo);
 	}
