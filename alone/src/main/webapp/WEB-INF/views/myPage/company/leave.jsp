@@ -3,11 +3,9 @@
 	
 <script type="text/javascript">
 	$(document).ready(function() {
-		
 		var leaveCheck ="";
 		$("#form_delete").submit(function(){
 			var password = $("#form_delete :input[name=password]").val().trim();
-			
 			if(password==""){
 				alert("비밀번호를 입력하세요");				
 				return false;
@@ -40,19 +38,6 @@
     ============================== -->
 <div class="container">
 	<div class="row">
-		<div class="col-sm-4 col-md-3 col-lg-2">
-			<ul class="list-unstyled profile-social center-block">
-				<li><a
-					href="${pageContext.request.contextPath}/myPageCompany/showInfo.do"
-					class="btn btn-default btn-block">기업정보 </a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/myPageCompany/mileageDiscount.do"
-					class="btn btn-default btn-block">마일리지 차감</a></li>
-				<li><a
-					href="${pageContext.request.contextPath}/myPageCompany/leave.do"
-					class="btn btn-default btn-block"> 회원탈퇴</a></li>
-			</ul>
-		</div>
 
 		<!-- PAGE CONTENT
     ============================== -->

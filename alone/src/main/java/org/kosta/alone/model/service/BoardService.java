@@ -2,11 +2,14 @@ package org.kosta.alone.model.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.ReviewVO;
+import org.kosta.alone.model.vo.UploadFileVO;
 
 public interface BoardService { 
 	public List<MeetingVO> getMeetingList();
@@ -33,10 +36,12 @@ public interface BoardService {
 	
 	public void reviewWrite(ReviewVO reviewVO);
 	
-	public void meetingWrite(MeetingVO meetingVO);
+	public void meetingWrite(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO);
 
-	public MeetingVO meetingDetail(String boardNo);
+	public MeetingVO meetingDetail(int boardNo);
 	
-	public List<CommentVO> commentList(String boardNo);
+	public List<CommentVO> commentList(int boardNo);
+
+	public void imageUpload(String originalFilename);
 
 }

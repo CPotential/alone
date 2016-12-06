@@ -45,7 +45,8 @@ public class MeetingDAOImpl implements MeetingDAO {
 	}
 	
 	@Override
-	public MeetingVO meetingDetail(String boardNo) {
+	public MeetingVO meetingDetail(int boardNo) {
+		System.out.println("dao진입" + boardNo);
 		return sqlSessionTemplate.selectOne("meeting.meetingDetail",boardNo);
 	}
 }

@@ -20,9 +20,16 @@ public class HomeController {
 		return viewName;
 	
 	}
+	
 	@RequestMapping("{dirName}/{viewName}.do")
 	public String showView(@PathVariable String dirName,@PathVariable String viewName){
 		System.out.println("2.@PathVariable:"+dirName+"/"+viewName);
 		return dirName+"/"+viewName;
 	}	
+	
+	@RequestMapping("{dirName}/{dirNames}/{viewName}.do")
+	public String showView(@PathVariable String dirName,@PathVariable String dirNames,@PathVariable String viewName){
+		System.out.println("2.@PathVariable:"+dirName+"/"+dirNames+"/"+viewName);
+		return dirName+"/"+dirNames+"/"+viewName;
+	}
 }

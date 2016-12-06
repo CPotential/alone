@@ -51,7 +51,7 @@
 			</script>
 			<!-- Please carefully read the README.txt file in order to setup
                the PHP contact form properly -->
-			<form method="post" role="form" action="${pageContext.request.contextPath}/meetingWrite.do" id="form_meetingWrite">
+			<form method="post" role="form" action="${pageContext.request.contextPath}/meetingWrite.do" id="form_meetingWrite" enctype="multipart/form-data">
 				<!-- <div class="form-group">
 					<label for="email">Your email address</label> 
 					<input type="email" 	name="email" class="form-control" id="email" placeholder="E-mail" 	data-original-title="" title=""> 
@@ -59,27 +59,32 @@
 				</div> -->
 				<div class="form-group">
 					<label for="title">Title</label> 
-					<input type="text" name="title" class="form-control" id="title" placeholder="meetin title"  data-original-title="" title=""> 
+					<input type="text" name="title" class="form-control" placeholder="meetin title"  data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="region">Region</label> 
-					<input type="text" name="region" class="form-control" id="region" placeholder="meeting region" data-original-title="" title=""> 
+					<input type="text" name="region" class="form-control" placeholder="meeting region" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="location">Location</label> 
-					<input type="text" name="location" class="form-control" id="region" placeholder="meeting location" data-original-title="" title=""> 
+					<input type="text" name="location" class="form-control" placeholder="meeting location" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="interest">Interest</label> 
-					<input type="text" name="interest" class="form-control" id="interest" placeholder="Interest" data-original-title="" title=""> 
+					<input type="text" name="interest" class="form-control" placeholder="Interest" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="content">Content</label>
-					<textarea name="content" class="form-control" rows="3" id="content" placeholder="Content"></textarea>
+					<textarea name="content" class="form-control" rows="3" placeholder="Content"></textarea>
+					<span class="help-block"></span>
+				</div>
+				<div class="form-group">
+					<label for="uploadFile">UploadFile</label> 
+					<input type="file" name="file[0]" class="form-control"> 
 					<span class="help-block"></span>
 				</div>
 				<!-- reCAPTCHA -->

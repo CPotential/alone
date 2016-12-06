@@ -152,7 +152,8 @@ public class MemberController {
 	public ModelAndView showGmemberinfo(HttpSession session) {
 		MemberVO vo = (MemberVO) session.getAttribute("memberVO");
 		System.out.println(vo);
-		return new ModelAndView("myPageGeneric/showInfo", "gvo", memberService.showGenericmember(vo));
+		return new ModelAndView("myPage/generic/showInfo", "gvo", memberService.showGenericmember(vo));
 	}
-
+	
+	
 }

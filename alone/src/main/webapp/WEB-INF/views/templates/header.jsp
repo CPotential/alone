@@ -53,11 +53,11 @@
 						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 					</c:if>
 					<c:if test="${authority eq 'ROLE_COMPANY'}">
-						<li><a href="${pageContext.request.contextPath}/myPageCompany/showInfo.do">myPageCompany</a></li>
+						<li><a href="${pageContext.request.contextPath}/myPage/company/showInfo.do">myPageCompany</a></li>
 						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 					</c:if>
 					<c:if test="${authority eq 'ROLE_ADMIN'}">
-						<li><a href="${pageContext.request.contextPath}/myPageAdmin/showInfo.do">myPageAdmin</a></li>
+						<li><a href="${pageContext.request.contextPath}/myPage/admin/showInfo.do">myPageAdmin</a></li>
 						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 					</c:if>
 

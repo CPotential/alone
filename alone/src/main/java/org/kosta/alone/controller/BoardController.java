@@ -12,6 +12,7 @@ import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
+import org.kosta.alone.model.vo.UploadFileVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BoardController {
-	
 	@Resource
 	private BoardService boardService; 
 	
@@ -66,7 +66,6 @@ public class BoardController {
 	public ModelAndView introduceList(int categoryNo){
 		ModelAndView mav = new ModelAndView("board/introduce");
 		mav.addObject("introduceList", boardService.introduceList(categoryNo));
-		
 		return mav;
 	}
 	
@@ -117,23 +116,19 @@ public class BoardController {
 		IntroduceVO introVO = boardService.introduceDetail(boardNo);
 		return new ModelAndView("board/introduceDetail","introVO",introVO);
 	}
+	
 	/**
 	 * 모임글 작성 후 상세보기로 이동
 	 * @param meetingVO
 	 * @return
 	 */
 	@RequestMapping(method=RequestMethod.POST, value="meetingWrite.do")
-	public String meetingWrite(HttpServletRequest request, MeetingVO meetingVO){
+	public String meetingWrite(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO){
 		HttpSession session = request.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-		System.out.println(memberVO);
-		MeetingVO mvo = meetingVO;
-		mvo.setMemberVO(memberVO);
-		System.out.println(mvo);
-		boardService.meetingWrite(mvo);
-		System.out.println(mvo.getBoardNo());
-		return "redirect:meetingDetail.do?boardNo=" + mvo.getBoardNo();
-
+		meetingVO.setMemberVO(memberVO);
+		boardService.meetingWrite(request, meetingVO, uploadFileVO);
+		return "redirect:meetingDetail.do?boardNo=" + meetingVO.getBoardNo();
 	}
 	
 	//후기게시글 작성형식
@@ -158,24 +153,24 @@ public class BoardController {
 		return new ModelAndView("redirect:reviewList.do");  
 	}
 	
+	/**
+	 * 모임글 상세보기
+	 * @param boardNo
+	 * @return
+	 */
 	@RequestMapping("meetingDetail.do")
-	public ModelAndView meetingDetail(String boardNo){
+	public ModelAndView meetingDetail(int boardNo){
+		System.out.println("컨트롤러 진입" + boardNo);
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
 		mav.addObject("commentList",boardService.commentList(boardNo));
-		
 		return mav;
-
 	}
 	
-	
 	@RequestMapping("commentList.do")
-	public ModelAndView commentList(String boardNo){
+	public ModelAndView commentList(int boardNo){
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
 		return mav;
-
 	}
-	
-	
 }

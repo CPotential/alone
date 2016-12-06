@@ -30,6 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	ORDER BY boardcomment.comment_no ASC
 	</select>
 	
+	<insert id="imageUpload" parameterType="imageVO">
+		insert into image(image_no, image_name, board_no) 
+		values(image_seq.nextval, #{imageName}, #{boardNo})
+	</insert>
+	
 </mapper>
  
  
