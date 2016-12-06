@@ -1,15 +1,18 @@
 package org.kosta.alone.model.service;
 
 import java.util.HashMap;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.kosta.alone.model.dao.BoardDAO;
 import org.kosta.alone.model.dao.IntroduceDAO;
 import org.kosta.alone.model.dao.MeetingDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
+import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.ImageVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
@@ -20,8 +23,10 @@ import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.ReviewVO;
+import org.kosta.alone.model.vo.UploadFileVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -33,10 +38,12 @@ public class BoardServiceImpl implements BoardService {
 	private ReviewDAO reviewDAO;
 	@Resource
 	private BoardDAO boardDAO;
+	private String uploadPath;
 
-/*	public List<MeetingVO> getMeetingList() {
-		return meetingDAO.getMeetingList();
-	}*/
+	/*
+	 * public List<MeetingVO> getMeetingList() { return
+	 * meetingDAO.getMeetingList(); }
+	 */
 
 	@Override
 	public List<MeetingVO> getMeetingRegionList(String region) {
@@ -112,6 +119,10 @@ public class BoardServiceImpl implements BoardService {
 		return introduceDAO.introduceCategoryList();
 	}
 
+	public IntroduceVO introduceDetail(int boardNo) {
+		return introduceDAO.introduceDetail(boardNo);
+	}
+
 	/**
 	 * 소개글 작성
 	 */
@@ -123,74 +134,114 @@ public class BoardServiceImpl implements BoardService {
 		introduceDAO.updateWrite(introduceVO.getMemberVO().getId());
 	}
 
-	public IntroduceVO introduceDetail(int boardNo) {
-		return introduceDAO.introduceDetail(boardNo);
-	}
-
 	@Transactional
 	public void reviewWrite(ReviewVO reviewVO) {
 		reviewDAO.reviewBoardWrite(reviewVO);
 		reviewDAO.reviewWrite(reviewVO);
 	}
 
+	/**
+	 * 모임글 작성
+	 */
+	@Transactional
 	@Override
-	public void meetingWrite(MeetingVO meetingVO) {
+	public void meetingWrite(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO) {
 		meetingDAO.boardWrite(meetingVO);
 		meetingDAO.meetingWrite(meetingVO);
+		imageUpload(request, meetingVO, uploadFileVO);
+	}
+
+	/**
+	 * 이미지 업로드
+	 * 
+	 * @param request
+	 * @param meetingVO
+	 * @param imageVO
+	 */
+	public void imageUpload(HttpServletRequest request, BoardVO boardVO, UploadFileVO uploadFileVO) {
+		ImageVO imageVO = new ImageVO();
+		imageVO.setBoardNo(boardVO.getBoardNo());
+		uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload/");
+		File uploadDir = new File(uploadPath);
+		if (uploadDir.exists() == false)
+			uploadDir.mkdirs();
+		List<MultipartFile> file = uploadFileVO.getFile();
+		// 실제파일로 만들어준다
+		for (int i = 0; i < file.size(); i++) {
+			System.out.println("파일명 : " + file.get(i).getOriginalFilename());
+			// 만약 업로드 파일이 없으면 파일명은 공란처리된다
+			String originalFileName = file.get(i).getOriginalFilename();
+			// 이미지명 변경 : 이미지 인덱스 번호 + _ + 원본명
+			String fileName = boardVO.getBoardNo() + "_" + i + originalFileName;
+			if (!fileName.equals("")) {
+				try {
+					file.get(i).transferTo(new File(uploadPath + fileName));
+					System.out.println(fileName + "업로드 완료");
+					imageVO.setImageName(fileName);
+					boardDAO.imageUpload(imageVO);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	/**
+	 * 모임글 상세보기
+	 */
+	@Override
+	public MeetingVO meetingDetail(int boardNo) {
+		MeetingVO meetingVO = null;
+		meetingVO = meetingDAO.meetingDetail(boardNo);
+		List<ImageVO> imageList = null;
+		imageList = boardDAO.imageList(boardNo);
+		meetingVO.setImageVO(imageList);
+		System.out.println(meetingVO);
+		return meetingVO;
 	}
 
 	@Override
-	public MeetingVO meetingDetail(String boardNo) {
-		return meetingDAO.meetingDetail(boardNo);
-
-	}
-
-	@Override
-	public List<CommentVO> commentList(String boardNo) {
+	public List<CommentVO> commentList(int boardNo) {
 		return boardDAO.commentList(boardNo);
 	}
 
-	@Override
-	public void insertComment(MemberVO memberVO, String comment, String boardNo) {
+	public void insertComment(MemberVO memberVO, String comment, int boardNo) {
 		CommentVO commentVO = new CommentVO();
 		commentVO.setMemberVO(memberVO);
 		commentVO.setContent(comment);
-		commentVO.setBoardNo(Integer.parseInt(boardNo));
+		commentVO.setBoardNo(boardNo);
 		boardDAO.insertComment(commentVO);
-
 	}
 
 	@Override
 	public void updateComment(CommentVO commentVO) {
 		boardDAO.updateComment(commentVO);
 	}
-	
-	public ReviewVO reviewDetail(String boardNo){
+
+	public ReviewVO reviewDetail(int boardNo){
+		
 		reviewDAO.updateHit(boardNo);
 		return reviewDAO.reviewDetail(boardNo);
 	}
-	
-	
 
 	@Override
-	public ListVO<MeetingVO> getMeetingList(String pageNo){			
-		int totalCount=meetingDAO.getTotalContentCount();
-		PagingBean pagingBean=null;
-		if(pageNo==null){
-		pagingBean=new PagingBean(totalCount);
-		pagingBean.setContentNumberPerPage(10);
-		pagingBean.setPageNumberPerPageGroup(5);
-		List<MeetingVO> list = meetingDAO.getMeetingList(pagingBean);
-		ListVO<MeetingVO> mtvo = new ListVO<MeetingVO>(list, pagingBean);
-		return mtvo;
-		}
-		else{
-      	pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));	
-		pagingBean.setContentNumberPerPage(10);
-		pagingBean.setPageNumberPerPageGroup(5);
-		List<MeetingVO> list = meetingDAO.getMeetingList(pagingBean);
-		ListVO<MeetingVO> mtvo = new ListVO<MeetingVO>(list, pagingBean);	
-		return mtvo;
+	public ListVO<MeetingVO> getMeetingList(String pageNo) {
+		int totalCount = meetingDAO.getTotalContentCount();
+		PagingBean pagingBean = null;
+		if (pageNo == null) {
+			pagingBean = new PagingBean(totalCount);
+			pagingBean.setContentNumberPerPage(10);
+			pagingBean.setPageNumberPerPageGroup(5);
+			List<MeetingVO> list = meetingDAO.getMeetingList(pagingBean);
+			ListVO<MeetingVO> mtvo = new ListVO<MeetingVO>(list, pagingBean);
+			return mtvo;
+		} else {
+			pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
+			pagingBean.setContentNumberPerPage(10);
+			pagingBean.setPageNumberPerPageGroup(5);
+			List<MeetingVO> list = meetingDAO.getMeetingList(pagingBean);
+			ListVO<MeetingVO> mtvo = new ListVO<MeetingVO>(list, pagingBean);
+			return mtvo;
 		}
 	}
 	
@@ -241,10 +292,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public ReviewVO reviewNotHitDetail(String boardNo) {
+	public ReviewVO reviewNotHitDetail(int boardNo) {
 		return reviewDAO.reviewDetail(boardNo);
 	}
 
 
-	
+
 }

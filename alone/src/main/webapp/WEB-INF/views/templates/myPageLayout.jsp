@@ -1,25 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@taglib prefix="tiles"  uri="http://tiles.apache.org/tags-tiles" %>    
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
-  <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
     <!--<link rel="icon" href="img/favicon.ico">-->
-
 	
     <!-- CSS Global -->
     <link href="${pageContext.request.contextPath}/resources/css/styles_light-green.css" rel="stylesheet">
     
     <!-- 부트스트랩 select -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
-
-     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
 
     <!-- CSS Plugins -->
     <link href="${pageContext.request.contextPath}/resources/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -34,21 +30,21 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <title><tiles:insertAttribute name="title" ignore="true" /></title>
-  </head>
-
+	<title><tiles:insertAttribute name="title" ignore="true" /></title>
+</head>
 <body>
-<div id="container">
-	<div id="header"><tiles:insertAttribute name="header" /></div>
-	<div id="main"><tiles:insertAttribute name="main" /></div>
-	<div id="footer"><tiles:insertAttribute name="footer" /></div>
-</div>
+	<div id="container">
+		<div id="header"><tiles:insertAttribute name="header" /></div>
+		<div id="left"><tiles:insertAttribute name="left" />
+			<div id="main"><tiles:insertAttribute name="main" /></div>
+		</div>
+		<div id="footer"><tiles:insertAttribute name="footer" /></div>
+	</div>
 
- <!-- Javascript
+	<!-- Javascript
     ============================== -->
 
- <!-- JS Global -->
+ 	<!-- JS Global -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap/bootstrap.min.js"></script>

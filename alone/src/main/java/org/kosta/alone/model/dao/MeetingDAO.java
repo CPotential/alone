@@ -20,7 +20,7 @@ public interface MeetingDAO {
 
 	public void meetingWrite(MeetingVO meetingVO);
 	
-	public MeetingVO meetingDetail(String boardNo);
+	public MeetingVO meetingDetail(int boardNo);
 	
 	public int getTotalContentCount();
 

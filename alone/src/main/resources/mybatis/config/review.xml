@@ -76,7 +76,7 @@ where rnum between  #{pb.startRowNumber} and #{pb.endRowNumber}
 	where b.id=m.id and b.board_no=r.board_no  and r.board_no=#{value}
 </select>
 
-	<update id="updateHitBoard" parameterType="string">
+	<update id="updateHitBoard" parameterType="int">
 	update review set hits=hits+1 where board_no=#{value}
 	</update>
 

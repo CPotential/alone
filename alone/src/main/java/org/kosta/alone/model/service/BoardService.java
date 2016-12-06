@@ -2,6 +2,8 @@ package org.kosta.alone.model.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
@@ -9,6 +11,7 @@ import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
+import org.kosta.alone.model.vo.UploadFileVO;
 
 public interface BoardService { 
 
@@ -29,30 +32,29 @@ public interface BoardService {
 	
 	public List<IntroduceCategoryVO> introduceCategoryList();
 
-	
 	public IntroduceVO introduceDetail(int boardNo);
 	
 	public void reviewWrite(ReviewVO reviewVO);
 	
-	public void meetingWrite(MeetingVO meetingVO);
-
-
-	public MeetingVO meetingDetail(String boardNo);
-
+	public void meetingWrite(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO);
+	
+	public MeetingVO meetingDetail(int boardNo);
 
 	void introduceWrite(IntroduceVO introduceVO);
 
-	
-	public List<CommentVO> commentList(String boardNo);
+	public List<CommentVO> commentList(int boardNo);
 
-	public void insertComment(MemberVO memberVO, String comment, String boardNo);
+	public void insertComment(MemberVO memberVO, String comment, int boardNo);
 
 	public void updateComment(CommentVO commentVO);
 
-	public ReviewVO reviewDetail(String boardNo);
+	public ReviewVO reviewDetail(int boardNo);
 
 	public ListVO<ReviewVO> reviewSerachList(String pageNo, String searchKeyWord, String command);
 
-	public ReviewVO reviewNotHitDetail(String boardNo);
+	public ReviewVO reviewNotHitDetail(int boardNo);
+
 
 }
+
+

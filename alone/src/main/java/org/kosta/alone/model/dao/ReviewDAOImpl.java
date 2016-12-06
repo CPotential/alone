@@ -27,7 +27,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 
 	@Override
 	public List<ReviewVO> reviewTitleSearchList(Map<String, Object> map) {
-
 		return template.selectList("review.reviewTitleSearchList",map);
 	}
 
@@ -44,7 +43,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 		template.insert("review.reviewWrite",reviewVO);
 	}
 	
-	public ReviewVO reviewDetail(String boardNo){
+	public ReviewVO reviewDetail(int boardNo){
 		return template.selectOne("review.reviewDetail", boardNo);
 	}
 
@@ -60,7 +59,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 
 	@Override
-	public void updateHit(String boardNo) {
+	public void updateHit(int boardNo) {
 		template.update("review.updateHitBoard",boardNo);
 	}
 

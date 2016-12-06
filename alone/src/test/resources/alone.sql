@@ -5,6 +5,7 @@
 	ORDER BY boardcomment.comment_no ASC
 	
 select * from member where id='del'
+select * from image
 update member set enabled=1 where id='del'
 	select companymember.id,member.nickname,authorities.authority,companymember.approval
 	from companymember companymember,member member,authorities authorities
@@ -17,7 +18,7 @@ from board board,review review,member member
 where board.board_no=review.board_no and board.id=member.id and member.nickname='정신머리'
 	
 	
-
+select * from image
 drop table genericmember;
 -- 일반 회원 정보
 CREATE TABLE GENERICMEMBER(
@@ -411,7 +412,7 @@ select * from companymember
 	select image.image_name from (select min(image.image_no) from image image, board board where board.board_no=17 and board.board_no=image.board_no)
 	
 	
-	select image_name from image where image_no =(	select min(image.image_no) from image image, board board where board.board_no=18 and board.board_no=image.board_no);
+	select image_name from image where image_no =(	select min(image.image_no) from image image, board board where board.board_no=1 and board.board_no=image.board_no);
 	
 
 	select meeting.board_no,meeting.title,meeting.region,meeting.interest,

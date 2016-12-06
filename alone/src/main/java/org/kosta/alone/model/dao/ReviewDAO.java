@@ -20,13 +20,13 @@ public interface ReviewDAO {
 	
 	public void reviewWrite(ReviewVO reviewVO);
 
-	public ReviewVO reviewDetail(String  boardNo);
+
+	public ReviewVO reviewDetail(int  boardNo);
 
 	public int getTitleSearchContentCount(String searchKeyWord);
 	
 	public int getWriterSearchCount(String searchKeyWord);
 
-	public void updateHit(String boardNo);
+	public void updateHit(int boardNo);
 	
-
 }
