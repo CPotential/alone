@@ -133,6 +133,9 @@
 		<div class="row">
 			<div class="col-sm-8 col-md-9">
 				<div class="well well">${meetingVO.title}</div>
+				<c:forEach items="${requestScope.meetingVO.imageVO}" var="imageVO">
+   					<img src="${pageContext.request.contextPath}/resources/upload/${imageVO.imageName}">
+   				</c:forEach>
 				<div class="panel-body">
 					<table>
 						<tr>
