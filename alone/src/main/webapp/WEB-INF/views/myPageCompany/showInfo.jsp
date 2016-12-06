@@ -16,13 +16,13 @@
   
          <ul class="list-unstyled profile-social center-block">
           <li>
-            <a href="${pageContext.request.contextPath}/myPageCompany/showInfo.do" class="btn btn-default btn-block">기업정보 </a>
+            <a href="${pageContext.request.contextPath}/showCmemberInfo.do" class="btn btn-default btn-block">기업정보 </a>
           </li>
           <li>
-            <a href="${pageContext.request.contextPath}/myPageCompany/mileageDiscount.do" class="btn btn-default btn-block">마일리지 차감</a>
+            <a href="${pageContext.request.contextPath}/mileageDiscount.do" class="btn btn-default btn-block">마일리지 차감</a>
           </li>
           <li>
-            <a href="${pageContext.request.contextPath}/myPageCompany/leave.do" class="btn btn-default btn-block"> 회원탈퇴</a>
+            <a href="${pageContext.request.contextPath}/leave.do" class="btn btn-default btn-block"> 회원탈퇴</a>
           </li>
               	<c:set var="write" value="${sessionScope.memberVO.write}" />
           	<c:choose>
@@ -48,55 +48,39 @@
           <!-- Tab content -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="personal-info">
-              <h3 class="header header_plain">Company Info</h3>
+              <h3 class="header header_plain">기업정보</h3> 
               <div class="table-responsive">
                 <table class="table">
                   <tbody>
                     <tr>
-                      <th scope="row">Location</th>
-                      <td>Los Angeles, CA</td>
+                      <th scope="row">아이디</th> 
+                      <td>${requestScope.cvo.id}</td> 
                     </tr>
                     <tr>
-                      <th scope="row">Occupation</th>
-                      <td>Designer</td>
+                      <th scope="row">대표명</th>
+                      <td>${requestScope.cvo.name}</td>
                     </tr>
                     <tr>
-                      <th scope="row">Skills</th>
-                      <td>HTML, CSS, JS, Bootstrap</td>
+                      <th scope="row">사업자등록번호</th>
+                      <td>${requestScope.cvo.corporateRegistrationNumber}</td> 
                     </tr>
                     <tr>
-                      <th scope="row">Experience</th>
-                      <td>5 years</td>
+                      <th scope="row">주소</th>
+                      <td>${requestScope.cvo.address}</td>
                     </tr>
                     <tr>
-                      <th scope="row">Education</th>
-                      <td>California State University, Los Angeles</td>
+                      <th scope="row">기업명</th>
+                      <td>${requestScope.cvo.nickName}</td>
                     </tr>
                     <tr>
-                      <th scope="row">Username</th>
-                      <td>@SuperJohn</td>
+                      <th scope="row">대표번호</th>
+                      <td>${requestScope.cvo.tel}</td> 
                     </tr>
-                    <tr>
-                      <th scope="row">Type</th>
-                      <td>Individual</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Member Since</th>
-                      <td>May 2012</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Page URL</th>
-                      <td>http://www.yoursite.com/profile</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">Verified User</th>
-                      <td>Yes</td>
-                    </tr>
-                  </tbody>
+     			 </tbody>
                 </table>
               </div> <!-- / .table-responsive -->
             </div>
-            <a href="${pageContext.request.contextPath}/myPageCompany/update.do" class="btn btn-primary" >수정하기</a>
+            <a href="${pageContext.request.contextPath}/MypageCmemberUpdateForm.do?id=${requestScope.cvo.id}" class="btn btn-primary" >수정하기</a>
           </div> <!-- / .tab-content -->
         </div>        
      

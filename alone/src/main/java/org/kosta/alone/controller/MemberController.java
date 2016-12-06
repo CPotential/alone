@@ -22,25 +22,26 @@ public class MemberController {
 	@Resource
 	private MemberService memberService;
 
-	@RequestMapping(method = RequestMethod.POST, value = "loginCheck.do")
-	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session,HttpServletRequest request) {
-		String Referer = request.getHeader("referer");
-		System.out.println(Referer);
-		ModelAndView mav = null;	
-		memberVO = memberService.memberLogin(memberVO);	
-		
+
+	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session) {
+		ModelAndView mav = null;
+		memberVO = memberService.memberLogin(memberVO);
+
 		if (memberVO == null) {
 			mav = new ModelAndView("member/login_fail");
 			return mav;
-		}else if (memberVO instanceof CompanyMemberVO) {
+		} else if (memberVO instanceof CompanyMemberVO) {
+
 			CompanyMemberVO companyMemberVO = (CompanyMemberVO) memberVO;
-			if(companyMemberVO.getApproval().equals("0")){
-				mav=new ModelAndView("member/login_companyfail");
+
+			if (companyMemberVO.getApproval().equals("0")) {
+				mav = new ModelAndView("member/login_companyfail");
 				return mav;
 			}
 		}
 		session.setAttribute("memberVO", memberVO);
-		mav = new ModelAndView("member/login_result");	
+		mav = new ModelAndView("member/login_result");
+
 		return mav;
 	}
 
@@ -48,6 +49,7 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		if (session != null)
 			session.invalidate();
+
 		return "home";
 	}
 
@@ -58,6 +60,7 @@ public class MemberController {
 
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
 	public String registerMember(GenericMemberVO vo) {
+		System.out.println(vo);
 		memberService.registerMember(vo);
 		/* return "redirect:registerok.do?id=" + vo.getId(); */
 		return "redirect:/member/registerok.do";
@@ -65,6 +68,7 @@ public class MemberController {
 
 	@RequestMapping(value = "registerCompanyMember.do", method = RequestMethod.POST)
 	public String registerMember(CompanyMemberVO vo) {
+		System.out.println(vo);
 		memberService.registerMember(vo);
 		/* return "redirect:registerok.do?id=" + vo.getId(); */
 		return "redirect:/member/registerok.do";
@@ -104,6 +108,7 @@ public class MemberController {
 		memberVO.setPassword(password);
 		int count = memberService.passwordCheck(memberVO);
 		return (count == 1) ? "ok" : "fail";
+
 	}
 
 	@RequestMapping("nickNamecheckAjax.do")
@@ -148,6 +153,23 @@ public class MemberController {
 		MemberVO vo = (MemberVO) session.getAttribute("memberVO");
 		return new ModelAndView("myPageGeneric/showInfo", "gvo", memberService.showGenericmember(vo));
 	}
-
-
+	
+	@RequestMapping("showCmemberInfo.do")
+	public ModelAndView showCmemberInfo(HttpSession session) {
+ 
+		MemberVO mvo = (MemberVO) session.getAttribute("memberVO"); 
+		 
+		return new ModelAndView("myPageCompany/showInfo", "cvo", memberService.showCompanyMember(mvo));
+	}
+	
+	@RequestMapping("MypageCmemberUpdateForm.do") 
+	public ModelAndView companyUpdateForm(String id){
+		return new ModelAndView("myPageCompany/myPageCompanyMemberUpdate","id",id);
+	}
+	
+	@RequestMapping("CmemberUpdateInfo.do")
+	public ModelAndView CmemberUpdateInfo(CompanyMemberVO cvo){
+		memberService.CmemberUpdateInfo(cvo);  
+		return new ModelAndView("redirect:showCmemberInfo.do");
+	}
 }

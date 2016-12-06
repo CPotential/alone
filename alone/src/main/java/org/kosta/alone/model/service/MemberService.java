@@ -31,4 +31,7 @@ public interface MemberService {
 
 	public GenericMemberVO showGenericmember(MemberVO mvo);
 
+	public CompanyMemberVO showCompanyMember(MemberVO mvo);
+	public void CmemberUpdateInfo(CompanyMemberVO cvo);
+
 }

@@ -54,7 +54,7 @@ CREATE TABLE BOARD(
 	board_enabled number default 1, -- 게시글 삭제 여부 : 삭제시 0
 	constraint fk_board foreign key(id) references member(id)
 )
-
+select row_number() over(order by board.board_no) as rnum board.board_no,member.nickname,to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes from board board,review review,member member where board.id=member.id and board.board_no=review.board_no;
 drop sequence introduce_category_seq;
 drop table introduce_category;
 -- 소개글 카테고리

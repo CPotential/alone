@@ -4,12 +4,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 <mapper namespace="companyMember">
-
 	<resultMap type="companyMemberVO" id="comMemberRM">
 		<result property="corporateRegistrationNumber" column="corporate_registration_number" />
 		<result property="nickName" column="nickname" />
 	</resultMap>
-
 	<insert id="registerMember" parameterType="companyMemberVO">
 		insert into
 		COMPANYMEMBER(id,address,corporate_registration_number)
@@ -34,6 +32,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateApproval" parameterType="string">
 		update companymember
 		set approval = approval+1 where id=#{value}
+	</update>
+	<select id="showCompanyMember"  parameterType="memberVO" resultMap="comMemberRM">
+		select companymember.id,member.name,member.nickname,companymember.corporate_registration_number,companymember.address,member.tel 
+		from member member,companymember companymember 
+		where member.id=companymember.id and companymember.id=#{id} 
+	</select>
+	<update id="updateCompanyMember" parameterType="companyMemberVO">
+		update companymember set address = #{address},corporate_registration_number = #{corporateRegistrationNumber} where id=#{id} 
 	</update>
 </mapper>
  

@@ -72,23 +72,24 @@ public class BoardController {
 	}
 	
 	@RequestMapping("reviewList.do")
-	public ModelAndView reviewList(){
+	public ModelAndView reviewList(String pageNo){
 		ModelAndView mav = new ModelAndView("board/review");
-		mav.addObject("reviewList",boardService.reviewList());
+		String nowPage = pageNo; 
+		mav.addObject("ListVO",boardService.reviewList(nowPage));
 		return mav;
 	}
 	
 	@RequestMapping("findByTitle.do")
 	public ModelAndView findByTitle(String searchKeyWord){
 		ModelAndView mav = new ModelAndView("board/review");
-		mav.addObject("reviewList",boardService.reviewTitleSearchList(searchKeyWord));
+		mav.addObject("ListVO",boardService.reviewTitleSearchList(searchKeyWord));
 		return mav;
 	}
 	
 	@RequestMapping("findByWriter.do")
 	public ModelAndView findByWriter(String searchKeyWord){
 		ModelAndView mav = new ModelAndView("board/review");
-		mav.addObject("reviewList",boardService.reviewWriterSearchList(searchKeyWord)); 
+		mav.addObject("ListVO",boardService.reviewWriterSearchList(searchKeyWord)); 
 		return mav; 
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
+import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
@@ -20,7 +21,7 @@ public interface BoardService {
 	
 	public List<MeetingVO> getRegionInfo();
 	
-	public List<ReviewVO> reviewList();
+	public ListVO reviewList(String nowPage); 
 	
 	public List<ReviewVO> reviewTitleSearchList(String searchKeyWord);
 	

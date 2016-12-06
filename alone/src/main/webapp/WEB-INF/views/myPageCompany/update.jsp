@@ -17,13 +17,13 @@
       <div class="col-sm-4 col-md-3 col-lg-2">
          <ul class="list-unstyled profile-social center-block">
           <li>
-            <a href="${pageContext.request.contextPath}/myPageCompany/showInfo.do" class="btn btn-default btn-block">기업정보 </a>
+            <a href="${pageContext.request.contextPath}/showCmemberInfo.do" class="btn btn-default btn-block">기업정보 </a>
           </li>
           <li>
-            <a href="${pageContext.request.contextPath}/myPageCompany/mileageDiscount.do" class="btn btn-default btn-block">마일리지 차감</a>
+            <a href="${pageContext.request.contextPath}/mileageDiscount.do" class="btn btn-default btn-block">마일리지 차감</a>
           </li>
           <li>
-            <a href="${pageContext.request.contextPath}/myPageCompany/leave.do" class="btn btn-default btn-block"> 회원탈퇴</a>
+            <a href="${pageContext.request.contextPath}/leave.do" class="btn btn-default btn-block"> 회원탈퇴</a>
           </li>
           
           	<c:set var="write" value="${sessionScope.memberVO.write}" />
