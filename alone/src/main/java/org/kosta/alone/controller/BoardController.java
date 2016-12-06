@@ -190,15 +190,12 @@ public class BoardController {
 		//기업회원은 기업회원객체를 가지고있다
 		CompanyMemberVO memberVO = (CompanyMemberVO) session.getAttribute("memberVO");
 		//로그인한 기업회원정보 출력
-		//System.out.println("memberVO: "+memberVO);
 	
 		introduceVO.setMemberVO(memberVO);
 		//intoduceVO에 기업회원 정보 세팅한후 출력
-		//System.out.println("introduceVO: "+introduceVO);
 		//introduceVO에 기업회원 정보까지 세팅한후 전달
 		//데이터베이스의  companyMember의 write가 1로 변경
 		boardService.introduceWrite(introduceVO);
-		// 
 		//세션의 CompanyMember의 write도 1로 변경하여 업데이트해준도
 		memberVO.setWrite("1");
 		session.setAttribute("memberVO", memberVO);
@@ -210,17 +207,14 @@ public class BoardController {
 	@ResponseBody
 	public List<CommentVO> commentList(String comment,HttpServletRequest request,String boardNo){
 		HttpSession session = request.getSession(false);
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-		
-		boardService.insertComment(memberVO,comment,boardNo);
-		
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");	
+		boardService.insertComment(memberVO,comment,boardNo);	
 		return boardService.commentList(boardNo);
-
 	}
+	
 	@RequestMapping("updateCommentAjax")
 	@ResponseBody
 	public List<CommentVO> updateComment(CommentVO commentVO){
-		
 		boardService.updateComment(commentVO);
 		return boardService.commentList(Integer.toString(commentVO.getBoardNo()));
 	}

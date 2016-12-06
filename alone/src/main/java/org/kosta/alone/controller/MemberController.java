@@ -22,7 +22,7 @@ public class MemberController {
 	@Resource
 	private MemberService memberService;
 
-	@RequestMapping(method = RequestMethod.POST, value = "loginCheck.do")
+	@RequestMapping(value = "loginCheck.do", method = RequestMethod.POST)
 	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session) {
 		ModelAndView mav = null;
 		memberVO = memberService.memberLogin(memberVO);
@@ -120,7 +120,6 @@ public class MemberController {
 	@RequestMapping("updateInfo.do")
 	public ModelAndView myPageMemberupdate(GenericMemberVO genericMemberVO, HttpSession session) {
 		ModelAndView mav = new ModelAndView("myPageGeneric/myPageMemberupdate");
-		System.out.println(genericMemberVO);
 		memberService.updateInfo(genericMemberVO);
 		return mav;
 

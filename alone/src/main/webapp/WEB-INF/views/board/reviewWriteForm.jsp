@@ -52,6 +52,8 @@
 					<button type="button" class="btn btn-primary"
 						onclick="reviewWriteCancel()">작성 취소</button>
 			</form>
+
+		</div>
 		</div>
 	</div>
-</div>
+

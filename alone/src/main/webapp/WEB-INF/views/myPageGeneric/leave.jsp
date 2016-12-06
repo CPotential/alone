@@ -3,12 +3,6 @@
 
 
 
-    <!-- PRELOADER (uncomment to enable)
-    ============================== -->
-    <!-- <div class="preloader">
-      <img src="img/preloader.gif" alt="Loading..." class="preloader__img">
-    </div> -->
-
 
     <!-- PAGE CONTENT
     ============================== -->
