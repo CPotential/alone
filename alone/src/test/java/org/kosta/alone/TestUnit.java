@@ -40,7 +40,7 @@ public class TestUnit {
 	public void test(){
 		
 
-		System.out.println(meetingDAO.getMeetingList());
+//		System.out.println(meetingDAO.getMeetingList());
 		
 	
 	}

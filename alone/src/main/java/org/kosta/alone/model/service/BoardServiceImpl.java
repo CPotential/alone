@@ -1,6 +1,5 @@
 package org.kosta.alone.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,7 +8,6 @@ import org.kosta.alone.model.dao.BoardDAO;
 import org.kosta.alone.model.dao.IntroduceDAO;
 import org.kosta.alone.model.dao.MeetingDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
-import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.ImageVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
@@ -17,8 +15,8 @@ import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.KeyWordVO;
 import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
-import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.MemberVO;
+import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,9 +32,9 @@ public class BoardServiceImpl implements BoardService {
 	@Resource
 	private BoardDAO boardDAO;
 
-	public List<MeetingVO> getMeetingList() {
+/*	public List<MeetingVO> getMeetingList() {
 		return meetingDAO.getMeetingList();
-	}
+	}*/
 
 	@Override
 	public List<MeetingVO> getMeetingRegionList(String region) {
@@ -164,7 +162,6 @@ public class BoardServiceImpl implements BoardService {
 		commentVO.setMemberVO(memberVO);
 		commentVO.setContent(comment);
 		commentVO.setBoardNo(Integer.parseInt(boardNo));
-
 		boardDAO.insertComment(commentVO);
 
 	}
@@ -173,4 +170,33 @@ public class BoardServiceImpl implements BoardService {
 	public void updateComment(CommentVO commentVO) {
 		boardDAO.updateComment(commentVO);
 	}
+	
+	public ReviewVO reviewDetail(String boardNo){
+		return reviewDAO.reviewDetail(boardNo);
+	}
+	
+	
+
+	@Override
+	public ListVO<MeetingVO> getMeetingList(String pageNo){			
+		int totalCount=meetingDAO.getTotalContentCount();
+		PagingBean pagingBean=null;
+		if(pageNo==null){
+		pagingBean=new PagingBean(totalCount);
+		pagingBean.setContentNumberPerPage(10);
+		pagingBean.setPageNumberPerPageGroup(5);
+		List<MeetingVO> list = meetingDAO.getMeetingList(pagingBean);
+		ListVO<MeetingVO> mtvo = new ListVO<MeetingVO>(list, pagingBean);
+		return mtvo;
+		}
+		else{
+      	pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));	
+		pagingBean.setContentNumberPerPage(10);
+		pagingBean.setPageNumberPerPageGroup(5);
+		List<MeetingVO> list = meetingDAO.getMeetingList(pagingBean);
+		ListVO<MeetingVO> mtvo = new ListVO<MeetingVO>(list, pagingBean);	
+		return mtvo;
+		}
+	}	
+	
 }

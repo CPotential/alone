@@ -1,10 +1,10 @@
 package org.kosta.alone.model.dao;
 
 import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.kosta.alone.model.vo.MeetingVO;
+import org.kosta.alone.model.vo.PagingBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +14,8 @@ public class MeetingDAOImpl implements MeetingDAO {
 	@Resource
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	public List<MeetingVO> getMeetingList() {
-		return sqlSessionTemplate.selectList("meeting.getMeetingList");
+	public List<MeetingVO> getMeetingList(PagingBean pagingBean) {
+		return sqlSessionTemplate.selectList("meeting.getMeetingList", pagingBean);
 	}
 
 	public List<MeetingVO> getMeetingRegionList(String region) {
@@ -48,4 +48,10 @@ public class MeetingDAOImpl implements MeetingDAO {
 	public MeetingVO meetingDetail(String boardNo) {
 		return sqlSessionTemplate.selectOne("meeting.meetingDetail",boardNo);
 	}
+
+	@Override
+	public int getTotalContentCount(){
+		return sqlSessionTemplate.selectOne("meeting.getTotalContentCount");
+	}
+	
 }

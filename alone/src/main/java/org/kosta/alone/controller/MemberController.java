@@ -22,7 +22,7 @@ public class MemberController {
 	@Resource
 	private MemberService memberService;
 
-
+	@RequestMapping(value = "loginCheck.do", method = RequestMethod.POST)
 	public ModelAndView memberLogin(MemberVO memberVO, HttpSession session) {
 		ModelAndView mav = null;
 		memberVO = memberService.memberLogin(memberVO);
@@ -62,7 +62,6 @@ public class MemberController {
 	public String registerMember(GenericMemberVO vo) {
 		System.out.println(vo);
 		memberService.registerMember(vo);
-		/* return "redirect:registerok.do?id=" + vo.getId(); */
 		return "redirect:/member/registerok.do";
 	}
 
@@ -70,7 +69,6 @@ public class MemberController {
 	public String registerMember(CompanyMemberVO vo) {
 		System.out.println(vo);
 		memberService.registerMember(vo);
-		/* return "redirect:registerok.do?id=" + vo.getId(); */
 		return "redirect:/member/registerok.do";
 	}
 
@@ -156,7 +154,7 @@ public class MemberController {
 	
 	@RequestMapping("showCmemberInfo.do")
 	public ModelAndView showCmemberInfo(HttpSession session) {
- 
+
 		MemberVO mvo = (MemberVO) session.getAttribute("memberVO"); 
 		 
 		return new ModelAndView("myPageCompany/showInfo", "cvo", memberService.showCompanyMember(mvo));

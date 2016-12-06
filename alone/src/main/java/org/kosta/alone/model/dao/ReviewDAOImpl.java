@@ -45,6 +45,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 		template.insert("review.reviewWrite",reviewVO);
 	}
 	
-	
+	public ReviewVO reviewDetail(String boardNo){
+		return template.selectOne("review.reviewDetail", boardNo);
+	}
 
 }

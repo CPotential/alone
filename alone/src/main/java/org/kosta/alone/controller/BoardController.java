@@ -11,6 +11,7 @@ import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
+import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
@@ -26,14 +27,24 @@ public class BoardController {
 	@Resource
 	private BoardService boardService; 
 	
-	@RequestMapping("getMeetingList.do")
+/*	@RequestMapping("getMeetingList.do")
 	public ModelAndView getMeetingList(){
 		ModelAndView mav = new ModelAndView("board/meeting");
 		List<MeetingVO> list = boardService.getMeetingList();
 		mav.addObject("RegionList",boardService.getRegionInfo()); 
 		mav.addObject("list",list);
 		return mav;
+	}*/
+	
+	@RequestMapping("getMeetingList.do")
+	public ModelAndView getMeetingList(String pageNo){
+		ModelAndView mav = new ModelAndView("board/meeting");
+		ListVO<MeetingVO> list =  boardService.getMeetingList(pageNo);
+		mav.addObject("RegionList",boardService.getRegionInfo()); 
+		mav.addObject("list",list);
+		return mav;
 	}
+	
 	
 	@RequestMapping("getMeetingRegionList.do")
 	@ResponseBody
@@ -167,7 +178,6 @@ public class BoardController {
 
 	}
 	
-
 	/**
 	 * 소개글작성후 소개글리스트로 이동
 	 * @param request
@@ -186,7 +196,6 @@ public class BoardController {
 		//introduceVO에 기업회원 정보까지 세팅한후 전달
 		//데이터베이스의  companyMember의 write가 1로 변경
 		boardService.introduceWrite(introduceVO);
-		// 
 		//세션의 CompanyMember의 write도 1로 변경하여 업데이트해준도
 		memberVO.setWrite("1");
 		session.setAttribute("memberVO", memberVO);
@@ -206,10 +215,18 @@ public class BoardController {
 	@RequestMapping("updateCommentAjax")
 	@ResponseBody
 	public List<CommentVO> updateComment(CommentVO commentVO){
-		
 		boardService.updateComment(commentVO);
 		return boardService.commentList(Integer.toString(commentVO.getBoardNo()));
 	}
 	
+	@RequestMapping("reviewdetail.do")
+	public ModelAndView reviewDetail(String boardNo, HttpSession session){
+		ModelAndView mav = new ModelAndView("board/reviewDetail");
+		System.out.println("session:"+session);
+		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+		mav.addObject("rvo",boardService.reviewDetail(boardNo)); 
+		mav.addObject("mvo",mvo);
+		return mav;
+	}
 
 }

@@ -23,6 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</select>
 	
+
 	<select id="commentList" resultType="commentVO">
 	select boardcomment.content,member.nickname as "memberVO.nickName",
 	boardcomment.comment_no as commentNo,
@@ -45,6 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update boardcomment set content = #{content} where comment_no=#{commentNo}
 	</update>
 	
+
 </mapper>
  
  

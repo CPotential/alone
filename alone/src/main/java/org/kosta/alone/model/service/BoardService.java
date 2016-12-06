@@ -11,7 +11,8 @@ import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
 
 public interface BoardService { 
-	public List<MeetingVO> getMeetingList();
+
+	public ListVO<MeetingVO> getMeetingList(String pageNo);
 	
 	public List<MeetingVO> getMeetingRegionList(String region);
 	
@@ -51,5 +52,6 @@ public interface BoardService {
 
 	public void updateComment(CommentVO commentVO);
 
+	public ReviewVO reviewDetail(String boardNo);
 
 }
