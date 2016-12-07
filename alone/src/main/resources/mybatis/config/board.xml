@@ -48,7 +48,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into boardcomment(comment_no,board_no,content,time_posted,id)
 		values (#{commentNo}, #{boardNo}, #{content}, sysdate, #{memberVO.id})
 	</insert>
-	
+
+	<update id="updateComment" parameterType="commentVO">
+	update boardcomment set content = #{content} where comment_no=#{commentNo}
+	</update>
 
 	<delete id="deleteComment" parameterType="commentVO">
 		delete from boardcomment where comment_no = #{commentNo} 
@@ -62,6 +65,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateHitBoard" parameterType="int">
 	update review set hits=hits+1 where board_no=#{value}
 	</update>
+
+	<update id="reviewBoardUpdate" parameterType="reviewVO">
+	update board
+	set content=#{content}, time_posted=sysdate
+	where board_no=#{boardNo}
+   </update>
 
 
 </mapper>

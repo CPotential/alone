@@ -1,5 +1,7 @@
 package org.kosta.alone.model.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.alone.model.vo.CompanyMemberVO;
@@ -49,5 +51,13 @@ public class MemberDAOImpl implements MemberDAO {
 
 	public void updateCompanyMember(CompanyMemberVO cvo){
 		sqlSessionTemplate.update("member.updateCompanyMember",cvo); 
+	}
+
+	/**
+	 * 탈퇴회원 리스트
+	 */
+	@Override
+	public List<MemberVO> leaveMemberList() {
+		return sqlSessionTemplate.selectList("member.leaveMemberList");
 	}
 }

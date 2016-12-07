@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 <mapper namespace="genericMember">
-		
+	
 	<insert id="registerMember" parameterType="genericMemberVO">
 		insert into genericmember (id, birth, gender)
 		values(#{id}, #{birth}, #{gender})
@@ -21,6 +21,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	select gmember.id, member.name, member.nickname, gmember.gender, gmember.birth, member.tel
 	from member member, genericmember gmember
 	where member.id=gmember.id and gmember.id=#{id}
+  </select>
+  
+  <select id="genericList" resultType="genericMemberVO">
+  	select genericmember.id, member.name, member.nickname, member.tel, genericmember.birth, genericmember.gender, genericmember.mileage 
+  	from member member, genericmember genericmember 
+  	where member.id=genericmember.id and member.enabled=1
   </select>
 
 </mapper>

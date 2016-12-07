@@ -88,6 +88,16 @@ public class MemberController {
 		memberService.deleteMember(memberVO.getId());
 		return "redirect:logout.do";
 	}
+	
+	/**
+	 * 관리자 - 회원 탈퇴
+	 * @param id
+	 */
+	@RequestMapping("deleteMemberAjax.do")
+	@ResponseBody
+	public void deleteMemberAjax(String id){
+		memberService.deleteMember(id);
+	}
 
 	/**
 	 * 비밀번호 체크 ajax
@@ -188,6 +198,30 @@ public class MemberController {
 	public ModelAndView CmemberUpdateInfo(CompanyMemberVO cvo){
 		memberService.CmemberUpdateInfo(cvo);  
 		return new ModelAndView("redirect:showCompanyInfo.do");
+	}
+	
+	/**
+	 * 관리자 - 일반 회원 관리
+	 */
+	@RequestMapping("adminGenericManagement.do")
+	public ModelAndView genericList(){
+		return new ModelAndView("myPage/admin/genericManagement", "genericList", memberService.genericList());
+	}
+	
+	/**
+	 * 관리자 - 기업 회원 관리
+	 */
+	@RequestMapping("adminCompanyManagement.do")
+	public ModelAndView companyList(){
+		return new ModelAndView("myPage/admin/companyManagement", "companyList", memberService.companyList());
+	}
+	
+	/**
+	 * 관리자 - 탈퇴한 회원 리스트
+	 */
+	@RequestMapping("adminLeaveMemberList.do")
+	public ModelAndView leaveMemberList(){
+		return new ModelAndView("myPage/admin/leaveMember", "leaveMemberList", memberService.leaveMemberList());
 	}
 	
 }

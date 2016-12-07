@@ -44,6 +44,12 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public ReviewVO reviewDetail(int boardNo){ 
 		return template.selectOne("review.reviewDetail", boardNo);
 	}
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 	@Override
 	public int getTitleSearchContentCount(String searchKeyWord) {
 		return template.selectOne("review.getTitleSearchContentCount",searchKeyWord); 
@@ -58,5 +64,8 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public void updateHit(int boardNo) {
 		template.update("review.updateHitBoard",boardNo);
 	}
-
+	
+	public void reviewUpdate(ReviewVO reviewVO){
+		template.update("review.reviewUpdate",reviewVO);
+	}
 }

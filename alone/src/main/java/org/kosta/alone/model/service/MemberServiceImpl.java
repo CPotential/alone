@@ -82,7 +82,7 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 	
-/**
+	/**
 	 * 회원 탈퇴
 	 */
 	@Override
@@ -119,5 +119,29 @@ public class MemberServiceImpl implements MemberService {
 		if(cvo.getCorporateRegistrationNumber() != null && cvo.getAddress() != null){
 			companyMemberDAO.updateCompanyMember(cvo); 
 		}
+	}
+	
+	/**
+	 * 일반회원 리스트
+	 */
+	@Override
+	public List<GenericMemberVO> genericList() {
+		return genericMemberDAO.genericList();
+	}
+	
+	/**
+	 * 기업회원 리스트
+	 */
+	@Override
+	public List<CompanyMemberVO> companyList() {
+		return companyMemberDAO.companyList();
+	}
+	
+	/**
+	 * 탈퇴회원 리스트
+	 */
+	@Override
+	public List<MemberVO> leaveMemberList() {
+		return memberDAO.leaveMemberList();
 	}
 }

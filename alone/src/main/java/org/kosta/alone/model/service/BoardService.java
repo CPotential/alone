@@ -58,6 +58,8 @@ public interface BoardService {
 
 	public MeetingVO meetingNoHitDetail(int boardNo);
 
+	public void reviewUPdate(ReviewVO reviewVO);
+
 
 }
 

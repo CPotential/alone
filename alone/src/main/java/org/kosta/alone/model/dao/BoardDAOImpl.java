@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.ImageVO;
+import org.kosta.alone.model.vo.ReviewVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -49,6 +50,10 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	public void deleteComment(CommentVO commentVO){
 		sqlSessionTemplate.delete("board.deleteComment",commentVO);
+	}
+
+	public void reviewBoardUpdate(ReviewVO reviewVO){
+		sqlSessionTemplate.update("board.reviewBoardUpdate",reviewVO);
 	}
 
 }

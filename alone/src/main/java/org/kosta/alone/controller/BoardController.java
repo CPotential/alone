@@ -214,6 +214,7 @@ public class BoardController {
 		mav.addObject("rvo",boardService.reviewDetail(boardNo)); 
 		return mav;
 	}
+
 	@RequestMapping("deleteCommentAjax.do")
 	@ResponseBody
 	public List<CommentVO> deleteComment(CommentVO commentVO){
@@ -227,10 +228,29 @@ public class BoardController {
 		mav.addObject("rvo",boardService.reviewNotHitDetail(boardNo)); 
 		return mav;
 	}
+
 	@RequestMapping("meetingNoHitDetail.do")
 	public ModelAndView meetingNoHitDetail(int boardNo){
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("rvo",boardService.meetingNoHitDetail(boardNo)); 
 		return mav;
 	}
+
+
+	//후기게시글 수정폼
+		@ RequestMapping("reviewUpdateForm.do")
+		public ModelAndView reviewUpdateForm(int boardNo){
+			return new ModelAndView("board/reviewUpdateForm","rvo",boardService.reviewDetail(boardNo)); 
+		}
+		
+		//후기게시글 수정
+		@RequestMapping("reviewUpdate.do")
+		public ModelAndView reviewUPdate(ReviewVO reviewVO, HttpSession session){
+			MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+	    	reviewVO.setMemberVO(mvo);
+	    	boardService.reviewUPdate(reviewVO);
+			return new ModelAndView("redirect:reviewList.do");
+
+		}
+
 }
