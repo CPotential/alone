@@ -40,11 +40,6 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO boardDAO;
 	private String uploadPath;
 
-	/*
-	 * public List<MeetingVO> getMeetingList() { return
-	 * meetingDAO.getMeetingList(); }
-	 */
-
 	@Override
 	public List<MeetingVO> getMeetingRegionList(String region) {
 		return meetingDAO.getMeetingRegionList(region);
@@ -68,7 +63,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public ListVO<ReviewVO> reviewList(String nowPage) {
 		int totalCount = reviewDAO.getTotalContentCount();
-
 		if (nowPage == null) {
 			PagingBean pagingBean = new PagingBean(totalCount);
 			pagingBean.setContentNumberPerPage(10);
@@ -86,8 +80,6 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
-
-
 	// 소개글 리스트
 	/**
 	 * 1)카테고리에 해당하는 게시물 리스트를 뽑는다 :introduceList 2)첫번째 소개글에 게시물 번호를 얻어와 해당 게시물에
@@ -95,50 +87,48 @@ public class BoardServiceImpl implements BoardService {
 	 * introduceList.get(i).getBoardNo()게시물 번호
 	 */
 	@Override
-	public ListVO<IntroduceVO> introduceList(int categoryNo,String nowPage) {
+	public ListVO<IntroduceVO> introduceList(int categoryNo, String nowPage) {
 		List<ImageVO> imageList = null;
 		List<KeyWordVO> keyWordVO = null;
-		int totalCount = introduceDAO.getTotalContentCount(categoryNo);    
-		HashMap<String,Object> map = new HashMap<String, Object>();
-		
+		int totalCount = introduceDAO.getTotalContentCount(categoryNo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
 		if (nowPage == null) {
 			PagingBean pagingBean = new PagingBean(totalCount);
 			pagingBean.setContentNumberPerPage(6);
 			pagingBean.setPageNumberPerPageGroup(4);
-			map.put("categoryNo",categoryNo); 
-			map.put("pagingBean",pagingBean);
+			map.put("categoryNo", categoryNo);
+			map.put("pagingBean", pagingBean);
 			map.get("categoryNo");
 			List<IntroduceVO> list = introduceDAO.introduceList(map);
-			
-			for (int i = 0; i < list.size(); i++) {
 
+			for (int i = 0; i < list.size(); i++) {
 				keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
 				list.get(i).setKeyWordVO(keyWordVO);
-				imageList = boardDAO.introduceFirstImage(list.get(i).getBoardNo()); 
+				imageList = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
 				list.get(i).setImageVO(imageList);
 			}
 			ListVO<IntroduceVO> vo = new ListVO<IntroduceVO>(list, pagingBean);
 			return vo;
-		}else {
+		} else {
 			PagingBean pagingBean = new PagingBean(totalCount, Integer.parseInt(nowPage));
 			pagingBean.setContentNumberPerPage(6);
 			pagingBean.setPageNumberPerPageGroup(4);
-			map.put("categoryNo",categoryNo); 
-			map.put("pagingBean",pagingBean);
+			map.put("categoryNo", categoryNo);
+			map.put("pagingBean", pagingBean);
 			map.get("categoryNo");
-			List<IntroduceVO> list = introduceDAO.introduceList(map); 
-			
-			for (int i = 0; i < list.size(); i++) {
+			List<IntroduceVO> list = introduceDAO.introduceList(map);
 
+			for (int i = 0; i < list.size(); i++) {
 				keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
 				list.get(i).setKeyWordVO(keyWordVO);
-				imageList = boardDAO.introduceFirstImage(list.get(i).getBoardNo()); 
+				imageList = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
 				list.get(i).setImageVO(imageList);
 			}
 			ListVO<IntroduceVO> vo = new ListVO<IntroduceVO>(list, pagingBean);
 			return vo;
 		}
-}
+	}
 
 	// 소개글 카테고리 리스트
 	@Override
@@ -146,6 +136,7 @@ public class BoardServiceImpl implements BoardService {
 		return introduceDAO.introduceCategoryList();
 	}
 
+	@Override
 	public IntroduceVO introduceDetail(int boardNo) {
 		return introduceDAO.introduceDetail(boardNo);
 	}
@@ -162,6 +153,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Transactional
+	@Override
 	public void reviewWrite(ReviewVO reviewVO) {
 		reviewDAO.reviewBoardWrite(reviewVO);
 		reviewDAO.reviewWrite(reviewVO);
@@ -245,13 +237,11 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.updateComment(commentVO);
 	}
 
-	
-	public void deleteComment(CommentVO commentVO){
-		boardDAO.deleteComment(commentVO); 
+	public void deleteComment(CommentVO commentVO) {
+		boardDAO.deleteComment(commentVO);
 	}
 
-	public ReviewVO reviewDetail(int boardNo){
-		
+	public ReviewVO reviewDetail(int boardNo) {
 		reviewDAO.updateHit(boardNo);
 		return reviewDAO.reviewDetail(boardNo);
 	}
@@ -276,45 +266,43 @@ public class BoardServiceImpl implements BoardService {
 			return mtvo;
 		}
 	}
-	
 
 	@Override
 	public ListVO<ReviewVO> reviewSerachList(String pageNo, String searchKeyWord, String command) {
-		int totalCount=0;
-		PagingBean pagingBean=null;
-		Map<String, Object> map =null;
-		List<ReviewVO> list=null;
-		ListVO<ReviewVO> vo =null;
-		if(command.equals("findByTitle")){
-			totalCount=reviewDAO.getTitleSearchContentCount(searchKeyWord);
-			if(pageNo==null){
-				pagingBean=new PagingBean(totalCount);
-			}else{
-				pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
+		int totalCount = 0;
+		PagingBean pagingBean = null;
+		Map<String, Object> map = null;
+		List<ReviewVO> list = null;
+		ListVO<ReviewVO> vo = null;
+		if (command.equals("findByTitle")) {
+			totalCount = reviewDAO.getTitleSearchContentCount(searchKeyWord);
+			if (pageNo == null) {
+				pagingBean = new PagingBean(totalCount);
+			} else {
+				pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
 			}
-			
 			pagingBean.setContentNumberPerPage(10);
 			pagingBean.setPageNumberPerPageGroup(5);
-			map=new HashMap<String,Object>();
+			map = new HashMap<String, Object>();
 			map.put("keyword", searchKeyWord);
 			map.put("pb", pagingBean);
-			list = reviewDAO.reviewTitleSearchList(map);	
-			vo=new ListVO<>(list, pagingBean);
-		}else{
-			if(pageNo==null){
-				pagingBean=new PagingBean(totalCount);
-			}else{
-				pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
+			list = reviewDAO.reviewTitleSearchList(map);
+			vo = new ListVO<>(list, pagingBean);
+		} else {
+			if (pageNo == null) {
+				pagingBean = new PagingBean(totalCount);
+			} else {
+				pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
 			}
 			totalCount = reviewDAO.getWriterSearchCount(searchKeyWord);
-			pagingBean=new PagingBean(totalCount);
+			pagingBean = new PagingBean(totalCount);
 			pagingBean.setContentNumberPerPage(10);
-			pagingBean.setPageNumberPerPageGroup(5);	
-			map=new HashMap<String,Object>();
-			map.put("keyword",searchKeyWord);
+			pagingBean.setPageNumberPerPageGroup(5);
+			map = new HashMap<String, Object>();
+			map.put("keyword", searchKeyWord);
 			map.put("pb", pagingBean);
-			list = reviewDAO.reviewWriterSearchList(map);	
-			vo=new ListVO<>(list, pagingBean);
+			list = reviewDAO.reviewWriterSearchList(map);
+			vo = new ListVO<>(list, pagingBean);
 		}
 		return vo;
 	}

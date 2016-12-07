@@ -67,11 +67,9 @@ public class BoardController {
 	@RequestMapping("introduceList.do")
 	public ModelAndView introduceList(int categoryNo,String pageNo){
 		ModelAndView mav = new ModelAndView("board/introduce");
-
 		String nowPage = pageNo;
 		mav.addObject("categoryNo",categoryNo);  
 		mav.addObject("ListVO", boardService.introduceList(categoryNo,nowPage));
-		
 		return mav;
 	}
 	
@@ -88,13 +86,9 @@ public class BoardController {
 			mav.addObject("keyword",searchKeyWord);
 			mav.addObject("command",command);
 		}
-		
-		
 		mav.addObject("ListVO",list);
 		return mav;
 	}
-	
-
 	
 	/**
 	 * 소개글 카테고리 목록 ajax
@@ -114,7 +108,6 @@ public class BoardController {
 	public String meetingWriteForm(){
 		return "board/meetingWriteForm"; 
 	}
-	
 
 	//소개글 상세정보
 	@RequestMapping("introduceDetail.do")
@@ -199,6 +192,7 @@ public class BoardController {
 	@RequestMapping("sendCommentAjax.do")
 	@ResponseBody
 	public List<CommentVO> commentList(String comment, HttpServletRequest request, int boardNo){
+		System.out.println(comment + " " + boardNo);
 		HttpSession session = request.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");	
 		boardService.insertComment(memberVO,comment,boardNo);	
@@ -218,10 +212,10 @@ public class BoardController {
 		mav.addObject("rvo",boardService.reviewDetail(boardNo)); 
 		return mav;
 	}
+	
 	@RequestMapping("deleteCommentAjax.do")
 	@ResponseBody
 	public List<CommentVO> deleteComment(CommentVO commentVO){
-		
 		boardService.deleteComment(commentVO); 
 		return boardService.commentList(commentVO.getBoardNo());  
 	}
@@ -229,7 +223,6 @@ public class BoardController {
 	@RequestMapping("reviewNotHitdetail.do")
 	public ModelAndView reviewNotHitdetail(int boardNo){
 		ModelAndView mav = new ModelAndView("board/reviewDetail");
-		
 		mav.addObject("rvo",boardService.reviewNotHitDetail(boardNo)); 
 		return mav;
 	}
