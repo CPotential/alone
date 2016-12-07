@@ -50,4 +50,14 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 		sqlSessionTemplate.update("introduce.updateWrite",id);
     	
     }
+
+/**
+ * 키워드 저장
+ */
+	@Override
+	public void keywordRegister(KeyWordVO keywordVO) {
+	
+		sqlSessionTemplate.insert("introduce.keywordRegister",keywordVO);
+		
+	}
 }

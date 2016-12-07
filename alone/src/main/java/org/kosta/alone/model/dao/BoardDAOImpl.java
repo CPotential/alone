@@ -25,7 +25,14 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public List<CommentVO> commentList(String boardNo) {
+	public List<CommentVO> commentList(int boardNo) {
 		return sqlSessionTemplate.selectList("board.commentList", boardNo);
+	}
+	
+
+	@Override
+	public  void imageRegister(ImageVO imgVO){
+		  sqlSessionTemplate.insert("board.imageRegister", imgVO);
+		
 	}
 }

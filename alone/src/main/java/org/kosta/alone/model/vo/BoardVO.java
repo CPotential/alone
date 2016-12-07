@@ -10,6 +10,7 @@ public class BoardVO {
 	private MemberVO memberVO;
 	private List<ImageVO> imageVO;
 	
+	
 	public BoardVO() {
 		super();
 	}

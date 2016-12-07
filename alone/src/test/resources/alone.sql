@@ -14,7 +14,7 @@ update member set enabled=1 where id='del'
 	from companymember companymember,member member,authorities authorities
 	where companymember.id=member.id and member.id=authorities.id
 	and companymember.id='company'
-	
+	select * from image
 
 drop table genericmember;
 -- 일반 회원 정보

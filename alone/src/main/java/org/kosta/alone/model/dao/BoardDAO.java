@@ -11,6 +11,8 @@ public interface BoardDAO {
 
 	List<ImageVO> introduceFirstImage(int boardNo);
 
-	List<CommentVO> commentList(String boardNo);
+	List<CommentVO> commentList(int boardNo);
+
+	void imageRegister(ImageVO imgVO);
 
 }

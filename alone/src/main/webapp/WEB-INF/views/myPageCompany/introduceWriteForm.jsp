@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
 	$(document).ready(function(){
-		alert("ready");
+	
 		$("#form_introduceWrite").submit(function(){
 			if($("#form_introduceWrite :input[name=companyName]").val().trim()==""){
 				alert("회사이름을 입력하세요");				
@@ -15,7 +15,9 @@
 			if($("#form_introduceWrite :input[name=keyword]").val().trim()==""){
 				alert("키워드를 입력하세요");				
 				return false;
+				
 			}
+	
 			if($("#form_introduceWrite :input[name=region]").val().trim()==""){
 				alert("지역을 입력하세요");				
 				return false;
@@ -50,7 +52,40 @@
 			alert("카테고리번호를 선택하세요");				
 			return false;
 				}
+			
+
+		
+				
 		}); // submit
+		
+		$("#keyword").keyup(function(){
+			 //해쉬 태그 분할하기 
+
+			var string=$(this).val();
+			//문자열 해쉬태그 배열로 나누기
+			var strArray=string.split('#');
+			
+			console.log(strArray);
+			
+			//for문으로 저장된 해쉬태그 대화상자로 출력하기
+			for(var key in strArray){
+				console.log(key);
+				if(parseInt(key)!=0 && parseInt(key)<4)
+					{
+					$("#hash"+key).val(strArray[key]);
+					
+					}
+				else if( parseInt(key)>=4){
+					
+					alert("태그는 3개까지만 유효합니다");
+				
+					$(this).val("#"+$("#hash1").val()+"#"+$("#hash2").val()+"#"+$("#hash3").val());
+		
+					
+				}
+				//alert(strArray[key]);
+			}
+		})//callback
 		
 	}); // ready
 </script>
@@ -110,7 +145,9 @@
 			</script>
 			<!-- Please carefully read the README.txt file in order to setup
                the PHP contact form properly -->
-			<form method="post" role="form" action="${pageContext.request.contextPath}/introduceWrite.do" id="form_introduceWrite">
+			<form role="form" action="${pageContext.request.contextPath}/introduceWrite.do" id="form_introduceWrite"
+			method="post" 
+enctype="multipart/form-data">
 				<!-- <div class="form-group">
 					<label for="email">Your email address</label> 
 					<input type="email" 	name="email" class="form-control" id="email" placeholder="E-mail" 	data-original-title="" title=""> 
@@ -123,7 +160,10 @@
 				</div>
 				<div class="form-group">
 					<label for="region">키워드</label> 
-					<input type="text" name="keyword" class="form-control" id="keyword" placeholder="keyword" data-original-title="" title=""> 
+					<input type="text" name="keyword" class="form-control" id="keyword" placeholder="keyword" data-original-title="" title="" value=""> 
+					<input type="text" id="hash1" name="keyWordVO[0].keyWordName" value="" readonly>
+                    <input type="text" id="hash2" name="keyWordVO[1].keyWordName" value="" readonly>
+                    <input type="text" id="hash3" name="keyWordVO[2].keyWordName" value="" readonly>
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
@@ -152,15 +192,12 @@
 					<span class="help-block"></span>
 				</div>
 					<div class="form-group">
-					<label for="interest">메인사진 첨부</label> 
-					<input type="text" name="mainImage" class="form-control" id="mainImage" placeholder="mainImage" data-original-title="" title=""> 
-					<button type="button" class="btn btn-xs btn-primary">선택</button>
+					<input type="file" name="mainFile"><br>
 					<span class="help-block"></span>
 				</div>
 					<div class="form-group">
 					<label for="interest">사진첨부</label> 
-					<input type="text" name="Image" class="form-control" id="Image" placeholder="Image" data-original-title="" title=""> 
-					<button type="button" class="btn btn-xs btn-primary">선택</button>
+					<input type="file" name="file"  multiple="multiple"  ><br>
 					<span class="help-block"></span>
 				</div>
 		
