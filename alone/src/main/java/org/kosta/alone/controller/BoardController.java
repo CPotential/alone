@@ -42,7 +42,6 @@ public class BoardController {
 	@RequestMapping("getMeetingRegionList.do")
 	@ResponseBody
 	public List<MeetingVO> getMeetingRegionList(String region){
-		System.out.println(region); 
 		List<MeetingVO> rList = boardService.getMeetingRegionList(region);
 		return rList; 
 	} 
@@ -71,7 +70,7 @@ public class BoardController {
 	@RequestMapping("introduceList.do")
 	public ModelAndView introduceList(int categoryNo){
 		ModelAndView mav = new ModelAndView("board/introduce");
-		mav.addObject("introduceList", boardService.introduceList(categoryNo));
+		mav.addObject("ListVO", boardService.introduceList(categoryNo));
 		
 		return mav;
 	}
