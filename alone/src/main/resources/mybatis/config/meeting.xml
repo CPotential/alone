@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getMeetingList" resultMap="meetingRM" parameterType="pagingBean">
 		select board_no, title, region, 
 		interest, hits, time_posted, nickname from
-		(select row_number() over(order by board.board_no) as rnum,
+		(select row_number() over(order by board.board_no desc) as rnum,
 		board.board_no,meeting.title,meeting.region, 
 		meeting.interest, meeting.hits,to_char(board.time_posted,'YYYY.MM.DD') as time_posted,
 		member.nickname

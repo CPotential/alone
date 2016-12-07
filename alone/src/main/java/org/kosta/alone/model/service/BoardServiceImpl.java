@@ -288,19 +288,24 @@ public class BoardServiceImpl implements BoardService {
 		else{
 			totalCount = reviewDAO.getWriterSearchCount(searchKeyWord);
 		}
-			
 		if(pageNo==null){
 				pagingBean=new PagingBean(totalCount);
 		}else{
 				pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
 			}
-
+		
 			pagingBean.setContentNumberPerPage(10);
 			pagingBean.setPageNumberPerPageGroup(5);
 			map=new HashMap<String,Object>();
 			map.put("keyword", searchKeyWord);
 			map.put("pb", pagingBean);
-			list = reviewDAO.reviewTitleSearchList(map);	
+			
+			if(command.equals("findByTitle")){
+				list = reviewDAO.reviewTitleSearchList(map);	
+			}else{
+				list = reviewDAO.reviewWriterSearchList(map);	
+			}
+		
 			vo=new ListVO<ReviewVO>(list, pagingBean);
 			
 			return vo;

@@ -4,6 +4,7 @@
 	where boardcomment.id=member.id and boardcomment.board_no=23
 	ORDER BY boardcomment.comment_no ASC
 	
+	
 select * from member where id='del'
 select * from image
 update member set enabled=1 where id='del'

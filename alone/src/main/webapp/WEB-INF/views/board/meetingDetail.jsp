@@ -194,6 +194,7 @@
 					<table>
 						<tr>
 							<td>${meetingVO.content}</td>
+							
 						</tr>
 					</table>
 				</div>
@@ -204,6 +205,11 @@
 						center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 						level : 3 // 지도의 확대 레벨
 					};
+					
+					var map = new daum.maps.Map(mapContainer, mapOption); 
+					var geocoder = new daum.maps.services.Geocoder();
+					<c:set var="location" value="${meetingVO.location}"/>
+					var fullAddr='<c:out value="${location}"/>'
 					// 주소로 좌표를 검색합니다
 					geocoder.addr2coord(fullAddr, function(status, result) {
 					
