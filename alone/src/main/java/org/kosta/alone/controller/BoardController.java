@@ -228,5 +228,25 @@ public class BoardController {
 		mav.addObject("mvo",mvo);
 		return mav;
 	}
+	
+	//후기게시글 수정폼
+	@ RequestMapping("reviewUpdateForm.do")
+	public ModelAndView reviewUpdateForm(String boardNo){
+		//mav.addObject("rvo",boardService.reviewDetail(boardNo)); 
+		return new ModelAndView("board/reviewUpdateForm","rvo",boardService.reviewDetail(boardNo)); 
+	}
+	
+	//후기게시글 수정
+	@RequestMapping("reviewUpdate.do")
+	public ModelAndView reviewUPdate(ReviewVO reviewVO, HttpSession session){
+		//ModelAndView mav=new ModelAndView("redirect:reviewList.do");
+		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+    	reviewVO.setMemberVO(mvo);
+    	boardService.reviewUPdate(reviewVO);
+		System.out.println(reviewVO);
+		return new ModelAndView("redirect:reviewList.do");
+
+	}
+	
 
 }

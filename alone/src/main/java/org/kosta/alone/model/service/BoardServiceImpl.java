@@ -199,4 +199,13 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}	
 	
+	@Transactional
+/*	public void reviewUPdate(ReviewVO reviewVO) {
+		reviewDAO.reviewBoardUpdate(reviewVO);
+		reviewDAO.reviewUpdate(reviewVO);
+	}*/
+	public void reviewUPdate(ReviewVO reviewVO) {
+		reviewDAO.reviewBoardUpdate(reviewVO);
+		reviewDAO.reviewUpdate(reviewVO);
+	}
 }

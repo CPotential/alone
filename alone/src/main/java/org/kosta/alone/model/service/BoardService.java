@@ -53,5 +53,7 @@ public interface BoardService {
 	public void updateComment(CommentVO commentVO);
 
 	public ReviewVO reviewDetail(String boardNo);
+	
+	public void reviewUPdate(ReviewVO reviewVO);
 
 }

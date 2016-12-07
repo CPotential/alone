@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateComment" parameterType="commentVO">
 	update boardcomment set content = #{content} where comment_no=#{commentNo}
 	</update>
-	
+
 
 </mapper>
  
