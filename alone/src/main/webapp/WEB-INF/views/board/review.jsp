@@ -18,7 +18,7 @@
 				location.href = "reviewList.do?command="+ command+ "&searchKeyWord=" + searchKeyWord;
 			}
 		}); // click 이벤트
-	}); // ready
+	}); // ready 
 </script>
 
 <div class="ui__section" id="ui_tables">  
@@ -34,12 +34,13 @@
 					<th class="col-md-1">작성일</th>
 					<th class="col-md-1">조회수</th>
 					<th class="col-md-1">좋아요</th>
+					<th class="col-md-1">좋아요눌러주세요</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${ListVO.list}" var="list">  
 					<tr>
-						<th scope="row">${list.boardNo}</th>
+						<th scope="row" >${list.boardNo}</th>
 
 						<td class="col-md-6"><a href="${pageContext.request.contextPath}/reviewdetail.do?boardNo=${list.boardNo}">${list.title}</a></td>
 
@@ -47,7 +48,7 @@
 						<td class="col-md-1">${list.memberVO.nickName}</td> 
 						<td class="col-md-1">${list.timePosted}</td>
 						<td class="col-md-1">${list.hits}</td>
-						<td class="col-md-1">${list.likes}</td>
+						<td class="col-md-1" >${list.likes}</td> 
 					</tr>
 				</c:forEach>
 			</tbody> 

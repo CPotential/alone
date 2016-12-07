@@ -7,11 +7,8 @@
 <!--  jquery 사용처입니다. -->
 <script src="//code.jquery.com/jquery.min.js"></script>
     <script type="text/javascript">
-
-</script>
-
-
-
+	
+    </script>
 <div class="ui__section" id="ui_tables">
 
 	<h2 class="header">후기 정보</h2>
@@ -38,9 +35,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td  colspan="3">
-			좋아요 들어갈 자리
-			</td>
+				<td  colspan="3" id="like">
+			      좋아요
+				</td>
 			</tr>
 			</tbody>
 		</table>

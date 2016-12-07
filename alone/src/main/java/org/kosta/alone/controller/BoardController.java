@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.BoardService;
+import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
@@ -232,5 +233,15 @@ public class BoardController {
 		
 		mav.addObject("rvo",boardService.reviewNotHitDetail(boardNo)); 
 		return mav;
+	}
+	
+	@RequestMapping("likeUpAjax.do")
+	@ResponseBody
+	public ModelAndView likeUp(BoardVO bvo,HttpSession session){
+		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+		System.out.println(bvo.getBoardNo());
+		bvo.setMemberVO(mvo);
+		
+		return null;
 	}
 }

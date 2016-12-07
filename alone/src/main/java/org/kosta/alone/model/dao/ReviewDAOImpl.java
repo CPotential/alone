@@ -50,7 +50,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 
 	@Override
 	public int getTitleSearchContentCount(String searchKeyWord) {
-		return template.selectOne("review.getTotalContentCount",searchKeyWord); 
+		return template.selectOne("review.getTitleSearchContentCount",searchKeyWord);  
 	}
 
 	@Override

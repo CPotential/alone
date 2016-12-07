@@ -285,6 +285,7 @@ public class BoardServiceImpl implements BoardService {
 		Map<String, Object> map =null;
 		List<ReviewVO> list=null;
 		ListVO<ReviewVO> vo =null;
+		totalCount = reviewDAO.getWriterSearchCount(searchKeyWord); 
 		if(command.equals("findByTitle")){
 			totalCount=reviewDAO.getTitleSearchContentCount(searchKeyWord);
 			if(pageNo==null){
@@ -306,8 +307,6 @@ public class BoardServiceImpl implements BoardService {
 			}else{
 				pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
 			}
-			totalCount = reviewDAO.getWriterSearchCount(searchKeyWord);
-			pagingBean=new PagingBean(totalCount);
 			pagingBean.setContentNumberPerPage(10);
 			pagingBean.setPageNumberPerPageGroup(5);	
 			map=new HashMap<String,Object>();
@@ -323,5 +322,5 @@ public class BoardServiceImpl implements BoardService {
 	public ReviewVO reviewNotHitDetail(int boardNo) {
 		return reviewDAO.reviewDetail(boardNo);
 	}
-
+	
 }
