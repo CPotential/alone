@@ -43,15 +43,15 @@ public class MeetingDAOImpl implements MeetingDAO {
 	public void meetingWrite(MeetingVO meetingVO) {
 		sqlSessionTemplate.insert("meeting.meetingWrite", meetingVO);
 	}
-	
+
 	@Override
-	public MeetingVO meetingDetail(String boardNo) {
-		return sqlSessionTemplate.selectOne("meeting.meetingDetail",boardNo);
+	public MeetingVO meetingDetail(int boardNo) {
+		return sqlSessionTemplate.selectOne("meeting.meetingDetail", boardNo);
 	}
 
 	@Override
-	public int getTotalContentCount(){
+	public int getTotalContentCount() {
 		return sqlSessionTemplate.selectOne("meeting.getTotalContentCount");
 	}
-	
+
 }

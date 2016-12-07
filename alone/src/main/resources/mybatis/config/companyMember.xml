@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 <mapper namespace="companyMember">
 	<resultMap type="companyMemberVO" id="comMemberRM">
@@ -41,6 +39,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateCompanyMember" parameterType="companyMemberVO">
 		update companymember set address = #{address},corporate_registration_number = #{corporateRegistrationNumber} where id=#{id} 
 	</update>
+	
+	<select id="companyList" resultType="companyMemberVO">
+		select member.id, member.name, member.nickname, member.tel, companymember.address, companymember.corporate_registration_number, companymember.approval, companymember.write
+		from member member, companymember companymember 
+		where member.id=companymember.id and member.enabled=1
+	</select>
 </mapper>
  
  

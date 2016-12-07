@@ -111,55 +111,66 @@
 
 			<!-- Alert message -->
 			<div class="alert" id="form_message" role="alert"></div>
-
-
-
-			<form method="post" role="form" action="${pageContext.request.contextPath}/meetingWrite.do" id="form_meetingWrite">
-
+			<!-- Setting the custom theme for reCaptcha.
+               Default themes and customization: 
+               https://developers.google.com/recaptcha/docs/customization -->
+               
+			<script type="text/javascript">
+				var RecaptchaOptions = {
+					theme : 'custom',
+					custom_theme_widget : 'recaptcha_widget'
+				};
+			</script>
+			<!-- Please carefully read the README.txt file in order to setup
+               the PHP contact form properly -->
+			<form method="post" role="form" action="${pageContext.request.contextPath}/meetingWrite.do" id="form_meetingWrite" enctype="multipart/form-data">
+				<!-- <div class="form-group">
+					<label for="email">Your email address</label> 
+					<input type="email" 	name="email" class="form-control" id="email" placeholder="E-mail" 	data-original-title="" title=""> 
+					<span class="help-block"></span>
+				</div> -->
 				<div class="form-group">
 					<label for="title">Title</label> 
-					<input type="text" name="title" class="form-control" id="title" placeholder="meetin title"  data-original-title="" title=""> 
+					<input type="text" name="title" class="form-control" placeholder="meetin title"  data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 					<label for="region">Region</label> 
-					<input type="text" name="region" class="form-control" id="region" placeholder="meeting region" data-original-title="" title=""> 
+					<input type="text" id="region" name="region" class="form-control" placeholder="meeting region" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				
 				<div id="map" style="width:500px;height:400px;"></div>
-		<script>
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	    mapOption = {
-	        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	        level: 3 // 지도의 확대 레벨
-	    };  
-
-	// 지도를 생성합니다    
-	var map = new daum.maps.Map(mapContainer, mapOption); 
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new daum.maps.services.Geocoder();
-
-
-	// 주소로 좌표를 검색합니다
-	geocoder.addr2coord('경기 성남시 분당구 대왕판교로 670 (삼평동, 유스페이스2)', function(status, result) {
-
-	    // 정상적으로 검색이 완료됐으면 
-	     if (status === daum.maps.services.Status.OK) {
-	        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
-	        // 결과값으로 받은 위치를 마커로 표시합니다
-	        var marker = new daum.maps.Marker({
-	            map: map,
-	            position: coords
-	        });
-
-	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	        map.setCenter(coords);
-	    } 
-	});  
-		</script>
+				<script>
+					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				    mapOption = {
+				        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+				        level: 3 // 지도의 확대 레벨
+				    };  
 				
+					// 지도를 생성합니다    
+					var map = new daum.maps.Map(mapContainer, mapOption); 
+					// 주소-좌표 변환 객체를 생성합니다
+					var geocoder = new daum.maps.services.Geocoder();
+				
+					// 주소로 좌표를 검색합니다
+					geocoder.addr2coord('경기 성남시 분당구 대왕판교로 670 (삼평동, 유스페이스2)', function(status, result) {
+		
+						// 정상적으로 검색이 완료됐으면 
+					     if (status === daum.maps.services.Status.OK) {
+					        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+					        // 결과값으로 받은 위치를 마커로 표시합니다
+					        var marker = new daum.maps.Marker({
+					            map: map,
+					            position: coords
+					        });
+				
+					        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+					        map.setCenter(coords);
+					    } 
+					});  
+				</script>
 				<div class="form-group">
 					<label for="location">Location</label> 
 					<input type="text" name="location" class="form-control" id="location" placeholder="meeting location" data-original-title="" title=""> 
@@ -167,12 +178,17 @@
 				</div>
 				<div class="form-group">
 					<label for="interest">Interest</label> 
-					<input type="text" name="interest" class="form-control" id="interest" placeholder="Interest" data-original-title="" title=""> 
+					<input type="text" name="interest" class="form-control" placeholder="Interest" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="content">Content</label>
-					<textarea name="content" class="form-control" rows="3" id="content" placeholder="Content"></textarea>
+					<textarea name="content" class="form-control" rows="3" placeholder="Content"></textarea>
+					<span class="help-block"></span>
+				</div>
+				<div class="form-group">
+					<label for="uploadFile">UploadFile</label> 
+					<input type="file" name="file[0]" class="form-control"> 
 					<span class="help-block"></span>
 				</div>
 

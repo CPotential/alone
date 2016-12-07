@@ -11,10 +11,14 @@ public interface BoardDAO {
 
 	List<ImageVO> introduceFirstImage(int boardNo);
 
-	List<CommentVO> commentList(String boardNo);
+	List<CommentVO> commentList(int boardNo);
+
+	public void imageUpload(ImageVO imageVO);
 
 	void insertComment(CommentVO commentVO);
 
 	void updateComment(CommentVO commentVO);
+	
+	void deleteComment(CommentVO commentVO);
 
 }

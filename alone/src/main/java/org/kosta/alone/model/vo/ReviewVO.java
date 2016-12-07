@@ -12,12 +12,8 @@ public class ReviewVO extends BoardVO {
 	}
 
 	public ReviewVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
-			List<ImageVO> imageVO) {
+			List<ImageVO> imageVO, String title, int hits, int likes) {
 		super(boardNo, content, timePosted, boardEnabled, memberVO, imageVO);
-	}
-
-	public ReviewVO(String title, int hits, int likes) {
-		super();
 		this.title = title;
 		this.hits = hits;
 		this.likes = likes;
