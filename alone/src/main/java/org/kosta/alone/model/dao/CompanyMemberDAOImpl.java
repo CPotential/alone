@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.kosta.alone.model.vo.CompanyMemberVO;
+import org.kosta.alone.model.vo.MemberVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -28,5 +29,21 @@ public class CompanyMemberDAOImpl implements CompanyMemberDAO {
 	
 	public void updateApproval(String id){
 		sqlSessionTemplate.update("companyMember.updateApproval",id);
+	}
+	
+	public CompanyMemberVO  showCompanyMember(MemberVO mvo){
+		return sqlSessionTemplate.selectOne("companyMember.showCompanyMember",mvo);  
+	}
+	
+	public void updateCompanyMember(CompanyMemberVO cvo){
+		sqlSessionTemplate.update("companyMember.updateCompanyMember",cvo);
+	}
+	
+	/**
+	 * 기업회원 리스트
+	 */
+	@Override
+	public List<CompanyMemberVO> companyList() {
+		return sqlSessionTemplate.selectList("companyMember.companyList");
 	}
 }

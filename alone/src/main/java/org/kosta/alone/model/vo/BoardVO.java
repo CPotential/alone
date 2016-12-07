@@ -79,4 +79,5 @@ public class BoardVO {
 		return "BoardVO [boardNo=" + boardNo + ", content=" + content + ", timePosted=" + timePosted + ", boardEnabled="
 				+ boardEnabled + ", memberVO=" + memberVO + ", imageVO=" + imageVO + "]";
 	}
+
 }

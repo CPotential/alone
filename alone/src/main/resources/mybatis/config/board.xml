@@ -5,17 +5,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 <mapper namespace="board">
 	<resultMap type="imageVO" id="imageRM">
-		<result column="image_name" property="imageName"/>
+		<result column="image_name" property="imageName" />
 	</resultMap>
+
 
 	<select id="imageList" resultMap="imageRM" resultType="imageVO">
 	SELECT image_name FROM image WHERE NOT image_name LIKE 'main%'and board_no=#{value}
 	</select>
+	
+	
 	<select id="introduceFirstImage" resultMap="imageRM" resultType="imageVO">
 	SELECT image_name FROM image WHERE image_name LIKE 'main%' and board_no=#{value}
 	</select>
+
+	<select id="commentList" resultType="commentVO">
+		select boardcomment.content,member.nickname as "memberVO.nickName",
+		boardcomment.comment_no as commentNo,
+		member.id as "memberVO.id",to_char(boardcomment.time_posted,'yyyy.mm.dd') as
+		timePosted
+		from BOARDCOMMENT boardcomment,member member
+		where boardcomment.id=member.id and boardcomment.board_no=#{value}
+		ORDER BY boardcomment.comment_no ASC
+	</select>
+
+
+	<insert id="insertComment" parameterType="commentVO">
+		<selectKey resultType="integer" keyProperty="commentNo"
+			order="BEFORE">
+			select comment_seq.nextval from dual
+		</selectKey>
+		insert into boardcomment(comment_no,board_no,content,time_posted,id)
+		values (#{commentNo}, #{boardNo}, #{content}, sysdate, #{memberVO.id})
+	</insert>
 	
-	<insert id ="imageRegister" parameterType="imageVO" >
+
+	<insert id ="imageUpload" parameterType="imageVO" >
 		<selectKey resultType="int" keyProperty="imageNo" order="BEFORE">
 			select image_seq.nextval from dual
 		</selectKey>
@@ -23,13 +47,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     values(#{imageNo}, #{imageName}, #{boardNO})
 	</insert>
 	
-	<select id="commentList" resultType="commentVO">
-	select boardcomment.content,member.nickname as "memberVO.nickName",
-	to_char(boardcomment.time_posted,'yyyy.mm.dd') as timePosted from BOARDCOMMENT boardcomment,member member 
-	where boardcomment.id=member.id and boardcomment.board_no=#{value}
-	ORDER BY boardcomment.comment_no ASC
-	</select>
-	
+	<delete id="deleteComment" parameterType="commentVO">
+		delete from boardcomment where comment_no = #{commentNo} 
+	</delete>
+
+	<update id="updateComment" parameterType="commentVO">
+		update boardcomment set content = #{content} where comment_no=#{commentNo}
+	</update>
+
+
 </mapper>
  
  

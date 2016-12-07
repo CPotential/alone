@@ -1,3 +1,4 @@
+
 package  org.kosta.alone.model.vo;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class UploadFileVO {
 	public String toString() {
 		return "UploadFileVO [userInfo=" + userInfo + ", mainFile=" + mainFile + ", file=" + file + "]";
 	}
-
 	
 }
+
+	

@@ -1,5 +1,6 @@
 package org.kosta.alone.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,8 +17,12 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	@Override
-	public List<IntroduceVO> introduceList(int categoryNo){
-		return sqlSessionTemplate.selectList("introduce.introduceList", categoryNo);
+	public List<IntroduceVO> introduceList(HashMap<String,Object> map){ 
+		return sqlSessionTemplate.selectList("introduce.introduceList",map);
+	}
+	
+	public int getTotalContentCount(int categoryNo){
+		return sqlSessionTemplate.selectOne("introduce.getTotalContentCount",categoryNo);  
 	}
 	
 	@Override

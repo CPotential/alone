@@ -25,30 +25,19 @@ public class MemberServiceImpl implements MemberService {
 	@Resource
 	private CompanyMemberDAO companyMemberDAO;
 
-
-
+	@Override
 	public MemberVO memberLogin(MemberVO memberVO) {
 		memberVO = commonMemberDAO.memberLogin(memberVO);
-
-
 		//아이디 패스워드 확인
 		if(memberVO == null){
 			return memberVO;
 		} 
-		
 		if(memberVO.getAuthority().equals("ROLE_COMPANY")){
 			return commonMemberDAO.adminApproval(memberVO);
-
 			//관리자가 기업 승인 여부 확인해야한다.
-
-			//관리자가 기업 승인 여부 확인해야한다.
-
 		}
 		return memberVO;
-		
 	}
-
-
 
 	public int idcheck(String id) {
 		return memberDAO.idcheck(id);
@@ -75,6 +64,14 @@ public class MemberServiceImpl implements MemberService {
 		return companyMemberDAO.NonApporvalCompanyList();
 	}
 
+	public List<CompanyMemberVO> ApporvalCompanyList() {
+		return companyMemberDAO.ApporvalCompanyList();
+	}
+
+	public void updateApproval(String id) {
+		companyMemberDAO.updateApproval(id);
+	}
+
 	@Override
 	@Transactional
 	public void updateInfo(GenericMemberVO genericMemberVO) {
@@ -84,7 +81,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	}
-
+	
 	/**
 	 * 회원 탈퇴
 	 */
@@ -100,22 +97,51 @@ public class MemberServiceImpl implements MemberService {
 	public int passwordCheck(MemberVO memberVO) {
 		return memberDAO.passwordCheck(memberVO);
 	}
-
+	
 	// 닉네임 중복체크
 	@Override
 	public int nickNamecheck(String nickname) {
 		return memberDAO.nickNamecheck(nickname);
 	}
 
-	public List<CompanyMemberVO> ApporvalCompanyList() {
-		return companyMemberDAO.ApporvalCompanyList();
-	}
-
-	public void updateApproval(String id) {
-		companyMemberDAO.updateApproval(id);
-	}
-
 	public GenericMemberVO showGenericmember(MemberVO mvo) {
 		return genericMemberDAO.showGenericmember(mvo);
+	}
+
+	@Override
+	public CompanyMemberVO showCompanyMember(MemberVO mvo) {
+
+		return companyMemberDAO.showCompanyMember(mvo);
+	}
+	
+	public void CmemberUpdateInfo(CompanyMemberVO cvo){
+		memberDAO.updateCompanyMember(cvo); 
+		if(cvo.getCorporateRegistrationNumber() != null && cvo.getAddress() != null){
+			companyMemberDAO.updateCompanyMember(cvo); 
+		}
+	}
+	
+	/**
+	 * 일반회원 리스트
+	 */
+	@Override
+	public List<GenericMemberVO> genericList() {
+		return genericMemberDAO.genericList();
+	}
+	
+	/**
+	 * 기업회원 리스트
+	 */
+	@Override
+	public List<CompanyMemberVO> companyList() {
+		return companyMemberDAO.companyList();
+	}
+	
+	/**
+	 * 탈퇴회원 리스트
+	 */
+	@Override
+	public List<MemberVO> leaveMemberList() {
+		return memberDAO.leaveMemberList();
 	}
 }

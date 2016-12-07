@@ -1,5 +1,8 @@
 package org.kosta.alone.model.dao;
 
+import java.util.List;
+
+import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.MemberVO;
 
 public interface MemberDAO {
@@ -15,5 +18,9 @@ public interface MemberDAO {
 	public int passwordCheck(MemberVO memberVO);
 
 	int nickNamecheck(String nickname);
+	
+	public void updateCompanyMember(CompanyMemberVO cvo);
+
+	public List<MemberVO> leaveMemberList();
 
 }

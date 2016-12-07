@@ -1,7 +1,10 @@
 package org.kosta.alone.model.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
+import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -44,5 +47,17 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int nickNamecheck(String nickname) {
 		return sqlSessionTemplate.selectOne("member.nickNamecheck",nickname);
+	}
+
+	public void updateCompanyMember(CompanyMemberVO cvo){
+		sqlSessionTemplate.update("member.updateCompanyMember",cvo); 
+	}
+
+	/**
+	 * 탈퇴회원 리스트
+	 */
+	@Override
+	public List<MemberVO> leaveMemberList() {
+		return sqlSessionTemplate.selectList("member.leaveMemberList");
 	}
 }

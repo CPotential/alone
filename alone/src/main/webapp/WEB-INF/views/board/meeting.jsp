@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script src="//code.jquery.com/jquery.min.js"></script>
 
@@ -57,8 +57,8 @@
 		<div class="col-sm-9">
 			<select id="region">
 				<option>지역</option>
-				<c:forEach var="meetingList" items="${requestScope.RegionList}">
-					<option value="${meetingList.region}">${meetingList.region}</option>
+				<c:forEach var="RegionList"  items="${requestScope.RegionList}">
+					<option value="${RegionList.region}">${RegionList.region}</option>
 				</c:forEach>
 			</select>
 		</div>
@@ -76,7 +76,7 @@
 				</tr>
 			</thead>
 			<tbody id="meetingRegionList">
-				<c:forEach var="meetingList" items="${requestScope.list}">
+				<c:forEach var="meetingList"  items="${requestScope.list.list }">
 					<tr>
 						<td>${meetingList.boardNo}</td>
 						<td>${meetingList.region}</td>
@@ -91,6 +91,32 @@
 			</tbody>
 		</table>
 	</div>
+	<br><br><br>
+	
+	<!-- paging -->
+<div class="ui__section" id="ui_pagination" align="center">
+	<nav>
+		<ul class="pagination">  
+		<c:if  test="${requestScope.list.pagingBean.previousPageGroup}">
+			<li><a href="${pageContext.request.contextPath}/getMeetingList.do?pageNo=${requestScope.list.pagingBean.startPageOfPageGroup-1}" aria-label="Previous"><span
+					aria-hidden="true">«</span></a></li>
+		</c:if>
+		<c:forEach var ="pb" begin = "${requestScope.list.pagingBean.startPageOfPageGroup}" end = "${requestScope.list.pagingBean.endPageOfPageGroup}">
+			<li class="active"><a href="${pageContext.request.contextPath}/getMeetingList.do?pageNo=${pb}">${pb}<span class="sr-only" >(current)</span></a></li> 
+		</c:forEach>
+		<c:if test= "${requestScope.list.pagingBean.nextPageGroup}">  
+			<li><a href="${pageContext.request.contextPath}/getMeetingList.do?pageNo=${requestScope.list.pagingBean.endPageOfPageGroup+1}" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+		</c:if>
+		</ul>
+	</nav>
+</div>
+
+	
+	
+
+	
+
+	
 	<!-- / .table-responsive -->
 	<div class="row">
 		<div class="col-sm-5"></div>
@@ -116,7 +142,6 @@
 					class="btn btn-sm btn-primary">글작성</a>
 			</div>
 		</div>
-	</div>
+	</div> 
 </div>
-<!-- / ui__section -->
-
+	

@@ -7,6 +7,20 @@ insert into genericmember(id, birth, gender, mileage)
 values('json', '851201', '여자', 0);
 insert into authorities(id,authority)
 values('json','ROLE_MEMBER');
+
+insert into member(id, password, name, nickname, tel)
+values('java', '1234', '상혁', '상혁쿤', '01036841205');
+insert into genericmember(id, birth, gender, mileage)
+values('java', '910852', '남자자', 0);
+insert into authorities(id,authority)
+values('java','ROLE_MEMBER');
+
+insert into member(id, password, name, nickname, tel)
+values('del2', '1234', '삭제용', '삭제테스트', '01054318921');
+insert into genericmember(id, birth, gender, mileage)
+values('del2', '760129', '여자', 0);
+insert into authorities(id,authority)
+values('del2','ROLE_MEMBER');
 -- 기업회원 정보
 insert into member(id, password, name, nickname, tel)
 values('jquery', '1234', '오해영', '담소', '01081234567');

@@ -1,5 +1,7 @@
 package org.kosta.alone.model.dao;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.alone.model.vo.GenericMemberVO;
@@ -20,8 +22,16 @@ public class GenericMemberDAOImpl implements GenericMemberDAO {
 	public void updateMember(GenericMemberVO genericMemberVO){
 		sqlSessionTemplate.update("genericMember.updateGenericMember",genericMemberVO);
 	}
-
+ 
 	public GenericMemberVO showGenericmember(MemberVO vo){
 		return sqlSessionTemplate.selectOne("genericMember.showGenericmember", vo);
+	}
+	
+	/**
+	 * 일반회원 리스트
+	 */
+	@Override
+	public List<GenericMemberVO> genericList() {
+		return sqlSessionTemplate.selectList("genericMember.genericList");
 	}
 }

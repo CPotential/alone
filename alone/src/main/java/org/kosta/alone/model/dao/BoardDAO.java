@@ -13,6 +13,12 @@ public interface BoardDAO {
 
 	List<CommentVO> commentList(int boardNo);
 
-	void imageRegister(ImageVO imgVO);
+	public void imageUpload(ImageVO imageVO);
+
+	void insertComment(CommentVO commentVO);
+
+	void updateComment(CommentVO commentVO);
+	
+	void deleteComment(CommentVO commentVO);
 
 }

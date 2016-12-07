@@ -3,20 +3,23 @@ package org.kosta.alone.model.vo;
 
 
 public class ImageVO {
+	private int boardNo;
 	private int imageNo;
 	private String imageName;
-	private int boardNo;
 
-	
+
 
 	public ImageVO() {
 		super();
 	}
 
 	public ImageVO(int imageNo, String imageName) {
+
 		super();
+
 		this.imageNo = imageNo;
 		this.imageName = imageName;
+
 	
 	}
 	
@@ -37,7 +40,9 @@ public class ImageVO {
 
 	public void setBoardNO(int boardNO) {
 		this.boardNo = boardNO;
+
 	}
+
 
 	public int getImageNo() {
 		return imageNo;
@@ -57,10 +62,14 @@ public class ImageVO {
 
 
 
+
+
 	@Override
 	public String toString() {
+
 		return "ImageVO [imageNo=" + imageNo + ", imageName=" + imageName + ", boardNo=" + boardNo 
 				+"]";
+
 	}
 
 
