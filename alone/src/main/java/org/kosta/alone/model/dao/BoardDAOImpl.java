@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.ImageVO;
+import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,7 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	@Override
 	public List<ImageVO> imageList(int boardNo){
+		System.out.println(boardNo + "이미지 리스트 dao 출력 진입");
 		return sqlSessionTemplate.selectList("board.imageList", boardNo);
 	}
 	
@@ -54,5 +56,9 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	public void reviewBoardUpdate(ReviewVO reviewVO){
 		sqlSessionTemplate.update("board.reviewBoardUpdate",reviewVO);
+	}
+	
+	public void meetingboardUpdate(MeetingVO meetingVO) {
+		sqlSessionTemplate.update("board.meetingboardUpdate", meetingVO);
 	}
 }

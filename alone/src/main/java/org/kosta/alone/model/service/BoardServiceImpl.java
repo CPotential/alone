@@ -213,12 +213,14 @@ public class BoardServiceImpl implements BoardService {
 	 */
 	@Override
 	public MeetingVO meetingDetail(int boardNo) {
+		System.out.println(boardNo);
 		MeetingVO meetingVO = null;
 		meetingVO = meetingDAO.meetingDetail(boardNo);
 		List<ImageVO> imageList = null;
 		imageList = boardDAO.imageList(boardNo);
-		meetingVO.setImageVO(imageList);
-		System.out.println(meetingVO);
+		if(!imageList.isEmpty()){
+			meetingVO.setImageVO(imageList);
+		}
 		return meetingVO;
 	}
 
@@ -313,5 +315,12 @@ public class BoardServiceImpl implements BoardService {
 	public void reviewUPdate(ReviewVO reviewVO) {
 		boardDAO.reviewBoardUpdate(reviewVO);
 		reviewDAO.reviewUpdate(reviewVO);
+	}
+	
+	@Transactional
+	public void meetingUpdate(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO) {
+		boardDAO.meetingboardUpdate(meetingVO);
+		meetingDAO.meetingUpdate(meetingVO);
+		//mageUpload(request, meetingVO, uploadFileVO);
 	}
 }

@@ -63,6 +63,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where board_no=#{boardNo}
    </update>
 
+   <update id="meetingboardUpdate" parameterType="meetingVO">
+	update board
+	set content=#{content}, time_posted=sysdate
+	where board_no=#{boardNo}
+   </update>
+
 </mapper>
  
  

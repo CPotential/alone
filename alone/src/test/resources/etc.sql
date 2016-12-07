@@ -17,12 +17,10 @@ DROP TABLE IMAGE
 CREATE TABLE IMAGE(
 	image_no number primary key,
 	image_name varchar2(100) not null,
-	image_original_name varchar2(100) not null,
 	board_no number not null,
 	constraint fk_image foreign key(board_no) references board(board_no)
-
 )
-
+select * from image
 --마일리지 정보
 CREATE TABLE MILEAGE(
 	mileage_no number primary key,

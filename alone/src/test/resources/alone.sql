@@ -96,7 +96,10 @@ CREATE TABLE KEYWORD(
 	board_no number not null,
 	constraint fk_keyword_board foreign key(board_no) references introduce(board_no)
 )
-
+select
+		image.image_name
+		from image image, board board
+		where image.board_no=board.board_no and board.board_no=44
 drop table meeting;
 -- 모임글 정보
 CREATE TABLE MEETING(
@@ -520,3 +523,7 @@ where board.board_no=review.board_no and review.title='손재만1213'
 
 select * from MEETING 
 update MEETING set hits=hits+1 where board_no=5
+
+update image set image_name=#{imageName} where board_no=#{boardNo} 
+select * from image where board_no=52
+select * from member

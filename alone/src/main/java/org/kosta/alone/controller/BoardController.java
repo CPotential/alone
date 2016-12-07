@@ -133,6 +133,7 @@ public class BoardController {
 		HttpSession session = request.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		meetingVO.setMemberVO(memberVO);
+		System.out.println(uploadFileVO + "컨트롤러 진입");
 		boardService.meetingWrite(request, meetingVO, uploadFileVO);
 		return "redirect:meetingDetail.do?boardNo=" + meetingVO.getBoardNo();
 	}
@@ -216,6 +217,7 @@ public class BoardController {
 	public ModelAndView reviewDetail(int boardNo, HttpSession session){
 		ModelAndView mav = new ModelAndView("board/reviewDetail");
 		mav.addObject("rvo",boardService.reviewDetail(boardNo)); 
+		mav.addObject("commentList",boardService.commentList(boardNo));
 		return mav;
 	}
 
@@ -248,5 +250,23 @@ public class BoardController {
 	    	boardService.reviewUPdate(reviewVO);
 			return new ModelAndView("redirect:reviewList.do");
 
+		}
+		
+		//모임 게시글 수정 폼
+		@RequestMapping("meetingUpdateForm.do")
+		public ModelAndView meetingUpdateForm(int boardNo){
+			return new ModelAndView("board/meetingUpdateForm","meetingUpdate",boardService.meetingDetail(boardNo)); 
+		}
+		
+		//모임 게시글 수정 
+		@RequestMapping("meetingUpdate.do")
+		public String meetingUpdate(HttpServletRequest request, MeetingVO meetingVO){
+			HttpSession session = request.getSession(false);
+			MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+			meetingVO.setMemberVO(memberVO);
+			System.out.println(meetingVO+"!@!@!@!@");
+			boardService.meetingUpdate(request, meetingVO, null);
+			return "redirect:meetingDetail.do?boardNo=" + meetingVO.getBoardNo();
+			
 		}
 }

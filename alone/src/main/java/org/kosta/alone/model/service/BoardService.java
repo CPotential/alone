@@ -58,7 +58,7 @@ public interface BoardService {
 
 	public void reviewUPdate(ReviewVO reviewVO);
 
-
+	public void meetingUpdate(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO);
 }
 
 

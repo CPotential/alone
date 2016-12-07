@@ -24,4 +24,5 @@ public interface MeetingDAO {
 	
 	public int getTotalContentCount();
 
+	public void meetingUpdate(MeetingVO meetingVO);
 }
