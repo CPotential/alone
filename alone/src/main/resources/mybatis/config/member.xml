@@ -22,13 +22,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateMember" parameterType="memberVO">
 		update member
 		<set>
-			<if test="password != null  and password != ''">password=#{password},</if>
-			<if test="name != null and name != ''">name=#{name},</if>
-			<if test="nickName != null and nickName != ''">nickName=#{nickName},</if>
-			<if test="tel != null and tel != ''">tel=#{tel},</if>
+			<if test="password != null and password !=''">password=#{password},</if>
+			<if test="name != null and name != '' " >name=#{name},</if>
+			<if test="nickName != null  and nickName !=''">nickName=#{nickName},</if>
+			<if test="tel != null  and tel !=''"> tel=#{tel}</if>
 		</set>
 		where id=#{id}
 	</update>
+	
 	<select id="idcheck" resultType="int" parameterType="string">
 		select count(*) from member where id=#{value}
 	</select>
@@ -54,6 +55,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<select id="passwordCheck" resultType="int" parameterType="MemberVO">
 		select count(*) from member where id=#{id} and password=#{password}
+	</select>
+	<select id="leaveMemberList" resultType="memberVO">
+		select id, name, nickname, tel
+		from member
+		where enabled=0
 	</select>
 </mapper>
  

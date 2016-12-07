@@ -106,7 +106,7 @@
 										<td>
 											<input type="radio" id="sign-up__gender" name="gender" value="여성">여성 
 											<input type="radio" 	id="sign-up__gender" name="gender" value="남성">남성
-										/td>
+										</td>
 									</tr>
 									<tr>
 										<th scope="row">생년월일</th>

@@ -123,6 +123,18 @@ public class MemberController {
 		return (count == 0) ? "ok" : "fail";
 	}
 
+	// 일반회원 정보 수정
+	@RequestMapping(value = "genericUpdate.do", method = RequestMethod.POST)
+	public ModelAndView myPageMemberupdate(GenericMemberVO genericMemberVO, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("redirect:showGenericInfo.do");
+		HttpSession session = request.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		genericMemberVO.setId(memberVO.getId());
+		memberService.updateInfo(genericMemberVO);
+		return mav;
+
+	}
+
 	// 미승인 기업회원 리스트 출력
 	@RequestMapping("NonApporvalCompanyList.do")
 	public ModelAndView NonApporvalCompanyList() {
@@ -155,14 +167,7 @@ public class MemberController {
 		return new ModelAndView("myPage/generic/showInfo", "gvo", memberService.showGenericmember(memberVO));
 	}
 	
-	// 일반 회원 정보 수정
-	@RequestMapping("genericUpdate.do")
-	public ModelAndView myPageMemberupdate(GenericMemberVO genericMemberVO, HttpSession session) {
-		ModelAndView mav = new ModelAndView("redirect:showGenericInfo.do");
-		memberService.updateInfo(genericMemberVO);
-		return mav;
-	}
-		
+
 	/**
 	 * 기업 회원 정보 페이지
 	 * @param session
@@ -209,5 +214,13 @@ public class MemberController {
 	@RequestMapping("adminCompanyManagement.do")
 	public ModelAndView companyList(){
 		return new ModelAndView("myPage/admin/companyManagement", "companyList", memberService.companyList());
+	}
+	
+	/**
+	 * 관리자 - 탈퇴한 회원 리스트
+	 */
+	@RequestMapping("adminLeaveMemberList.do")
+	public ModelAndView leaveMemberList(){
+		return new ModelAndView("myPage/admin/leaveMember", "leaveMemberList", memberService.leaveMemberList());
 	}
 }

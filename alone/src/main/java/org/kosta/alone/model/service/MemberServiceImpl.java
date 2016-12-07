@@ -27,7 +27,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO memberLogin(MemberVO memberVO) {
-
 		memberVO = commonMemberDAO.memberLogin(memberVO);
 		//아이디 패스워드 확인
 		if(memberVO == null){
@@ -136,5 +135,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<CompanyMemberVO> companyList() {
 		return companyMemberDAO.companyList();
+	}
+	
+	/**
+	 * 탈퇴회원 리스트
+	 */
+	@Override
+	public List<MemberVO> leaveMemberList() {
+		return memberDAO.leaveMemberList();
 	}
 }

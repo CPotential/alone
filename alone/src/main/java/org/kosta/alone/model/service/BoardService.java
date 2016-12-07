@@ -27,11 +27,8 @@ public interface BoardService {
 	
 	public ListVO<ReviewVO> reviewList(String nowPage); 
 	
-	public List<ReviewVO> reviewTitleSearchList(String searchKeyWord);
-	
-    public  List<ReviewVO> reviewWriterSearchList(String searchKeyWord);
     
-	public List<IntroduceVO> introduceList(int categoryNo);
+    public ListVO<IntroduceVO> introduceList(int categoryNo,String nowPage);
 	
 	public List<IntroduceCategoryVO> introduceCategoryList();
 
@@ -50,8 +47,16 @@ public interface BoardService {
 	public void insertComment(MemberVO memberVO, String comment, int boardNo);
 
 	public void updateComment(CommentVO commentVO);
+	
+	public void deleteComment(CommentVO commentVO);
 
 	public ReviewVO reviewDetail(int boardNo);
+
+	public ListVO<ReviewVO> reviewSerachList(String pageNo, String searchKeyWord, String command);
+
+	public ReviewVO reviewNotHitDetail(int boardNo);
+
+
 }
 
 

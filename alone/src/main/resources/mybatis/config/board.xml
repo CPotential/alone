@@ -49,9 +49,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values (#{commentNo}, #{boardNo}, #{content}, sysdate, #{memberVO.id})
 	</insert>
 	
+
+	<delete id="deleteComment" parameterType="commentVO">
+		delete from boardcomment where comment_no = #{commentNo} 
+	</delete>
+	
+
 	<update id="updateComment" parameterType="commentVO">
 		update boardcomment set content = #{content} where comment_no=#{commentNo}
 	</update>
+
 
 </mapper>
  

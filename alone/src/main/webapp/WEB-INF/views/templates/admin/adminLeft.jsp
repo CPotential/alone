@@ -10,6 +10,7 @@
 			<ul class="dropdown-menu" role="management"> 
 				<li><a href="${pageContext.request.contextPath}/adminGenericManagement.do">일반 회원</a></li>
 				<li><a href="${pageContext.request.contextPath}/adminCompanyManagement.do">기업 회원</a></li>
+				<li><a href="${pageContext.request.contextPath}/adminLeaveMemberList.do">떠난 회원</a></li>
 			</ul>
 		</li>
 	</ul>

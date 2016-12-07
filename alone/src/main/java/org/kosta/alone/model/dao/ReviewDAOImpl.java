@@ -1,6 +1,7 @@
 package org.kosta.alone.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -25,13 +26,13 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 
 	@Override
-	public List<ReviewVO> reviewTitleSearchList(String searchKeyWord) {
-		return template.selectList("review.reviewTitleSearchList",searchKeyWord);
+	public List<ReviewVO> reviewTitleSearchList(Map<String, Object> map) {
+		return template.selectList("review.reviewTitleSearchList",map);
 	}
 
 	@Override
-	public List<ReviewVO> reviewWriterSearchList(String searchKeyWord) {
-		return template.selectList("review.reviewWriterSearchList",searchKeyWord);
+	public List<ReviewVO> reviewWriterSearchList(Map<String, Object> map) {
+		return template.selectList("review.reviewWriterSearchList",map);
 	}
 	
 	public void reviewBoardWrite(ReviewVO reviewVO){ 
@@ -42,8 +43,24 @@ public class ReviewDAOImpl implements ReviewDAO {
 		template.insert("review.reviewWrite",reviewVO);
 	}
 	
-	public ReviewVO reviewDetail(int boardNo){
+	public ReviewVO reviewDetail(int boardNo){ 
 		return template.selectOne("review.reviewDetail", boardNo);
+	}
+
+
+	@Override
+	public int getTitleSearchContentCount(String searchKeyWord) {
+		return template.selectOne("review.getTotalContentCount",searchKeyWord); 
+	}
+
+	@Override
+	public int getWriterSearchCount(String searchKeyWord) {
+		return template.selectOne("review.getWriterSearchCount",searchKeyWord); 
+	}
+
+	@Override
+	public void updateHit(int boardNo) {
+		template.update("review.updateHitBoard",boardNo);
 	}
 
 }

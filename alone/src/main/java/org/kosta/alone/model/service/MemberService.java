@@ -38,4 +38,6 @@ public interface MemberService {
 	public List<GenericMemberVO> genericList();
 
 	public List<CompanyMemberVO> companyList();
+
+	public List<MemberVO> leaveMemberList();
 }

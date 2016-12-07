@@ -22,7 +22,7 @@
 			<thead>
 				<tr>
 					<th class="col-md-6">제목  ${rvo.title}</th>
-					<th class="col-md-1">작성자  ${rvo.memberVO.nickName},${sessionScope.mvo.id} </th>
+					<th class="col-md-1">작성자  ${rvo.memberVO.nickName}</th> 
 					<th class="col-md-1">작성일  ${rvo.timePosted}</th>
 					</tr>
 					<tr>

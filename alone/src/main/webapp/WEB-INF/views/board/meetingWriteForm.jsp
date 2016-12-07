@@ -137,7 +137,7 @@
 				<div class="form-group">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 					<label for="region">Region</label> 
-					<input type="text" name="region" class="form-control" placeholder="meeting region" data-original-title="" title=""> 
+					<input type="text" id="region" name="region" class="form-control" placeholder="meeting region" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				

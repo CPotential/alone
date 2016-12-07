@@ -18,5 +18,7 @@ public interface BoardDAO {
 	void insertComment(CommentVO commentVO);
 
 	void updateComment(CommentVO commentVO);
+	
+	void deleteComment(CommentVO commentVO);
 
 }

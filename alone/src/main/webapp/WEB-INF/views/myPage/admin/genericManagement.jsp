@@ -33,8 +33,9 @@
 					<div class="col-xs-12">
 						<h2 class="page-header__title">GenericManagement</h2>
 						<ol class="breadcrumb page-header__breadcrumb">
-							<li><a href="#">Generic</a></li>
-							<li><a href="#">Company</a></li>
+							<li><a href="${pageContext.request.contextPath}/adminGenericManagement.do">Generic</a></li>
+							<li><a href="${pageContext.request.contextPath}/adminCompanyManagement.do">Company</a></li>
+							<li><a href="${pageContext.request.contextPath}/adminLeaveMemberList.do">Leave</a></li>
 							<li class="#">Main</li>
 						</ol>
 					</div>
