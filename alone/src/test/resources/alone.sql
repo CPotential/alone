@@ -12,6 +12,8 @@ update member set enabled=1 where id='del'
 	where companymember.id=member.id and member.id=authorities.id
 	and companymember.id='company'	
 	
+	select * from member m, companymember c where m.id=c.id
+	id, name, nickname, tel, address, corporate_registration_number, approval, write
 	
 select * from image
 drop table genericmember;

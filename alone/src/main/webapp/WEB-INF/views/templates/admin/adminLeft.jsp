@@ -6,6 +6,11 @@
 	<ul class="list-unstyled profile-social center-block">
 		<li><a href="${pageContext.request.contextPath}/myPage/admin/showInfo.do" class="btn btn-default btn-block">메인</a></li>
 		<li><a href="${pageContext.request.contextPath}/NonApporvalCompanyList.do" class="btn btn-default btn-block"> 회원승인</a></li>
-		<li><a href="${pageContext.request.contextPath}/memberManagement.do" class="btn btn-default btn-block"> 회원탈퇴</a></li>
+		<li class="dropdown"><a href="#" class="btn btn-default btn-block" data-toggle="dropdown"> 회원관리</a>
+			<ul class="dropdown-menu" role="management"> 
+				<li><a href="${pageContext.request.contextPath}/adminGenericManagement.do">일반 회원</a></li>
+				<li><a href="${pageContext.request.contextPath}/adminCompanyManagement.do">기업 회원</a></li>
+			</ul>
+		</li>
 	</ul>
 </div>

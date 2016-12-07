@@ -38,4 +38,12 @@ public class CompanyMemberDAOImpl implements CompanyMemberDAO {
 	public void updateCompanyMember(CompanyMemberVO cvo){
 		sqlSessionTemplate.update("companyMember.updateCompanyMember",cvo);
 	}
+	
+	/**
+	 * 기업회원 리스트
+	 */
+	@Override
+	public List<CompanyMemberVO> companyList() {
+		return sqlSessionTemplate.selectList("companyMember.companyList");
+	}
 }

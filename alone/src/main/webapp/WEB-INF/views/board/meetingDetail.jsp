@@ -2,10 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript"
-	src="//apis.daum.net/maps/maps3.js?apikey=5a5f74b55c137eef83dc34e43b7a72b7&libraries=services"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5a5f74b55c137eef83dc34e43b7a72b7&libraries=services"></script>
 
 
 <!--  jquery 사용처입니다. -->
