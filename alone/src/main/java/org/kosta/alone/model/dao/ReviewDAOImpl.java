@@ -63,10 +63,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public void updateHit(int boardNo) {
 		template.update("review.updateHitBoard",boardNo);
 	}
-
-	public void reviewBoardUpdate(ReviewVO reviewVO){
-		template.update("review.reviewBoardUpdate",reviewVO);
-	}
 	
 	public void reviewUpdate(ReviewVO reviewVO){
 		template.update("review.reviewUpdate",reviewVO);

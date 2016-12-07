@@ -57,6 +57,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from boardcomment where comment_no = #{commentNo} 
 	</delete>
 	
+	<update id="reviewBoardUpdate" parameterType="reviewVO">
+	update board
+	set content=#{content}, time_posted=sysdate
+	where board_no=#{boardNo}
+   </update>
 
 </mapper>
  

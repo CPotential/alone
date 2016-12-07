@@ -311,7 +311,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Transactional
 	public void reviewUPdate(ReviewVO reviewVO) {
-		reviewDAO.reviewBoardUpdate(reviewVO);
+		boardDAO.reviewBoardUpdate(reviewVO);
 		reviewDAO.reviewUpdate(reviewVO);
 	}
 }

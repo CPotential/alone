@@ -28,7 +28,5 @@ public interface ReviewDAO {
 
 	public void updateHit(int boardNo);
 	
-	public void reviewBoardUpdate(ReviewVO reviewVO);
-	
 	public void reviewUpdate(ReviewVO reviewVO);
 }
