@@ -3,9 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
-
 <!--  jquery 사용처입니다. -->
-
 <script type="text/javascript">
 
 </script>
@@ -19,8 +17,6 @@
         <a href="#"><span class="badge">날짜 : ${rvo.timePosted}</span></a>
       </div>
       <div class="nav nav-pills col-md-8 text-right" >
-<%--         <a href="#">지역 : ${meetingVO.region}</a> |
-       <a href="#">관심사항 : ${meetingVO.interest}</a> | --%>
        <a href="#">작성자 : ${rvo.memberVO.nickName}</a> | 
        <a href="#">좋아요 : ${rvo.likes}</a>
       </div>
@@ -42,7 +38,7 @@
             <a href="${pageContext.request.contextPath}/reviewList.do" class="btn btn-default">목 록</a>
         <c:if test="${rvo.memberVO.id==sessionScope.memberVO.id}">
             <a href="${pageContext.request.contextPath}/reviewUpdateForm.do?boardNo=${requestScope.rvo.boardNo}" class="btn btn-default">수 정</a>
-            <a href="#" class="btn btn-default">삭 제</a>
+            <a href="${pageContext.request.contextPath}/reviewDelete.do?boardNo=${requestScope.rvo.boardNo}" class="btn btn-default">삭 제</a>
         </c:if>
           		</div>
         	</div>

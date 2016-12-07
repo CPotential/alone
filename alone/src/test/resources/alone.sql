@@ -4,14 +4,21 @@
 	where boardcomment.id=member.id and boardcomment.board_no=23
 	ORDER BY boardcomment.comment_no ASC
 	
-	
+	select * from board
 select * from member where id='del'
 select * from image
 update member set enabled=1 where id='del'
 	select companymember.id,member.nickname,authorities.authority,companymember.approval
 	from companymember companymember,member member,authorities authorities
 	where companymember.id=member.id and member.id=authorities.id
+	
+	select id,mileage from GENERICMEMBER where id='java'
+
+	and companymember.id='company'
+	select * from image
 	and companymember.id='company'	
+	select count(meeting.board_no) from meeting meeting,board board 
+		where meeting.board_no=board.board_no and board.board_enabled=1
 	
 	select * from member m, companymember c where m.id=c.id
 	id, name, nickname, tel, address, corporate_registration_number, approval, write
@@ -22,6 +29,7 @@ from board board,review review,member member
 where board.board_no=review.board_no and board.id=member.id and member.nickname='정신머리'
 	
 select * from image
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 drop table genericmember;
 -- 일반 회원 정보
 CREATE TABLE GENERICMEMBER(
@@ -521,3 +529,5 @@ where board.board_no=review.board_no and review.title='손재만1213'
 
 select * from MEETING 
 update MEETING set hits=hits+1 where board_no=5
+
+i

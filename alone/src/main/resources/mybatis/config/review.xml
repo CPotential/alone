@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 <mapper namespace="review">
 	<resultMap type="reviewVO" id="reviewRM">
@@ -17,7 +18,7 @@ time_posted as timePosted,title,hits,likes from
 (select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,
 to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes 
 from board board,review review,member member 
-where board.board_no=review.board_no and board.id=member.id) 
+where board.board_no=review.board_no and board.id=member.id and board.board_enabled=1) 
 where rnum between #{startRowNumber} and #{endRowNumber} 
 </select>
 
@@ -27,7 +28,8 @@ time_posted as timePosted,title,hits,likes from
 (select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,
 to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes 
 from board board,review review,member member 
-where board.board_no=review.board_no and board.id=member.id and review.title=#{keyword}) 
+where board.board_no=review.board_no and board.id=member.id 
+and review.title=#{keyword} and board.board_enabled=1) 
 where rnum between #{pb.startRowNumber} and #{pb.endRowNumber} 
 	</select>
 
@@ -37,7 +39,8 @@ time_posted as timePosted,title,hits,likes from
 (select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,
 to_char(board.time_posted,'YYYY.MM.DD') as time_posted,review.title,review.hits,review.likes 
 from board board,review review,member member 
-where board.board_no=review.board_no and board.id=member.id and member.nickname=#{keyword}) 
+where board.board_no=review.board_no and board.id=member.id 
+and member.nickname=#{keyword} and board.board_enabled=1) 
 where rnum between  #{pb.startRowNumber} and #{pb.endRowNumber} 
 	</select>
 	
@@ -54,17 +57,19 @@ where rnum between  #{pb.startRowNumber} and #{pb.endRowNumber}
 	</insert>
 	
 	<select id="getTotalContentCount" resultType="int">  
-		select count(*) from review 
+		select count(review.board_no) from review review,board board 
+		where review.board_no=board.board_no and board.board_enabled=1
 	</select>
 	
 	<select id="getTitleSearchContentCount" resultType="int" parameterType="string">
 		select count(*) from board board,review review
-		where board.board_no=review.board_no and review.title=#{value}
+		where board.board_no=review.board_no and review.title=#{value} and board.board_enabled=1
 	</select>
 	
 		<select id="getWriterSearchCount" resultType="int" parameterType="string">
 		select count(*) from board board,review review,member member 
 		where board.board_no=review.board_no and member.nickname=#{value} and board.id=member.id
+		and and board.board_enabled=1
 	</select>
 	
 <select id="reviewDetail"  resultType ="reviewVO" resultMap="reviewRM"  parameterType="int" > 

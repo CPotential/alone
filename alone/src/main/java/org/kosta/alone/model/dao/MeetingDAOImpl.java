@@ -46,7 +46,9 @@ public class MeetingDAOImpl implements MeetingDAO {
 
 	@Override
 	public MeetingVO meetingDetail(int boardNo) {
-		return sqlSessionTemplate.selectOne("meeting.meetingDetail", boardNo);
+
+		return sqlSessionTemplate.selectOne("meeting.meetingDetail",boardNo);
+
 	}
 
 	@Override

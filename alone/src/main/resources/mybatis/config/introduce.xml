@@ -31,9 +31,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where introduce.category_no = introduce_category.category_no and introduce_category.category_no = #{value}
 	</select>
 	<select id="keyWordList" resultMap="keyWordRM" resultType="keyWordVO">
-		select keyword.keyword_name
-		from keyword keyword, introduce introduce
-		where keyword.board_no=introduce.board_no and introduce.board_no=#{value}
+		select keyword_name
+		from keyword
+		where keyword.board_no=#{value}
 	</select>
 	
 	<select id="introduceCategoryList" resultType="introduceCategoryVO" resultMap="introduceCategoryRM">
@@ -62,5 +62,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="introduceWrite" parameterType="introduceVO" >
 		insert into introduce(board_no, company_name, region, location, business_hours,tel,category_no )
 		values(#{boardNo}, #{companyName}, #{region}, #{location}, #{businessHours},#{tel},#{categoryVO.categoryNo})
+	</insert>
+	
+	<insert id="keywordRegister" parameterType="keywordVO"  >
+		<selectKey resultType="int" keyProperty="keyWordNo" order="BEFORE">
+			select board_seq.nextval from dual
+		</selectKey>
+	insert into KEYWORD(keyword_no,keyword_name,board_no) 
+     values(#{keyWordNo}, #{keyWordName},#{boardNo})
 	</insert>
 </mapper>

@@ -28,21 +28,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	from member member, genericmember genericmember 
   	where member.id=genericmember.id and member.enabled=1
   </select>
+  
+  	<select id="SearchIdAndMileage" parameterType="String" resultType="genericMemberVO">
+	select id,mileage from GENERICMEMBER where id=#{value}
+	</select>
+	
+	<insert id="mileageMinus">
+	INSERT into mileage (mileage_no,deal_money,deal_content,id) 
+	VALUES (mileage_seq.nextval,#{dealMoney},{#companyId},#{memberId})
+	</insert>
 
 </mapper>
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
  
  
  

@@ -1,5 +1,6 @@
 package org.kosta.alone.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -143,5 +144,21 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberVO> leaveMemberList() {
 		return memberDAO.leaveMemberList();
+	}
+
+	@Override
+	public MemberVO SearchIdAndMileage(String id) {
+		return genericMemberDAO.SearchIdAndMileage(id);
+	}
+
+	@Override
+	public void mileageMinus(GenericMemberVO memberVO, MemberVO companyVO) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberVO.getId());
+		map.put("companyId", companyVO.getId());
+		map.put("dealMoney", memberVO.getMileage());
+		genericMemberDAO.mileageMinus(map);
+		genericMemberDAO.updateMileage(memberVO.getMileage());
+		
 	}
 }

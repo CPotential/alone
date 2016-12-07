@@ -1,6 +1,7 @@
 package org.kosta.alone.model.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.kosta.alone.model.vo.GenericMemberVO;
@@ -14,6 +15,12 @@ public interface GenericMemberDAO {
 
 	public GenericMemberVO showGenericmember(MemberVO vo);
 
-	List<GenericMemberVO> genericList();
+	public List<GenericMemberVO> genericList();
+
+	public MemberVO SearchIdAndMileage(String id);
+
+	void mileageMinus(HashMap<String, Object> map);
+
+	void updateMileage(int mileage);
 
 }

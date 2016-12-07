@@ -24,4 +24,8 @@ public interface IntroduceDAO {
 	void boardWrite(IntroduceVO introduceVO);
 
 	void updateWrite(String id);
+
+
+	void keywordRegister(KeyWordVO keywordVO);
+
 }

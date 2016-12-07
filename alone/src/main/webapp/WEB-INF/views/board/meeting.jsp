@@ -115,12 +115,6 @@
 	</nav>
 </div>
 
-	
-	
-
-	
-
-	
 	<!-- / .table-responsive -->
 	<div class="row">
 		<div class="col-sm-5"></div>

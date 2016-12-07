@@ -224,4 +224,21 @@ public class MemberController {
 		return new ModelAndView("myPage/admin/leaveMember", "leaveMemberList", memberService.leaveMemberList());
 	}
 	
+	@RequestMapping("idsearch.do")
+	@ResponseBody
+	public MemberVO idSearch(String id){
+		MemberVO memberVO=memberService.SearchIdAndMileage(id);
+		System.out.println(memberVO);
+		return memberVO;
+	}
+	
+	@RequestMapping("mileageMinus.do")
+	@ResponseBody
+	public String mileageMinus(GenericMemberVO memberVO,HttpSession session){
+		MemberVO companyVO = (MemberVO) session.getAttribute("memberVO");
+		memberService.mileageMinus(memberVO,companyVO);
+		return "ok";
+	}
+	
+	
 }

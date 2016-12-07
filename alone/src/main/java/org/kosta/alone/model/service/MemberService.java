@@ -40,4 +40,8 @@ public interface MemberService {
 	public List<CompanyMemberVO> companyList();
 
 	public List<MemberVO> leaveMemberList();
+
+	public MemberVO SearchIdAndMileage(String id);
+
+	public void mileageMinus(GenericMemberVO memberVO, MemberVO companyVO);
 }

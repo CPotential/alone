@@ -48,7 +48,7 @@
 						json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
 						json +="</div>"
 						}
-						json += "<input type='text' id='commentNo'  value="
+						json += "<input type='hidden' id='commentNo'  value="
 						json += data[i].commentNo
 						json +=">"
 						json += "</div></div>";
@@ -57,9 +57,6 @@
 				}//callback			
 			}); //ajax
 		}); // sendCommentclick 이벤트
-
-		
-	
 
 		$("#commentView").on("click", "#editComment", function() {
 
@@ -70,9 +67,9 @@
 					+"rows='2' id='comment'>"+content+"</textarea>"
 					+"<a href='#' id='updateComment' class='btn btn-default btn-xs'>"
 					+"<i class='fa fa-edit'></i> 수정하기</a>");
-		  	
+			
+			
 			});//editComment (댓글 수정)
-
 
 		$("#commentView").on("click", "#updateComment", function() {
 			content = $(this).prev().val();
@@ -107,7 +104,7 @@
 							json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
 							json +="</div>"
 							}
-							json +="<input type='text' id='commentNo'  value="
+							json +="<input type='hidden' id='commentNo'  value="
 							json += data[i].commentNo
 							json +=">"
 							json += "</div></div>"; 
@@ -154,7 +151,7 @@
 								json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
 								json +="</div>" 
 								}
-								json +="<input type='text' id='commentNo'  value="
+								json +="<input type='hidden' id='commentNo'  value="
 								json += data[i].commentNo
 								json +=">"
 								json += "</div></div>";  
@@ -228,9 +225,11 @@
 				</script>
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
-						<a href="#" class="btn btn-default">목 록</a>
-						<a href="#" class="btn btn-default">수 정</a>
-						<a href="#" class="btn btn-default">삭 제</a>
+						<a href="${pageContext.request.contextPath}/meetingList.do" class="btn btn-default">목 록</a>
+      <c:if test="${meetingVO.memberVO.id==sessionScope.memberVO.id}">
+            <a href="${pageContext.request.contextPath}/reviewUpdateForm.do?boardNo=${requestScope.meetingVO.boardNo}" class="btn btn-default">수 정</a>
+            <a href="${pageContext.request.contextPath}/meetingDelete.do?boardNo=${requestScope.meetingVO.boardNo}" class="btn btn-default">삭 제</a>
+        </c:if>
 					</div>
 				</div>
 			</div>

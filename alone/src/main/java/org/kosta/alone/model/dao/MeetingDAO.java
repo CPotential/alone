@@ -21,9 +21,11 @@ public interface MeetingDAO {
 	public void meetingWrite(MeetingVO meetingVO);
 	
 	public MeetingVO meetingDetail(int boardNo);
+
 	
 	public int getTotalContentCount();
 	
 	public void updateHit(int boardNo);
+
 
 }

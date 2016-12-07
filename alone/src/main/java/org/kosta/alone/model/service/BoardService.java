@@ -1,10 +1,15 @@
 package org.kosta.alone.model.service;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+
+import org.kosta.alone.model.vo.BoardVO;
+
 import org.kosta.alone.model.vo.CommentVO;
+
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.ListVO;
@@ -12,6 +17,7 @@ import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.kosta.alone.model.vo.UploadFileVO;
+
 
 public interface BoardService { 
 
@@ -38,9 +44,10 @@ public interface BoardService {
 	
 	public void meetingWrite(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO);
 	
+	void introduceWrite(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request);
+
 	public MeetingVO meetingDetail(int boardNo);
 
-	void introduceWrite(IntroduceVO introduceVO);
 
 	public List<CommentVO> commentList(int boardNo);
 
@@ -48,6 +55,9 @@ public interface BoardService {
 
 	public void updateComment(CommentVO commentVO);
 	
+
+	public void imageUpload(BoardVO boardVO, UploadFileVO vo, HttpServletRequest request);
+
 	public void deleteComment(CommentVO commentVO);
 
 	public ReviewVO reviewDetail(int boardNo);
@@ -60,6 +70,7 @@ public interface BoardService {
 
 	public void reviewUPdate(ReviewVO reviewVO);
 
+	public void boardDelete(int boardNo);
 
 }
 
