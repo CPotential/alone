@@ -223,4 +223,5 @@ public class MemberController {
 	public ModelAndView leaveMemberList(){
 		return new ModelAndView("myPage/admin/leaveMember", "leaveMemberList", memberService.leaveMemberList());
 	}
+	
 }

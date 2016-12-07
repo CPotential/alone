@@ -22,7 +22,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -235,6 +234,7 @@ public class BoardController {
 
 		return mav;
 	}
+
 	@RequestMapping("deleteCommentAjax.do")
 	@ResponseBody
 	public List<CommentVO> deleteComment(CommentVO commentVO){
@@ -246,8 +246,23 @@ public class BoardController {
 	@RequestMapping("reviewNotHitdetail.do")
 	public ModelAndView reviewNotHitdetail(int boardNo){
 		ModelAndView mav = new ModelAndView("board/reviewDetail");
-		
 		mav.addObject("rvo",boardService.reviewNotHitDetail(boardNo)); 
 		return mav;
 	}
+
+	//후기게시글 수정폼
+		@ RequestMapping("reviewUpdateForm.do")
+		public ModelAndView reviewUpdateForm(int boardNo){
+			return new ModelAndView("board/reviewUpdateForm","rvo",boardService.reviewDetail(boardNo)); 
+		}
+		
+		//후기게시글 수정
+		@RequestMapping("reviewUpdate.do")
+		public ModelAndView reviewUPdate(ReviewVO reviewVO, HttpSession session){
+			MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+	    	reviewVO.setMemberVO(mvo);
+	    	boardService.reviewUPdate(reviewVO);
+			return new ModelAndView("redirect:reviewList.do");
+
+		}
 }

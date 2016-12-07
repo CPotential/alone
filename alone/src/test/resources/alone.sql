@@ -507,6 +507,20 @@ r.hits,r.likes,b.content
 from board b,review r,member m
 where b.id=m.id and b.board_no=r.board_no  and r.board_no=10
 
+
+
+	update board
+	set content='바꿈2', time_posted=sysdate
+	where board_no='10';
+	
+	update review
+	set title='제목수정2'
+	where board_no='10';
+	
+	select r.board_no,b.time_posted,r.title,b.content
+	from board b,review r
+	where b.board_no=r.board_no and r.board_no='37'
+
 select count(*) from board board,review review
 where board.board_no=review.board_no and review.title='손재만1213'
 

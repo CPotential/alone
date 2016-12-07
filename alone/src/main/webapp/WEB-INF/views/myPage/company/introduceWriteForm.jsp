@@ -173,6 +173,7 @@ enctype="multipart/form-data">
 					<span class="help-block"></span>
 				</div>
 					<div class="form-group">
+					<label for="interest">메인사진 첨부</label>
 					<input type="file" name="mainFile"><br>
 					<span class="help-block"></span>
 				</div>

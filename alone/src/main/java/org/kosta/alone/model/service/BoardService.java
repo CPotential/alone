@@ -66,6 +66,8 @@ public interface BoardService {
 
 	public ReviewVO reviewNotHitDetail(int boardNo);
 
+	public void reviewUPdate(ReviewVO reviewVO);
+
 
 
 }

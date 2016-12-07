@@ -61,22 +61,17 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public ListVO<ReviewVO> reviewList(String nowPage) {
 		int totalCount = reviewDAO.getTotalContentCount();
-
+		PagingBean pagingBean =null;
 		if (nowPage == null) {
-			PagingBean pagingBean = new PagingBean(totalCount);
-			pagingBean.setContentNumberPerPage(10);
-			pagingBean.setPageNumberPerPageGroup(5);
-			List<ReviewVO> list = reviewDAO.reviewList(pagingBean);
-			ListVO<ReviewVO> vo = new ListVO<ReviewVO>(list, pagingBean);
-			return vo;
+		 pagingBean = new PagingBean(totalCount);
 		} else {
-			PagingBean pagingBean = new PagingBean(totalCount, Integer.parseInt(nowPage));
-			pagingBean.setContentNumberPerPage(10);
-			pagingBean.setPageNumberPerPageGroup(5);
-			List<ReviewVO> list = reviewDAO.reviewList(pagingBean);
-			ListVO<ReviewVO> vo = new ListVO<ReviewVO>(list, pagingBean);
-			return vo;
+		pagingBean = new PagingBean(totalCount, Integer.parseInt(nowPage));
 		}
+		pagingBean.setContentNumberPerPage(10);
+		pagingBean.setPageNumberPerPageGroup(5);
+		List<ReviewVO> list = reviewDAO.reviewList(pagingBean);
+		ListVO<ReviewVO> vo = new ListVO<ReviewVO>(list, pagingBean);
+		return vo;
 	}
 
 	// 소개글 리스트
@@ -332,17 +327,25 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public ListVO<ReviewVO> reviewSerachList(String pageNo, String searchKeyWord, String command) {
+
 		int totalCount = 0;
 		PagingBean pagingBean = null;
 		Map<String, Object> map = null;
 		List<ReviewVO> list = null;
 		ListVO<ReviewVO> vo = null;
-		if (command.equals("findByTitle")) {
-			totalCount = reviewDAO.getTitleSearchContentCount(searchKeyWord);
-			if (pageNo == null) {
-				pagingBean = new PagingBean(totalCount);
-			} else {
-				pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
+
+
+		
+		if(command.equals("findByTitle"))
+			totalCount=reviewDAO.getTitleSearchContentCount(searchKeyWord);
+		else{
+			totalCount = reviewDAO.getWriterSearchCount(searchKeyWord);
+		}
+			
+		if(pageNo==null){
+				pagingBean=new PagingBean(totalCount);
+		}else{
+				pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
 			}
 
 			pagingBean.setContentNumberPerPage(10);
@@ -350,24 +353,10 @@ public class BoardServiceImpl implements BoardService {
 			map = new HashMap<String, Object>();
 			map.put("keyword", searchKeyWord);
 			map.put("pb", pagingBean);
+
 			list = reviewDAO.reviewTitleSearchList(map);
-			vo = new ListVO<>(list, pagingBean);
-		} else {
-			if (pageNo == null) {
-				pagingBean = new PagingBean(totalCount);
-			} else {
-				pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
-			}
-			totalCount = reviewDAO.getWriterSearchCount(searchKeyWord);
-			pagingBean = new PagingBean(totalCount);
-			pagingBean.setContentNumberPerPage(10);
-			pagingBean.setPageNumberPerPageGroup(5);
-			map = new HashMap<String, Object>();
-			map.put("keyword", searchKeyWord);
-			map.put("pb", pagingBean);
-			list = reviewDAO.reviewWriterSearchList(map);
-			vo = new ListVO<>(list, pagingBean);
-		}
+			vo = new ListVO<>(list, pagingBean); 
+
 		return vo;
 	}
 
@@ -376,4 +365,9 @@ public class BoardServiceImpl implements BoardService {
 		return reviewDAO.reviewDetail(boardNo);
 	}
 
+	@Transactional
+	public void reviewUPdate(ReviewVO reviewVO) {
+		boardDAO.reviewBoardUpdate(reviewVO);
+		reviewDAO.reviewUpdate(reviewVO);
+	}
 }
