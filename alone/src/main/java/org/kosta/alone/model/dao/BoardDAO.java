@@ -20,5 +20,6 @@ public interface BoardDAO {
 	void updateComment(CommentVO commentVO);
 	
 	void deleteComment(CommentVO commentVO);
+	
 
 }

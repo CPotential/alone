@@ -3,7 +3,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
   <head>
-    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -62,13 +61,6 @@
               <p class="text-muted">
                 Enter your email address below and we will send you a link to reset your password.
               </p>
-              <form class="form-inline" role="form">
-                <div class="form-group">
-                  <label class="sr-only" for="lost-password__email">Email address</label>
-                  <input type="email" class="form-control" id="lost-password__email" placeholder="Enter email">
-                </div>
-                <button type="submit" class="btn btn-info">Send</button>
-              </form>
             </div> <!-- lost-password__form -->
           </div> <!-- / .body-plain__form -->
           <br>

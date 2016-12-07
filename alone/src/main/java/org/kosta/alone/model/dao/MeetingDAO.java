@@ -23,5 +23,7 @@ public interface MeetingDAO {
 	public MeetingVO meetingDetail(int boardNo);
 	
 	public int getTotalContentCount();
+	
+	public void updateHit(int boardNo);
 
 }

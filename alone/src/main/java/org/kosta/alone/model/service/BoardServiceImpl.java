@@ -218,12 +218,14 @@ public class BoardServiceImpl implements BoardService {
 	 */
 	@Override
 	public MeetingVO meetingDetail(int boardNo) {
+		meetingDAO.updateHit(boardNo);
+
 		MeetingVO meetingVO = null;
 		meetingVO = meetingDAO.meetingDetail(boardNo);
 		List<ImageVO> imageList = null;
 		imageList = boardDAO.imageList(boardNo);
 		meetingVO.setImageVO(imageList);
-		System.out.println(meetingVO);
+		
 		return meetingVO;
 	}
 
@@ -292,7 +294,6 @@ public class BoardServiceImpl implements BoardService {
 			}else{
 				pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
 			}
-			
 			pagingBean.setContentNumberPerPage(10);
 			pagingBean.setPageNumberPerPageGroup(5);
 			map=new HashMap<String,Object>();
@@ -301,13 +302,12 @@ public class BoardServiceImpl implements BoardService {
 			list = reviewDAO.reviewTitleSearchList(map);	
 			vo=new ListVO<>(list, pagingBean);
 		}else{
+			totalCount = reviewDAO.getWriterSearchCount(searchKeyWord);
 			if(pageNo==null){
 				pagingBean=new PagingBean(totalCount);
 			}else{
 				pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
 			}
-			totalCount = reviewDAO.getWriterSearchCount(searchKeyWord);
-			pagingBean=new PagingBean(totalCount);
 			pagingBean.setContentNumberPerPage(10);
 			pagingBean.setPageNumberPerPageGroup(5);	
 			map=new HashMap<String,Object>();
@@ -322,6 +322,17 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public ReviewVO reviewNotHitDetail(int boardNo) {
 		return reviewDAO.reviewDetail(boardNo);
+	}
+
+	@Override
+	public MeetingVO meetingNoHitDetail(int boardNo) {
+		MeetingVO meetingVO = null;
+		meetingVO = meetingDAO.meetingDetail(boardNo);
+		List<ImageVO> imageList = null;
+		imageList = boardDAO.imageList(boardNo);
+		meetingVO.setImageVO(imageList);
+		
+		return meetingVO;
 	}
 
 }

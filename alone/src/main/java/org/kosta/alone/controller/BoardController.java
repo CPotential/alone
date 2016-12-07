@@ -79,17 +79,13 @@ public class BoardController {
 	public ModelAndView reviewList(String pageNo,String searchKeyWord,String command){
 		ModelAndView mav = new ModelAndView("board/review");
 		ListVO<ReviewVO> list = null;
-		System.out.println(pageNo+"    "+searchKeyWord+"     "+command);
 		if(command ==null || command.trim() ==""){
-			System.out.println(pageNo);
 			list = boardService.reviewList(pageNo);
 		}else{
 			list = boardService.reviewSerachList(pageNo,searchKeyWord,command);
 			mav.addObject("keyword",searchKeyWord);
 			mav.addObject("command",command);
 		}
-		
-		
 		mav.addObject("ListVO",list);
 		return mav;
 	}
@@ -134,7 +130,8 @@ public class BoardController {
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		meetingVO.setMemberVO(memberVO);
 		boardService.meetingWrite(request, meetingVO, uploadFileVO);
-		return "redirect:meetingDetail.do?boardNo=" + meetingVO.getBoardNo();
+		
+		return "redirect:meetingNoHitDetail.do?boardNo=" + meetingVO.getBoardNo();
 	}
 	
 	//후기게시글 작성형식
@@ -166,7 +163,6 @@ public class BoardController {
 	 */
 	@RequestMapping("meetingDetail.do")
 	public ModelAndView meetingDetail(int boardNo){
-		System.out.println("컨트롤러 진입" + boardNo);
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
 		mav.addObject("commentList",boardService.commentList(boardNo));
@@ -221,7 +217,6 @@ public class BoardController {
 	@RequestMapping("deleteCommentAjax.do")
 	@ResponseBody
 	public List<CommentVO> deleteComment(CommentVO commentVO){
-		
 		boardService.deleteComment(commentVO); 
 		return boardService.commentList(commentVO.getBoardNo());  
 	}
@@ -229,8 +224,13 @@ public class BoardController {
 	@RequestMapping("reviewNotHitdetail.do")
 	public ModelAndView reviewNotHitdetail(int boardNo){
 		ModelAndView mav = new ModelAndView("board/reviewDetail");
-		
 		mav.addObject("rvo",boardService.reviewNotHitDetail(boardNo)); 
+		return mav;
+	}
+	@RequestMapping("meetingNoHitDetail.do")
+	public ModelAndView meetingNoHitDetail(int boardNo){
+		ModelAndView mav = new ModelAndView("board/meetingDetail");
+		mav.addObject("rvo",boardService.meetingNoHitDetail(boardNo)); 
 		return mav;
 	}
 }

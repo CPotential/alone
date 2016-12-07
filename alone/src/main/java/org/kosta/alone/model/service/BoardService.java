@@ -56,6 +56,8 @@ public interface BoardService {
 
 	public ReviewVO reviewNotHitDetail(int boardNo);
 
+	public MeetingVO meetingNoHitDetail(int boardNo);
+
 
 }
 

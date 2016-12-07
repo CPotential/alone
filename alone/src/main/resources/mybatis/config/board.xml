@@ -58,6 +58,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateComment" parameterType="commentVO">
 		update boardcomment set content = #{content} where comment_no=#{commentNo}
 	</update>
+	
+	<update id="updateHitBoard" parameterType="int">
+	update review set hits=hits+1 where board_no=#{value}
+	</update>
 
 
 </mapper>

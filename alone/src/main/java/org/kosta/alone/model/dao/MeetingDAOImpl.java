@@ -54,4 +54,9 @@ public class MeetingDAOImpl implements MeetingDAO {
 		return sqlSessionTemplate.selectOne("meeting.getTotalContentCount");
 	}
 
+	@Override
+	public void updateHit(int boardNo) {
+			sqlSessionTemplate.update("meeting.updateHitBoard",boardNo);
+	}
+
 }

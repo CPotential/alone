@@ -63,6 +63,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from meeting
 	</select>
 	
+	<update id="updateHitBoard" parameterType="int">
+	update meeting set hits=hits+1 where board_no=#{value}
+	</update>
+	
 
 	
 </mapper> 

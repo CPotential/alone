@@ -38,19 +38,15 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public void reviewBoardWrite(ReviewVO reviewVO){ 
 		template.insert("review.reviewBoardWrite",reviewVO);
 	}
-	
 	public void reviewWrite(ReviewVO reviewVO){
 		template.insert("review.reviewWrite",reviewVO);
 	}
-	
 	public ReviewVO reviewDetail(int boardNo){ 
 		return template.selectOne("review.reviewDetail", boardNo);
 	}
-
-
 	@Override
 	public int getTitleSearchContentCount(String searchKeyWord) {
-		return template.selectOne("review.getTotalContentCount",searchKeyWord); 
+		return template.selectOne("review.getTitleSearchContentCount",searchKeyWord); 
 	}
 
 	@Override

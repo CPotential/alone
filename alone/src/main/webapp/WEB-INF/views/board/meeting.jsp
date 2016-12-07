@@ -33,7 +33,11 @@
 							data += "</td><td>";
 							data += rList[i].interest;
 							data += "</td><td>";
+							data +="<a href='${pageContext.request.contextPath}/meetingDetail.do?boardNo="
+							data +=	rList[i].boardNo
+							data +="'>"
 							data += rList[i].title;
+							data +="</a>"
 							data += "</td><td>";
 							data += rList[i].memberVO.nickName;
 							data += "</td><td>";
