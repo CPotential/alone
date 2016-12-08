@@ -21,9 +21,9 @@ Last change:    14/06/2016
 
 $(window).load(function() { // starts after the page is fully loaded
     $(".hero__bs").backstretch([
-        "resources/img/bg_1.jpg"
-        , "resources/img/bg_2.jpg"
-        , "resources/img/bg_3.jpg"
+        "resources/img/혼자가기 좋은 꼬치 요리.PNG"
+        , "resources/img/혼자가기 좋은 연어요리.PNG"
+        , "resources/img/beer.jpg"
     ], {duration: 5000, fade: 500});
 
     // Hero content animation

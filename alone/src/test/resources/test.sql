@@ -156,3 +156,5 @@ ENERICMEMBER gmember,mileage mileage
 	
 	select nickName from member where id='spring'
 	select * from mileage
+	
+	select * from member where id='admin'

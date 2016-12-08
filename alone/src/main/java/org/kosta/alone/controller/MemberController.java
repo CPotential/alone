@@ -240,5 +240,12 @@ public class MemberController {
 		return memberVO;
 	}
 	
+	@RequestMapping("showAdminInfo.do")
+	public ModelAndView showAdminInfo(HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		return new ModelAndView("myPage/admin/showInfo", "admin", memberService.showAdminMember(memberVO));
+	}
+	
+	
 	
 }

@@ -44,4 +44,6 @@ public interface MemberService {
 	public MemberVO SearchIdAndMileage(String id);
 
 	public void mileageMinus(GenericMemberVO memberVO, MemberVO companyVO);
+
+	public MemberVO showAdminMember(MemberVO memberVO);
 }

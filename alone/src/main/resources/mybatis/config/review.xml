@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="boardNo" column="board_no" />
 	</resultMap> 
 	
-<select id="reviewList" resultType="reviewVO" parameterType="pagingBean"> 
+<select id="reviewList" resultType="reviewVO"  parameterType="pagingBean"> 
 select board_no as boardNo,nickname as "memberVO.nickName",
 time_posted as timePosted,title,hits,likes from
 (select row_number() over(order by board.board_no) as rnum,board.board_no,member.nickname,

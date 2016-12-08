@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.13" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <interface id="1" language="java" name="org.kosta.alone.model.dao.BoardDAO" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/BoardDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="304" width="257" x="1378" y="457"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="2" language="java" name="org.kosta.alone.model.dao.ReviewDAOImpl" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/ReviewDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="322" width="383" x="196" y="77"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="org.kosta.alone.model.dao.CompanyMemberDAOImpl" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/CompanyMemberDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="232" width="357" x="619" y="77"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="org.kosta.alone.model.dao.MemberDAOImpl" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/MemberDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="268" width="322" x="1016" y="77"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="5" language="java" name="org.kosta.alone.model.dao.CompanyMemberDAO" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/CompanyMemberDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="196" width="357" x="619" y="457"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="6" language="java" name="org.kosta.alone.model.dao.BoardDAOImpl" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/BoardDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="340" width="268" x="1378" y="77"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="org.kosta.alone.model.dao.CommonMemberDAOImpl" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/CommonMemberDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="178" width="309" x="1686" y="77"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="8" language="java" name="org.kosta.alone.model.dao.ReviewDAO" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/ReviewDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="286" width="383" x="196" y="457"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="9" language="java" name="org.kosta.alone.model.dao.MeetingBoardDAO" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/MeetingBoardDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="178" width="299" x="2782" y="457"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="10" language="java" name="org.kosta.alone.model.dao.IntroduceDAOImpl" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/IntroduceDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="268" width="368" x="2035" y="77"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="org.kosta.alone.model.dao.MeetingDAOImpl" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/MeetingDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="286" width="299" x="2443" y="77"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="12" language="java" name="org.kosta.alone.model.dao.IntroduceDAO" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/IntroduceDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="232" width="368" x="2035" y="457"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="13" language="java" name="org.kosta.alone.model.dao.MeetingBoardDAOImpl" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/MeetingBoardDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="214" width="299" x="2782" y="77"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="14" language="java" name="org.kosta.alone.model.dao.CommonMemberDAO" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/CommonMemberDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="309" x="1686" y="457"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="15" language="java" name="org.kosta.alone.model.dao.GenericMemberDAOImpl" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/GenericMemberDAOImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="232" width="337" x="3121" y="77"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="16" language="java" name="org.kosta.alone.model.dao.MeetingDAO" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/MeetingDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="250" width="299" x="2443" y="457"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="17" language="java" name="org.kosta.alone.model.dao.MemberDAO" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/MemberDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="232" width="322" x="1016" y="457"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="18" language="java" name="org.kosta.alone.model.dao.GenericMemberDAO" project="alone" 
+    file="/alone/src/main/java/org/kosta/alone/model/dao/GenericMemberDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="196" width="337" x="3121" y="457"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <realization id="19">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="17"/>  
+  </realization>  
+  <realization id="20">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="18"/>  
+  </realization>  
+  <realization id="21">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <realization id="22">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <realization id="23">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="24">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="25">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="12"/>  
+  </realization>  
+  <realization id="26">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <realization id="27">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

@@ -61,4 +61,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSessionTemplate.selectList("member.leaveMemberList");
 	}
 
+	@Override
+	public MemberVO showAdminMember(MemberVO memberVO) {
+		return sqlSessionTemplate.selectOne("member.showAdminMember",memberVO);
+	}
+
 }

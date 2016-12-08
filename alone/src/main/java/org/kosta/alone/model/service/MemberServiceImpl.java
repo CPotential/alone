@@ -162,4 +162,10 @@ public class MemberServiceImpl implements MemberService {
 		genericMemberDAO.updateMileage(map);
 		
 	}
+
+	@Override
+	public MemberVO showAdminMember(MemberVO memberVO) {
+		
+		return memberDAO.showAdminMember(memberVO);
+	}
 }
