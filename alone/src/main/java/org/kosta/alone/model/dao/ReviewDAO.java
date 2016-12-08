@@ -3,6 +3,7 @@ package org.kosta.alone.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.ReviewVO;
 
@@ -20,7 +21,6 @@ public interface ReviewDAO {
 	
 	public void reviewWrite(ReviewVO reviewVO);
 
-
 	public ReviewVO reviewDetail(int  boardNo);
 
 	public int getTitleSearchContentCount(String searchKeyWord);
@@ -28,5 +28,10 @@ public interface ReviewDAO {
 	public int getWriterSearchCount(String searchKeyWord);
 
 	public void updateHit(int boardNo);
+	
+	public void reviewUpdate(ReviewVO reviewVO);
+	
+	public void likeUp(BoardVO bvo);
+	
 	
 }

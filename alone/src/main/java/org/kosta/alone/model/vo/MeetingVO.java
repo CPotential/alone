@@ -13,10 +13,10 @@ public class MeetingVO extends BoardVO {
 		super();
 	}
 
-	public MeetingVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
+	public MeetingVO(int boardNo, String content, String timePosted, int boardEnabled,int likeCheck,MemberVO memberVO,
 			List<ImageVO> imageVO, String title, String region, String location,
 			String interest, int hits) {
-		super(boardNo, content, timePosted, boardEnabled, memberVO, imageVO);
+		super(boardNo, content, timePosted, boardEnabled, likeCheck,memberVO, imageVO);
 		this.title = title;
 		this.region = region;
 		this.location = location;

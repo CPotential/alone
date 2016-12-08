@@ -18,4 +18,6 @@ public interface CompanyMemberDAO {
 	CompanyMemberVO showCompanyMember(MemberVO mvo);
 	
 	public void updateCompanyMember(CompanyMemberVO cvo);
+
+	public List<CompanyMemberVO> companyList();
 }

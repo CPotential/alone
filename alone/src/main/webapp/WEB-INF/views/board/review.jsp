@@ -34,7 +34,6 @@
 					<th class="col-md-1">작성일</th>
 					<th class="col-md-1">조회수</th>
 					<th class="col-md-1">좋아요</th>
-					<th class="col-md-1">좋아요눌러주세요</th>
 				</tr>
 			</thead>
 			<tbody>

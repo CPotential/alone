@@ -7,6 +7,20 @@ insert into genericmember(id, birth, gender, mileage)
 values('json', '851201', '여자', 0);
 insert into authorities(id,authority)
 values('json','ROLE_MEMBER');
+
+insert into member(id, password, name, nickname, tel)
+values('java', '1234', '상혁', '상혁쿤', '01036841205');
+insert into genericmember(id, birth, gender, mileage)
+values('java', '910852', '남자자', 0);
+insert into authorities(id,authority)
+values('java','ROLE_MEMBER');
+
+insert into member(id, password, name, nickname, tel)
+values('del2', '1234', '삭제용', '삭제테스트', '01054318921');
+insert into genericmember(id, birth, gender, mileage)
+values('del2', '760129', '여자', 0);
+insert into authorities(id,authority)
+values('del2','ROLE_MEMBER');
 -- 기업회원 정보
 insert into member(id, password, name, nickname, tel)
 values('jquery', '1234', '오해영', '담소', '01081234567');
@@ -46,11 +60,18 @@ values(board_seq.nextval, 'abcd', '혼자서도 오세ㅇ', sysdate);
 --2) introduce
 insert into introduce(board_no, company_name, region, location, business_hours, tel, category_no) 
 values('1', '혼밥', '부산', '부산시 해운대구', '24시간', '051-704-7854', '1');
+
+
+
+
 --3) keyword
 insert into KEYWORD(keyword_no,keyword_name,board_no) 
 values(keyword_seq.nextval, '#부산','1');
 insert into KEYWORD(keyword_no,keyword_name,board_no) 
 values(keyword_seq.nextval, '#혼자가 좋다','1');
+
+
+
 --4) image -- image_name 이건 나중에 파일등록할때 서비스(아마도)에서 이름을 만들어줘서 보내줘야 할거같습니다
 insert into image(image_no, image_name, image_original_name, board_no) 
 values(image_seq.nextval, 'c', 'asdfsda', 1);
@@ -213,31 +234,33 @@ select * from review;
 
 --사진--
 delete from image;
-insert into image(image_no, image_name, image_original_name, board_no) 
-values('1', sysdate, 'asdf', 1);
-insert into image(image_no, image_name, image_original_name, board_no) 
-values('2', sysdate, 'asdf', 1);
-insert into image(image_no, image_name, image_original_name, board_no) 
-values('3', sysdate, 'asdf', 2);
+
+
+insert into image(image_no, image_name, board_no) 
+values(image_seq.nextval, sysdate, 1);
+insert into image(image_no, image_name,  board_no) 
+values('10', 'main_1공유.jpg', 1);
+insert into image(image_no, image_name,  board_no) 
+values('11', 'main_1공유.jpg', 1);
 select * from image;
 
 
 select * from COMPANYMEMBER
 
 --댓글 작성 부분
-
+delete from BOARDCOMMENT;
 insert into BOARDCOMMENT(comment_no,board_no,content,time_posted,id)
-values (COMMENT_SEQ.nextval,4,'졸린다 졸려 자자',sysdate,'java');
+values (COMMENT_SEQ.nextval,5,'졸린다 졸려 자자',sysdate,'java');
 insert into BOARDCOMMENT(comment_no,board_no,content,time_posted,id)
-values (COMMENT_SEQ.nextval,4,'낭만닥터',sysdate,'jstl');
+values (COMMENT_SEQ.nextval,5,'낭만닥터',sysdate,'jstl');
 insert into BOARDCOMMENT(comment_no,board_no,content,time_posted,id)
-values (COMMENT_SEQ.nextval,5,'김사부',sysdate,'java');
+values (COMMENT_SEQ.nextval,6,'김사부',sysdate,'java');
 insert into BOARDCOMMENT(comment_no,board_no,content,time_posted,id)
-values (COMMENT_SEQ.nextval,5,'호랑이',sysdate,'jstl');
+values (COMMENT_SEQ.nextval,6,'호랑이',sysdate,'jstl');
 insert into BOARDCOMMENT(comment_no,board_no,content,time_posted,id)
-values (COMMENT_SEQ.nextval,5,'메머드커피',sysdate,'java');
+values (COMMENT_SEQ.nextval,6,'메머드커피',sysdate,'java');
 insert into BOARDCOMMENT(comment_no,board_no,content,time_posted,id)
-values (COMMENT_SEQ.nextval,5,'푸른바다의전설',sysdate,'jstl');
+values (COMMENT_SEQ.nextval,6,'푸른바다의전설',sysdate,'jstl');
 
 select * from BOARDCOMMENT
 

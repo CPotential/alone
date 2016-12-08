@@ -56,6 +56,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="passwordCheck" resultType="int" parameterType="MemberVO">
 		select count(*) from member where id=#{id} and password=#{password}
 	</select>
+	<select id="leaveMemberList" resultType="memberVO">
+		select id, name, nickname, tel
+		from member
+		where enabled=0
+	</select>
 </mapper>
  
  
