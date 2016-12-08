@@ -7,7 +7,6 @@
 	    	var memberId="";
 	    	$("#idsearch").click(function(){
 	    		memberId=$("#nav-search").val();
-	    		
 				$.ajax({
 					type:"GET",
 					url:"${pageContext.request.contextPath}/idsearch.do",	

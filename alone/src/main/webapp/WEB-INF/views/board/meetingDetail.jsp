@@ -59,7 +59,6 @@
 		}); // sendCommentclick 이벤트
 
 		$("#commentView").on("click", "#editComment", function() {
-
 			content = $(this).parent().prev().html().trim();
 			commentNo = $(this).parent().next().val();
 			$("#commentresetView").empty();
@@ -67,8 +66,6 @@
 					+"rows='2' id='comment'>"+content+"</textarea>"
 					+"<a href='#' id='updateComment' class='btn btn-default btn-xs'>"
 					+"<i class='fa fa-edit'></i> 수정하기</a>");
-			
-			
 			});//editComment (댓글 수정)
 
 		$("#commentView").on("click", "#updateComment", function() {
@@ -112,8 +109,6 @@
 						$("#commentView").html(json);
 					}
 				});  //ajax
-				
-				
 			}); //commentView 수정하기 버튼
 		//삭제하기
 		$("#commentView").on("click","#removeComment",function(){
@@ -159,7 +154,6 @@
 							$("#commentView").html(json);
 						}
 					});  //ajax
-			 	
 			 		}else{
 			 			location.href="meetingDetail.do?boardNo=${param.boardNo}";
 			 		}
@@ -265,10 +259,11 @@
 						<div class="comment__content" id="commentresetView">
 							<div class="comment__author_name">  ${commentList.memberVO.nickName}</div>
 							<time datetime="2015-01-30" class="comment__date">  ${commentList.timePosted}</time>
-							<p>${commentList.content}	</p>
+							<p>${commentList.content}</p>
 							<c:set var="id" value="${sessionScope.memberVO.id }"/>
 							<c:set var="nowid" value="${commentList.memberVO.id}"/>
 							<c:if test="${id eq nowid}">
+							
 								<div class="btn-group pull-right" role="group" aria-label="comment__actions" >
 									<a href="#" id="removeComment" class="btn btn-default btn-xs"><i class="fa fa-times"></i> Remove</a>
 									<a href="#" id="editComment" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>

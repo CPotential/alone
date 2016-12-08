@@ -351,6 +351,7 @@ public class BoardServiceImpl implements BoardService {
 			map = new HashMap<String, Object>();
 			map.put("keyword", searchKeyWord);
 			map.put("pb", pagingBean);	
+			
 			if(command.equals("findByTitle")){
 				list = reviewDAO.reviewTitleSearchList(map);	
 			}else{
