@@ -109,10 +109,6 @@
 										</td>
 									</tr>
 									<tr>
-										<th scope="row">생년월일</th>
-										<td>${mvo.id}</td>
-									</tr>
-									<tr>
 										<th scope="row">전화번호</th>
 										<td><input type="text" class="form-control" id="sign-up__tel" name="tel" placeholder="연락처"></td>
 									</tr>

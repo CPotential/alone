@@ -152,7 +152,7 @@ public class BoardController {
 		reviewVO.setMemberVO(mvo);
 		boardService.reviewWrite(reviewVO);
 		// 상세정보가 없어서 일단 review list로 보냄
-		return new ModelAndView("redirect:reviewList.do");
+		return new ModelAndView("redirect:reviewNotHitDetail.do?boardNo=" + reviewVO.getBoardNo());
 	}
 
 	/**
@@ -211,7 +211,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("reviewdetail.do")
-	public ModelAndView reviewDetail(int boardNo, HttpSession session) {
+	public ModelAndView reviewDetail(int boardNo) {
 		ModelAndView mav = new ModelAndView("board/reviewDetail");
 		mav.addObject("rvo", boardService.reviewDetail(boardNo));
 		return mav;
@@ -224,7 +224,7 @@ public class BoardController {
 		return boardService.commentList(commentVO.getBoardNo());
 	}
 
-	@RequestMapping("reviewNotHitdetail.do")
+	@RequestMapping("reviewNotHitDetail.do")
 	public ModelAndView reviewNotHitdetail(int boardNo) {
 		ModelAndView mav = new ModelAndView("board/reviewDetail");
 		mav.addObject("rvo", boardService.reviewNotHitDetail(boardNo));
@@ -234,7 +234,7 @@ public class BoardController {
 	@RequestMapping("meetingNoHitDetail.do")
 	public ModelAndView meetingNoHitDetail(int boardNo) {
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
-		mav.addObject("rvo", boardService.meetingNoHitDetail(boardNo));
+		mav.addObject("meetingVO", boardService.meetingNoHitDetail(boardNo));
 		return mav;
 	}
 
