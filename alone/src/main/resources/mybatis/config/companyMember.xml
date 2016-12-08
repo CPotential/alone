@@ -41,7 +41,9 @@
 	</update>
 	
 	<select id="companyList" resultType="companyMemberVO">
-		select member.id, member.name, member.nickname, member.tel, companymember.address, companymember.corporate_registration_number, companymember.approval, companymember.write
+		select member.id, member.name, member.nickname, member.tel, companymember.address, 
+		companymember.corporate_registration_number as corporateRegistrationNumber
+		, companymember.approval, companymember.write
 		from member member, companymember companymember 
 		where member.id=companymember.id and member.enabled=1
 	</select>

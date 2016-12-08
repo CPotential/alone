@@ -123,9 +123,8 @@
 						<!-- / .table-responsive -->
 					</div>
 
-
 					<input type="submit" class="btn btn-primary btn-block btn-lg" value="수정하기"><br> 
-					<a 	href="${pageContext.request.contextPath}/showCompnayInfo.do" class="btn btn-primary">취소</a>
+					<a href="${pageContext.request.contextPath}/showGenericInfo.do" class="btn btn-primary">취소</a>
 
 				</div>
 				<!-- / .tab-content -->

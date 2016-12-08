@@ -7,6 +7,7 @@ public class BoardVO {
 	private String content;
 	private String timePosted;
 	private int boardEnabled;
+	private int likeCheck;
 	private MemberVO memberVO;
 	private List<ImageVO> imageVO;
 	
@@ -15,15 +16,24 @@ public class BoardVO {
 		super();
 	}
 
-	public BoardVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
+	public BoardVO(int boardNo, String content, String timePosted, int boardEnabled,int likeCheck,MemberVO memberVO,
 			List<ImageVO> imageVO) {
 		super();
 		this.boardNo = boardNo;
 		this.content = content;
 		this.timePosted = timePosted;
 		this.boardEnabled = boardEnabled;
+		this.likeCheck = likeCheck; 
 		this.memberVO = memberVO;
 		this.imageVO = imageVO;
+	}
+	
+	public int getLikeCheck() {
+		return likeCheck;
+	}
+
+	public void setLikeCheck(int likeCheck) {
+		this.likeCheck = likeCheck;
 	}
 
 	public int getBoardNo() {
@@ -77,7 +87,6 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [boardNo=" + boardNo + ", content=" + content + ", timePosted=" + timePosted + ", boardEnabled="
-				+ boardEnabled + ", memberVO=" + memberVO + ", imageVO=" + imageVO + "]";
+				+ boardEnabled + ", likeCheck=" + likeCheck + ", memberVO=" + memberVO + ", imageVO=" + imageVO + "]";
 	}
-
 }

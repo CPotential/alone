@@ -60,4 +60,5 @@ public class MemberDAOImpl implements MemberDAO {
 	public List<MemberVO> leaveMemberList() {
 		return sqlSessionTemplate.selectList("member.leaveMemberList");
 	}
+
 }

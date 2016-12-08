@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,6 +19,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 
 	@Override
 	public List<ReviewVO> reviewList(PagingBean pagingBean) {
+		System.out.println(template.selectList("review.reviewList",pagingBean));
 		return template.selectList("review.reviewList",pagingBean);
 	}
 	
@@ -38,22 +40,17 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public void reviewBoardWrite(ReviewVO reviewVO){ 
 		template.insert("review.reviewBoardWrite",reviewVO);
 	}
-	
 	public void reviewWrite(ReviewVO reviewVO){
 		template.insert("review.reviewWrite",reviewVO);
 	}
-	
 	public ReviewVO reviewDetail(int boardNo){ 
 		return template.selectOne("review.reviewDetail", boardNo);
 	}
 
-
-
 	@Override
 	public int getTitleSearchContentCount(String searchKeyWord) {
-		return template.selectOne("review.getTotalContentCount",searchKeyWord); 
+		return template.selectOne("review.getTitleSearchContentCount",searchKeyWord); 
 	}
-
 	@Override
 	public int getWriterSearchCount(String searchKeyWord) {
 		return template.selectOne("review.getWriterSearchCount",searchKeyWord); 
@@ -67,4 +64,9 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public void reviewUpdate(ReviewVO reviewVO){
 		template.update("review.reviewUpdate",reviewVO);
 	}
+	
+	public void likeUp(BoardVO bvo){
+		template.update("review.likeup",bvo);
+	}
+	
 }

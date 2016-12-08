@@ -144,3 +144,15 @@ select keyword_name
 from keyword
 where keyword.board_no='1';
 
+insert into mileage (mileage_no,deal_money,deal_content,id) values (mileage_seq.nextval,1000,'관리자 입금','java')
+
+select sum(deal_money) as mileage  from mileage where id='java'
+select mileage from GENERICMEMBER where id='java'
+
+select gmember.id,sum(mileage.deal_money) as mileage from  G
+ENERICMEMBER gmember,mileage mileage  
+	where gmember.id='java' and gmember.id=mileage.id
+	update genericmember set mileage='3000' where id='java'
+	
+	select nickName from member where id='spring'
+	select * from mileage

@@ -188,7 +188,7 @@
 				</div>
 				<div class="form-group">
 					<label for="uploadFile">UploadFile</label> 
-					<input type="file" name="file" class="form-control" multiple="multiple"> 
+					<input type="file" name="file" class="form-control" multiple="multiple">
 					<span class="help-block"></span>
 				</div>
 
