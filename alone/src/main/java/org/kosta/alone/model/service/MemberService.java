@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.GenericMemberVO;
+import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.MemberVO;
 
 public interface MemberService {
@@ -40,4 +41,5 @@ public interface MemberService {
 	public List<CompanyMemberVO> companyList();
 
 	public List<MemberVO> leaveMemberList();
+
 }

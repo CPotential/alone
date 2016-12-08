@@ -7,9 +7,11 @@ import javax.annotation.Resource;
 import org.kosta.alone.model.dao.CommonMemberDAO;
 import org.kosta.alone.model.dao.CompanyMemberDAO;
 import org.kosta.alone.model.dao.GenericMemberDAO;
+import org.kosta.alone.model.dao.IntroduceDAO;
 import org.kosta.alone.model.dao.MemberDAO;
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.GenericMemberVO;
+import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -144,4 +146,8 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> leaveMemberList() {
 		return memberDAO.leaveMemberList();
 	}
+
+
 }
+
+

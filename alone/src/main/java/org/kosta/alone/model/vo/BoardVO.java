@@ -8,6 +8,7 @@ public class BoardVO {
 	private String timePosted;
 	private int boardEnabled;
 	private MemberVO memberVO;
+	private ImageVO mainImage;
 	private List<ImageVO> imageVO;
 	
 	
@@ -24,6 +25,29 @@ public class BoardVO {
 		this.boardEnabled = boardEnabled;
 		this.memberVO = memberVO;
 		this.imageVO = imageVO;
+	}
+	
+	
+
+	
+	public BoardVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
+			ImageVO mainImage, List<ImageVO> imageVO) {
+		super();
+		this.boardNo = boardNo;
+		this.content = content;
+		this.timePosted = timePosted;
+		this.boardEnabled = boardEnabled;
+		this.memberVO = memberVO;
+		this.mainImage = mainImage;
+		this.imageVO = imageVO;
+	}
+
+	public ImageVO getMainImage() {
+		return mainImage;
+	}
+
+	public void setMainImage(ImageVO mainImage) {
+		this.mainImage = mainImage;
 	}
 
 	public int getBoardNo() {
@@ -77,7 +101,9 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [boardNo=" + boardNo + ", content=" + content + ", timePosted=" + timePosted + ", boardEnabled="
-				+ boardEnabled + ", memberVO=" + memberVO + ", imageVO=" + imageVO + "]";
+				+ boardEnabled + ", memberVO=" + memberVO + ", mainImage=" + mainImage + ", imageVO=" + imageVO + "]";
 	}
+
+	
 
 }

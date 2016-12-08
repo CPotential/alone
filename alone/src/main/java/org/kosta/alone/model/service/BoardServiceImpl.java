@@ -162,6 +162,47 @@ public class BoardServiceImpl implements BoardService {
 		}
 
 	}
+	/**
+	 * 소개글 수정
+	 */
+	@Override
+
+	public void introduceUpdate(IntroduceVO introduceVO,UploadFileVO vo,HttpServletRequest request) {
+		// 테이블 기존 정보 쓰기
+		introduceDAO.boardUpdate(introduceVO);
+		// 테이블 상세정보쓰기
+		introduceDAO.introduceUpdate(introduceVO);
+	
+
+		imageUpload(introduceVO, vo, request);
+
+	/*	// 키워드 데이터 저장
+		keywordRegister(introduceVO);*/
+
+	}
+	
+	@Override
+	public String deleteImage(String deleteFileName,HttpServletRequest request) {
+		//System.out.println("fileDelete 실행  :"+deleteFileName);
+				//파일 경로 얻어오기
+				String uploadPath=request.getSession().getServletContext().getRealPath("/resources/upload/");
+		        File file = new File(uploadPath+deleteFileName);
+		
+		        //파일이 존재하면 삭제하고 ok리턴
+		        if(file.exists()){
+		        	//서버에서 파일삭제 
+		            file.delete();
+		            //DB에서 파일삭제
+		        	boardDAO.imageDelete(deleteFileName);
+		            return "ok";
+		        }
+		        else//파일이 존재하지 않으면 
+		            return "fail";
+
+		
+	}
+	
+
 
 	public void imageUpload(BoardVO boardVO, UploadFileVO vo, HttpServletRequest request) {
 
@@ -370,4 +411,20 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.reviewBoardUpdate(reviewVO);
 		reviewDAO.reviewUpdate(reviewVO);
 	}
+	
+	
+	@Override
+	@Transactional
+	public IntroduceVO showCompanyBoard(String id){
+		
+		int boardNo=introduceDAO.findIntroduceById(id);
+		return introduceDetail(boardNo);
+		
+
+		
+		
+		
+	}
+
+
 }

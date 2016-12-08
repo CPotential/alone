@@ -23,4 +23,6 @@ public interface BoardDAO {
 	void deleteComment(CommentVO commentVO);
 
 	public void reviewBoardUpdate(ReviewVO reviewVO);
+
+	void imageDelete(String deleteFileName);
 }

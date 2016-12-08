@@ -189,6 +189,7 @@ public class MemberController {
 		return new ModelAndView("myPage/company/memberUpdateForm", "id", id);
 	}
 	
+
 	/**
 	 * 기업 회원 정보 수정
 	 * @param cvo

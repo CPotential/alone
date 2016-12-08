@@ -68,6 +68,13 @@ public interface BoardService {
 
 	public void reviewUPdate(ReviewVO reviewVO);
 
+	IntroduceVO showCompanyBoard(String id);
+
+
+	String deleteImage(String deleteFileName, HttpServletRequest request);
+
+	public void introduceUpdate(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request);
+
 
 
 }
