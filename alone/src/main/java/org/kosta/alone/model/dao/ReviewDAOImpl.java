@@ -19,6 +19,7 @@ public class ReviewDAOImpl implements ReviewDAO {
 
 	@Override
 	public List<ReviewVO> reviewList(PagingBean pagingBean) {
+		System.out.println(template.selectList("review.reviewList",pagingBean));
 		return template.selectList("review.reviewList",pagingBean);
 	}
 	

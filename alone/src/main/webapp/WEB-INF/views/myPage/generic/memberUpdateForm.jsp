@@ -76,10 +76,6 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<th scope="row">아이디</th>
-										<td>${mvo.id}<input type="hidden" id="id" name="id" value="${mvo.id}"></td>
-									</tr>
-									<tr>
 										<th scope="row">비밀번호</th>
 										<td><input type="password" id="password" name="password"></td>
 									</tr>
@@ -107,10 +103,6 @@
 											<input type="radio" id="sign-up__gender" name="gender" value="여성">여성 
 											<input type="radio" 	id="sign-up__gender" name="gender" value="남성">남성
 										</td>
-									</tr>
-									<tr>
-										<th scope="row">생년월일</th>
-										<td>${mvo.id}</td>
 									</tr>
 									<tr>
 										<th scope="row">전화번호</th>

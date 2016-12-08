@@ -95,7 +95,7 @@
 					<!-- Sign Up link -->
 					<hr />
 					<p>
-						가입 안했어요?? <a href="sign-up.html">회원 가입</a>
+						가입 안했어요?? <a href="${pageContext.request.contextPath}/register.do">회원 가입</a>
 					</p>
 
 

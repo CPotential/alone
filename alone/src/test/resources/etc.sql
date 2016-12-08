@@ -20,7 +20,7 @@ CREATE TABLE IMAGE(
 	board_no number not null,
 	constraint fk_image foreign key(board_no) references board(board_no)
 )
-
+select * from image
 --마일리지 정보
 CREATE TABLE MILEAGE(
 	mileage_no number primary key,

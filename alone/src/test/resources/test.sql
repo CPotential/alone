@@ -136,6 +136,15 @@ from board b, keyword k, member m
 where k.keyword_name='#삼척' and
 b.board_no=k.board_no and member.id=board.id;
 
+--기업회원 아이디에 해당하는 게시물 정보가져오기 
+select b.board_no
+from BOARD b, INTRODUCE intro
+where b.board_no=intro.board_no and b.id='companymem';
+
+
+select * from introduce where board_no='133';
+delete from introduce;
+
 
 insert into KEYWORD(keyword_no,keyword_name,board_no) 
 values(keyword_seq.nextval, '#부산','1');
@@ -143,6 +152,13 @@ values(keyword_seq.nextval, '#부산','1');
 select keyword_name
 from keyword
 where keyword.board_no='1';
+
+
+update introduce set company_name='혜진',region='혜진',location='헤진',
+business_hours='123',tel='010',category_no='1';
+
+select * from image where board_no='157';
+delete from image where image_name='157_1냠냠.jpg';
 
 insert into mileage (mileage_no,deal_money,deal_content,id) values (mileage_seq.nextval,1000,'관리자 입금','java')
 
@@ -156,5 +172,11 @@ ENERICMEMBER gmember,mileage mileage
 	
 	select nickName from member where id='spring'
 	select * from mileage
+
 	
 	select * from member where id='admin'
+
+
+select mileage.deal_money, mileage.deal_content
+		from mileage mileage, member member
+		where mileage.id=member.id and member.id='java' order by mileage_no desc

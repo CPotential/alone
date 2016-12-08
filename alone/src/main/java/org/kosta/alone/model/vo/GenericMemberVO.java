@@ -5,28 +5,16 @@ public class GenericMemberVO extends MemberVO {
 	private String birth;
 	private String gender;
 	private int mileage;
-	private MileageVO mileageVO;
 
 	public GenericMemberVO() {
 		super();
 	}
 
-	public GenericMemberVO(String id, String password, String name, String nickName, String tel, String birth,
-			String gender, int mileage, MileageVO mileageVO) {
-		super(id, password, name, nickName, tel);
-	}
-
 	public GenericMemberVO(String id, String password, String name, String nickName, String tel, String authority,
-			int enabled) {
+			int enabled, String birth, String gender, int mileage) {
 		super(id, password, name, nickName, tel, authority, enabled);
-	}
-
-	public GenericMemberVO(String birth, String gender, int mileage, MileageVO mileageVO) {
-		super();
 		this.birth = birth;
 		this.gender = gender;
-		this.mileage = mileage;
-		this.mileageVO = mileageVO;
 	}
 
 	public String getBirth() {
@@ -53,18 +41,8 @@ public class GenericMemberVO extends MemberVO {
 		this.mileage = mileage;
 	}
 
-	public MileageVO getMileageVO() {
-		return mileageVO;
-	}
-
-	public void setMileageVO(MileageVO mileageVO) {
-		this.mileageVO = mileageVO;
-	}
-
 	@Override
 	public String toString() {
-		return super.toString() + "GenericMemberVO [birth=" + birth + ", gender=" + gender + ", mileage=" + mileage
-				+ ", mileageVO=" + mileageVO + "]";
+		return "GenericMemberVO [birth=" + birth + ", gender=" + gender + "]";
 	}
-
 }
