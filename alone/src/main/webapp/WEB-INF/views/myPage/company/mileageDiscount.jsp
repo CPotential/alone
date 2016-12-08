@@ -27,8 +27,6 @@
 	    		var memberMileage = $("#memberMileageView").html();
 	    		var mileageMinus =$("#product__quantity").val();
 	    		var id=$("#memberidView").html().trim();
-	    		alert(id);
-	    		alert(memberId);
 
 	    		if (id != memberId){
 	    			alert("회원을 입력하세요");
@@ -40,16 +38,17 @@
 						url:"${pageContext.request.contextPath}/mileageMinus.do",	
 						data:"id="+id+"&mileage="+mileageMinus,
 						success:function(data){			
-							alert("성공");
-			
+							if(data ==null){
+								alert("실패하였습니다");
+							}else{
+							alert(data.id +"님의 마일리지가 " +mileageMinus + " 차감 되었습니다");
+							$("#memberidView").html(data.id);
+							$("#memberMileageView").html(data.mileage);
+							}
 						}//callback			
-					});
-	    		 	
-	    			
-	    		}
-	    		
-	    	});
-	    	
+					}); // ajax
+	    		} // else
+	    	}); // click
 	    });//ready
 	    
 	    </script>
@@ -89,9 +88,9 @@
 								<tbody>
 									<tr>
 										<th scope="row">회원아이디</th>
-										<td id="memberidView">1000</td>
+										<td id="memberidView"></td>
 										<th scope="row">마일리지</th>
-										<td id="memberMileageView">1000</td>
+										<td id="memberMileageView"></td>
 									</tr>
 
 								</tbody>

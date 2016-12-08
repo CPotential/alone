@@ -228,16 +228,16 @@ public class MemberController {
 	@ResponseBody
 	public MemberVO idSearch(String id){
 		MemberVO memberVO=memberService.SearchIdAndMileage(id);
-		System.out.println(memberVO);
 		return memberVO;
 	}
 	
 	@RequestMapping("mileageMinus.do")
 	@ResponseBody
-	public String mileageMinus(GenericMemberVO memberVO,HttpSession session){
+	public MemberVO mileageMinus(GenericMemberVO memberVO,HttpSession session){
 		MemberVO companyVO = (MemberVO) session.getAttribute("memberVO");
 		memberService.mileageMinus(memberVO,companyVO);
-		return "ok";
+		memberVO=(GenericMemberVO) memberService.SearchIdAndMileage(memberVO.getId());
+		return memberVO;
 	}
 	
 	

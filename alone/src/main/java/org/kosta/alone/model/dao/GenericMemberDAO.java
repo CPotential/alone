@@ -21,6 +21,6 @@ public interface GenericMemberDAO {
 
 	void mileageMinus(HashMap<String, Object> map);
 
-	void updateMileage(int mileage);
+	void updateMileage(HashMap<String, Object> map);
 
 }

@@ -152,13 +152,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	@Transactional
 	public void mileageMinus(GenericMemberVO memberVO, MemberVO companyVO) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberId", memberVO.getId());
 		map.put("companyId", companyVO.getId());
-		map.put("dealMoney", memberVO.getMileage());
+		map.put("dealMoney", (int)(-1*memberVO.getMileage()));
 		genericMemberDAO.mileageMinus(map);
-		genericMemberDAO.updateMileage(memberVO.getMileage());
+		genericMemberDAO.updateMileage(map);
 		
 	}
 }

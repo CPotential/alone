@@ -33,10 +33,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select id,mileage from GENERICMEMBER where id=#{value}
 	</select>
 	
-	<insert id="mileageMinus">
+	<insert id="mileageMinus" parameterType="hashmap">
+	<selectKey resultType="string" keyProperty="nickname" order="BEFORE">
+		select nickname from member where id=#{companyId}
+	</selectKey>
 	INSERT into mileage (mileage_no,deal_money,deal_content,id) 
-	VALUES (mileage_seq.nextval,#{dealMoney},{#companyId},#{memberId})
+	VALUES (mileage_seq.nextval,#{dealMoney},#{nickname},#{memberId})
 	</insert>
+	
+	<update id="updateMileage" parameterType="hashmap">
+	update genericmember set mileage = mileage+#{dealMoney} where id=#{memberId}
+	</update>
 
 </mapper>
  

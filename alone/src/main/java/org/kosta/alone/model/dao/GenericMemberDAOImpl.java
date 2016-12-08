@@ -48,9 +48,7 @@ public class GenericMemberDAOImpl implements GenericMemberDAO {
 	}
 
 	@Override
-	public void updateMileage(int mileage) {
-		sqlSessionTemplate.update("genericMember.updateMileage",mileage);
-		
-		
+	public void updateMileage(HashMap<String, Object> map) {
+		sqlSessionTemplate.update("genericMember.updateMileage",map);
 	}
 }

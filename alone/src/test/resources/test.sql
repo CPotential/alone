@@ -153,3 +153,6 @@ select gmember.id,sum(mileage.deal_money) as mileage from  G
 ENERICMEMBER gmember,mileage mileage  
 	where gmember.id='java' and gmember.id=mileage.id
 	update genericmember set mileage='3000' where id='java'
+	
+	select nickName from member where id='spring'
+	select * from mileage
