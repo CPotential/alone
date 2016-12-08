@@ -46,16 +46,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<MeetingVO> findNameMeetingList(String search) {
-		return meetingDAO.findNameMeetingList(search);
-	}
-
-	@Override
-	public List<MeetingVO> findTitleMeetingList(String search) {
-		return meetingDAO.findTitleMeetingList(search);
-	}
-
-	@Override
 	public List<MeetingVO> getRegionInfo() {
 		return meetingDAO.getRegionInfo();
 	}
@@ -63,25 +53,21 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public ListVO<ReviewVO> reviewList(String nowPage) {
 		int totalCount = reviewDAO.getTotalContentCount();
+		PagingBean pagingBean = null;
 		if (nowPage == null) {
-			PagingBean pagingBean = new PagingBean(totalCount);
-			pagingBean.setContentNumberPerPage(10);
-			pagingBean.setPageNumberPerPageGroup(5);
-			List<ReviewVO> list = reviewDAO.reviewList(pagingBean);
-			ListVO<ReviewVO> vo = new ListVO<ReviewVO>(list, pagingBean);
-			return vo;
+			pagingBean = new PagingBean(totalCount);
 		} else {
-			PagingBean pagingBean = new PagingBean(totalCount, Integer.parseInt(nowPage));
-			pagingBean.setContentNumberPerPage(10);
-			pagingBean.setPageNumberPerPageGroup(5);
-			List<ReviewVO> list = reviewDAO.reviewList(pagingBean);
-			ListVO<ReviewVO> vo = new ListVO<ReviewVO>(list, pagingBean);
-			return vo;
+			pagingBean = new PagingBean(totalCount, Integer.parseInt(nowPage));
 		}
+		pagingBean.setContentNumberPerPage(10);
+		pagingBean.setPageNumberPerPageGroup(5);
+		List<ReviewVO> list = reviewDAO.reviewList(pagingBean);
+		ListVO<ReviewVO> listVO = new ListVO<ReviewVO>(list, pagingBean);
+		return listVO;
 	}
 
-	// 소개글 리스트
 	/**
+	 * 소개글 리스트
 	 * 1)카테고리에 해당하는 게시물 리스트를 뽑는다 :introduceList 2)첫번째 소개글에 게시물 번호를 얻어와 해당 게시물에
 	 * 키워드가 몇개 등록되었는지 확인 한다 :keyWordSize 3) 게시물이 가지고있는 키워드의 이름을 뽀는다
 	 * introduceList.get(i).getBoardNo()게시물 번호
@@ -92,7 +78,6 @@ public class BoardServiceImpl implements BoardService {
 		List<KeyWordVO> keyWordVO = null;
 		int totalCount = introduceDAO.getTotalContentCount(categoryNo);
 		HashMap<String, Object> map = new HashMap<String, Object>();
-
 		if (nowPage == null) {
 			PagingBean pagingBean = new PagingBean(totalCount);
 			pagingBean.setContentNumberPerPage(6);
@@ -245,26 +230,24 @@ public class BoardServiceImpl implements BoardService {
 		reviewDAO.updateHit(boardNo);
 		return reviewDAO.reviewDetail(boardNo);
 	}
-
+	
+	/**
+	 * 모임 게시글 리스트
+	 */
 	@Override
-	public ListVO<MeetingVO> getMeetingList(String pageNo) {
+	public ListVO<MeetingVO> meetingList(String pageNo) {
 		int totalCount = meetingDAO.getTotalContentCount();
 		PagingBean pagingBean = null;
 		if (pageNo == null) {
 			pagingBean = new PagingBean(totalCount);
-			pagingBean.setContentNumberPerPage(10);
-			pagingBean.setPageNumberPerPageGroup(5);
-			List<MeetingVO> list = meetingDAO.getMeetingList(pagingBean);
-			ListVO<MeetingVO> mtvo = new ListVO<MeetingVO>(list, pagingBean);
-			return mtvo;
 		} else {
 			pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
-			pagingBean.setContentNumberPerPage(10);
-			pagingBean.setPageNumberPerPageGroup(5);
-			List<MeetingVO> list = meetingDAO.getMeetingList(pagingBean);
-			ListVO<MeetingVO> mtvo = new ListVO<MeetingVO>(list, pagingBean);
-			return mtvo;
 		}
+		pagingBean.setContentNumberPerPage(10);
+		pagingBean.setPageNumberPerPageGroup(5);
+		List<MeetingVO> list = meetingDAO.meetingList(pagingBean);
+		ListVO<MeetingVO> listVO = new ListVO<MeetingVO>(list, pagingBean);
+		return listVO;
 	}
 
 	@Override
@@ -274,36 +257,24 @@ public class BoardServiceImpl implements BoardService {
 		Map<String, Object> map = null;
 		List<ReviewVO> list = null;
 		ListVO<ReviewVO> vo = null;
-		if (command.equals("findByTitle")) {
-			totalCount = reviewDAO.getTitleSearchContentCount(searchKeyWord);
-			if (pageNo == null) {
-				pagingBean = new PagingBean(totalCount);
-			} else {
-				pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
-			}
-			pagingBean.setContentNumberPerPage(10);
-			pagingBean.setPageNumberPerPageGroup(5);
-			map = new HashMap<String, Object>();
-			map.put("keyword", searchKeyWord);
-			map.put("pb", pagingBean);
-			list = reviewDAO.reviewTitleSearchList(map);
-			vo = new ListVO<>(list, pagingBean);
-		} else {
-			if (pageNo == null) {
-				pagingBean = new PagingBean(totalCount);
-			} else {
-				pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
-			}
+		if(command.equals("findByTitle")) 
+			totalCount=reviewDAO.getTitleSearchContentCount(searchKeyWord);
+		else
 			totalCount = reviewDAO.getWriterSearchCount(searchKeyWord);
-			pagingBean = new PagingBean(totalCount);
-			pagingBean.setContentNumberPerPage(10);
-			pagingBean.setPageNumberPerPageGroup(5);
-			map = new HashMap<String, Object>();
-			map.put("keyword", searchKeyWord);
-			map.put("pb", pagingBean);
-			list = reviewDAO.reviewWriterSearchList(map);
-			vo = new ListVO<>(list, pagingBean);
-		}
+			
+		if(pageNo==null)
+			pagingBean=new PagingBean(totalCount);
+		else
+			pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
+
+		pagingBean.setContentNumberPerPage(10);
+		pagingBean.setPageNumberPerPageGroup(5);
+		map = new HashMap<String, Object>();
+		map.put("keyword", searchKeyWord);
+		map.put("pb", pagingBean);
+		list = reviewDAO.reviewTitleSearchList(map);
+		vo = new ListVO<>(list, pagingBean);
+		
 		return vo;
 	}
 
@@ -312,4 +283,42 @@ public class BoardServiceImpl implements BoardService {
 		return reviewDAO.reviewDetail(boardNo);
 	}
 
+	@Transactional
+	public void reviewUPdate(ReviewVO reviewVO) {
+		boardDAO.reviewBoardUpdate(reviewVO);
+		reviewDAO.reviewUpdate(reviewVO);
+	}
+	
+	/**
+	 * 소개글 검색 후 리스트 출력
+	 */
+	@Override
+	public ListVO<MeetingVO> meetingSearchList(String pageNo, String searchKeyWord, String command) {
+		int totalCount = 0;
+		PagingBean pagingBean = null;
+	    Map<String, Object> map = null;
+	    List<MeetingVO> list = null;
+	    ListVO<MeetingVO> listVO = null;
+	    if(command.equals("findByTitle")) 
+	    	totalCount=meetingDAO.getTitleSearchCount(searchKeyWord);
+	    else 
+	    	totalCount = meetingDAO.getWriterSearchCount(searchKeyWord);
+	    
+	    if(pageNo==null)
+	    	pagingBean = new PagingBean(totalCount);
+	    else
+	    	pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
+	    
+	    pagingBean.setContentNumberPerPage(10);
+	    pagingBean.setPageNumberPerPageGroup(5);
+	    map = new HashMap<String, Object>();
+	    map.put("keyWord", searchKeyWord);
+	    map.put("pb", pagingBean);
+	    if(command.equals("findByTitle")) 
+	    	list = meetingDAO.meetingTitleSearchList(map);
+		else
+			list = meetingDAO.meetingWriterSearchList(map);
+	    listVO = new ListVO<>(list, pagingBean);
+	    return listVO;
+	}
 }

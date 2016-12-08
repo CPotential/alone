@@ -11,6 +11,7 @@ import org.kosta.alone.model.dao.MemberDAO;
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.GenericMemberVO;
 import org.kosta.alone.model.vo.MemberVO;
+import org.kosta.alone.model.vo.MileageVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -143,5 +144,21 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberVO> leaveMemberList() {
 		return memberDAO.leaveMemberList();
+	}
+
+	/**
+	 * 마일리지 내역
+	 */
+	@Override
+	public List<MileageVO> mileageInfo(String id) {
+		return genericMemberDAO.mileageInfo(id);
+	}
+	
+	/**
+	 * 현재 마일리지
+	 */
+	@Override
+	public int nowMileage(String id) {
+		return genericMemberDAO.nowMileage(id);
 	}
 }

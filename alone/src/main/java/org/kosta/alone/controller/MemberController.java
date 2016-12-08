@@ -166,7 +166,6 @@ public class MemberController {
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		return new ModelAndView("myPage/generic/showInfo", "gvo", memberService.showGenericmember(memberVO));
 	}
-	
 
 	/**
 	 * 기업 회원 정보 페이지
@@ -222,5 +221,17 @@ public class MemberController {
 	@RequestMapping("adminLeaveMemberList.do")
 	public ModelAndView leaveMemberList(){
 		return new ModelAndView("myPage/admin/leaveMember", "leaveMemberList", memberService.leaveMemberList());
+	}
+	
+	/**
+	 * 일반회원 - 마일리지 정보
+	 */
+	@RequestMapping("showMileageInfo.do")
+	public ModelAndView showMileageInfo(HttpSession session){
+		ModelAndView mav = new ModelAndView("myPage/generic/showMileage");
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		mav.addObject("mileageInfo", memberService.mileageInfo(memberVO.getId()));
+		mav.addObject("nowMileage", memberService.nowMileage(memberVO.getId()));
+		return mav;
 	}
 }

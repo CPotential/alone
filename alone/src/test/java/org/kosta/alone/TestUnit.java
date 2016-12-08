@@ -1,5 +1,8 @@
 package org.kosta.alone;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -11,6 +14,7 @@ import org.kosta.alone.model.dao.MemberDAO;
 import org.kosta.alone.model.dao.ReviewDAO;
 import org.kosta.alone.model.service.BoardService;
 import org.kosta.alone.model.service.MemberService;
+import org.kosta.alone.model.vo.PagingBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -35,7 +39,15 @@ public class TestUnit {
 
 	@Test
 	public void test(){
-		//		System.out.println(meetingDAO.getMeetingList());
-		
+		PagingBean pagingBean = null;
+		Map<String, Object> map = new HashMap<String, Object>();
+		pagingBean = new PagingBean(5);
+		pagingBean.setContentNumberPerPage(10);
+	    pagingBean.setPageNumberPerPageGroup(5);
+		String searchKeyWord = "123";
+		map.put("keyWord", searchKeyWord);
+	    map.put("pb", pagingBean);
+	    System.out.println(meetingDAO.meetingTitleSearchList(map));
+	    
 	}
 }

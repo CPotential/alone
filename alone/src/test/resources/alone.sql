@@ -501,8 +501,51 @@ r.hits,r.likes,b.content
 from board b,review r,member m
 where b.id=m.id and b.board_no=r.board_no  and r.board_no=10
 
+
+
+	update board
+	set content='바꿈2', time_posted=sysdate
+	where board_no='10';
+	
+	update review
+	set title='제목수정2'
+	where board_no='10';
+	
+	select r.board_no,b.time_posted,r.title,b.content
+	from board b,review r
+	where b.board_no=r.board_no and r.board_no='37'
+
 select count(*) from board board,review review
 where board.board_no=review.board_no and review.title='손재만1213'
 
 select * from MEETING 
 update MEETING set hits=hits+1 where board_no=5
+
+-- 마일리지 내역
+select deal_money, deal_content from mileage mileage, member member 
+where mileage.id=member.id and member.id='json'
+-- 현재 마일리지
+select sum(deal_money) as mileage from mileage where id='json'
+
+
+select board.board_no, meeting.region, meeting.interest, meeting.title, member.nickname, to_char(board.time_posted, 'yyyy.mm.dd') as time_posted, meeting.hits 
+from board board, meeting meeting, member member  
+where board.board_no=meeting.board_no and member.id=board.id and member.nickname='개구리'
+
+select board_no, region, interest, title, nickname, time_posted, hits 
+from (
+	select row_number() over(order by board.board_no desc) rnum, board.board_no, meeting.region, meeting.interest, meeting.title, member.nickname, to_char(board.time_posted, 'yyyy.mm.dd') as time_posted, meeting.hits
+	from board board, meeting meeting, member member
+	where board.board_no=meeting.board_no and member.id=board.id and member.nickname=${nickName} and board.board_enabled=1
+) 
+where rnum between #{startRowNumber} and #{endRowNumber}
+
+${nickName}
+#{startRowNumber}
+#{endRowNumber}
+
+update member set enabled=1 where id='json';
+update member set enabled=1 where id='del2';
+update member set enabled=1 where id='mym';
+update member set enabled=1 where id='abcd';
+update member set enabled=1 where id='del';

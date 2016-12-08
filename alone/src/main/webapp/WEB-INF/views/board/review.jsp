@@ -62,9 +62,9 @@
 				<select class="selectpicker" id="findType">
 					<option value="findByTitle">제목</option>
 					<option value="findByWriter">작성자</option>
-				</select> <label class="sr-only" for="nav-search">Search</label> <input
-					type="text" class="form-control" id="searchKeyWord"
-					name="searchKeyWord">
+				</select> 
+				<label class="sr-only" for="nav-search">Search</label> 
+				<input type="text" class="form-control" id="searchKeyWord" name="searchKeyWord">
 				<button type="button" id="searchSubmit">
 					<i class="fa fa-search"></i>
 				</button>
@@ -72,8 +72,7 @@
 		</div>
 		<div class="col-sm-2">
 			<p>
-				<a href="${pageContext.request.contextPath}/reviewWriteForm.do"
-					class="btn btn-sm btn-primary">글작성</a>
+				<a href="${pageContext.request.contextPath}/reviewWriteForm.do" class="btn btn-sm btn-primary">글작성</a>
 			</p>
 		</div>
 	</div>

@@ -52,9 +52,9 @@
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
           <div class="body-plain__form">
-  
-            <form role="form">
-            <a href="${pageContext.request.contextPath}/registerMember.do">일반회원 가입</a>
+  			
+            <form role="form" align="center">
+            <a href="${pageContext.request.contextPath}/registerMember.do">일반회원 가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="${pageContext.request.contextPath}/registerCompany.do">기업회원 가입</a>
             </form>
 

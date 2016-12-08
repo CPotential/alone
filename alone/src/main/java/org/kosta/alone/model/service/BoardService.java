@@ -15,18 +15,13 @@ import org.kosta.alone.model.vo.UploadFileVO;
 
 public interface BoardService { 
 
-	public ListVO<MeetingVO> getMeetingList(String pageNo);
+	public ListVO<MeetingVO> meetingList(String pageNo);
 	
 	public List<MeetingVO> getMeetingRegionList(String region);
-	
-	public List<MeetingVO> findNameMeetingList(String search);
-	
-	public List<MeetingVO> findTitleMeetingList(String search);
 	
 	public List<MeetingVO> getRegionInfo();
 	
 	public ListVO<ReviewVO> reviewList(String nowPage); 
-	
     
     public ListVO<IntroduceVO> introduceList(int categoryNo,String nowPage);
 	
@@ -52,10 +47,13 @@ public interface BoardService {
 
 	public ReviewVO reviewDetail(int boardNo);
 
-	public ListVO<ReviewVO> reviewSerachList(String pageNo, String searchKeyWord, String command);
-
 	public ReviewVO reviewNotHitDetail(int boardNo);
 
+	public void reviewUPdate(ReviewVO reviewVO);
+
+	public ListVO<ReviewVO> reviewSerachList(String pageNo, String searchKeyWord, String command);
+
+	public ListVO<MeetingVO> meetingSearchList(String pageNo, String searchKeyWord, String command);
 
 }
 

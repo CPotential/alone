@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5a5f74b55c137eef83dc34e43b7a72b7&libraries=services"></script>
@@ -40,7 +39,6 @@
 						var id =data[i].memberVO.id;
 						var nowid= '<c:out value="${id}"/>'
 						
-					  	
 						if(id ==nowid ){
 						json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
 						json += " <a href='#' id='removeComment' class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
@@ -58,11 +56,7 @@
 			}); //ajax
 		}); // sendCommentclick 이벤트
 
-		
-	
-
 		$("#commentView").on("click", "#editComment", function() {
-
 			content = $(this).parent().prev().html().trim();
 			commentNo = $(this).parent().next().val();
 			$("#commentresetView").empty();
@@ -70,9 +64,7 @@
 					+"rows='2' id='comment'>"+content+"</textarea>"
 					+"<a href='#' id='updateComment' class='btn btn-default btn-xs'>"
 					+"<i class='fa fa-edit'></i> 수정하기</a>");
-		  	
 			});//editComment (댓글 수정)
-
 
 		$("#commentView").on("click", "#updateComment", function() {
 			content = $(this).prev().val();
@@ -115,59 +107,56 @@
 						$("#commentView").html(json);
 					}
 				});  //ajax
-				
-				
 			}); //commentView 수정하기 버튼
 		//삭제하기
 		$("#commentView").on("click","#removeComment",function(){
-			 		if(confirm("댓글을 삭제하시겠습니까?")){
-			 		commentNo = $(this).parent().next().val(); 
-					$.ajax({
-						type:"GET",
-						url:"${pageContext.request.contextPath}/deleteCommentAjax.do",				
-						data:"commentNo="+commentNo+"&boardNo="+boardNo,	 
-						success:function(data){	
-							var json = "";
-							for (var i = 0; i < data.length ; i++) { 				
-								json += "<div class='comment'>";
-								json +=" <div class='comment__author_img'>"
-								json += data[i].memberVO.nickName;
-								json += "</div> <div class='comment__content' id='commentresetView'>";
-								json +="<div class='comment__author_name'>"
-								json += data[i].memberVO.nickName;
-								json += "</div>";
-								json += "<time datetime="
-								json += data[i].timePosted;
-								json += "class='comment__date'> </time>";
-								json +="<p>";
-								json += data[i].content;
-								json +="</p>";
-								<c:set var="id" value="${sessionScope.memberVO.id }"/>
-								var id =data[i].memberVO.id;
-								var nowid= '<c:out value="${id}"/>'
-								
-							  	
-								if(id ==nowid ){
-								json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
-								json += " <a href='#' id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
-								json += " <a href='#'  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
-								json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
-								json +="</div>" 
-								}
-								json +="<input type='text' id='commentNo'  value="
-								json += data[i].commentNo
-								json +=">"
-								json += "</div></div>";  
-							} 
-							$("#commentView").html(json);
-						}
-					});  //ajax
-			 	
-			 		}else{
-			 			location.href="meetingDetail.do?boardNo=${param.boardNo}";
-			 		}
-				}); //commentView 삭제하기 버튼
-		}); // ready
+		 		if(confirm("댓글을 삭제하시겠습니까?")){
+		 		commentNo = $(this).parent().next().val(); 
+				$.ajax({
+					type:"GET",
+					url:"${pageContext.request.contextPath}/deleteCommentAjax.do",				
+					data:"commentNo="+commentNo+"&boardNo="+boardNo,	 
+					success:function(data){	
+						var json = "";
+						for (var i = 0; i < data.length ; i++) { 				
+							json += "<div class='comment'>";
+							json +=" <div class='comment__author_img'>"
+							json += data[i].memberVO.nickName;
+							json += "</div> <div class='comment__content' id='commentresetView'>";
+							json +="<div class='comment__author_name'>"
+							json += data[i].memberVO.nickName;
+							json += "</div>";
+							json += "<time datetime="
+							json += data[i].timePosted;
+							json += "class='comment__date'> </time>";
+							json +="<p>";
+							json += data[i].content;
+							json +="</p>";
+							<c:set var="id" value="${sessionScope.memberVO.id }"/>
+							var id =data[i].memberVO.id;
+							var nowid= '<c:out value="${id}"/>'
+						  	
+							if(id ==nowid ){
+							json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
+							json += " <a href='#' id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
+							json += " <a href='#'  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
+							json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
+							json +="</div>" 
+							}
+							json +="<input type='text' id='commentNo'  value="
+							json += data[i].commentNo
+							json +=">"
+							json += "</div></div>";  
+						} 
+						$("#commentView").html(json);
+					}
+				});  //ajax
+	 	
+	 		}else{
+	 			location.href="meetingDetail.do?boardNo=${param.boardNo}";
+	 		}
+		}); //commentView 삭제하기 버튼
+	}); // ready
 </script>
 
 <div class="container">
@@ -222,7 +211,7 @@
 				</script>
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
-						<a href="#" class="btn btn-default">목 록</a>
+						<a href="${pageContext.request.contextPath}/meetingList.do" class="btn btn-default">목 록</a>
 						<a href="#" class="btn btn-default">수 정</a>
 						<a href="#" class="btn btn-default">삭 제</a>
 					</div>

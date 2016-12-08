@@ -4,11 +4,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 <mapper namespace="genericMember">
-	
+	<resultMap type="mileageVO" id="mileageRM">
+		<result column="deal_money" property="dealMileage"/>
+		<result column="deal_content" property="dealDetail"/>
+	</resultMap>
 	<insert id="registerMember" parameterType="genericMemberVO">
 		insert into genericmember (id, birth, gender)
 		values(#{id}, #{birth}, #{gender})
 	</insert>
+	
 	<insert id="registerAuthority" parameterType="genericMemberVO">
 		insert into authorities (id, authority) values (#{id}, #{authority})
 	</insert>
@@ -17,48 +21,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update genericmember set gender=#{gender} where id=#{id}
 	</update>
 	
-  <select id="showGenericmember" parameterType="memberVO"  resultType="genericMemberVO">
-  	select gmember.id, member.name, member.nickname, gmember.gender, gmember.birth, member.tel
-	from member member, genericmember gmember
-	where member.id=gmember.id and gmember.id=#{id}
-  </select>
+	<select id="showGenericmember" parameterType="memberVO"  resultType="genericMemberVO">
+		select gmember.id, member.name, member.nickname, gmember.gender, gmember.birth, member.tel
+		from member member, genericmember gmember
+		where member.id=gmember.id and gmember.id=#{id}
+	</select>
   
-  <select id="genericList" resultType="genericMemberVO">
-  	select genericmember.id, member.name, member.nickname, member.tel, genericmember.birth, genericmember.gender, genericmember.mileage 
-  	from member member, genericmember genericmember 
-  	where member.id=genericmember.id and member.enabled=1
-  </select>
-
+	<select id="genericList" resultType="genericMemberVO">
+		select genericmember.id, member.name, member.nickname, member.tel, genericmember.birth, genericmember.gender, genericmember.mileage 
+		from member member, genericmember genericmember 
+		where member.id=genericmember.id and member.enabled=1
+	</select>
+	
+	<select id="mileageInfo" resultMap="mileageRM"  parameterType="string">
+		select mileage.deal_money, mileage.deal_content 
+		from mileage mileage, member member 
+		where mileage.id=member.id and member.id=#{value}
+	</select>
+	
+	<select id="nowMileage" resultType="integer">
+		select mileage from genericmember where id=#{value}
+	</select>
+	
 </mapper>
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

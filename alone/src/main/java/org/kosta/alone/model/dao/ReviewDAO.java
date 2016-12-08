@@ -20,7 +20,6 @@ public interface ReviewDAO {
 	
 	public void reviewWrite(ReviewVO reviewVO);
 
-
 	public ReviewVO reviewDetail(int  boardNo);
 
 	public int getTitleSearchContentCount(String searchKeyWord);
@@ -29,4 +28,5 @@ public interface ReviewDAO {
 
 	public void updateHit(int boardNo);
 	
+	public void reviewUpdate(ReviewVO reviewVO);
 }
