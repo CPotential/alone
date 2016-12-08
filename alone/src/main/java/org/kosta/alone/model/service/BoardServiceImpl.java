@@ -101,7 +101,7 @@ public class BoardServiceImpl implements BoardService {
 				keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
 				list.get(i).setKeyWordVO(keyWordVO);
 				imageList = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
-				list.get(i).setImageVO(imageList);
+				list.get(i).setImageVO(imageList); 
 			}
 			ListVO<IntroduceVO> vo = new ListVO<IntroduceVO>(list, pagingBean);
 			return vo;
@@ -330,22 +330,24 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public ListVO<ReviewVO> reviewSerachList(String pageNo, String searchKeyWord, String command) {
 
+
 		int totalCount = 0;
 		PagingBean pagingBean = null;
 		Map<String, Object> map = null;
 		List<ReviewVO> list = null;
 		ListVO<ReviewVO> vo = null;
-		
+
 		if(command.equals("findByTitle"))
 			totalCount=reviewDAO.getTitleSearchContentCount(searchKeyWord);
-		else{
+		else
 			totalCount = reviewDAO.getWriterSearchCount(searchKeyWord);
-		}
+		
 		if(pageNo==null){
 				pagingBean=new PagingBean(totalCount);
 		}else{
 				pagingBean=new PagingBean(totalCount,Integer.parseInt(pageNo));
 			}
+		
 			pagingBean.setContentNumberPerPage(10);
 			pagingBean.setPageNumberPerPageGroup(5);
 			map = new HashMap<String, Object>();
@@ -389,4 +391,19 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.boardDelete(boardNo);
 	}
 
+
+	
+	@Transactional
+	public void likeUp(BoardVO bvo){
+		BoardVO vo = boardDAO.likeCheckInfo(bvo);
+		if(vo==null){
+			boardDAO.insertLikeCheck(bvo);  
+			boardDAO.likeCheckUp(bvo);
+			reviewDAO.likeUp(bvo);
+		}else if(vo != null && vo.getLikeCheck() == 0){
+			boardDAO.likeCheckUp(bvo);
+			reviewDAO.likeUp(bvo); 
+		}
+	}
+	
 }

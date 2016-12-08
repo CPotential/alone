@@ -3,13 +3,28 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
+
 <!--  jquery 사용처입니다. -->
 <script type="text/javascript">
+$(document).ready(function() {
+	$("#like").click(function() {
+		$.ajax({ 
+			type : "get",
+			url : "${pageContext.request.contextPath}/likeUpAjax.do",
+			data : "boardNo="+'${rvo.boardNo}',
+			dataType : "json",
+			success : function(result) {
+				$("#likeNum").html("좋아요 : "+result.likes);  
+			}
+		}) // ajax
+	}); // click
+}); // ready
 
 </script>
+<!--  jquery 사용처입니다. -->
 
-
- <div class="container">
+<script src="//code.jquery.com/jquery.min.js"></script>
+    <div class="container">
     <div class="row">
        <div class="col-sm-8 col-md-9">
         <a href="#"><span class="badge">No. ${rvo.boardNo }</span></a>
@@ -17,8 +32,9 @@
         <a href="#"><span class="badge">날짜 : ${rvo.timePosted}</span></a>
       </div>
       <div class="nav nav-pills col-md-8 text-right" >
-       <a href="#">작성자 : ${rvo.memberVO.nickName}</a> | 
-       <a href="#">좋아요 : ${rvo.likes}</a>
+
+       <a href="#">작성자 : ${rvo.memberVO.nickName}</a>
+       <a href="#" id="likeNum">좋아요 : ${rvo.likes}</a>
       </div>
     </div>
     <div class="container">
@@ -27,11 +43,13 @@
         <div class="well well">${rvo.title}</div>
         <div class="panel-body">
           <table>
-            <tr>
-              <td>${rvo.content}
-              </td>
-            </tr>
+        	<tr>
+        		<td>${rvo.content}</td>
+          </tr>
           </table>
+        </div>
+        <div align="right" id="like">
+        	<img src="${pageContext.request.contextPath}/resources/img/좋아요.jpg">
         </div>
         <div class="panel-footer">
           <div class="btn-group btn-group-justified">
@@ -45,4 +63,5 @@
         </div>
       </div>
     </div>
-   </div>
+ </div>
+

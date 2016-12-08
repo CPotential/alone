@@ -33,7 +33,6 @@ public interface BoardService {
 	
 	public ListVO<ReviewVO> reviewList(String nowPage); 
 	
-    
     public ListVO<IntroduceVO> introduceList(int categoryNo,String nowPage);
 	
 	public List<IntroduceCategoryVO> introduceCategoryList();
@@ -48,14 +47,12 @@ public interface BoardService {
 
 	public MeetingVO meetingDetail(int boardNo);
 
-
 	public List<CommentVO> commentList(int boardNo);
 
 	public void insertComment(MemberVO memberVO, String comment, int boardNo);
 
 	public void updateComment(CommentVO commentVO);
 	
-
 	public void imageUpload(BoardVO boardVO, UploadFileVO vo, HttpServletRequest request);
 
 	public void deleteComment(CommentVO commentVO);
@@ -72,6 +69,8 @@ public interface BoardService {
 
 	public void boardDelete(int boardNo);
 
+	public void likeUp(BoardVO bvo);
+	
 }
 
 

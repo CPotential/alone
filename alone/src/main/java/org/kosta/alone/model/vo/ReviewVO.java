@@ -11,9 +11,9 @@ public class ReviewVO extends BoardVO {
 		super();
 	}
 
-	public ReviewVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
+	public ReviewVO(int boardNo, String content, String timePosted, int boardEnabled,int likeCheck,MemberVO memberVO,
 			List<ImageVO> imageVO, String title, int hits, int likes) {
-		super(boardNo, content, timePosted, boardEnabled, memberVO, imageVO);
+		super(boardNo, content, timePosted, boardEnabled,likeCheck,memberVO, imageVO); 
 		this.title = title;
 		this.hits = hits;
 		this.likes = likes;

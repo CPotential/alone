@@ -10,9 +10,14 @@ select * from image
 update member set enabled=1 where id='del'
 	select companymember.id,member.nickname,authorities.authority,companymember.approval
 	from companymember companymember,member member,authorities authorities
+
 	where companymember.id=member.id and member.id=authorities.id
 	
 	select id,mileage from GENERICMEMBER where id='java'
+	where companymember.id=member.id and member.id=authorities.id
+	and companymember.id='company'
+	select * from image
+
 
 	and companymember.id='company'
 	select * from image

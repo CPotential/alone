@@ -7,7 +7,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="imageVO" id="imageRM">
 		<result column="image_name" property="imageName" />
 	</resultMap>
-
+	<resultMap type="boardVO" id="boardRM">
+		<result column="board_no" property="boardNo"/>
+		<result column="id" property="memberVO.id"/>
+	</resultMap>
 
 	<select id="imageList" resultMap="imageRM" resultType="imageVO">
 	SELECT image_name FROM image WHERE NOT image_name LIKE 'main%'and board_no=#{value}
@@ -70,6 +73,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </update>
 
 
+	
+	<select id="likeCheckInfo" parameterType="boardVO" resultMap="boardRM"> 
+		select member.id,board.board_no,likescheck.likeCheck from member member,board board,likescheck likescheck
+		where board.board_no = likescheck.board_no and member.id = likescheck.id and likescheck.id = #{memberVO.id} and likescheck.board_no=#{boardNo} 
+	</select>
+	
+	<insert id="insertLikeCheck" parameterType="boardVO">
+		insert into likescheck(id,board_no) values(#{memberVO.id},#{boardNo})
+	</insert>
+	
+	<update id="likeCheckUp" parameterType="boardVO">
+		update likescheck set likeCheck = likeCheck+1 where id=#{memberVO.id} and board_no=#{boardNo}
+	</update>
 </mapper>
  
  

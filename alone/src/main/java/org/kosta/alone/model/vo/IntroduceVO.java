@@ -15,10 +15,10 @@ public class IntroduceVO extends BoardVO {
 		super();
 	}
 
-	public IntroduceVO(int boardNo, String content, String timePosted, int boardEnabled, MemberVO memberVO,
+	public IntroduceVO(int boardNo, String content, String timePosted, int boardEnabled,int likeCheck,MemberVO memberVO,
 			List<ImageVO> imageVO, String companyName, String region, String location, String businessHours, String tel,
 			List<KeyWordVO> keyWordVO, IntroduceCategoryVO categoryVO) {
-		super(boardNo, content, timePosted, boardEnabled, memberVO, imageVO);
+		super(boardNo, content, timePosted, boardEnabled,likeCheck,memberVO, imageVO);
 		this.companyName = companyName;
 		this.region = region;
 		this.location = location;

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.BoardService;
+import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
@@ -245,6 +246,7 @@ public class BoardController {
 		return mav;
 	}
 
+
 	@RequestMapping("meetingNoHitDetail.do")
 	public ModelAndView meetingNoHitDetail(int boardNo){
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
@@ -253,12 +255,20 @@ public class BoardController {
 	}
 
 
-	//후기게시글 수정폼
+	@RequestMapping("likeUpAjax.do")
+	@ResponseBody
+	public ReviewVO likeUp(BoardVO bvo,HttpSession session){
+		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+		bvo.setMemberVO(mvo);  
+		boardService.likeUp(bvo);
+		return boardService.reviewDetail(bvo.getBoardNo());  
+	}
+
+
 		@ RequestMapping("reviewUpdateForm.do")
 		public ModelAndView reviewUpdateForm(int boardNo){
 			return new ModelAndView("board/reviewUpdateForm","rvo",boardService.reviewDetail(boardNo)); 
 		}
-		
 		//후기게시글 수정
 		@RequestMapping("reviewUpdate.do")
 		public ModelAndView reviewUPdate(ReviewVO reviewVO, HttpSession session){

@@ -80,7 +80,7 @@
 				</tr>
 			</thead>
 			<tbody id="meetingRegionList">
-				<c:forEach var="meetingList"  items="${requestScope.list.list }">
+				<c:forEach var="meetingList"  items="${requestScope.list.list}"> 
 					<tr>
 						<td>${meetingList.boardNo}</td>
 						<td>${meetingList.region}</td>
