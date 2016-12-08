@@ -1,108 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<script type="text/javascript">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+      <script src="//code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript">
 	$(document).ready(function(){
 		
-		$("#form_introduceWrite").submit(function(){
-			if($("#form_introduceWrite :input[name=companyName]").val().trim()==""){
-				alert("회사이름을 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=keyword]").val().trim()==""){
-				alert("키워드를 입력하세요");				
-				return false;
-				
-			}
-	
-			if($("#form_introduceWrite :input[name=region]").val().trim()==""){
-				alert("지역을 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=location]").val().trim()==""){
-				alert("장소를 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=businessHours]").val().trim()==""){
-				alert("영업시간을 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=tel]").val().trim()==""){
-				alert("시간을 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=content]").val().trim()==""){
-				alert("상세정보를 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=mainImage]").val().trim()==""){
-				alert("메인 이미지를 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=Image]").val().trim()==""){
-				alert("그외 이미지를 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=categoryVO.categoryNo]").val() =="0")
-				{
-				
-			alert("카테고리번호를 선택하세요");				
-			return false;
-				}
+	//alert("1");
+		$("#deleteFileView").on("click","#deleteBtn",function(){
+			
+			//alert($(this).val());
+			var fileName=$(this).parent().text().trim();
+			var del = $(this).parent().parent();
+			$.ajax({
+				type:"POST",
+				url:"${pageContext.request.contextPath}/fileDelete.do",				
+				data:"deleteFileName="+fileName,
+				success:function(data){			
+					alert(data);
+					if(data=="fail"){
+						console.log(data);
+						alert("실패");
+		
+					}else{				
+						del.empty();
+					}					
+				}//callback			
+			});//ajax 
 			
 
-		
-				
-		}); // submit
-		
-		$("#keyword").keyup(function(){
-			 //해쉬 태그 분할하기 
-			var data="";
-			var string=$(this).val();
-			//문자열 해쉬태그 배열로 나누기
-			var strArray=string.split('#');
-			
-			console.log(strArray);
-			
-			var id;
-			
-			
-			//for문으로 저장된 해쉬태그 대화상자로 출력하기
-			for(var key in strArray){
-				console.log(key);
-				if(parseInt(key)!=0 && parseInt(key)<4)
-					{
-					id="#hash"+key;
-					console.log(id);
-					//alert(id);
-			/* 		data +="<input type='text' id="+id+"name=keyWordVO["+key+"].keyWordName value="+strArray[parseInt(key)]+" readonly>";
-					$("#hashTag").html(data) */
-					$("#hash"+key).val(strArray[parseInt(key)]);
-				
-					}
-				else if( parseInt(key)>=4){
-					
-					alert("태그는 3개까지만 유효합니다");
-				
-					$("#keyword").val("#"+$("#hash1").val()+"#"+$("#hash2").val()+"#"+$("#hash3").val());
-				/* 	$("#hashTag").on(function(){
-					
-						$("#keyword").val("#"+$("#hash1").val()+"#"+$("#hash2").val()+"#"+$("#hash3").val());
-					})
-				 */
-					
-				}
-				//alert(strArray[key]);
-			}
-		})//callback
-		
-	}); // ready
+	
+	});//deleteBtn callback
+
+    
+	});//ready
 </script>
-<!-- PAGE CONTENT
+    
+    <!-- PAGE CONTENT
     ============================== -->
+    
 <div class="container">
 	<div class="row">
 
@@ -124,7 +59,7 @@
 			</script>
 			<!-- Please carefully read the README.txt file in order to setup
                the PHP contact form properly -->
-			<form role="form" action="${pageContext.request.contextPath}/introduceWrite.do" id="form_introduceWrite"
+			<form role="form" action="${pageContext.request.contextPath}/introduceUpdate.do" id="form_introduceWrite"
 			method="post" 
 enctype="multipart/form-data">
 				<!-- <div class="form-group">
@@ -132,14 +67,16 @@ enctype="multipart/form-data">
 					<input type="email" 	name="email" class="form-control" id="email" placeholder="E-mail" 	data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div> -->
+				<c:set value="${requestScope.introVO}" var="introVO"/>
+				<input type="hidden" name="boardNo" value="${introVO.boardNo}">
 				<div class="form-group">
 					<label for="title">가게명</label> 
-					<input type="text" name="companyName" class="form-control" id="company_name" placeholder="company_name"  data-original-title="" title=""> 
+					<input type="text" name="companyName" class="form-control" id="company_name" placeholder="${introVO.companyName}"  data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="region">키워드</label> 
-					<input type="text" name="keyword" class="form-control" id="keyword" placeholder="keyword" data-original-title="" title="" value=""> 
+					<input type="text" name="keyword" class="form-control" id="keyword" placeholder="<%-- ${introVO.keyWordVO[0].keywordName}${introVO.keyWordVO[1].keywordName}${introVO.keyWordVO[2].keywordName} --%>keyword" data-original-title="" title="" value=""> 
 					<div id="hashTag">
 					<input type="text" id="hash1" name="keyWordVO[0].keyWordName" value="" readonly>
                     <input type="text" id="hash2" name="keyWordVO[1].keyWordName" value="" readonly>
@@ -149,38 +86,59 @@ enctype="multipart/form-data">
 				</div>
 				<div class="form-group">
 					<label for="location">지역</label> 
-					<input type="text" name="region" class="form-control" id="region" placeholder="region" data-original-title="" title=""> 
+					<input type="text" name="region" class="form-control" id="region" placeholder="${introVO.region}" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="interest">상세주소</label> 
-					<input type="text" name="location" class="form-control" id="location" placeholder="location" data-original-title="" title=""> 
+					<input type="text" name="location" class="form-control" id="location" placeholder="${introVO.location}" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="interest">영업시간</label> 
-					<input type="text" name="businessHours" class="form-control" id="business_hours" placeholder="business_hours" data-original-title="" title=""> 
+					<input type="text" name="businessHours" class="form-control" id="business_hours" placeholder="${introVO.businessHours}" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="interest">전화번호</label> 
-					<input type="text" name="tel" class="form-control" id="tel" placeholder="tel" data-original-title="" title=""> 
+					<input type="text" name="tel" class="form-control" id="tel" placeholder="${introVO.tel}" data-original-title="" title=""> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="content">Content</label>
-					<textarea name="content" class="form-control" rows="5" id="content" placeholder="content"></textarea>
+					<textarea name="content" class="form-control" rows="5" id="content" placeholder="${introVO.content}"></textarea>
 					<span class="help-block"></span>
 				</div>
 					<div class="form-group">
+					<label for="interest">메인사진 첨부</label>
 					<input type="file" name="mainFile"><br>
 					<span class="help-block"></span>
-				</div>
+
 					<div class="form-group">
 					<label for="interest">사진첨부</label> 
 					<input type="file" name="file"  multiple="multiple"  ><br>
 					<span class="help-block"></span>
 				</div>
+				
+				<!-- 파일 삭제하기 -->
+				<div id="deleteFileView">
+
+<c:forEach items="${introVO.imageVO}" var="file" varStatus="status">
+<%-- 	<a href="fileDownload.do?fileName=${fileName}">${fileName}</a> --%>
+<%-- 	<img src="${pageContext.request.contextPath}/resources/upload/${fileName}"> --%>
+	
+ <%--     <a  id="" href="fileDelete.do?fileName=${fileName}">${fileName}</a> --%>
+     
+     <div id="deleteResult">
+     <p id="resultView">${file.imageName}
+     <input type="button" id="deleteBtn" value="삭제" />
+     </p>
+     </div>
+  
+</c:forEach>
+
+</div>
+				
 		
 			<!-- 	<div class="row"> -->
       <div class="form-group">
@@ -250,7 +208,7 @@ enctype="multipart/form-data">
 					<span class="help-block"></span>
 				</div>
 				<!-- / reCAPTCHA -->
-				<button type="submit" class="btn btn-primary" id="meetingWrite">소개글 작성</button>
+				<button type="submit" class="btn btn-primary" id="meetingWrite">수정 하기</button>
 				<button type="button" class="btn btn-primary" id="meetingWriteCancel">작성 취소</button>
 			</form>
 		</div>
