@@ -18,7 +18,7 @@
 				location.href = "reviewList.do?command="+ command+ "&searchKeyWord=" + searchKeyWord;
 			}
 		}); // click 이벤트
-	}); // ready
+	}); // ready 
 </script>
 
 <div class="ui__section" id="ui_tables">  
@@ -39,7 +39,7 @@
 			<tbody>
 				<c:forEach items="${ListVO.list}" var="list">  
 					<tr>
-						<th scope="row">${list.boardNo}</th>
+						<th scope="row" >${list.boardNo}</th>
 
 						<td class="col-md-6"><a href="${pageContext.request.contextPath}/reviewdetail.do?boardNo=${list.boardNo}">${list.title}</a></td>
 
@@ -47,7 +47,7 @@
 						<td class="col-md-1">${list.memberVO.nickName}</td> 
 						<td class="col-md-1">${list.timePosted}</td>
 						<td class="col-md-1">${list.hits}</td>
-						<td class="col-md-1">${list.likes}</td>
+						<td class="col-md-1" >${list.likes}</td> 
 					</tr>
 				</c:forEach>
 			</tbody> 
@@ -62,9 +62,9 @@
 				<select class="selectpicker" id="findType">
 					<option value="findByTitle">제목</option>
 					<option value="findByWriter">작성자</option>
-				</select> <label class="sr-only" for="nav-search">Search</label> <input
-					type="text" class="form-control" id="searchKeyWord"
-					name="searchKeyWord">
+				</select> 
+				<label class="sr-only" for="nav-search">Search</label> 
+				<input type="text" class="form-control" id="searchKeyWord" name="searchKeyWord">
 				<button type="button" id="searchSubmit">
 					<i class="fa fa-search"></i>
 				</button>
@@ -72,8 +72,7 @@
 		</div>
 		<div class="col-sm-2">
 			<p>
-				<a href="${pageContext.request.contextPath}/reviewWriteForm.do"
-					class="btn btn-sm btn-primary">글작성</a>
+				<a href="${pageContext.request.contextPath}/reviewWriteForm.do" class="btn btn-sm btn-primary">글작성</a>
 			</p>
 		</div>
 	</div>

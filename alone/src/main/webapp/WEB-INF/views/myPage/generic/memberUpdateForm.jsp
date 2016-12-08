@@ -76,10 +76,6 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<th scope="row">아이디</th>
-										<td>${mvo.id}<input type="hidden" id="id" name="id" value="${mvo.id}"></td>
-									</tr>
-									<tr>
 										<th scope="row">비밀번호</th>
 										<td><input type="password" id="password" name="password"></td>
 									</tr>
@@ -109,10 +105,6 @@
 										</td>
 									</tr>
 									<tr>
-										<th scope="row">생년월일</th>
-										<td>${mvo.id}</td>
-									</tr>
-									<tr>
 										<th scope="row">전화번호</th>
 										<td><input type="text" class="form-control" id="sign-up__tel" name="tel" placeholder="연락처"></td>
 									</tr>
@@ -123,9 +115,8 @@
 						<!-- / .table-responsive -->
 					</div>
 
-
 					<input type="submit" class="btn btn-primary btn-block btn-lg" value="수정하기"><br> 
-					<a 	href="${pageContext.request.contextPath}/showCompnayInfo.do" class="btn btn-primary">취소</a>
+					<a href="${pageContext.request.contextPath}/showGenericInfo.do" class="btn btn-primary">취소</a>
 
 				</div>
 				<!-- / .tab-content -->

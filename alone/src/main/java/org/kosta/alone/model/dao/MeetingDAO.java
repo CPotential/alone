@@ -1,18 +1,15 @@
 package org.kosta.alone.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.PagingBean;
 
 public interface MeetingDAO {
-	public List<MeetingVO> getMeetingList(PagingBean pagingBean);
+	public List<MeetingVO> meetingList(PagingBean pagingBean);
 
 	public List<MeetingVO> getMeetingRegionList(String region);
-
-	public List<MeetingVO> findNameMeetingList(String search);
-
-	public List<MeetingVO> findTitleMeetingList(String search);
 
 	public List<MeetingVO> getRegionInfo();
 
@@ -22,8 +19,17 @@ public interface MeetingDAO {
 	
 	public MeetingVO meetingDetail(int boardNo);
 
-	
 	public int getTotalContentCount();
+	
+	public void updateHit(int boardNo);
 
+	public int getTitleSearchCount(String searchKeyWord);
 
+	public int getWriterSearchCount(String searchKeyWord);
+
+	public List<MeetingVO> meetingTitleSearchList(Map<String, Object> map);
+
+	public List<MeetingVO> meetingWriterSearchList(Map<String, Object> map);
+
+	public void meetingUpdate(MeetingVO meetingVO);
 }

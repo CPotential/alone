@@ -1,5 +1,6 @@
 package org.kosta.alone.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,12 +8,11 @@ import javax.annotation.Resource;
 import org.kosta.alone.model.dao.CommonMemberDAO;
 import org.kosta.alone.model.dao.CompanyMemberDAO;
 import org.kosta.alone.model.dao.GenericMemberDAO;
-import org.kosta.alone.model.dao.IntroduceDAO;
 import org.kosta.alone.model.dao.MemberDAO;
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.GenericMemberVO;
-import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.MemberVO;
+import org.kosta.alone.model.vo.MileageVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,13 +30,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO memberLogin(MemberVO memberVO) {
 		memberVO = commonMemberDAO.memberLogin(memberVO);
-		//아이디 패스워드 확인
-		if(memberVO == null){
+		// 아이디 패스워드 확인
+		if (memberVO == null) {
 			return memberVO;
-		} 
-		if(memberVO.getAuthority().equals("ROLE_COMPANY")){
+		}
+		if (memberVO.getAuthority().equals("ROLE_COMPANY")) {
 			return commonMemberDAO.adminApproval(memberVO);
-			//관리자가 기업 승인 여부 확인해야한다.
+			// 관리자가 기업 승인 여부 확인해야한다.
 		}
 		return memberVO;
 	}
@@ -81,9 +81,8 @@ public class MemberServiceImpl implements MemberService {
 		if (genericMemberVO.getGender() != null) {
 			genericMemberDAO.updateMember(genericMemberVO);
 		}
-
 	}
-	
+
 	/**
 	 * 회원 탈퇴
 	 */
@@ -99,7 +98,7 @@ public class MemberServiceImpl implements MemberService {
 	public int passwordCheck(MemberVO memberVO) {
 		return memberDAO.passwordCheck(memberVO);
 	}
-	
+
 	// 닉네임 중복체크
 	@Override
 	public int nickNamecheck(String nickname) {
@@ -112,17 +111,16 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public CompanyMemberVO showCompanyMember(MemberVO mvo) {
-
 		return companyMemberDAO.showCompanyMember(mvo);
 	}
-	
-	public void CmemberUpdateInfo(CompanyMemberVO cvo){
-		memberDAO.updateCompanyMember(cvo); 
-		if(cvo.getCorporateRegistrationNumber() != null && cvo.getAddress() != null){
-			companyMemberDAO.updateCompanyMember(cvo); 
+
+	public void CmemberUpdateInfo(CompanyMemberVO cvo) {
+		memberDAO.updateCompanyMember(cvo);
+		if (cvo.getCorporateRegistrationNumber() != null && cvo.getAddress() != null) {
+			companyMemberDAO.updateCompanyMember(cvo);
 		}
 	}
-	
+
 	/**
 	 * 일반회원 리스트
 	 */
@@ -130,7 +128,7 @@ public class MemberServiceImpl implements MemberService {
 	public List<GenericMemberVO> genericList() {
 		return genericMemberDAO.genericList();
 	}
-	
+
 	/**
 	 * 기업회원 리스트
 	 */
@@ -138,7 +136,7 @@ public class MemberServiceImpl implements MemberService {
 	public List<CompanyMemberVO> companyList() {
 		return companyMemberDAO.companyList();
 	}
-	
+
 	/**
 	 * 탈퇴회원 리스트
 	 */
@@ -147,7 +145,35 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.leaveMemberList();
 	}
 
+	/**
+	 * 마일리지 내역
+	 */
+	@Override
+	public List<MileageVO> mileageInfo(String id) {
+		return genericMemberDAO.mileageInfo(id);
+	}
 
+	/**
+	 * 현재 마일리지
+	 */
+	@Override
+	public int nowMileage(String id) {
+		return genericMemberDAO.nowMileage(id);
+	}
+
+	@Override
+	public MemberVO SearchIdAndMileage(String id) {
+		return genericMemberDAO.SearchIdAndMileage(id);
+	}
+
+	@Override
+	@Transactional
+	public void mileageMinus(GenericMemberVO memberVO, MemberVO companyVO) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("memberId", memberVO.getId());
+		map.put("companyId", companyVO.getId());
+		map.put("dealMoney", (int) (-1 * memberVO.getMileage()));
+		genericMemberDAO.mileageMinus(map);
+		genericMemberDAO.updateMileage(map);
+	}
 }
-
-

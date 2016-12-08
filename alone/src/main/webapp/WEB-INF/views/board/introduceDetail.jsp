@@ -10,14 +10,9 @@
                 <div class="panel panel-primary">
                   <div class="panel-heading"></div>
                   <div class="panel-body">
-                  서버경로  : ${pageContext.request.contextPath}
-        <%--   			<c:forEach items="${list.imageVO}" var="imageList">
-<img src="${pageContext.request.contextPath}/resources/upload/${imageList.imageName}" alt="Portfolio Image">
-general_1.jpg -> ${list.imageVO.imageName}
-</c:forEach> --%>
-    <c:forEach items="${requestScope.introVO.imageVO}" var="imgVO">
 
-	<img src="${pageContext.request.contextPath}/resources/upload/${imgVO.imageName}">
+    <c:forEach items="${requestScope.introVO.imageVO}" var="imgVO">
+		<img src="${pageContext.request.contextPath}/resources/upload/${imgVO.imageName}">
     </c:forEach>
                   </div>
                 </div>

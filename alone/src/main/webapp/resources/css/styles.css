@@ -9763,3 +9763,15 @@ iframe[src="about:blank"] {
   margin-bottom: 15px;
   background: #f9f9f9;
 }
+
+.btn-ki {
+  border-color: rgba(192,192,192,0.3);
+  background: #ffffff;
+  background-image: -webkit-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+  background-image: -o-linear-gradient(top, #ffffff 0%, #ffffff 100%);
+  background-image: linear-gradient(to bottom, #ffffff 0%, #ffffff 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0);
+  color: a59b9b;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+}

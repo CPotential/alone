@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container">
 	<div class="row">
 
@@ -10,13 +10,13 @@
 			<div class="ui__section" id="ui_tables">
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="personal-info">
-						<h3 class="header header_plain">Personal Info</h3>
+						<h3 class="header header_plain">Mileage Info</h3>
 						<div class="table-responsive">
 							<table class="table">
 								<tbody>
 									<tr>
-										<th scope="row">마일리지</th>
-										<td>1000</td>
+										<th scope="row">현재 마일리지</th>
+										<td>${nowMileage}</td>
 									</tr>
 
 								</tbody>
@@ -35,30 +35,18 @@
 						<thead>
 							<tr>
 								<th>#</th>
-								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Username</th>
+								<th>Transactions Mileage</th>
+								<th>Transactions Info</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>Mark</td>
-								<td>Otto</td>
-								<td>@mdo</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>Jacob</td>
-								<td>Thornton</td>
-								<td>@fat</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>Larry</td>
-								<td>the Bird</td>
-								<td>@twitter</td>
-							</tr>
+							<c:forEach items="${mileageInfo}" var="mileage" varStatus="status"> 
+								<tr>
+									<th scope="row">${status.count}</th>
+									<td>${mileage.dealMileage}</td>
+									<td>${mileage.dealDetail}</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

@@ -13,6 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and
 		member.enabled=1
 	</select>
+	
 	<select id="adminApproval" parameterType="memberVO" resultType="companyMemberVO">
 	select companymember.id,member.nickname,authorities.authority,companymember.approval,companymember.write
 	from companymember companymember,member member,authorities authorities
@@ -61,6 +62,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from member
 		where enabled=0
 	</select>
+	
+
 </mapper>
  
  
