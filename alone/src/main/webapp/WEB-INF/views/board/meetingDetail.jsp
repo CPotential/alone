@@ -58,9 +58,6 @@
 			}); //ajax
 		}); // sendCommentclick 이벤트
 
-		
-	
-
 		$("#commentView").on("click", "#editComment", function() {
 
 			content = $(this).parent().prev().html().trim();
@@ -72,7 +69,6 @@
 					+"<i class='fa fa-edit'></i> 수정하기</a>");
 		  	
 			});//editComment (댓글 수정)
-
 
 		$("#commentView").on("click", "#updateComment", function() {
 			content = $(this).prev().val();

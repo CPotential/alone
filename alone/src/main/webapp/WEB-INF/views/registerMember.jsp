@@ -57,7 +57,7 @@
 				data:"id="+id,	
 				success:function(data){						
 					if(data=="fail"){
-					$("#idCheckView").html(id+" 사용불가!").css("color", "red");
+					$("#idCheckView").html(" "+id+" 사용하고 있는 아이디 입니다!").css("color", "red");
 						checkResultId="";
 					}else{						
 						$("#idCheckView").html(id+" 사용가능!").css("color", "red");		
@@ -107,79 +107,54 @@
             <h1 class="text-center">Sign Up</h1>
           </div>
         </div> 
-      </div> <!-- / .row -->
-      <div class="row">
+   </div>
+      <div class="row" >
         <div class="col-xs-12 col-sm-7 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
           <div class="body-plain__form">
 
             <!-- Sign Up form -->
-            <form role="form" action="${pageContext.request.contextPath}/registerMember.do" method="post" id="registerMamberForm">
-              <div class="row">
-                <div class="col-sm-10">
-                	<div class="form-group">
-                	  <input type="text" class="form-control" id="sign-up__id" name="id" placeholder="아이디">
-                	   <span id="idCheckView"></span>
-                	</div>
-                </div>
-              </div>     
-           <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-10">
-                    <div class="form-group">
-                      <label for="sign-up__password" class="sr-only">Password</label>
-                      <input type="password" class="form-control" id="sign-up__password" name="password" placeholder="패스워드"> <br>
-                      <label for="sign-up__password_repeat" class="sr-only">Repeat Password</label>
-                      <input type="password" class="form-control" id="sign-up__password_repeat" name="repeatPassword" placeholder="패스워드확인">
-                    </div>
-                  </div>
-               	 </div>
-               	  <div class="row">
-                  <div class="col-sm-10">
-               	 <div class=" form-group">
-                <label for="sign-up__name" class="sr-only">name</label>
-                <input type="text" class="form-control" id="sign-up__name" name="name" placeholder="이름">
+          <form role="form" action="${pageContext.request.contextPath}/registerMember.do" method="post" id="registerMamberForm">
+               <div class="form-group">
+                 <input type="text" class="form-control" id="sign-up__id" name="id" placeholder="아이디">
+                 <span id="idCheckView"></span>
               </div>
               <div class="form-group">
-                <label for="sign-up__name" class="sr-only">nickname</label>
-                <input type="text" class="form-control" id="sign-up__name"  name="nickName" placeholder="닉네임">
+               <label for="sign-up__password" class="sr-only">Password</label>
+               <input type="password" class="form-control" id="sign-up__password" name="password" placeholder="패스워드">
               </div>
-                </div>
-                </div>
-                </div>
-		
+              <div class="form-group">
+               <label for="sign-up__password_repeat" class="sr-only">Repeat Password</label>
+               <input type="password" class="form-control" id="sign-up__password_repeat" name="repeatPassword" placeholder="패스워드확인">
+              </div>
+              <div class="form-group">
+               <label for="sign-up__name" class="sr-only">name</label>
+               <input type="text" class="form-control" id="sign-up__name" name="name" placeholder="이름">
+              </div>
+              <div class="form-group">
+                 <label for="sign-up__name" class="sr-only">nickname</label>
+                 <input type="text" class="form-control" id="sign-up__name"  name="nickName" placeholder="닉네임">
+              </div>
               <div class="form-group">
                 <label for="sign-up__username" class="sr-only">gender</label>
                 <input type="radio" id="sign-up__gender" name="gender" value="여성">여성
                 <input type="radio"  id="sign-up__gender" name="gender" value="남성">남성
               </div>
-            	 <div class="row">
-                  <div class="col-sm-10">
-                <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-10">
-                    <div class="form-group">
-                      <label for="sign-up__year" class="sr-only">birth</label>
-                      <input type="text" class="form-control" id="sign-up__year" name="birth" placeholder="ex) 950101">
-                    </div>
-                  </div>
-				    </div>
-				    </div>
+              <div class="form-group">
+                <label for="sign-up__year" class="sr-only">birth</label>
+                <input type="text" class="form-control" id="sign-up__year" name="birth" placeholder="ex) 950101">
+              </div>
+              <div class="form-group">
+                <label for="sign-up__tel" class="sr-only">tel</label>
+              	 <input type="text" class="form-control" id="sign-up__tel"  name="tel"  placeholder="연락처">
+              </div>
               
-              <div class="col-sm-10 form-group">
-             	   <label for="sign-up__tel" class="sr-only">tel</label>
-              	  <input type="text" class="form-control" id="sign-up__tel"  name="tel"  placeholder="연락처">
-              </div>
-   
-                </div>
-              </div>
-             <input type="submit" class="btn btn-primary btn-block btn-lg" value="가입하기"><br>
+              
+              
+              <input type="submit" class="btn btn-primary btn-block btn-lg" value="가입하기"><br>
              <button type="submit" class="btn btn-primary btn-block btn-lg"  id="cancel" >취소</button>
-            </form>
+          </form>    
+                   
 
-            <!-- Sign In link -->
-            <hr />
-            <p>Already a member? <a href="sign-in.html">Sign into your account.</a></p>
-          </div> <!-- / .body-plain__form -->
 
           <!-- Footer -->
           <div class="body-plain__footer">

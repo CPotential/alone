@@ -10,6 +10,11 @@ update member set enabled=1 where id='del'
 	select companymember.id,member.nickname,authorities.authority,companymember.approval
 	from companymember companymember,member member,authorities authorities
 	where companymember.id=member.id and member.id=authorities.id
+<<<<<<< HEAD
+	and companymember.id='company'
+	select * from image
+
+=======
 	and companymember.id='company'	
 	
 	select * from member m, companymember c where m.id=c.id
@@ -21,6 +26,7 @@ from board board,review review,member member
 where board.board_no=review.board_no and board.id=member.id and member.nickname='정신머리'
 	
 select * from image
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 drop table genericmember;
 -- 일반 회원 정보
 CREATE TABLE GENERICMEMBER(
@@ -527,3 +533,6 @@ update MEETING set hits=hits+1 where board_no=5
 update image set image_name=#{imageName} where board_no=#{boardNo} 
 select * from image where board_no=52
 select * from member
+
+select * from member member,AUTHORITIES authorities
+where member.id=authorities.id

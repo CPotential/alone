@@ -1,5 +1,7 @@
 package org.kosta.alone.controller;
 
+
+
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -67,11 +69,9 @@ public class BoardController {
 	@RequestMapping("introduceList.do")
 	public ModelAndView introduceList(int categoryNo,String pageNo){
 		ModelAndView mav = new ModelAndView("board/introduce");
-
 		String nowPage = pageNo;
 		mav.addObject("categoryNo",categoryNo);  
 		mav.addObject("ListVO", boardService.introduceList(categoryNo,nowPage));
-		
 		return mav;
 	}
 	
@@ -120,6 +120,8 @@ public class BoardController {
 	@RequestMapping("introduceDetail.do")
 	public ModelAndView introduceDetail(int boardNo){
 		IntroduceVO introVO = boardService.introduceDetail(boardNo);
+	
+		
 		return new ModelAndView("board/introduceDetail","introVO",introVO);
 	}
 	
@@ -128,6 +130,8 @@ public class BoardController {
 	 * @param meetingVO
 	 * @return
 	 */
+	
+	
 	@RequestMapping(method=RequestMethod.POST, value="meetingWrite.do")
 	public String meetingWrite(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO){
 		HttpSession session = request.getSession(false);
@@ -139,7 +143,7 @@ public class BoardController {
 	}
 	
 	//후기게시글 작성형식
-	@ RequestMapping("reviewWriteForm.do")
+	@RequestMapping("reviewWriteForm.do")
 	public String reviewWriteForm(){
 		return "board/reviewWriteForm"; 
 	}
@@ -167,7 +171,7 @@ public class BoardController {
 	 */
 	@RequestMapping("meetingDetail.do")
 	public ModelAndView meetingDetail(int boardNo){
-		System.out.println("컨트롤러 진입" + boardNo);
+
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO",boardService.meetingDetail(boardNo));
 		mav.addObject("commentList",boardService.commentList(boardNo));
@@ -180,8 +184,10 @@ public class BoardController {
 	 * @param meetingVO
 	 * @return
 	 */
-	@RequestMapping("introduceWrite.do")
-	public String introduceWrite(HttpServletRequest request, IntroduceVO introduceVO){
+
+	@RequestMapping(method=RequestMethod.POST, value="introduceWrite.do")
+	public String introduceWrite(HttpServletRequest request,IntroduceVO introduceVO, UploadFileVO vo){
+
 		HttpSession session = request.getSession(false);
 		//기업회원은 기업회원객체를 가지고있다
 		CompanyMemberVO memberVO = (CompanyMemberVO) session.getAttribute("memberVO");
@@ -190,22 +196,31 @@ public class BoardController {
 		//intoduceVO에 기업회원 정보 세팅한후 출력
 		//introduceVO에 기업회원 정보까지 세팅한후 전달
 		//데이터베이스의  companyMember의 write가 1로 변경
-		boardService.introduceWrite(introduceVO);
+
+	     //키워드 저장됬는지 확인하기
+		//System.out.println("키워드 저장됬는지 확인하기"+introduceVO.getKeyWordVO());
+		//이미지 저장하기전 boardNO 파라미터로 얻어옴
+		boardService.introduceWrite(introduceVO,vo,request);
+
 		//세션의 CompanyMember의 write도 1로 변경하여 업데이트해준도
 		memberVO.setWrite("1");
+		
 		session.setAttribute("memberVO", memberVO);
+	
 		return "redirect:introduceDetail.do?boardNo="+introduceVO.getBoardNo();
 	}
 
 	@RequestMapping("sendCommentAjax.do")
 	@ResponseBody
 	public List<CommentVO> commentList(String comment, HttpServletRequest request, int boardNo){
+		System.out.println(comment+boardNo);
 		HttpSession session = request.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");	
 		boardService.insertComment(memberVO,comment,boardNo);	
 		return boardService.commentList(boardNo);
 	}
 	
+
 	@RequestMapping("updateCommentAjax")
 	@ResponseBody
 	public List<CommentVO> updateComment(CommentVO commentVO){

@@ -31,7 +31,9 @@ CREATE TABLE MILEAGE(
 )
 --	constraint pk_likescheck primary key(board_no, id)
 -- 댓글 정보
-delete from boardcomment;
+
+drop table BOARDCOMMENT
+delete from BOARDCOMMENT;
 CREATE TABLE BOARDCOMMENT(
 	comment_no number primary key,
 	board_no number not null,

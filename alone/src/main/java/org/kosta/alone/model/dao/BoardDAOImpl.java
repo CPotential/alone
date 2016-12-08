@@ -52,6 +52,7 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	public void deleteComment(CommentVO commentVO){
 		sqlSessionTemplate.delete("board.deleteComment",commentVO);
+
 	}
 	
 	public void reviewBoardUpdate(ReviewVO reviewVO){
