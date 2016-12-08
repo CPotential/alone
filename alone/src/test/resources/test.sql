@@ -81,7 +81,10 @@ update COMPANYMEMBER set write=1 where id='spring' --글쓴 상태
 
 --글쓴후 테이블 확인
 select * from board;
+select * from REVIEW;
 select * from introduce;
+select * from INTRODUCE;
+select * from meeting;
 	
 delete from introduce where board_no='28';
 insert into introduce(board_no, company_name, region, location, business_hours,tel,category_no )
@@ -90,3 +93,66 @@ insert into introduce(board_no, company_name, region, location, business_hours,t
 		
 		
 select * from BOARDCOMMENT;
+
+select image_seq.nextval from dual
+------------image baord_no로 이미지 저장
+
+	select image.image_name
+	from image image, board board 
+	where image.board_no=board.board_no and board.board_no=61
+	;
+	
+--SELECT * FROM tablename WHERE who LIKE "me%";	
+
+--해당 게시물 번호에 main으로 시작하는 이미지이름 만 출력
+SELECT * FROM image WHERE image_name LIKE 'main%' and board_no='67';	
+
+--해당 게시물 번호 main으로 시작하는 이미지 이름만 제외하고 출력
+SELECT * FROM image WHERE NOT image_name LIKE 'main%'and board_no='67';
+
+
+select image.image_name
+from image
+where image.board_no='67';
+		
+select image_no from image;
+select IMAGE_SEQ.nextval from dual;
+
+
+select image_name 
+from image 
+where image_no = (
+	select min(image_no) 
+	from image
+	where board_no='67'
+)
+
+--키워드 
+select * from keyword;
+
+--키워드 이름에 해당하는 게시물 찾기 
+select b.name, m.id, b.content, b.time_posted 
+from board b, keyword k, member m
+where k.keyword_name='#삼척' and
+b.board_no=k.board_no and member.id=board.id;
+
+
+insert into KEYWORD(keyword_no,keyword_name,board_no) 
+values(keyword_seq.nextval, '#부산','1');
+
+select keyword_name
+from keyword
+where keyword.board_no='1';
+
+insert into mileage (mileage_no,deal_money,deal_content,id) values (mileage_seq.nextval,1000,'관리자 입금','java')
+
+select sum(deal_money) as mileage  from mileage where id='java'
+select mileage from GENERICMEMBER where id='java'
+
+select gmember.id,sum(mileage.deal_money) as mileage from  G
+ENERICMEMBER gmember,mileage mileage  
+	where gmember.id='java' and gmember.id=mileage.id
+	update genericmember set mileage='3000' where id='java'
+	
+	select nickName from member where id='spring'
+	select * from mileage

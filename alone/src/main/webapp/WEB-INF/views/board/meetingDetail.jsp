@@ -46,7 +46,7 @@
 						json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
 						json +="</div>"
 						}
-						json += "<input type='text' id='commentNo'  value="
+						json += "<input type='hidden' id='commentNo'  value="
 						json += data[i].commentNo
 						json +=">"
 						json += "</div></div>";
@@ -64,7 +64,7 @@
 					+"rows='2' id='comment'>"+content+"</textarea>"
 					+"<a href='#' id='updateComment' class='btn btn-default btn-xs'>"
 					+"<i class='fa fa-edit'></i> 수정하기</a>");
-			});//editComment (댓글 수정)
+		});//editComment (댓글 수정)
 
 		$("#commentView").on("click", "#updateComment", function() {
 			content = $(this).prev().val();
@@ -99,7 +99,7 @@
 							json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
 							json +="</div>"
 							}
-							json +="<input type='text' id='commentNo'  value="
+							json +="<input type='hidden' id='commentNo'  value="
 							json += data[i].commentNo
 							json +=">"
 							json += "</div></div>"; 
@@ -183,6 +183,7 @@
 					<table>
 						<tr>
 							<td>${meetingVO.content}</td>
+							
 						</tr>
 					</table>
 				</div>
@@ -193,6 +194,11 @@
 						center : new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 						level : 3 // 지도의 확대 레벨
 					};
+					
+					var map = new daum.maps.Map(mapContainer, mapOption); 
+					var geocoder = new daum.maps.services.Geocoder();
+					<c:set var="location" value="${meetingVO.location}"/>
+					var fullAddr='<c:out value="${location}"/>'
 					// 주소로 좌표를 검색합니다
 					geocoder.addr2coord(fullAddr, function(status, result) {
 					
@@ -212,8 +218,10 @@
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<a href="${pageContext.request.contextPath}/meetingList.do" class="btn btn-default">목 록</a>
-						<a href="#" class="btn btn-default">수 정</a>
-						<a href="#" class="btn btn-default">삭 제</a>
+						<c:if test="${meetingVO.memberVO.id==sessionScope.memberVO.id}">
+							<a href="${pageContext.request.contextPath}/reviewUpdateForm.do?boardNo=${requestScope.meetingVO.boardNo}" class="btn btn-default">수 정</a>
+							<a href="${pageContext.request.contextPath}/meetingDelete.do?boardNo=${requestScope.meetingVO.boardNo}" class="btn btn-default">삭 제</a>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -249,10 +257,11 @@
 						<div class="comment__content" id="commentresetView">
 							<div class="comment__author_name">  ${commentList.memberVO.nickName}</div>
 							<time datetime="2015-01-30" class="comment__date">  ${commentList.timePosted}</time>
-							<p>${commentList.content}	</p>
+							<p>${commentList.content}</p>
 							<c:set var="id" value="${sessionScope.memberVO.id }"/>
 							<c:set var="nowid" value="${commentList.memberVO.id}"/>
 							<c:if test="${id eq nowid}">
+							
 								<div class="btn-group pull-right" role="group" aria-label="comment__actions" >
 									<a href="#" id="removeComment" class="btn btn-default btn-xs"><i class="fa fa-times"></i> Remove</a>
 									<a href="#" id="editComment" class="btn btn-default btn-xs"><i class="fa fa-edit"></i> Edit</a>

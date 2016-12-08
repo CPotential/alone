@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.ImageVO;
 import org.kosta.alone.model.vo.ReviewVO;
@@ -50,9 +51,34 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	public void deleteComment(CommentVO commentVO){
 		sqlSessionTemplate.delete("board.deleteComment",commentVO);
+
 	}
-	
+
 	public void reviewBoardUpdate(ReviewVO reviewVO){
 		sqlSessionTemplate.update("board.reviewBoardUpdate",reviewVO);
 	}
+
+
+	@Override
+	public void boardDelete(int boardNo) {
+		sqlSessionTemplate.update("board.boardDelete",boardNo);
+	}
+
+	
+	public void likeCheck(BoardVO bvo){
+		sqlSessionTemplate.update("board.likeCheck",bvo);
+	}
+	
+	public BoardVO likeCheckInfo(BoardVO bvo){ 
+		return sqlSessionTemplate.selectOne("board.likeCheckInfo",bvo);
+	}
+	
+	public void insertLikeCheck(BoardVO bvo){
+		sqlSessionTemplate.insert("board.insertLikeCheck",bvo);
+	}
+	
+	public void likeCheckUp(BoardVO bvo){
+		sqlSessionTemplate.update("board.likeCheckUp",bvo);
+	}
+
 }

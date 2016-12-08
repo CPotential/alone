@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.kosta.alone.model.service.BoardService;
+import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
@@ -26,9 +27,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class BoardController {
 	@Resource
 	private BoardService boardService;
-	
+
 	/**
-	 * 모임 게시글 리스트 & 검색 리스트 
+	 * 모임 게시글 리스트 & 검색 리스트
+	 * 
 	 * @param pageNo
 	 * @param searchKeyWord
 	 * @param command
@@ -38,14 +40,14 @@ public class BoardController {
 	public ModelAndView getMeetingList(String pageNo, String searchKeyWord, String command) {
 		ModelAndView mav = new ModelAndView("board/meeting");
 		ListVO<MeetingVO> listVO = null;
-		if (command == null || command.trim() == ""){
+		if (command == null || command.trim() == "") {
 			listVO = boardService.meetingList(pageNo);
 		} else {
 			listVO = boardService.meetingSearchList(pageNo, searchKeyWord, command);
 			mav.addObject("keyword", searchKeyWord);
 			mav.addObject("command", command);
 		}
-		mav.addObject("RegionList",boardService.getRegionInfo());
+		mav.addObject("RegionList", boardService.getRegionInfo());
 		mav.addObject("listVO", listVO);
 		return mav;
 	}
@@ -59,6 +61,7 @@ public class BoardController {
 
 	/**
 	 * 소개글 카테고리별 리스트 출력
+	 * 
 	 * @param categoryNo
 	 * @return
 	 */
@@ -75,7 +78,6 @@ public class BoardController {
 	public ModelAndView reviewList(String pageNo, String searchKeyWord, String command) {
 		ModelAndView mav = new ModelAndView("board/review");
 		ListVO<ReviewVO> list = null;
-		System.out.println(pageNo + "    " + searchKeyWord + "     " + command);
 		if (command == null || command.trim() == "") {
 			System.out.println(pageNo);
 			list = boardService.reviewList(pageNo);
@@ -128,7 +130,7 @@ public class BoardController {
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		meetingVO.setMemberVO(memberVO);
 		boardService.meetingWrite(request, meetingVO, uploadFileVO);
-		return "redirect:meetingDetail.do?boardNo=" + meetingVO.getBoardNo();
+		return "redirect:meetingNoHitDetail.do?boardNo=" + meetingVO.getBoardNo();
 	}
 
 	// 후기게시글 작성형식
@@ -161,7 +163,6 @@ public class BoardController {
 	 */
 	@RequestMapping("meetingDetail.do")
 	public ModelAndView meetingDetail(int boardNo) {
-		System.out.println("컨트롤러 진입" + boardNo);
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO", boardService.meetingDetail(boardNo));
 		mav.addObject("commentList", boardService.commentList(boardNo));
@@ -175,17 +176,17 @@ public class BoardController {
 	 * @param meetingVO
 	 * @return
 	 */
-	@RequestMapping("introduceWrite.do")
-	public String introduceWrite(HttpServletRequest request, IntroduceVO introduceVO) {
+	@RequestMapping(method = RequestMethod.POST, value = "introduceWrite.do")
+	public String introduceWrite(HttpServletRequest request, IntroduceVO introduceVO, UploadFileVO vo) {
 		HttpSession session = request.getSession(false);
 		// 기업회원은 기업회원객체를 가지고있다
 		CompanyMemberVO memberVO = (CompanyMemberVO) session.getAttribute("memberVO");
 		// 로그인한 기업회원정보 출력
 		introduceVO.setMemberVO(memberVO);
-		// intoduceVO에 기업회원 정보 세팅한후 출력
-		// introduceVO에 기업회원 정보까지 세팅한후 전달
-		// 데이터베이스의 companyMember의 write가 1로 변경
-		boardService.introduceWrite(introduceVO);
+		// 키워드 저장됬는지 확인하기
+		// System.out.println("키워드 저장됬는지 확인하기"+introduceVO.getKeyWordVO());
+		// 이미지 저장하기전 boardNO 파라미터로 얻어옴
+		boardService.introduceWrite(introduceVO, vo, request);
 		// 세션의 CompanyMember의 write도 1로 변경하여 업데이트해준도
 		memberVO.setWrite("1");
 		session.setAttribute("memberVO", memberVO);
@@ -229,8 +230,23 @@ public class BoardController {
 		mav.addObject("rvo", boardService.reviewNotHitDetail(boardNo));
 		return mav;
 	}
+	
+	@RequestMapping("meetingNoHitDetail.do")
+	public ModelAndView meetingNoHitDetail(int boardNo) {
+		ModelAndView mav = new ModelAndView("board/meetingDetail");
+		mav.addObject("rvo", boardService.meetingNoHitDetail(boardNo));
+		return mav;
+	}
 
-	// 후기게시글 수정폼
+	@RequestMapping("likeUpAjax.do")
+	@ResponseBody
+	public ReviewVO likeUp(BoardVO bvo, HttpSession session) {
+		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+		bvo.setMemberVO(mvo);
+		boardService.likeUp(bvo);
+		return boardService.reviewDetail(bvo.getBoardNo());
+	}
+
 	@RequestMapping("reviewUpdateForm.do")
 	public ModelAndView reviewUpdateForm(int boardNo) {
 		return new ModelAndView("board/reviewUpdateForm", "rvo", boardService.reviewDetail(boardNo));
@@ -244,4 +260,16 @@ public class BoardController {
 		boardService.reviewUPdate(reviewVO);
 		return new ModelAndView("redirect:reviewList.do");
 	}
+
+	@RequestMapping("reviewDelete.do")
+	public ModelAndView reviewDelete(int boardNo) {
+		boardService.boardDelete(boardNo);
+		return new ModelAndView("redirect:reviewList.do");
+	}
+
+	@RequestMapping("meetingDelete.do")
+		public ModelAndView meetingDelete(int boardNo){	
+			boardService.boardDelete(boardNo);
+			return new ModelAndView("redirect:reviewList.do");
+		}
 }

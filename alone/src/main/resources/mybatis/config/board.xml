@@ -7,21 +7,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="imageVO" id="imageRM">
 		<result column="image_name" property="imageName" />
 	</resultMap>
+	<resultMap type="boardVO" id="boardRM">
+		<result column="board_no" property="boardNo"/>
+		<result column="id" property="memberVO.id"/>
+	</resultMap>
 
 	<select id="imageList" resultMap="imageRM" resultType="imageVO">
-		select
-		image.image_name
-		from image image, board board
-		where image.board_no=board.board_no and board.board_no=#{value}
+	SELECT image_name FROM image WHERE NOT image_name LIKE 'main%'and board_no=#{value}
 	</select>
+	
+	
 	<select id="introduceFirstImage" resultMap="imageRM" resultType="imageVO">
-		select image_name
-		from image
-		where image_no = (
-		select min(image.image_no)
-		from image image, board board
-		where board.board_no=#{value} and board.board_no=image.board_no
-		)
+	SELECT image_name FROM image WHERE image_name LIKE 'main%' and board_no=#{value}
 	</select>
 
 	<select id="commentList" resultType="commentVO">
@@ -34,11 +31,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY boardcomment.comment_no ASC
 	</select>
 
-	<insert id="imageUpload" parameterType="imageVO">
-		insert into
-		image(image_no, image_name, board_no)
-		values(image_seq.nextval, #{imageName}, #{boardNo})
-	</insert>
 
 	<insert id="insertComment" parameterType="commentVO">
 		<selectKey resultType="integer" keyProperty="commentNo"
@@ -53,16 +45,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update boardcomment set content = #{content} where comment_no=#{commentNo}
 	</update>
 
+	<insert id ="imageUpload" parameterType="imageVO" >
+		<selectKey resultType="int" keyProperty="imageNo" order="BEFORE">
+			select image_seq.nextval from dual
+		</selectKey>
+	insert into image(image_no, image_name, board_no) 
+    values(#{imageNo}, #{imageName}, #{boardNO})
+	</insert>
+	
 	<delete id="deleteComment" parameterType="commentVO">
 		delete from boardcomment where comment_no = #{commentNo} 
 	</delete>
+
 	
+	<update id="updateHitBoard" parameterType="int">
+	update review set hits=hits+1 where board_no=#{value}
+	</update>
+
 	<update id="reviewBoardUpdate" parameterType="reviewVO">
 	update board
 	set content=#{content}, time_posted=sysdate
 	where board_no=#{boardNo}
    </update>
+   
+   <update id="boardDelete" parameterType="int">
+   update board set board_enabled=0 where board_no= #{value}
+   </update>
 
+
+	
+	<select id="likeCheckInfo" parameterType="boardVO" resultMap="boardRM"> 
+		select member.id,board.board_no,likescheck.likeCheck from member member,board board,likescheck likescheck
+		where board.board_no = likescheck.board_no and member.id = likescheck.id and likescheck.id = #{memberVO.id} and likescheck.board_no=#{boardNo} 
+	</select>
+	
+	<insert id="insertLikeCheck" parameterType="boardVO">
+		insert into likescheck(id,board_no) values(#{memberVO.id},#{boardNo})
+	</insert>
+	
+	<update id="likeCheckUp" parameterType="boardVO">
+		update likescheck set likeCheck = likeCheck+1 where id=#{memberVO.id} and board_no=#{boardNo}
+	</update>
 </mapper>
  
  

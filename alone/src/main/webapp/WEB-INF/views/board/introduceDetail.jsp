@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
  <!-- Panels -->
           <div class="ui__section" id="ui_panels">
@@ -8,9 +8,17 @@
             <div class="row">
               <div class="col-sm-6">
                 <div class="panel panel-primary">
-                  <div class="panel-heading">사진</div>
+                  <div class="panel-heading"></div>
                   <div class="panel-body">
-                   이미지 넣어주세여
+                  서버경로  : ${pageContext.request.contextPath}
+        <%--   			<c:forEach items="${list.imageVO}" var="imageList">
+<img src="${pageContext.request.contextPath}/resources/upload/${imageList.imageName}" alt="Portfolio Image">
+general_1.jpg -> ${list.imageVO.imageName}
+</c:forEach> --%>
+    <c:forEach items="${requestScope.introVO.imageVO}" var="imgVO">
+
+	<img src="${pageContext.request.contextPath}/resources/upload/${imgVO.imageName}">
+    </c:forEach>
                   </div>
                 </div>
               </div>
@@ -24,6 +32,11 @@
                   	장소:${requestScope.introVO.location}<br>
                   	영업시간:${requestScope.introVO.businessHours}<br>
                   	전화번호:${requestScope.introVO.tel}<br> 
+                  	키워드:
+                  	<c:forEach items="${requestScope.introVO.keyWordVO}" var="keyVO">
+                  		#${keyVO.keyWordName}
+                  	</c:forEach>
+                  	<br>
                   </div>
                 </div>
               </div>

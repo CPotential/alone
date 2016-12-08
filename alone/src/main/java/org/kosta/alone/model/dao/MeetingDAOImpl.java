@@ -40,7 +40,9 @@ public class MeetingDAOImpl implements MeetingDAO {
 
 	@Override
 	public MeetingVO meetingDetail(int boardNo) {
-		return sqlSessionTemplate.selectOne("meeting.meetingDetail", boardNo);
+
+		return sqlSessionTemplate.selectOne("meeting.meetingDetail",boardNo);
+
 	}
 
 	@Override
@@ -79,5 +81,9 @@ public class MeetingDAOImpl implements MeetingDAO {
 	public List<MeetingVO> meetingWriterSearchList(Map<String, Object> map) {
 		return sqlSessionTemplate.selectList("meeting.meetingWriterSearchList", map);
 	}
-
+	
+	@Override
+	public void updateHit(int boardNo) {
+			sqlSessionTemplate.update("meeting.updateHitBoard",boardNo);
+	}
 }

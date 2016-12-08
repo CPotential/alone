@@ -45,4 +45,8 @@ public interface MemberService {
 	public List<MileageVO> mileageInfo(String id);
 
 	public int nowMileage(String id);
+
+	public MemberVO SearchIdAndMileage(String id);
+
+	public void mileageMinus(GenericMemberVO memberVO, MemberVO companyVO);
 }

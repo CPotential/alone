@@ -2,6 +2,7 @@ package org.kosta.alone.model.dao;
 
 import java.util.List;
 
+import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.ImageVO;
 import org.kosta.alone.model.vo.ReviewVO;
@@ -21,6 +22,16 @@ public interface BoardDAO {
 	void updateComment(CommentVO commentVO);
 	
 	void deleteComment(CommentVO commentVO);
-
+	
 	public void reviewBoardUpdate(ReviewVO reviewVO);
+
+	void boardDelete(int boardNo);
+	
+	public void likeCheck(BoardVO bvo);
+	
+	public BoardVO likeCheckInfo(BoardVO bvo);
+	
+	void insertLikeCheck(BoardVO bvo);
+	
+	void likeCheckUp(BoardVO bvo);
 }

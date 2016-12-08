@@ -18,8 +18,10 @@ public interface MeetingDAO {
 	public void meetingWrite(MeetingVO meetingVO);
 	
 	public MeetingVO meetingDetail(int boardNo);
-	
+
 	public int getTotalContentCount();
+	
+	public void updateHit(int boardNo);
 
 	public int getTitleSearchCount(String searchKeyWord);
 
@@ -28,5 +30,4 @@ public interface MeetingDAO {
 	public List<MeetingVO> meetingTitleSearchList(Map<String, Object> map);
 
 	public List<MeetingVO> meetingWriterSearchList(Map<String, Object> map);
-
 }

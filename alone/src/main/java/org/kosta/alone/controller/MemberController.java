@@ -57,14 +57,12 @@ public class MemberController {
 
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
 	public String registerMember(GenericMemberVO vo) {
-		System.out.println(vo);
 		memberService.registerMember(vo);
 		return "redirect:/member/registerok.do";
 	}
 
 	@RequestMapping(value = "registerCompanyMember.do", method = RequestMethod.POST)
 	public String registerMember(CompanyMemberVO vo) {
-		System.out.println(vo);
 		memberService.registerMember(vo);
 		return "redirect:/member/registerok.do";
 	}
@@ -107,7 +105,6 @@ public class MemberController {
 	@RequestMapping("passwordCheckAjax.do")
 	@ResponseBody
 	public String passwordCheckAjax(HttpServletRequest request, String password) {
-
 		HttpSession session = request.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		memberVO.setPassword(password);
@@ -233,5 +230,21 @@ public class MemberController {
 		mav.addObject("mileageInfo", memberService.mileageInfo(memberVO.getId()));
 		mav.addObject("nowMileage", memberService.nowMileage(memberVO.getId()));
 		return mav;
+	}
+
+	@RequestMapping("idsearch.do")
+	@ResponseBody
+	public MemberVO idSearch(String id){
+		MemberVO memberVO=memberService.SearchIdAndMileage(id);
+		return memberVO;
+	}
+	
+	@RequestMapping("mileageMinus.do")
+	@ResponseBody
+	public MemberVO mileageMinus(GenericMemberVO memberVO,HttpSession session){
+		MemberVO companyVO = (MemberVO) session.getAttribute("memberVO");
+		memberService.mileageMinus(memberVO,companyVO);
+		memberVO=(GenericMemberVO) memberService.SearchIdAndMileage(memberVO.getId());
+		return memberVO;
 	}
 }
