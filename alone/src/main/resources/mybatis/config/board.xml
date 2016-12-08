@@ -21,6 +21,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	SELECT image_name FROM image WHERE image_name LIKE 'main%' and board_no=#{value}
 	</select>
 
+   	<insert id ="imageUpload" parameterType="imageVO" >
+		<selectKey resultType="int" keyProperty="imageNo" order="BEFORE">
+			select image_seq.nextval from dual
+		</selectKey>
+	insert into image(image_no, image_name, board_no) 
+    values(#{imageNo}, #{imageName}, #{boardNO})
+	</insert>
+	
+	<delete id="imageDelete">
+	   delete from image where image_name=#{value}
+	</delete>
+	
 	<select id="commentList" resultType="commentVO">
 		select boardcomment.content,member.nickname as "memberVO.nickName",
 		boardcomment.comment_no as commentNo,
@@ -45,13 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update boardcomment set content = #{content} where comment_no=#{commentNo}
 	</update>
 
-	<insert id ="imageUpload" parameterType="imageVO" >
-		<selectKey resultType="int" keyProperty="imageNo" order="BEFORE">
-			select image_seq.nextval from dual
-		</selectKey>
-	insert into image(image_no, image_name, board_no) 
-    values(#{imageNo}, #{imageName}, #{boardNO})
-	</insert>
+
 	
 	<delete id="deleteComment" parameterType="commentVO">
 		delete from boardcomment where comment_no = #{commentNo} 
@@ -70,6 +76,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
    <update id="boardDelete" parameterType="int">
    update board set board_enabled=0 where board_no= #{value}
+   </update>
+
+   <update id="meetingboardUpdate" parameterType="meetingVO">
+	update board
+	set content=#{content}, time_posted=sysdate
+	where board_no=#{boardNo}
    </update>
 
 

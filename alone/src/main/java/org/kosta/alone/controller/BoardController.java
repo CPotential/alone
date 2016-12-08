@@ -119,6 +119,54 @@ public class BoardController {
 	}
 
 	/**
+	 * 기업회원 소개글 보기
+	 * 
+	 */
+	@RequestMapping("showCompanyBoard.do")
+	public ModelAndView showCompanyBoard(HttpSession session) {
+		// 세션정보로 부터 기업회원의 아이디를 얻어온다
+		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+		String id = mvo.getId();
+
+		// id에 해당하는 기업회원의 쓴 소개글의 boarNo를 찾아 boarNo에 해당하는 소개글의 정보를 얻어오는 서비스를 호출한다
+		IntroduceVO introVO = boardService.showCompanyBoard(id);
+		System.out.println("boardService.showCompanyBoard(id)");
+		// 소개글 정보를 소개글 보기 폼으로 보낸다
+		return new ModelAndView("myPage/company/showMyBoard", "introVO", introVO);
+
+	}
+
+	/**
+	 * 파일 다운로드
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+
+	@RequestMapping("fileDownload.do")
+	public String fileDownload(String fileName) {
+		// 전달된 fileName(실제서버에 저장되어있는 파일명)으로 파일을 다운로드한다
+		return "downloadView";
+	}
+
+	/**
+	 * 기업회원 소개글 수정 form 으로 이동
+	 * 
+	 * @param boardNo
+	 * @return
+	 */
+
+	@RequestMapping("introduceUpdateForm.do")
+	public ModelAndView introduceUpdateForm(int boardNo) {
+
+		System.out.println("introduceUpdateForm : " + boardNo);
+		// boardNo에 해당하는 소개글의 정보를 소개글 수정폼에 전달하여 함께 출력한다
+		IntroduceVO introVO = boardService.introduceDetail(boardNo);
+		return new ModelAndView("myPage/company/introduceUpdateForm", "introVO", introVO);
+
+	}
+
+	/**
 	 * 모임글 작성 후 상세보기로 이동
 	 * 
 	 * @param meetingVO
@@ -129,6 +177,7 @@ public class BoardController {
 		HttpSession session = request.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		meetingVO.setMemberVO(memberVO);
+		System.out.println(uploadFileVO + "컨트롤러 진입");
 		boardService.meetingWrite(request, meetingVO, uploadFileVO);
 		return "redirect:meetingNoHitDetail.do?boardNo=" + meetingVO.getBoardNo();
 	}
@@ -193,6 +242,32 @@ public class BoardController {
 		return "redirect:introduceDetail.do?boardNo=" + introduceVO.getBoardNo();
 	}
 
+	@RequestMapping(method = RequestMethod.POST, value = "introduceUpdate.do")
+	public String introduceUdate(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
+
+		System.out.println(introduceVO);
+		boardService.introduceUpdate(introduceVO, vo, request);
+
+		return "redirect:showCompanyBoard.do";
+
+	}
+
+	/**
+	 * 소개글 수정시 파일 삭제 ajax
+	 * 
+	 * @param deleteFileName
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "fileDelete.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String fileDelete(String deleteFileName, HttpServletRequest request) {
+
+		// 파일이 존재하면 삭제하고 ok리턴
+		return boardService.deleteImage(deleteFileName, request);
+
+	}
+
 	@RequestMapping("sendCommentAjax.do")
 	@ResponseBody
 	public List<CommentVO> commentList(String comment, HttpServletRequest request, int boardNo) {
@@ -214,6 +289,7 @@ public class BoardController {
 	public ModelAndView reviewDetail(int boardNo) {
 		ModelAndView mav = new ModelAndView("board/reviewDetail");
 		mav.addObject("rvo", boardService.reviewDetail(boardNo));
+		mav.addObject("commentList", boardService.commentList(boardNo));
 		return mav;
 	}
 
@@ -230,7 +306,7 @@ public class BoardController {
 		mav.addObject("rvo", boardService.reviewNotHitDetail(boardNo));
 		return mav;
 	}
-	
+
 	@RequestMapping("meetingNoHitDetail.do")
 	public ModelAndView meetingNoHitDetail(int boardNo) {
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
@@ -268,8 +344,25 @@ public class BoardController {
 	}
 
 	@RequestMapping("meetingDelete.do")
-		public ModelAndView meetingDelete(int boardNo){	
-			boardService.boardDelete(boardNo);
-			return new ModelAndView("redirect:reviewList.do");
-		}
+	public ModelAndView meetingDelete(int boardNo) {
+		boardService.boardDelete(boardNo);
+		return new ModelAndView("redirect:reviewList.do");
+	}
+
+	// 모임 게시글 수정 폼
+	@RequestMapping("meetingUpdateForm.do")
+	public ModelAndView meetingUpdateForm(int boardNo) {
+		return new ModelAndView("board/meetingUpdateForm", "meetingUpdate", boardService.meetingDetail(boardNo));
+	}
+
+	// 모임 게시글 수정
+	@RequestMapping("meetingUpdate.do")
+	public String meetingUpdate(HttpServletRequest request, MeetingVO meetingVO) {
+		HttpSession session = request.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		meetingVO.setMemberVO(memberVO);
+		System.out.println(meetingVO + "!@!@!@!@");
+		boardService.meetingUpdate(request, meetingVO, null);
+		return "redirect:meetingDetail.do?boardNo=" + meetingVO.getBoardNo();
+	}
 }

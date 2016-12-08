@@ -28,4 +28,10 @@ public interface IntroduceDAO {
 
 	void keywordRegister(KeyWordVO keywordVO);
 
+	int findIntroduceById(String id);
+
+	public void boardUpdate(IntroduceVO introduceVO);
+
+	public void introduceUpdate(IntroduceVO introduceVO);
+
 }

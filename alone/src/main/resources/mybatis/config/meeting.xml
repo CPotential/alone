@@ -8,6 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="board_no" property="boardNo"/>
 		<result column="time_posted" property="timePosted"/>
 		<result column="nickname" property="memberVO.nickName"/>
+		<result column="id" property="memberVO.id"/>
+		<result column="board_no" property="boardNo"/>
 	</resultMap>
 	
 	<select id="meetingList" resultMap="meetingRM" parameterType="pagingBean">
@@ -88,9 +90,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		) 
 		WHERE rnum between #{pb.startRowNumber} and #{pb.endRowNumber}
 	</select>
+	
+	<update id="meetingUpdate" parameterType="meetingVO">
+		update meeting
+		set title=#{title}, region=#{region}, location= #{location}, interest=#{interest}
+		where board_no=#{boardNo}
+	</update>
 
 	<update id="updateHitBoard" parameterType="int">
 		update meeting set hits=hits+1 where board_no=#{value}
 	</update>
 	
+
 </mapper> 

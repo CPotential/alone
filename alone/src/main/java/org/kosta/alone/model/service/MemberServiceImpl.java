@@ -160,7 +160,7 @@ public class MemberServiceImpl implements MemberService {
 	public int nowMileage(String id) {
 		return genericMemberDAO.nowMileage(id);
 	}
-	
+
 	@Override
 	public MemberVO SearchIdAndMileage(String id) {
 		return genericMemberDAO.SearchIdAndMileage(id);
@@ -172,8 +172,15 @@ public class MemberServiceImpl implements MemberService {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("memberId", memberVO.getId());
 		map.put("companyId", companyVO.getId());
-		map.put("dealMoney", (int)(-1*memberVO.getMileage()));
+		map.put("dealMoney", (int) (-1 * memberVO.getMileage()));
 		genericMemberDAO.mileageMinus(map);
 		genericMemberDAO.updateMileage(map);
 	}
+
+	@Override
+	public MemberVO showAdminMember(MemberVO memberVO) {
+		return memberDAO.showAdminMember(memberVO);
+	}
+	
 }
+

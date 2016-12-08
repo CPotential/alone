@@ -10,7 +10,24 @@
     <!--<link rel="icon" href="img/favicon.ico">-->
 
     <title>혼자서도 잘해요</title>
-
+        <script src="//code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript">
+	$(document).ready(function(){
+		$("#cancel").click(function(){
+			location.href="${pageContext.request.contextPath}/homego.do";
+			return false;
+		});
+		$("#registerMember").click(function(){
+			location.href="${pageContext.request.contextPath}/registerMember.do";
+			return false;
+		});
+		$("#registerCompany").click(function(){
+			location.href="${pageContext.request.contextPath}/registerCompany.do";
+			return false;
+		});
+	});
+		</script>
+		
     <!-- CSS Global -->
     <link href="${pageContext.request.contextPath}/resources/css/styles.css" rel="stylesheet">
 
@@ -51,21 +68,20 @@
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-sm-offset-3 col-md-offset-3 col-lg-offset-4">
           <div class="body-plain__form">
-            <form role="form" align ="center">
-            	<a  href="${pageContext.request.contextPath}/registerMember.do">일반회원 가입</a>&nbsp;&nbsp;
-            	<a  href="${pageContext.request.contextPath}/registerCompany.do">기업회원 가입</a>
-            </form> 
-         	
-         	<div class="collapse" id="lost-password__form">
+			 <button type="submit" class="btn btn-ki btn-block btn-lg" id="registerMember">일반회원 가입</button>
+  			 <button type="submit" class="btn btn-ki btn-block btn-lg" id="registerCompany">기업회원 가입</button>
+            <div class="collapse" id="lost-password__form">
               <p class="text-muted">
                 Enter your email address below and we will send you a link to reset your password.
               </p>
             </div> <!-- lost-password__form -->
           </div> <!-- / .body-plain__form -->
+          
+          
           <br>
           
           
-		<button type="submit" class="btn btn-primary btn-block btn-lg">취소</button>
+		<button type="submit" class="btn btn-primary btn-block btn-lg" id="cancel">취소</button>
           <!-- Footer -->
           <div class="body-plain__footer">
             Copyright 2016 <a href="http://simpleqode.com/">Simpleqode.com</a>. All Rights Reserved.

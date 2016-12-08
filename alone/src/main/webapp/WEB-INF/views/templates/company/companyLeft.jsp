@@ -16,7 +16,9 @@
 	        	</li>
 			</c:when>
 			<c:otherwise>
-				  <li><a href="${pageContext.request.contextPath}/myPage/company/introduceUpdateForm.do" class="btn btn-default btn-block"> 소개글수정</a></li>
+				  <li>
+				  <a href="${pageContext.request.contextPath}/showCompanyBoard.do" class="btn btn-default btn-block">소개글보기</a>
+				  </li>
 			</c:otherwise>
 		</c:choose>
 	</ul>

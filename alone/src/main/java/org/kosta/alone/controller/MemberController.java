@@ -38,8 +38,7 @@ public class MemberController {
 			}
 		}
 		session.setAttribute("memberVO", memberVO);
-		mav = new ModelAndView("member/login_result");
-
+		mav = new ModelAndView("redirect:home.do");
 		return mav;
 	}
 
@@ -185,6 +184,7 @@ public class MemberController {
 		return new ModelAndView("myPage/company/memberUpdateForm", "id", id);
 	}
 	
+
 	/**
 	 * 기업 회원 정보 수정
 	 * @param cvo
@@ -247,4 +247,13 @@ public class MemberController {
 		memberVO=(GenericMemberVO) memberService.SearchIdAndMileage(memberVO.getId());
 		return memberVO;
 	}
+	
+	@RequestMapping("showAdminInfo.do")
+	public ModelAndView showAdminInfo(HttpSession session) {
+		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		return new ModelAndView("myPage/admin/showInfo", "admin", memberService.showAdminMember(memberVO));
+	}
+	
+	
+	
 }

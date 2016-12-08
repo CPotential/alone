@@ -76,10 +76,6 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<th scope="row">아이디</th>
-										<td>${mvo.id}<input type="hidden" id="id" name="id" value="${mvo.id}"></td>
-									</tr>
-									<tr>
 										<th scope="row">비밀번호</th>
 										<td><input type="password" id="password" name="password"></td>
 									</tr>

@@ -13,7 +13,7 @@
 		var commentNo = "";
 		$("#sendComment").click(function() {
 			var comment = $("#sendContent").val()
-			alert(comment);
+
 			$.ajax({
 				type : "GET",
 				url : "${pageContext.request.contextPath}/sendCommentAjax.do",
@@ -52,6 +52,7 @@
 						json += "</div></div>";
 					}
 					$("#commentView").html(json);
+					
 				}//callback			
 			}); //ajax
 		}); // sendCommentclick 이벤트
@@ -143,7 +144,7 @@
 							json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
 							json +="</div>" 
 							}
-							json +="<input type='text' id='commentNo'  value="
+							json +="<input type='hidden' id='commentNo'  value="
 							json += data[i].commentNo
 							json +=">"
 							json += "</div></div>";  
@@ -162,7 +163,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8 col-md-9">
-			<a href="#"><span class="badge">No. 01</span></a> 
+			<a href="#"><span class="badge">No.${meetingVO.boardNo}</span></a> 
 			<a href="#"><span class="badge">조회수 : ${meetingVO.hits}</span></a> 
 			<a href="#"><span class="badge">날짜 : ${meetingVO.timePosted}</span></a>
 		</div>
@@ -215,6 +216,7 @@
 						}
 					});
 				</script>
+
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<a href="${pageContext.request.contextPath}/meetingList.do" class="btn btn-default">목 록</a>

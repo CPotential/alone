@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.GenericMemberVO;
+
 import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.MileageVO;
 
@@ -33,7 +34,7 @@ public interface MemberService {
 	public GenericMemberVO showGenericmember(MemberVO mvo);
 
 	public CompanyMemberVO showCompanyMember(MemberVO mvo);
-	
+
 	public void CmemberUpdateInfo(CompanyMemberVO cvo);
 
 	public List<GenericMemberVO> genericList();
@@ -49,4 +50,7 @@ public interface MemberService {
 	public MemberVO SearchIdAndMileage(String id);
 
 	public void mileageMinus(GenericMemberVO memberVO, MemberVO companyVO);
+
+	public MemberVO showAdminMember(MemberVO memberVO);
+
 }

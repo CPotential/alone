@@ -65,4 +65,29 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 		sqlSessionTemplate.insert("introduce.keywordRegister",keywordVO);
 		
 	}
+	
+	/**
+	 * id에 해당하는 소개글 번호 얻기
+	 */
+	@Override
+	public int findIntroduceById(String id){
+		
+		return sqlSessionTemplate.selectOne("introduce.findIntroduceById",id);
+	}
+
+	@Override
+	public void boardUpdate(IntroduceVO introduceVO) {
+	
+		sqlSessionTemplate.update("introduce.boardUpdate",introduceVO);
+		
+	}
+
+	@Override
+	public void introduceUpdate(IntroduceVO introduceVO) {
+	
+		sqlSessionTemplate.update("introduce.introduceUpdate",introduceVO);
+		
+	}
+	
+	
 }

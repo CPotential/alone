@@ -6,30 +6,36 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#form_meetingWrite").submit(function(){
-			if($("#form_meetingWrite :input[name=title]").val().trim()==""){
+ 		$("#meetingUpdateForm").submit(function(){
+			if($("#meetingUpdateForm :input[name=title]").val().trim()==""){
 				alert("제목을 입력하세요");				
 				return false;
 			}
-			if($("#form_meetingWrite :input[name=region]").val().trim()==""){
+			if($("#meetingUpdateForm :input[name=region]").val().trim()==""){
 				alert("지역을 입력하세요");				
 				return false;
 			}
-			if($("#form_meetingWrite :input[name=location]").val().trim()==""){
+			if($("#meetingUpdateForm :input[name=location]").val().trim()==""){
 				alert("장소를 입력하세요");				
 				return false;
 			}
-			if($("#form_meetingWrite :input[name=interest]").val().trim()==""){
+			if($("#meetingUpdateForm :input[name=interest]").val().trim()==""){
 				alert("관심사항을 입력하세요");				
 				return false;
 			}
-			if($("#form_meetingWrite :input[name=content]").val().trim()==""){
+			if($("#meetingUpdateForm :input[name=content]").val().trim()==""){
 				alert("정보를 입력하세요");				
 				return false;
 			}
 		}); // submit
 		
 	}); // ready
+	
+	function meetingWriteCancel() {
+		if (confirm("작성을 취소하시겠습니까?")) {
+			location.href = "${pageContext.request.contextPath}/getMeetingList.do";
+		}
+	}
 </script>
 <script>
     function sample6_execDaumPostcode() {
@@ -105,9 +111,7 @@
 	<div class="row">
 		<div class="col-sm-8">
 			<h3 class="header">Meeting Write form</h3>
-			<p class="text-muted">혼자가 심심해??
-			그럼 나만의 이야기 주제로 
-			대화할 사람들을 모아봐~</p>
+			<p class="text-muted">수정할 내용을 입력하세요</p>
 
 			<!-- Alert message -->
 			<div class="alert" id="form_message" role="alert"></div>
@@ -115,33 +119,21 @@
                Default themes and customization: 
                https://developers.google.com/recaptcha/docs/customization -->
                
-			<script type="text/javascript">
-				var RecaptchaOptions = {
-					theme : 'custom',
-					custom_theme_widget : 'recaptcha_widget'
-				};
-			</script>
-			<!-- Please carefully read the README.txt file in order to setup
-               the PHP contact form properly -->
-			<form method="post" role="form" action="${pageContext.request.contextPath}/meetingWrite.do" id="form_meetingWrite" enctype="multipart/form-data">
-				<!-- <div class="form-group">
-					<label for="email">Your email address</label> 
-					<input type="email" 	name="email" class="form-control" id="email" placeholder="E-mail" 	data-original-title="" title=""> 
-					<span class="help-block"></span>
-				</div> -->
+
+			<form method="post" role="form" action="${pageContext.request.contextPath}/meetingUpdate.do" id="meetingUpdateForm" >
 				<div class="form-group">
 					<label for="title">Title</label> 
-					<input type="text" name="title" class="form-control" placeholder="meetin title"  data-original-title="" title=""> 
+					<input type="text" name="title" class="form-control" placeholder="meetin title"  value="${meetingUpdate.title }"> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 					<label for="region">Region</label> 
-					<input type="text" id="region" name="region" class="form-control" placeholder="meeting region" data-original-title="" title=""> 
+					<input type="text" id="region" name="region" class="form-control" placeholder="meeting region"  value="${meetingUpdate.region}"> 
 					<span class="help-block"></span>
 				</div>
-				
-				<div id="map" style="width:500px;height:400px;"></div>
+
+			<div id="map" style="width:500px;height:400px;"></div>
 				<script>
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 				    mapOption = {
@@ -171,29 +163,31 @@
 					    } 
 					});  
 				</script>
+			
 				<div class="form-group">
 					<label for="location">Location</label> 
-					<input type="text" name="location" class="form-control" id="location" placeholder="meeting location" data-original-title="" title=""> 
+					<input type="text" name="location" class="form-control" id="location" placeholder="meeting location"  value="${meetingUpdate.location}"> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="interest">Interest</label> 
-					<input type="text" name="interest" class="form-control" placeholder="Interest" data-original-title="" title=""> 
+					<input type="text" name="interest" class="form-control" placeholder="Interest"  value="${meetingUpdate.interest}"> 
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="content">Content</label>
-					<textarea name="content" class="form-control" rows="3" placeholder="Content"></textarea>
+					<textarea name="content" class="form-control" rows="3" placeholder="Content">${meetingUpdate.content}</textarea>
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
 					<label for="uploadFile">UploadFile</label> 
-					<input type="file" name="file" class="form-control" multiple="multiple">
+					<input type="file" name="file" class="form-control" multiple="multiple"> 
 					<span class="help-block"></span>
+					<input type="hidden" name ="boardNo" value="${meetingUpdate.boardNo }">
 				</div>
-
-				<button type="submit" class="btn btn-primary" id="meetingWrite">모임글 작성</button>
-				<button type="button" class="btn btn-primary" id="meetingWriteCancel">작성 취소</button>
+					
+			<button type="submit" class="btn btn-primary" id="meetingWrite">수정하기</button>
+			<button type="button" class="btn btn-primary" onclick="meetingWriteCancel()">작성 취소</button>
 			</form>
 		</div>
 	</div>

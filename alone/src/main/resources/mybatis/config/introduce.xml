@@ -41,7 +41,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 		<select id="introduceDetail" resultMap="introduceRM" parameterType="int"> 
-		select  board.content, introduce.location, introduce.business_hours, introduce.tel 
+		select introduce.board_no, board.content, introduce.company_name, introduce.region, 
+		introduce.location, introduce.business_hours, introduce.tel 
 		from introduce introduce,board board 
 		where board.board_no=introduce.board_no and introduce.board_no=#{value}
 		</select>
@@ -64,6 +65,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{boardNo}, #{companyName}, #{region}, #{location}, #{businessHours},#{tel},#{categoryVO.categoryNo})
 	</insert>
 	
+	
+	
 	<insert id="keywordRegister" parameterType="keywordVO"  >
 		<selectKey resultType="int" keyProperty="keyWordNo" order="BEFORE">
 			select board_seq.nextval from dual
@@ -71,4 +74,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	insert into KEYWORD(keyword_no,keyword_name,board_no) 
      values(#{keyWordNo}, #{keyWordName},#{boardNo})
 	</insert>
+	
+	<update id="boardUpdate" parameterType="introduceVO">
+			update board
+		<set>
+			<if test="content != null and content !=''">content=#{content}</if>
+		</set>
+		where board_no=#{boardNo}
+	
+	</update>
+	
+
+	<update id="introduceUpdate" parameterType="introduceVO">
+		update introduce
+		<set>
+			<if test="companyName != null and companyName !=''">company_name=#{companyName},</if>
+			<if test="region != null and region != '' " >region=#{region},</if>
+			<if test="location != null  and location !=''">location=#{location},</if>
+		    <if test="businessHours != null  and businessHours !=''">business_hours=#{businessHours},</if>
+			<if test="tel != null  and tel !=''"> tel=#{tel}</if>
+		</set>
+		where board_no=#{boardNo}
+	</update>
+	
+	
+	
+	<select id="findIntroduceById" resultType="int">
+	select b.board_no
+    from BOARD b, INTRODUCE intro
+    where b.board_no=intro.board_no and b.id=#{value}
+	</select>
+	
 </mapper>

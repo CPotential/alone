@@ -12,9 +12,9 @@
 				<div class="container">
 					<div class="row" id="hero__content">
 						<div class="col-sm-12 text-center">
-							<h1 class="hero__h1">혼자</h1>
-							<h2 class="hero__h2">하상현 진짜 개멍청해</h2>
-							<p class="hero__intro">부트스트랩 사용</p>
+							<h1 class="hero__h1">혼자서도 잘해요</h1>
+					<!-- 		<h2 class="hero__h2">하상현 진짜 개멍청해</h2>
+							<p class="hero__intro">부트스트랩 사용</p> -->
 						</div>
 					</div>
 					<!-- / .row -->
@@ -50,7 +50,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<h1 class="section__title">여기에 인기 가게 소개 넣을까?</h1>
+				<h1 class="section__title">회원들이 추천한 가게</h1>
 				<p class="section__intro">인기있는 가게입니다.</p>
 				<div class="section__hr section__hr_center"></div>
 			</div>
@@ -83,15 +83,15 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="resources/img/general_1.jpg"
+											<a href="#"> <img src="resources/img/혼자가기 좋은 음식 쌀국수.PNG"
 												alt="Portfolio Image">
 											</a>
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-											<h3 class="portfolio__title">Simple & Beautiful</h3>
-											<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div>
+											<h3 class="portfolio__title">홍대 칼국수집</h3>
+										<!-- 	<div class="portfolio__intro">Morbi vulputate eget
+												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
 										</div>
 									</div>
 								</div>
@@ -100,15 +100,15 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/general_2.jpg"
+											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/혼자 먹기 좋은 순대국.PNG"
 												alt="Portfolio Image">
 											</a>
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-											<h3 class="portfolio__title">Simple & Beautiful</h3>
-											<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div>
+											<h3 class="portfolio__title">강남 순대국</h3>
+										<!-- 	<div class="portfolio__intro">Morbi vulputate eget
+												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
 										</div>
 									</div>
 								</div>
@@ -117,15 +117,15 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/general_3.jpg"
+											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/혼자가기 좋은 일본 음식점.PNG"
 												alt="Portfolio Image">
 											</a>
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-											<h3 class="portfolio__title">Simple & Beautiful</h3>
-											<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div>
+											<h3 class="portfolio__title">종로 일본 라면</h3>
+											<!-- <div class="portfolio__intro">Morbi vulputate eget
+												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
 										</div>
 									</div>
 								</div>
@@ -134,15 +134,15 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/general_4.jpg"
+											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/판교볶음밥.jpg"
 												alt="Portfolio Image">
 											</a>
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-											<h3 class="portfolio__title">Simple & Beautiful</h3>
-											<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div>
+											<h3 class="portfolio__title">판교 볶음밥</h3>
+											<!-- <div class="portfolio__intro">Morbi vulputate eget
+												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
 										</div>
 									</div>
 								</div>
@@ -159,15 +159,15 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="resources/img/general_5.jpg"
+											<a href="#"> <img src="resources/img/새싹비빔밥.jpg"
 												alt="Portfolio Image">
 											</a>
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-											<h3 class="portfolio__title">Simple & Beautiful</h3>
-											<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div>
+											<h3 class="portfolio__title">종로 새싹비빔밥</h3>
+									<!-- 		<div class="portfolio__intro">Morbi vulputate eget
+												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
 										</div>
 									</div>
 								</div>
@@ -176,15 +176,15 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="resources/img/general_6.jpg"
+											<a href="#"> <img src="resources/img/잠식맥앤치즈.jpg"
 												alt="Portfolio Image">
 											</a>
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-											<h3 class="portfolio__title">Simple & Beautiful</h3>
-											<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div>
+											<h3 class="portfolio__title">잠실 맥 앤 치즈</h3>
+											<!-- <div class="portfolio__intro">Morbi vulputate eget
+												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
 										</div>
 									</div>
 								</div>
@@ -193,15 +193,15 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/general_7.jpg"
+											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/잠실스테이크.jpg"
 												alt="Portfolio Image">
 											</a>
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-											<h3 class="portfolio__title">Simple & Beautiful</h3>
-											<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div>
+											<h3 class="portfolio__title">잠실 스테이크</h3>
+										<!-- 	<div class="portfolio__intro">Morbi vulputate eget
+												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
 										</div>
 									</div>
 								</div>
@@ -210,15 +210,15 @@
 									<div class="portfolio__item">
 										<!-- Image -->
 										<div class="portfolio__img">
-											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/general_8.jpg"
+											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/부산 크림파스타.jpg"
 												alt="Portfolio Image">
 											</a>
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-											<h3 class="portfolio__title">Simple & Beautiful</h3>
-											<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div>
+											<h3 class="portfolio__title">부산 크림 파스타</h3>
+											<!-- <div class="portfolio__intro">Morbi vulputate eget
+												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
 										</div>
 									</div>
 								</div>

@@ -30,4 +30,6 @@ public interface MeetingDAO {
 	public List<MeetingVO> meetingTitleSearchList(Map<String, Object> map);
 
 	public List<MeetingVO> meetingWriterSearchList(Map<String, Object> map);
+
+	public void meetingUpdate(MeetingVO meetingVO);
 }
