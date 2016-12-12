@@ -6,7 +6,7 @@
 	$(document).ready(function(){
 		//카테고리 정보 자동으로 세팅
 		$("#category_no").val(${introVO.categoryVO.categoryNo});
-		alert(${introVO.categoryVO.categoryNo});
+		//alert("${introVO.categoryVO.categoryNo}");
 		
 		
 		$("#introduceUpdate").click(function(){
@@ -19,6 +19,16 @@
 			
 			
 		});//submit
+		
+		
+		$("#introduceUpdateCansel").click(function(){
+			
+			
+			if (confirm("작성을 취소하시겠습니까?")) {
+				location.href = "${pageContext.request.contextPath}/showCompanyBoard.do";
+			}
+			
+		}); //click 
 	
 		//alert("1");
 		$("#deleteMainFileView").on("click", "#maindeleteBtn", function() {
@@ -99,7 +109,7 @@
 
 		
 		
-	});//ready
+	});
 </script>
 
 <!-- PAGE CONTENT
