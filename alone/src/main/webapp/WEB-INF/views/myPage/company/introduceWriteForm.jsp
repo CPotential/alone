@@ -36,7 +36,7 @@
 				alert("상세정보를 입력하세요");				
 				return false;
 			}
-<<<<<<< HEAD
+
 			if($("#category_no").val().trim() =="")
 			{
 		    	
@@ -45,20 +45,7 @@
 			}
 		
 				
-=======
-			if($("#form_introduceWrite :input[name=mainImage]").val().trim()==""){
-				alert("메인 이미지를 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=Image]").val().trim()==""){
-				alert("그외 이미지를 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=categoryVO.categoryNo]").val() =="0"){
-				alert("카테고리번호를 선택하세요");				
-				return false;
-			}
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
+
 		}); // submit
 		
 		
@@ -89,52 +76,6 @@
 		
 		})//callback
 
-	/*
-		$("#keyword").keyup(function(){
-			 //해쉬 태그 분할하기 
-			var data="";
-			var string=$(this).val();
-			//문자열 해쉬태그 배열로 나누기
-			var strArray=string.split('#');
-			var id;
-			
-<<<<<<< HEAD
-	
-=======
-			//for문으로 저장된 해쉬태그 대화상자로 출력하기
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
-			for(var key in strArray){
-				console.log(key);
-				if(parseInt(key)!=0 && parseInt(key)<4){
-					id="#hash"+key;
-<<<<<<< HEAD
-					console.log(id);
-					//alert(id);
-				data +="<input type='text' id="+id+"name=keyWordVO["+key+"].keyWordName value="+strArray[parseInt(key)]+" readonly>";
-					$("#hashTag").html(data) 
-=======
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
-					$("#hash"+key).val(strArray[parseInt(key)]);
-				} else if( parseInt(key)>=4){
-					alert("태그는 3개까지만 유효합니다");
-					$("#keyword").val("#"+$("#hash1").val()+"#"+$("#hash2").val()+"#"+$("#hash3").val());
-<<<<<<< HEAD
-			 	$("#hashTag").on(function(){
-					
-						//$("#keyword").val("#"+$("#hash1").val()+"#"+$("#hash2").val()+"#"+$("#hash3").val());
-			
-					
-=======
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
-				}
-			}
-<<<<<<< HEAD
-		})//callback
-		
-		*/
-=======
-		}) // keyup
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 	}); // ready
 </script>
 <!-- PAGE CONTENT

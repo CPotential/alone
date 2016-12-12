@@ -3,8 +3,23 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-
+	$(document).ready(function(){
+		//카테고리 정보 자동으로 세팅
+		$("#category_no").val(${introVO.categoryVO.categoryNo});
+		alert(${introVO.categoryVO.categoryNo});
+		
+		
+		$("#introduceUpdate").click(function(){
+			if($("#category_no").val().trim() =="")
+			{
+		    	
+			alert("카테고리번호를 선택하세요");				
+			return false;
+			}
+			
+			
+		});//submit
+	
 		//alert("1");
 		$("#deleteMainFileView").on("click", "#maindeleteBtn", function() {
 
@@ -79,9 +94,11 @@
 			}
 			}
 		
-		})//callback
+		});//callback
 	
 
+		
+		
 	});//ready
 </script>
 
@@ -105,7 +122,7 @@
 				var RecaptchaOptions = {
 					theme : 'custom',
 					custom_theme_widget : 'recaptcha_widget'
-				};
+				}
 			</script>
 			<!-- Please carefully read the README.txt file in order to setup
                the PHP contact form properly -->
@@ -165,20 +182,26 @@
 						name="mainFile"><br> <span class="help-block"></span>
 				</div>
 				<!-- 메인 파일 삭제하기 -->
+				
+					<c:set value="${introVO.mainImage}" var="mainFile" />
+		
+					<c:if test="${not empty mainFile}">
 				<div id="deleteMainFileView">
 
-					<c:set value="${introVO.mainImage}" var="mainFile" />
-
+	
 					<div id="deleteResult">
+					
 						<p id="resultView">${mainFile.originalFileName}
 							<input type="hidden" id="mainfileName"
 								value="${mainFile.imageName}"> <input type="button"
 								id="maindeleteBtn" value="삭제" />
 						</p>
+					
 					</div>
+					</div>
+	            </c:if>
 
-
-				</div>
+		
 				<div class="form-group">
 					<label for="interest">사진첨부</label> <input type="file" name="file"
 						multiple="multiple"><br> <span class="help-block"></span>
@@ -217,7 +240,7 @@
 				action="findMeetingList.do"> -->
 							<select class="selectpicker" name="categoryVO.categoryNo"
 								id="category_no">
-								<option value="0">카테고리</option>
+								<option value="">카테고리</option>
 								<option value="1">음식</option>
 								<option value="2">술</option>
 								<option value="3">문화</option>
@@ -275,10 +298,10 @@
 					<span class="help-block"></span>
 				</div>
 				<!-- / reCAPTCHA -->
-				<button type="submit" class="btn btn-primary" id="meetingWrite">수정
+				<button type="submit" class="btn btn-primary" id="introduceUpdate">수정
 					하기</button>
 				<button type="button" class="btn btn-primary"
-					id="meetingWriteCancel">작성 취소</button>
+					id="introduceUpdateCansel">작성 취소</button>
 			</form>
 		</div>
 	</div>

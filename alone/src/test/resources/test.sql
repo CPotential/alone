@@ -191,7 +191,6 @@ ALTER TABLE INTRODUCE
 ADD constraint fk_introduce foreign key(board_no) 
 references board(board_no)
 [ON DELETE CASCADE];
-=======
 
 	
 	select * from member where id='admin'
@@ -200,4 +199,21 @@ references board(board_no)
 select mileage.deal_money, mileage.deal_content
 		from mileage mileage, member member
 		where mileage.id=member.id and member.id='java' order by mileage_no desc
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
+
+		
+select * from INTRODUCE_CATEGORY;	
+
+select * from introduce;
+
+
+
+select category.category_no, category.category_name
+from introduce introduce, INTRODUCE_CATEGORY category
+where introduce.category_no =category.category_no 
+and introduce.board_no='273';
+
+
+		select introduce.board_no, board.content, introduce.company_name, introduce.region, 
+		introduce.location, introduce.business_hours, introduce.tel, introduce.keyword,introduce.category_no
+		from introduce introduce,board board 
+		where board.board_no=introduce.board_no and introduce.board_no='273'

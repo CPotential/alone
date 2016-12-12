@@ -44,9 +44,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 		<select id="introduceDetail" resultMap="introduceRM" parameterType="int"> 
 		select introduce.board_no, board.content, introduce.company_name, introduce.region, 
-		introduce.location, introduce.business_hours, introduce.tel, introduce.keyword
+		introduce.location, introduce.business_hours, introduce.tel, introduce.keyword,introduce.category_no
 		from introduce introduce,board board 
 		where board.board_no=introduce.board_no and introduce.board_no=#{value}
+		</select>
+		
+		<select id="categoryInfo" resultType="introduceCategoryVO" resultMap="introduceCategoryRM">
+		select category.category_no, category.category_name
+        from introduce introduce, INTRODUCE_CATEGORY category
+        where introduce.category_no =category.category_no 
+        and introduce.board_no=#{value}
 		</select>
 		
     <insert id="boardWrite" parameterType="introduceVO">
@@ -107,7 +114,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="location != null  and location !=''">location=#{location},</if>
 		    <if test="businessHours != null  and businessHours !=''">business_hours=#{businessHours},</if>
 			<if test="tel != null  and tel !=''"> tel=#{tel},</if>
-		    <if test="keyword != null  and keyword !=''"> keyword=#{keyword}</if>
+		    <if test="keyword != null  and keyword !=''"> keyword=#{keyword},</if>
+		   <!-- 		<result column="category_no" property="categoryVO.categoryNo"/> --> 
+		    <if test="categoryVO.categoryNo != null  and categoryVO.categoryNo !=''">
+		    category_no=#{categoryVO.categoryNo}</if>
 		</set>
 		where board_no=#{boardNo}
 	</update>

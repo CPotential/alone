@@ -228,7 +228,8 @@ public class BoardServiceImpl implements BoardService {
 		// 테이블 상세정보들이 모두 비어있지 않다면 update
 		if( !(introduceVO.getCompanyName().equals("") && introduceVO.getRegion().equals("")&& 
 				introduceVO.getLocation().equals("") && introduceVO.getBusinessHours().equals("")
-				&& introduceVO.getTel().equals("") && introduceVO.getKeyword().equals("")
+				&& introduceVO.getTel().equals("") && introduceVO.getKeyword().equals("") && 
+				introduceVO.getCategoryVO().equals("")
 				
 				) 
 			){
@@ -361,6 +362,7 @@ public class BoardServiceImpl implements BoardService {
 		imageList = boardDAO.imageList(boardNo);
 		introduceVO.setImageVO(imageList);
 
+	
 		// 완벽히 저장된 상세정보를 리턴한다!!!
 		return introduceVO;
 	}

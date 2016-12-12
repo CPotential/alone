@@ -37,7 +37,7 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="utf-8" />
 		<!-- 아래는 파일사이즈 제한시 사용한다 -->
-		<property name="maxUploadSize" value="5*1024*1024"/>
+		<!-- <property name="maxUploadSize" value="5*1024*1024"/> -->
 	</bean>
 
 	<!-- 파일 다운로드를 위한 설정 -->

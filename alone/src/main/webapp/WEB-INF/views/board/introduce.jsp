@@ -16,17 +16,12 @@
 						<!-- Image -->
 						<div class="portfolio__img">
 							<a href="portfolio-item.html"> 
-<<<<<<< HEAD
+
 							<c:set var="mainImage" value="${list.mainImage}"></c:set>
 						
 								<img src="${pageContext.request.contextPath}/resources/upload/${mainImage.imageName}" alt="Portfolio Image">
 				
-				
-=======
-								<c:forEach items="${list.imageVO}" var="imageList">
-									<img src="${pageContext.request.contextPath}/resources/upload/${imageList.imageName}" alt="Portfolio Image">
-								</c:forEach>
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
+
 							</a>
 						</div>
 						<!-- Captions -->
