@@ -12,6 +12,13 @@ public class KeyWordVO {
 	}
 
 	
+	public KeyWordVO( String keyWordName, int boardNo) {
+		super();
+	
+		this.keyWordName = keyWordName;
+		this.boardNo = boardNo;
+	}
+	
 	public KeyWordVO(int keyWordNo, String keyWordName, int boardNo) {
 		super();
 		this.keyWordNo = keyWordNo;

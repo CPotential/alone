@@ -38,26 +38,45 @@
 				alert("상세정보를 입력하세요");				
 				return false;
 			}
-			if($("#form_introduceWrite :input[name=mainImage]").val().trim()==""){
-				alert("메인 이미지를 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=Image]").val().trim()==""){
-				alert("그외 이미지를 입력하세요");				
-				return false;
-			}
-			if($("#form_introduceWrite :input[name=categoryVO.categoryNo]").val() =="0")
-				{
-				
+			if($("#category_no").val().trim() =="")
+			{
+		    	
 			alert("카테고리번호를 선택하세요");				
 			return false;
-				}
-			
-
+			}
 		
 				
 		}); // submit
 		
+		
+		$("#keyword").keyup(function(){
+			
+			
+			var string=$(this).val();
+			//문자열 해쉬태그 배열로 나누기
+			var strArray=string.split('#');
+
+			for(var key in strArray){
+		
+				if(parseInt(key)!=0 && parseInt(key)<4)
+				{
+
+				$("#hash"+key).val(strArray[parseInt(key)]);
+			
+				}
+				else if( parseInt(key)>=4){
+					
+					alert("태그는 3개까지만 유효합니다");
+				
+					$("#keyword").val("#"+strArray[1]+"#"+strArray[2]+"#"+strArray[3]);
+
+			 	
+			}
+			}
+		
+		})//callback
+
+	/*
 		$("#keyword").keyup(function(){
 			 //해쉬 태그 분할하기 
 			var data="";
@@ -69,8 +88,7 @@
 			
 			var id;
 			
-			
-			//for문으로 저장된 해쉬태그 대화상자로 출력하기
+	
 			for(var key in strArray){
 				console.log(key);
 				if(parseInt(key)!=0 && parseInt(key)<4)
@@ -78,8 +96,8 @@
 					id="#hash"+key;
 					console.log(id);
 					//alert(id);
-			/* 		data +="<input type='text' id="+id+"name=keyWordVO["+key+"].keyWordName value="+strArray[parseInt(key)]+" readonly>";
-					$("#hashTag").html(data) */
+				data +="<input type='text' id="+id+"name=keyWordVO["+key+"].keyWordName value="+strArray[parseInt(key)]+" readonly>";
+					$("#hashTag").html(data) 
 					$("#hash"+key).val(strArray[parseInt(key)]);
 				
 					}
@@ -88,17 +106,17 @@
 					alert("태그는 3개까지만 유효합니다");
 				
 					$("#keyword").val("#"+$("#hash1").val()+"#"+$("#hash2").val()+"#"+$("#hash3").val());
-				/* 	$("#hashTag").on(function(){
+			 	$("#hashTag").on(function(){
 					
-						$("#keyword").val("#"+$("#hash1").val()+"#"+$("#hash2").val()+"#"+$("#hash3").val());
-					})
-				 */
+						//$("#keyword").val("#"+$("#hash1").val()+"#"+$("#hash2").val()+"#"+$("#hash3").val());
+			
 					
 				}
 				//alert(strArray[key]);
 			}
 		})//callback
 		
+		*/
 	}); // ready
 </script>
 <!-- PAGE CONTENT
@@ -120,7 +138,7 @@
 				var RecaptchaOptions = {
 					theme : 'custom',
 					custom_theme_widget : 'recaptcha_widget'
-				};
+				}
 			</script>
 			<!-- Please carefully read the README.txt file in order to setup
                the PHP contact form properly -->
@@ -141,9 +159,9 @@ enctype="multipart/form-data">
 					<label for="region">키워드</label> 
 					<input type="text" name="keyword" class="form-control" id="keyword" placeholder="keyword" data-original-title="" title="" value=""> 
 					<div id="hashTag">
-					<input type="text" id="hash1" name="keyWordVO[0].keyWordName" value="" readonly>
-                    <input type="text" id="hash2" name="keyWordVO[1].keyWordName" value="" readonly>
-                    <input type="text" id="hash3" name="keyWordVO[2].keyWordName" value="" readonly>
+					<input type="text" id="hash1" value="" readonly>
+                    <input type="text" id="hash2" value="" readonly>
+                    <input type="text" id="hash3" value="" readonly>
                     </div>
 					<span class="help-block"></span>
 				</div>
@@ -194,7 +212,7 @@ enctype="multipart/form-data">
 		<!-- 	<form class="form-inline topbar__search" role="form"
 				action="findMeetingList.do"> -->
 				<select class="selectpicker"name="categoryVO.categoryNo" id="category_no">
-					<option value="0">카테고리</option>
+					<option value="">카테고리</option>
 					<option value="1">음식</option>
 					<option value="2">술</option>
 					<option value="3">문화</option>

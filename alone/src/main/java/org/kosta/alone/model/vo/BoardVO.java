@@ -12,6 +12,8 @@ public class BoardVO {
 	private ImageVO mainImage;
 	private List<ImageVO> imageVO;
 
+	
+	//디폴트생성자
 	public BoardVO() {
 		super();
 	}

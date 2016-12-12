@@ -59,12 +59,15 @@ and board.board_no=image.board_no and image.image_no=1;
 
 --and image.image_no=1;
 delete from image;
-insert into image(image_no, image_name, image_original_name, board_no) 
-values('1', sysdate, 'asdf', 1);
-insert into image(image_no, image_name, image_original_name, board_no) 
-values('1', sysdate, 'asdf', 2);
+insert into image(image_no, image_name, image_originalname, board_no) 
+values(image_seq.nextval, sysdate, '공유.jpg', 1);
+insert into image(image_no, image_name, image_originalname, board_no) 
+values(image_seq.nextval, sysdate, '아이유.jpg', 1);
 select * from image where board_no=1;
 
+--오리지널 이미지 이름뽑기
+	SELECT image_name,image_originalname image_ FROM image 
+	WHERE NOT image_name LIKE 'main%'and board_no='1';
 
 -----------------기업회원 마이페이지
 	select companymember.id,member.nickname,authorities.authority,companymember.approval,companymember.write
@@ -173,3 +176,17 @@ ENERICMEMBER gmember,mileage mileage
 	select nickName from member where id='spring'
 	select * from mileage
 
+
+--소개글삭제
+
+delete from introduce where board_no ='246' 
+delete from board where board_no ='246' --이미지가 먼저 삭제된후 삭제되야함
+delete from image where board_no ='246' 
+delete from keyword where board_no ='246' 
+
+  select image_name from image where board_no ='254'
+  
+ALTER TABLE INTRODUCE
+ADD constraint fk_introduce foreign key(board_no) 
+references board(board_no)
+[ON DELETE CASCADE];

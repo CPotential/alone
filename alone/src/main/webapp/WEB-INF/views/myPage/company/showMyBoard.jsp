@@ -16,9 +16,10 @@
 						<div class="panel panel-primary">
 							<div class="panel-heading"></div>
 							<div class="panel-body">
-								<!-- fileOriginal name 따로 저장해야되는구나. -->
+								
 								<c:forEach items="${requestScope.introVO.imageVO}" var="imgVO">
-									<a href="${pageContext.request.contextPath}/fileDownload.do?fileName=${imgVO.imageName}">${imgVO.imageName}</a>
+								<!--  다운로드시는 서버에 저장되는 실제 이름과 같아야함/ 원래 저장했던 이미지로 다운로드하기!!! -->
+									<a href="${pageContext.request.contextPath}/fileDownload.do?fileName=${imgVO.imageName}&originalFileName=${imgVO.originalFileName}">${imgVO.originalFileName}</a>
 									<br>
 									<img src="${pageContext.request.contextPath}/resources/upload/${imgVO.imageName}">
 									<br>
@@ -48,8 +49,9 @@
 						<div class="btn-group btn-group-justified">
 							<a
 								href="${pageContext.request.contextPath}/introduceUpdateForm.do?boardNo=${requestScope.introVO.boardNo}"
-								class="btn btn-default">수 정</a> <a href="#"
-								class="btn btn-default">삭 제</a>
+								class="btn btn-default">수 정</a> 
+								<a href="${pageContext.request.contextPath}/introduceDelete.do?boardNo=${requestScope.introVO.boardNo}"
+					class="btn btn-default">삭 제</a>
 
 						</div>
 					</div>

@@ -35,9 +35,7 @@ public interface BoardService {
 	public void reviewWrite(ReviewVO reviewVO);
 
 	public void meetingWrite(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO);
-
 	void introduceWrite(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request);
-
 	public MeetingVO meetingDetail(int boardNo);
 
 	public List<CommentVO> commentList(int boardNo);
@@ -73,4 +71,11 @@ public interface BoardService {
 	public void boardDelete(int boardNo);
 
 	public void likeUp(BoardVO bvo);
+
+
+	void introduceDelete(IntroduceVO introduceVO, HttpServletRequest request);
+
+
+
+
 }

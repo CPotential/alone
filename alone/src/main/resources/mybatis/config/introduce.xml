@@ -14,14 +14,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<resultMap type="keyWordVO" id="keyWordRM">
 		<result column="keyword_name" property="keyWordName" />
+	   <result column="keyword_no" property="keyWordNo" />
 	</resultMap>
 	<resultMap type="introduceCategoryVO" id="introduceCategoryRM">
 		<result column="category_no" property="categoryNo" />
 		<result column="category_name" property="categoryName" />
 	</resultMap>
 	<select id="introduceList" resultMap="introduceRM" parameterType="hashMap">
-     select board_no,nickname,region from
-     (select row_number() over(order by board.board_no) as rnum,introduce.board_no,member.nickname,introduce.region from
+     select board_no,nickname,region,keyword from
+     (select row_number() over(order by board.board_no) as rnum,introduce.board_no,member.nickname,introduce.region,
+     introduce.keyword from
      board board,member member,introduce introduce
      where introduce.category_no=#{categoryNo} and member.id=board.id and board.board_no=introduce.board_no) 
 	 where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}   
@@ -31,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where introduce.category_no = introduce_category.category_no and introduce_category.category_no = #{value}
 	</select>
 	<select id="keyWordList" resultMap="keyWordRM" resultType="keyWordVO">
-		select keyword_name
+		select keyword_name,keyword_no
 		from keyword
 		where keyword.board_no=#{value}
 	</select>
@@ -42,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 		<select id="introduceDetail" resultMap="introduceRM" parameterType="int"> 
 		select introduce.board_no, board.content, introduce.company_name, introduce.region, 
-		introduce.location, introduce.business_hours, introduce.tel 
+		introduce.location, introduce.business_hours, introduce.tel, introduce.keyword
 		from introduce introduce,board board 
 		where board.board_no=introduce.board_no and introduce.board_no=#{value}
 		</select>
@@ -60,12 +62,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update companymember set write = write+1 where id=#{value} 
 	</update>
 	
+	<update id="updateWriteBack" parameterType="string">
+	
+		update companymember set write = 0 where id=#{value} 
+	</update>
+	
 	<insert id="introduceWrite" parameterType="introduceVO" >
-		insert into introduce(board_no, company_name, region, location, business_hours,tel,category_no )
-		values(#{boardNo}, #{companyName}, #{region}, #{location}, #{businessHours},#{tel},#{categoryVO.categoryNo})
+		insert into introduce(board_no, company_name, region, location, business_hours,tel,category_no,keyword )
+		values(#{boardNo}, #{companyName}, #{region}, #{location}, #{businessHours},#{tel},#{categoryVO.categoryNo},#{keyword})
 	</insert>
 	
-	
+
 	
 	<insert id="keywordRegister" parameterType="keywordVO"  >
 		<selectKey resultType="int" keyProperty="keyWordNo" order="BEFORE">
@@ -74,6 +81,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	insert into KEYWORD(keyword_no,keyword_name,board_no) 
      values(#{keyWordNo}, #{keyWordName},#{boardNo})
 	</insert>
+	
+	
+	<update id="keywordUpdate" parameterType="keywordVO"  >
+	update keyword set  keyword_name=#{keyWordName}
+     where keyword_no=#{keyWordNo}
+	</update>
+	
 	
 	<update id="boardUpdate" parameterType="introduceVO">
 			update board
@@ -92,10 +106,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="region != null and region != '' " >region=#{region},</if>
 			<if test="location != null  and location !=''">location=#{location},</if>
 		    <if test="businessHours != null  and businessHours !=''">business_hours=#{businessHours},</if>
-			<if test="tel != null  and tel !=''"> tel=#{tel}</if>
+			<if test="tel != null  and tel !=''"> tel=#{tel},</if>
+		    <if test="keyword != null  and keyword !=''"> keyword=#{keyword}</if>
 		</set>
 		where board_no=#{boardNo}
 	</update>
+	
+	<delete id="introduceDeleteByBoardNo">
+	delete from introduce where board_no =#{value}	
+	</delete>
+	<delete id="keywordDeleteByBoardNo">
+	delete from keyword where board_no =#{value}
+	</delete>
 	
 	
 	
