@@ -227,6 +227,7 @@ public class BoardController {
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "introduceWrite.do")
 	public String introduceWrite(HttpServletRequest request, IntroduceVO introduceVO, UploadFileVO vo) {
+		System.out.println("컨트롤러 진입 " + vo);
 		HttpSession session = request.getSession(false);
 		// 기업회원은 기업회원객체를 가지고있다
 		CompanyMemberVO memberVO = (CompanyMemberVO) session.getAttribute("memberVO");

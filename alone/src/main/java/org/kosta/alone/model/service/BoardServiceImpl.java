@@ -187,6 +187,7 @@ public class BoardServiceImpl implements BoardService {
 		List<MultipartFile> list = vo.getFile(); // 그외 파일을 가져온다
 		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload/");
 		// 파일 디렉토리 생성
+		System.out.println("서비스 진입 " + vo );
 		File uploadDir = new File(uploadPath);
 		if (uploadDir.exists() == false)
 			uploadDir.mkdirs();
@@ -196,9 +197,10 @@ public class BoardServiceImpl implements BoardService {
 			mainFileName = "main_" + boardVO.getBoardNo() + mainFileName;
 			try {
 				mainFile.transferTo(new File(uploadPath + mainFileName));
-				// System.out.println(mainFileName+" 업로드 완료");
+				//System.out.println(mainFileName+" 업로드 완료");
 				ImageVO imageVO = new ImageVO(0, mainFileName, boardVO.getBoardNo());
 				// System.out.println("imageVO: "+imageVO);
+				System.out.println(imageVO);
 				boardDAO.imageUpload(imageVO);
 
 			} catch (Exception e) {
@@ -237,6 +239,7 @@ public class BoardServiceImpl implements BoardService {
 
 		// 해당 게시물의 이미지 정보를 가져와서 세팅(main image 정보도 저장되어있으므로 이것은 수정해야함!!)
 		imageList = boardDAO.imageList(boardNo);
+		System.out.println(imageList);
 		introduceVO.setImageVO(imageList);
 
 		// 완벽히 저장된 상세정보를 리턴한다!!!
