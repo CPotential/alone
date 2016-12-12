@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and board.board_enabled=1
 		)
 		where rnum between #{pb.startRowNumber} and #{pb.endRowNumber}
+
 	</select>
 
 	<select id="reviewWriterSearchList" resultType="reviewVO" parameterType="pagingBean" resultMap="reviewRM">

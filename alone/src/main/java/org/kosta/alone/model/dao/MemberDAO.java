@@ -23,5 +23,7 @@ public interface MemberDAO {
 
 	public List<MemberVO> leaveMemberList();
 
+	public MemberVO showAdminMember(MemberVO memberVO);
+
 
 }

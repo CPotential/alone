@@ -308,7 +308,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("reviewdetail.do")
-	public ModelAndView reviewDetail(int boardNo, HttpSession session) {
+	public ModelAndView reviewDetail(int boardNo) {
 		ModelAndView mav = new ModelAndView("board/reviewDetail");
 		mav.addObject("rvo", boardService.reviewDetail(boardNo));
 		mav.addObject("commentList", boardService.commentList(boardNo));

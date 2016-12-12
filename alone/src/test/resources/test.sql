@@ -175,6 +175,7 @@ ENERICMEMBER gmember,mileage mileage
 	
 	select nickName from member where id='spring'
 	select * from mileage
+<<<<<<< HEAD
 
 
 --소개글삭제
@@ -190,3 +191,13 @@ ALTER TABLE INTRODUCE
 ADD constraint fk_introduce foreign key(board_no) 
 references board(board_no)
 [ON DELETE CASCADE];
+=======
+
+	
+	select * from member where id='admin'
+
+
+select mileage.deal_money, mileage.deal_content
+		from mileage mileage, member member
+		where mileage.id=member.id and member.id='java' order by mileage_no desc
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git

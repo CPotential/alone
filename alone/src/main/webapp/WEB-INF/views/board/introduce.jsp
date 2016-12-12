@@ -1,23 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%--
-<!-- PAGE HEADER
-    ============================== -->
-<div class="page__header">
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12">
-				<h3 class="page-header__title">Introduce</h3>
-				<ol class="breadcrumb page-header__breadcrumb">
-					<li><a href="index.html">Home</a></li>
-					<li class="active">Introduce</li>
-				</ol>
-			</div>
-		</div>
-	</div>
-</div>
- --%>
 
 <!-- PAGE CONTENT
     ============================== -->
@@ -33,11 +16,17 @@
 						<!-- Image -->
 						<div class="portfolio__img">
 							<a href="portfolio-item.html"> 
+<<<<<<< HEAD
 							<c:set var="mainImage" value="${list.mainImage}"></c:set>
 						
 								<img src="${pageContext.request.contextPath}/resources/upload/${mainImage.imageName}" alt="Portfolio Image">
 				
 				
+=======
+								<c:forEach items="${list.imageVO}" var="imageList">
+									<img src="${pageContext.request.contextPath}/resources/upload/${imageList.imageName}" alt="Portfolio Image">
+								</c:forEach>
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 							</a>
 						</div>
 						<!-- Captions -->
@@ -46,7 +35,7 @@
 								<a href="${pageContext.request.contextPath}/introduceDetail.do?boardNo=${list.boardNo}">
 									${list.memberVO.nickName }
 								</a></h3>
-							<div class="portfolio__intro">
+								<div class="portfolio__intro">
 								${list.region }<br>
 								<c:forEach items="${list.keyWordVO}" var="keyWordList">
 									#${keyWordList.keyWordName}  

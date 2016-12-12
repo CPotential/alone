@@ -6,7 +6,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script type="text/javascript">
 	$(document).ready(function(){
-		
 		$("#form_introduceWrite").submit(function(){
 			if($("#form_introduceWrite :input[name=companyName]").val().trim()==""){
 				alert("회사이름을 입력하세요");				
@@ -15,7 +14,6 @@
 			if($("#form_introduceWrite :input[name=keyword]").val().trim()==""){
 				alert("키워드를 입력하세요");				
 				return false;
-				
 			}
 	
 			if($("#form_introduceWrite :input[name=region]").val().trim()==""){
@@ -38,6 +36,7 @@
 				alert("상세정보를 입력하세요");				
 				return false;
 			}
+<<<<<<< HEAD
 			if($("#category_no").val().trim() =="")
 			{
 		    	
@@ -46,6 +45,20 @@
 			}
 		
 				
+=======
+			if($("#form_introduceWrite :input[name=mainImage]").val().trim()==""){
+				alert("메인 이미지를 입력하세요");				
+				return false;
+			}
+			if($("#form_introduceWrite :input[name=Image]").val().trim()==""){
+				alert("그외 이미지를 입력하세요");				
+				return false;
+			}
+			if($("#form_introduceWrite :input[name=categoryVO.categoryNo]").val() =="0"){
+				alert("카테고리번호를 선택하세요");				
+				return false;
+			}
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 		}); // submit
 		
 		
@@ -83,47 +96,51 @@
 			var string=$(this).val();
 			//문자열 해쉬태그 배열로 나누기
 			var strArray=string.split('#');
-			
-			console.log(strArray);
-			
 			var id;
 			
+<<<<<<< HEAD
 	
+=======
+			//for문으로 저장된 해쉬태그 대화상자로 출력하기
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 			for(var key in strArray){
 				console.log(key);
-				if(parseInt(key)!=0 && parseInt(key)<4)
-					{
+				if(parseInt(key)!=0 && parseInt(key)<4){
 					id="#hash"+key;
+<<<<<<< HEAD
 					console.log(id);
 					//alert(id);
 				data +="<input type='text' id="+id+"name=keyWordVO["+key+"].keyWordName value="+strArray[parseInt(key)]+" readonly>";
 					$("#hashTag").html(data) 
+=======
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 					$("#hash"+key).val(strArray[parseInt(key)]);
-				
-					}
-				else if( parseInt(key)>=4){
-					
+				} else if( parseInt(key)>=4){
 					alert("태그는 3개까지만 유효합니다");
-				
 					$("#keyword").val("#"+$("#hash1").val()+"#"+$("#hash2").val()+"#"+$("#hash3").val());
+<<<<<<< HEAD
 			 	$("#hashTag").on(function(){
 					
 						//$("#keyword").val("#"+$("#hash1").val()+"#"+$("#hash2").val()+"#"+$("#hash3").val());
 			
 					
+=======
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 				}
-				//alert(strArray[key]);
 			}
+<<<<<<< HEAD
 		})//callback
 		
 		*/
+=======
+		}) // keyup
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 	}); // ready
 </script>
 <!-- PAGE CONTENT
     ============================== -->
 <div class="container">
 	<div class="row">
-
  
           <div class="col-sm-8 col-md-9 col-lg-10">
 			<h3 class="header">Introduce Write form</h3>
@@ -142,14 +159,8 @@
 			</script>
 			<!-- Please carefully read the README.txt file in order to setup
                the PHP contact form properly -->
-			<form role="form" action="${pageContext.request.contextPath}/introduceWrite.do" id="form_introduceWrite"
-			method="post" 
-enctype="multipart/form-data">
-				<!-- <div class="form-group">
-					<label for="email">Your email address</label> 
-					<input type="email" 	name="email" class="form-control" id="email" placeholder="E-mail" 	data-original-title="" title=""> 
-					<span class="help-block"></span>
-				</div> -->
+			<form role="form" action="${pageContext.request.contextPath}/introduceWrite.do" id="form_introduceWrite" 
+				method="post" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="title">가게명</label> 
 					<input type="text" name="companyName" class="form-control" id="company_name" placeholder="company_name"  data-original-title="" title=""> 

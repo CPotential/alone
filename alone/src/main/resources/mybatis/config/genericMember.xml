@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="mileageInfo" resultMap="mileageRM" parameterType="string">
 		select mileage.deal_money, mileage.deal_content
 		from mileage mileage, member member
-		where mileage.id=member.id and member.id=#{value}
+		where mileage.id=member.id and member.id=#{value} order by mileage_no desc
 	</select>
 
 	<select id="nowMileage" resultType="integer">

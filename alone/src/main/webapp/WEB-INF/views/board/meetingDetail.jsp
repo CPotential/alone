@@ -216,6 +216,7 @@
 						}
 					});
 				</script>
+
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<a href="${pageContext.request.contextPath}/meetingList.do" class="btn btn-default">목 록</a>

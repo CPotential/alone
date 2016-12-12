@@ -49,8 +49,7 @@
 						class="help-block"></span>
 				</div>
 					<button type="submit" class="btn btn-primary">후기글 작성</button>
-					<button type="button" class="btn btn-primary"
-						onclick="reviewWriteCancel()">작성 취소</button>
+					<button type="button" class="btn btn-primary" onclick="reviewWriteCancel()">작성 취소</button>
 			</form>
 
 		</div>
