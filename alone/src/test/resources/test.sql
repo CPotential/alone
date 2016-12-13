@@ -180,3 +180,11 @@ ENERICMEMBER gmember,mileage mileage
 select mileage.deal_money, mileage.deal_content
 		from mileage mileage, member member
 		where mileage.id=member.id and member.id='java' order by mileage_no desc
+		
+	select board_no,likes,nickname from(select introduce.board_no,introduce.likes,member.nickname,
+	RANK() OVER(order by introduce.likes desc) 
+	as rank from introduce introduce,member member,board board where board.id=member.id and 
+	introduce.board_no=board.board_no and board.board_enabled=1)
+  	where rank between 1 and 8 order by likes desc
+  	
+  	SELECT image_name FROM image WHERE NOT image_name LIKE 'main%'and board_no=127

@@ -21,6 +21,7 @@ CREATE TABLE IMAGE(
 	constraint fk_image foreign key(board_no) references board(board_no)
 )
 select * from image
+alter table image drop(image_original_name);
 --마일리지 정보
 CREATE TABLE MILEAGE(
 	mileage_no number primary key,

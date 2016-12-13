@@ -8,13 +8,15 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<mvc:annotation-driven />
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/"></property>
 		<property name="suffix" value=".jsp"></property>
 		<property name="order" value="2"></property>
 	</bean>
 	<!-- Tiles 설정 -->
-	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
 			<list>
 				<value>/WEB-INF/tiles-*.xml</value>
@@ -22,28 +24,29 @@
 		</property>
 	</bean>
 	<!-- Tiles ViewResolver 설정 -->
-	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	<bean id="tilesViewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles3.TilesView" />
 		<property name="order" value="0" />
 	</bean>
-	
+
 	<!-- 파일업로드 설정 -->
 
-<bean id="multipartResolver" 
-class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	<property name="defaultEncoding" value="utf-8"/>
-	<!-- 아래는 파일사이즈 제한시 사용한다  -->
-	<!-- <property name="maxUploadSize" value="5*1024*1024"/> -->	
-</bean>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<!-- 아래는 파일사이즈 제한시 사용한다 -->
+		<!-- <property name="maxUploadSize" value="5*1024*1024"/> -->
+	</bean>
 
-<!-- 파일 다운로드를 위한 설정 -->
-<bean name="downloadView" class="org.kosta.alone.controller.DownloadView"/>
-<!-- 파일 다운로드 서비스를 위해 ViewResolver를 추가한다 -->
-<bean id="beanNameViewResolver" 
-class="org.springframework.web.servlet.view.BeanNameViewResolver">
-	<property name="order" value="1"/> <!-- TilesViewResolver가 0번 , InternalResourceViewResolver가 2번 -->
-</bean>		   
-	
+	<!-- 파일 다운로드를 위한 설정 -->
+	<!-- <bean name="downloadView" class="org.kosta.alone.controller.DownloadView" /> -->
+	<!-- 파일 다운로드 서비스를 위해 ViewResolver를 추가한다 -->
+	<!-- <bean id="beanNameViewResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1" /> TilesViewResolver가 0번 , InternalResourceViewResolver가 2번
+	</bean> -->
 
-	
+
 </beans>

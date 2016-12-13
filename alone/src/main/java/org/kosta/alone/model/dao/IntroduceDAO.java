@@ -25,7 +25,6 @@ public interface IntroduceDAO {
 
 	void updateWrite(String id);
 
-
 	void keywordRegister(KeyWordVO keywordVO);
 
 	int findIntroduceById(String id);
@@ -33,5 +32,7 @@ public interface IntroduceDAO {
 	public void boardUpdate(IntroduceVO introduceVO);
 
 	public void introduceUpdate(IntroduceVO introduceVO);
+	
+	public List<IntroduceVO> rankingIntroduceList();
 
 }

@@ -18,6 +18,7 @@ import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.kosta.alone.model.vo.UploadFileVO;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +28,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class BoardController {
 	@Resource
 	private BoardService boardService;
+	
+	@RequestMapping("home.do")
+	public ModelAndView Home(){
+		return new ModelAndView("home","ranking",boardService.rankingIntroduceList());
+	}
 
 	/**
 	 * 모임 게시글 리스트 & 검색 리스트
@@ -158,12 +164,9 @@ public class BoardController {
 
 	@RequestMapping("introduceUpdateForm.do")
 	public ModelAndView introduceUpdateForm(int boardNo) {
-
-		System.out.println("introduceUpdateForm : " + boardNo);
 		// boardNo에 해당하는 소개글의 정보를 소개글 수정폼에 전달하여 함께 출력한다
 		IntroduceVO introVO = boardService.introduceDetail(boardNo);
 		return new ModelAndView("myPage/company/introduceUpdateForm", "introVO", introVO);
-
 	}
 
 	/**
@@ -286,7 +289,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("reviewdetail.do")
-	public ModelAndView reviewDetail(int boardNo, HttpSession session) {
+	public ModelAndView reviewDetail(int boardNo) {
 		ModelAndView mav = new ModelAndView("board/reviewDetail");
 		mav.addObject("rvo", boardService.reviewDetail(boardNo));
 		mav.addObject("commentList", boardService.commentList(boardNo));

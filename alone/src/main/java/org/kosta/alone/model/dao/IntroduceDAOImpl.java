@@ -84,10 +84,12 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 
 	@Override
 	public void introduceUpdate(IntroduceVO introduceVO) {
-	
 		sqlSessionTemplate.update("introduce.introduceUpdate",introduceVO);
-		
 	}
 	
+	@Override
+	public List<IntroduceVO> rankingIntroduceList(){
+		return sqlSessionTemplate.selectList("introduce.rankingIntroduceList");
+	}
 	
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <!-- HERO BLOCK
@@ -57,6 +57,7 @@
 		</div>
 		<!-- / .row -->
 
+
 		<div class="row">
 			<div class="col-xs-12">
 				<!-- Portfolio Carousel -->
@@ -74,159 +75,64 @@
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
+								
+				
 
 						<!-- Slide #1 -->
+						
 						<div class="item active">
 							<div class="row">
+							<c:forEach items="${ranking}" var="list" begin="0" end="3">
 								<div class="col-xs-6 col-sm-6 col-md-3">
-									<!-- Portfolio Item #1 -->
 									<div class="portfolio__item">
 										<!-- Image -->
+										<%-- 
 										<div class="portfolio__img">
-											<a href="#"> <img src="resources/img/혼자가기 좋은 음식 쌀국수.PNG"
-												alt="Portfolio Image">
-											</a>
-										</div>
+										<c:set var="mainImage" property="${list.imageVO.mainImage}"/>		
+										<img src="${pageContext.request.contextPath}/resources/upload/${mainImage.imageName}" alt="Portfolio Image">
+										</div> --%>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-											<h3 class="portfolio__title">홍대 칼국수집</h3>
-										<!-- 	<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
+											<h3 class="portfolio__title">${list.memberVO.nickName }</h3>
 										</div>
+										  <div class="portfolio__intro">
+										  <c:forEach items="${list.keyWordVO}" var="keyWordList">
+											#${keyWordList.keyWordName}  
+											</c:forEach>
+                        				  </div>
 									</div>
 								</div>
-								<div class="col-xs-6 col-sm-6 col-md-3">
-									<!-- Portfolio Item #2 -->
-									<div class="portfolio__item">
-										<!-- Image -->
-										<div class="portfolio__img">
-											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/혼자 먹기 좋은 순대국.PNG"
-												alt="Portfolio Image">
-											</a>
-										</div>
-										<!-- Captions -->
-										<div class="portfolio__caption">
-											<h3 class="portfolio__title">강남 순대국</h3>
-										<!-- 	<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
-										</div>
-									</div>
-								</div>
-								<div class="col-xs-6 col-sm-6 col-md-3">
-									<!-- Portfolio Item #3 -->
-									<div class="portfolio__item">
-										<!-- Image -->
-										<div class="portfolio__img">
-											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/혼자가기 좋은 일본 음식점.PNG"
-												alt="Portfolio Image">
-											</a>
-										</div>
-										<!-- Captions -->
-										<div class="portfolio__caption">
-											<h3 class="portfolio__title">종로 일본 라면</h3>
-											<!-- <div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
-										</div>
-									</div>
-								</div>
-								<div class="col-xs-6 col-sm-6 col-md-3">
-									<!-- Portfolio Item #4 -->
-									<div class="portfolio__item">
-										<!-- Image -->
-										<div class="portfolio__img">
-											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/판교볶음밥.jpg"
-												alt="Portfolio Image">
-											</a>
-										</div>
-										<!-- Captions -->
-										<div class="portfolio__caption">
-											<h3 class="portfolio__title">판교 볶음밥</h3>
-											<!-- <div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
-										</div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 							<!-- / .row -->
 						</div>
 						<!-- / .item -->
 
 						<!-- Slide #2 -->
-						<div class="item">
+					<div class="item">
 							<div class="row">
+							<c:forEach items="${ranking}" var="list" begin="4" end="8">
 								<div class="col-xs-6 col-sm-6 col-md-3">
 									<!-- Portfolio Item #1 -->
 									<div class="portfolio__item">
 										<!-- Image -->
+											<%-- 
 										<div class="portfolio__img">
-											<a href="#"> <img src="resources/img/새싹비빔밥.jpg"
-												alt="Portfolio Image">
-											</a>
-										</div>
+										<c:set var="mainImage" property="${list.imageVO.mainImage}"/>		
+										<img src="${pageContext.request.contextPath}/resources/upload/${mainImage.imageName}" alt="Portfolio Image">
+										</div> --%>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-											<h3 class="portfolio__title">종로 새싹비빔밥</h3>
-									<!-- 		<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
+											<h3 class="portfolio__title">${list.memberVO.nickName }</h3>
 										</div>
 									</div>
 								</div>
-								<div class="col-xs-6 col-sm-6 col-md-3">
-									<!-- Portfolio Item #2 -->
-									<div class="portfolio__item">
-										<!-- Image -->
-										<div class="portfolio__img">
-											<a href="#"> <img src="resources/img/잠식맥앤치즈.jpg"
-												alt="Portfolio Image">
-											</a>
-										</div>
-										<!-- Captions -->
-										<div class="portfolio__caption">
-											<h3 class="portfolio__title">잠실 맥 앤 치즈</h3>
-											<!-- <div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
-										</div>
-									</div>
-								</div>
-								<div class="col-xs-6 col-sm-6 col-md-3">
-									<!-- Portfolio Item #3 -->
-									<div class="portfolio__item">
-										<!-- Image -->
-										<div class="portfolio__img">
-											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/잠실스테이크.jpg"
-												alt="Portfolio Image">
-											</a>
-										</div>
-										<!-- Captions -->
-										<div class="portfolio__caption">
-											<h3 class="portfolio__title">잠실 스테이크</h3>
-										<!-- 	<div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
-										</div>
-									</div>
-								</div>
-								<div class="col-xs-6 col-sm-6 col-md-3">
-									<!-- Portfolio Item #4 -->
-									<div class="portfolio__item">
-										<!-- Image -->
-										<div class="portfolio__img">
-											<a href="#"> <img src="${pageContext.request.contextPath}/resources/img/부산 크림파스타.jpg"
-												alt="Portfolio Image">
-											</a>
-										</div>
-										<!-- Captions -->
-										<div class="portfolio__caption">
-											<h3 class="portfolio__title">부산 크림 파스타</h3>
-											<!-- <div class="portfolio__intro">Morbi vulputate eget
-												ipsum vel maximus. Morbi dictum blandit mattis.</div> -->
-										</div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
 							<!-- / .row -->
 						</div>
 						<!-- / .item -->
-
+					
 					</div>
 					<!-- / .carousel-inner -->
 				</div>

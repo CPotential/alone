@@ -182,6 +182,7 @@ public class BoardServiceImpl implements BoardService {
 
 	}
 
+	@Transactional
 	public void imageUpload(BoardVO boardVO, UploadFileVO vo, HttpServletRequest request) {
 		MultipartFile mainFile = vo.getMainFile(); // 메인 파일을 가져온다
 		List<MultipartFile> list = vo.getFile(); // 그외 파일을 가져온다
@@ -218,7 +219,7 @@ public class BoardServiceImpl implements BoardService {
 			if (!fileName.equals("")) {
 				try {
 					list.get(i).transferTo(new File(uploadPath + fileName));
-					ImageVO imageVO = new ImageVO(0, fileName, boardVO.getBoardNo());
+					ImageVO imageVO = new ImageVO(fileName, boardVO.getBoardNo());
 					boardDAO.imageUpload(imageVO);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -228,6 +229,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	@Transactional
 	public IntroduceVO introduceDetail(int boardNo) {
 		List<ImageVO> imageList = null;
 		List<KeyWordVO> keyWordList = null;
@@ -268,6 +270,7 @@ public class BoardServiceImpl implements BoardService {
 	 * 모임글 상세보기
 	 */
 	@Override
+	@Transactional
 	public MeetingVO meetingDetail(int boardNo) {
 		meetingDAO.updateHit(boardNo);
 		MeetingVO meetingVO = null;
@@ -443,6 +446,21 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.likeCheckUp(bvo);
 			reviewDAO.likeUp(bvo);
 		}
+	}
+
+	@Override
+	public List<IntroduceVO> rankingIntroduceList() {
+		List<ImageVO> imageList = null;
+		List<KeyWordVO> keyWordVO = null;
+		List<IntroduceVO> list =introduceDAO.rankingIntroduceList();
+		for (int i = 0; i < list.size(); i++) {
+			keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
+			list.get(i).setKeyWordVO(keyWordVO);
+			imageList = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
+			list.get(i).setImageVO(imageList);
+		}
+		
+		return list;
 	}
 
 }

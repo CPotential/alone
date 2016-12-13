@@ -73,4 +73,6 @@ public interface BoardService {
 	public void boardDelete(int boardNo);
 
 	public void likeUp(BoardVO bvo);
+	
+	public List<IntroduceVO> rankingIntroduceList();
 }

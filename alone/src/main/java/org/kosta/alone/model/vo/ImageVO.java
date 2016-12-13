@@ -3,6 +3,7 @@ package org.kosta.alone.model.vo;
 
 
 public class ImageVO {
+	
 	private int boardNo;
 	private int imageNo;
 	private String imageName;
@@ -22,7 +23,10 @@ public class ImageVO {
 
 	
 	}
-	
+	public ImageVO( String imageName, int boardNo){
+		this.imageName = imageName;
+		this.boardNo = boardNo;
+	}
 
 	
 	public ImageVO(int imageNo, String imageName, int boardNo) {

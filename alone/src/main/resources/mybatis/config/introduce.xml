@@ -105,4 +105,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     where b.board_no=intro.board_no and b.id=#{value}
 	</select>
 	
+	<select id="rankingIntroduceList" resultMap="introduceRM">
+	select board_no,likes,nickname from(select introduce.board_no,introduce.likes,member.nickname,
+	RANK() OVER(order by introduce.likes desc) 
+	as rank from introduce introduce,member member,board board where board.id=member.id and 
+	introduce.board_no=board.board_no and board.board_enabled=1)
+  	where rank between 1 and 8 order by likes desc
+	</select>
+	
 </mapper>

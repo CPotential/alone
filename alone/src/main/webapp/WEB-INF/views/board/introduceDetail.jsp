@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 
  <!-- Panels -->
           <div class="ui__section" id="ui_panels">
@@ -32,10 +33,12 @@
                   	<c:forEach items="${requestScope.introVO.keyWordVO}" var="keyVO">
                   		#${keyVO.keyWordName}
                   	</c:forEach>
-                  	<br>
-                  </div>
-                </div>
-              </div>
-            </div> <!-- / row -->
-          </div> <!-- / ui__section -->
+					<br>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / row -->
+</div>
+<!-- / ui__section -->
 
