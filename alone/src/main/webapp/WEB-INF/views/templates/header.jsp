@@ -36,6 +36,7 @@
 			<!-- Account links -->
 			<c:choose>
 				<c:when test="${empty sessionScope.memberVO}">
+				<li><a href="${pageContext.request.contextPath}/templates/attendance.do">출석부 테스트</a></li>
 					<li><a href="${pageContext.request.contextPath}/login.do">Sign In</a></li>
 					<li><a href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
 				</c:when>
