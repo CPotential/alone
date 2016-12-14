@@ -2,7 +2,9 @@ package org.kosta.alone.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.KeyWordVO;
@@ -34,5 +36,9 @@ public interface IntroduceDAO {
 	public void introduceUpdate(IntroduceVO introduceVO);
 	
 	public List<IntroduceVO> rankingIntroduceList();
+
+	public void likeUp(BoardVO bvo);
+
+	public int likeCheckNumber(BoardVO bvo);
 
 }

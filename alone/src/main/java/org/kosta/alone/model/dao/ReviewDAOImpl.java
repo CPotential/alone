@@ -1,5 +1,6 @@
 package org.kosta.alone.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,6 +68,22 @@ public class ReviewDAOImpl implements ReviewDAO {
 	
 	public void likeUp(BoardVO bvo){
 		template.update("review.likeup",bvo);
+	}
+
+	@Override
+	public int likeCheckNumber(BoardVO bvo) {
+		// TODO Auto-generated method stub
+		return template.selectOne("review.likeChekcNumber",bvo);
+	}
+
+	@Override
+	public void mileageInsert(HashMap<String, Object> map) {
+		template.insert("review.mileageInsert",map);	
+	}
+
+	@Override
+	public void mileageUpdate(HashMap<String, Object> map) {
+		template.update("review.mileageUpdate",map);
 	}
 	
 }

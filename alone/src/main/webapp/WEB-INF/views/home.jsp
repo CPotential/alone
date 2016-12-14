@@ -132,7 +132,6 @@
 							<!-- / .row -->
 						</div>
 						<!-- / .item -->
-					
 					</div>
 					<!-- / .carousel-inner -->
 				</div>

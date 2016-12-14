@@ -4,8 +4,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.kosta.alone.model.dao.BoardDAO;
 import org.kosta.alone.model.dao.IntroduceDAO;
 import org.kosta.alone.model.dao.MeetingDAO;
@@ -23,8 +25,8 @@ import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.kosta.alone.model.vo.UploadFileVO;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -77,8 +79,8 @@ public class BoardServiceImpl implements BoardService {
 
 		if (nowPage == null) {
 			PagingBean pagingBean = new PagingBean(totalCount);
-			pagingBean.setContentNumberPerPage(6);
-			pagingBean.setPageNumberPerPageGroup(4);
+			pagingBean.introduceListSetPaging();
+
 			map.put("categoryNo", categoryNo);
 			map.put("pagingBean", pagingBean);
 			map.get("categoryNo");
@@ -94,8 +96,8 @@ public class BoardServiceImpl implements BoardService {
 			return vo;
 		} else {
 			PagingBean pagingBean = new PagingBean(totalCount, Integer.parseInt(nowPage));
-			pagingBean.setContentNumberPerPage(6);
-			pagingBean.setPageNumberPerPageGroup(4);
+			pagingBean.introduceListSetPaging();
+	
 			map.put("categoryNo", categoryNo);
 			map.put("pagingBean", pagingBean);
 			map.get("categoryNo");
@@ -241,7 +243,6 @@ public class BoardServiceImpl implements BoardService {
 
 		// 해당 게시물의 이미지 정보를 가져와서 세팅(main image 정보도 저장되어있으므로 이것은 수정해야함!!)
 		imageList = boardDAO.imageList(boardNo);
-		System.out.println(imageList);
 		introduceVO.setImageVO(imageList);
 
 		// 완벽히 저장된 상세정보를 리턴한다!!!
@@ -367,11 +368,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public MeetingVO meetingNoHitDetail(int boardNo) {
-		MeetingVO meetingVO = null;
-		meetingVO = meetingDAO.meetingDetail(boardNo);
-		List<ImageVO> imageList = null;
-		imageList = boardDAO.imageList(boardNo);
-		meetingVO.setImageVO(imageList);
+		MeetingVO meetingVO = meetingDAO.meetingDetail(boardNo);
+		meetingVO.setImageVO(boardDAO.imageList(boardNo));
 		return meetingVO;
 	}
 
@@ -384,10 +382,8 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	@Transactional
 	public IntroduceVO showCompanyBoard(String id) {
-
 		int boardNo = introduceDAO.findIntroduceById(id);
 		return introduceDetail(boardNo);
-
 	}
 
 	@Transactional
@@ -436,16 +432,23 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Transactional
-	public void likeUp(BoardVO bvo) {
+	public int reviewLikeUp(BoardVO bvo) {
 		BoardVO vo = boardDAO.likeCheckInfo(bvo);
 		if (vo == null) {
 			boardDAO.insertLikeCheck(bvo);
 			boardDAO.likeCheckUp(bvo);
 			reviewDAO.likeUp(bvo);
-		} else if (vo != null && vo.getLikeCheck() == 0) {
-			boardDAO.likeCheckUp(bvo);
-			reviewDAO.likeUp(bvo);
+			HashMap<String,Object>  map=new HashMap<>();
+			map.put("dealcontent", "게시물 번호 : "+bvo.getBoardNo()+" 좋아요 클릭");
+			map.put("id",bvo.getMemberVO().getId());
+			System.out.println(map.get("dealcontent")+"ddd");
+			reviewDAO.mileageInsert(map);
+			reviewDAO.mileageUpdate(map);
+		} else if (vo != null && vo.getLikeCheck() == 1) {
+			return 	reviewDAO.likeCheckNumber(bvo);
 		}
+		
+		return 	reviewDAO.likeCheckNumber(bvo);
 	}
 
 	@Override
@@ -461,6 +464,21 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		return list;
+	}
+
+	@Transactional
+	@Override
+	public int introduceLikeUp(BoardVO bvo) {
+		BoardVO vo = boardDAO.likeCheckInfo(bvo);
+		if (vo == null) {
+			boardDAO.insertLikeCheck(bvo);
+			boardDAO.likeCheckUp(bvo);
+			introduceDAO.likeUp(bvo);
+
+		}else if(vo != null &&vo.getLikeCheck()==1){
+			return introduceDAO.likeCheckNumber(bvo);
+		}
+		return introduceDAO.likeCheckNumber(bvo);
 	}
 
 }

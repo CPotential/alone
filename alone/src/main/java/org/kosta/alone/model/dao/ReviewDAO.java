@@ -1,5 +1,6 @@
 package org.kosta.alone.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,5 +33,11 @@ public interface ReviewDAO {
 	public void reviewUpdate(ReviewVO reviewVO);
 
 	public void likeUp(BoardVO bvo);
+
+	public int likeCheckNumber(BoardVO bvo);
+
+	public void mileageInsert(HashMap<String, Object> map);
+
+	public void mileageUpdate(HashMap<String, Object> map);
 	
 }

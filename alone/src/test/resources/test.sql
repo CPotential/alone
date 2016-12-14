@@ -188,3 +188,8 @@ select mileage.deal_money, mileage.deal_content
   	where rank between 1 and 8 order by likes desc
   	
   	SELECT image_name FROM image WHERE NOT image_name LIKE 'main%'and board_no=127
+  	
+  	select review.likes,introduce.likes from board board,review review,introduce introduce  
+  	where board_no=1 and introduce.board_no = board.board_no and review.board_no=board.board_no
+  	
+  	select likes from introduce where board_no='1'

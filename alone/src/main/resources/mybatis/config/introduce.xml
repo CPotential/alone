@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 		<select id="introduceDetail" resultMap="introduceRM" parameterType="int"> 
 		select introduce.board_no, board.content, introduce.company_name, introduce.region, 
-		introduce.location, introduce.business_hours, introduce.tel 
+		introduce.location, introduce.business_hours, introduce.tel,introduce.likes
 		from introduce introduce,board board 
 		where board.board_no=introduce.board_no and introduce.board_no=#{value}
 		</select>
@@ -113,4 +113,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	where rank between 1 and 8 order by likes desc
 	</select>
 	
+	<select id="likeup"  parameterType="boardVO"> 
+	update introduce set likes = likes+1 where board_no = #{boardNo} 
+	</select>
+	
+	<select id="likeChekcNumber" resultType="int" parameterType="boardVO">
+	select likes from introduce where board_no=#{boardNo}
+	</select>
+
 </mapper>

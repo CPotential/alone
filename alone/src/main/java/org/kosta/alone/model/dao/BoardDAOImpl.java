@@ -19,7 +19,6 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public List<ImageVO> imageList(int boardNo) {
-		System.out.println(boardNo + "이미지 리스트 dao 출력 진입");
 		return sqlSessionTemplate.selectList("board.imageList", boardNo);
 	}
 
@@ -44,12 +43,9 @@ public class BoardDAOImpl implements BoardDAO {
 	/**
 	 * 이미지 삭제
 	 */
-
 	@Override
 	public void imageDelete(String deleteFileName) {
-
 		sqlSessionTemplate.delete("board.imageDelete", deleteFileName);
-
 	}
 
 	@Override
@@ -64,7 +60,6 @@ public class BoardDAOImpl implements BoardDAO {
 
 	public void deleteComment(CommentVO commentVO) {
 		sqlSessionTemplate.delete("board.deleteComment", commentVO);
-
 	}
 
 	public void reviewBoardUpdate(ReviewVO reviewVO) {

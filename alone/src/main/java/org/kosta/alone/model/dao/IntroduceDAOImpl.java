@@ -2,9 +2,11 @@ package org.kosta.alone.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
 import org.kosta.alone.model.vo.KeyWordVO;
@@ -53,7 +55,6 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 	@Override
     public void updateWrite(String id){
 		sqlSessionTemplate.update("introduce.updateWrite",id);
-    	
     }
 
 /**
@@ -61,9 +62,7 @@ public class IntroduceDAOImpl implements IntroduceDAO {
  */
 	@Override
 	public void keywordRegister(KeyWordVO keywordVO) {
-	
 		sqlSessionTemplate.insert("introduce.keywordRegister",keywordVO);
-		
 	}
 	
 	/**
@@ -77,9 +76,7 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 
 	@Override
 	public void boardUpdate(IntroduceVO introduceVO) {
-	
-		sqlSessionTemplate.update("introduce.boardUpdate",introduceVO);
-		
+		sqlSessionTemplate.update("introduce.boardUpdate",introduceVO);	
 	}
 
 	@Override
@@ -91,5 +88,17 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 	public List<IntroduceVO> rankingIntroduceList(){
 		return sqlSessionTemplate.selectList("introduce.rankingIntroduceList");
 	}
-	
+
+	@Override
+	public void likeUp(BoardVO bvo) {
+		sqlSessionTemplate.update("introduce.likeup",bvo);
+		
+	}
+
+	@Override
+	public int likeCheckNumber(BoardVO bvo) {
+		return sqlSessionTemplate.selectOne("introduce.likeChekcNumber",bvo);
+	}
+
+
 }

@@ -98,6 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="likeCheckUp" parameterType="boardVO">
 		update likescheck set likeCheck = likeCheck+1 where id=#{memberVO.id} and board_no=#{boardNo}
 	</update>
+
 </mapper>
  
  

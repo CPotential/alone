@@ -18,7 +18,6 @@ import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.kosta.alone.model.vo.UploadFileVO;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -247,12 +246,8 @@ public class BoardController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "introduceUpdate.do")
 	public String introduceUdate(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
-
-		System.out.println(introduceVO);
 		boardService.introduceUpdate(introduceVO, vo, request);
-
 		return "redirect:showCompanyBoard.do";
-
 	}
 
 	/**
@@ -265,10 +260,8 @@ public class BoardController {
 	@RequestMapping(value = "fileDelete.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String fileDelete(String deleteFileName, HttpServletRequest request) {
-
 		// 파일이 존재하면 삭제하고 ok리턴
 		return boardService.deleteImage(deleteFileName, request);
-
 	}
 
 	@RequestMapping("sendCommentAjax.do")
@@ -319,11 +312,13 @@ public class BoardController {
 
 	@RequestMapping("likeUpAjax.do")
 	@ResponseBody
-	public ReviewVO likeUp(BoardVO bvo, HttpSession session) {
-		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");
+	public int likeUp(BoardVO bvo, HttpSession session,String command) {
+		MemberVO mvo = (MemberVO) session.getAttribute("memberVO");	
 		bvo.setMemberVO(mvo);
-		boardService.likeUp(bvo);
-		return boardService.reviewDetail(bvo.getBoardNo());
+		if(command ==null)
+			return  boardService.reviewLikeUp(bvo);	
+		else
+			return 	boardService.introduceLikeUp(bvo);
 	}
 
 	@RequestMapping("reviewUpdateForm.do")
@@ -364,7 +359,6 @@ public class BoardController {
 		HttpSession session = request.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 		meetingVO.setMemberVO(memberVO);
-		System.out.println(meetingVO + "!@!@!@!@");
 		boardService.meetingUpdate(request, meetingVO, null);
 		return "redirect:meetingDetail.do?boardNo=" + meetingVO.getBoardNo();
 	}
