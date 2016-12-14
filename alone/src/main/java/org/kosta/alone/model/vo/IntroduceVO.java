@@ -8,11 +8,14 @@ public class IntroduceVO extends BoardVO {
 	private String location;
 	private String businessHours;
 	private String tel;
+	private String keyword;
 	private List<KeyWordVO> keyWordVO;
 	private IntroduceCategoryVO categoryVO;
 
+	
+	//디폴트 생성자
 	public IntroduceVO() {
-		super();
+		super(); //상위 클래스의 디폴트 생성자 호출
 	}
 
 	public IntroduceVO(int boardNo, String content, String timePosted, int boardEnabled,int likeCheck,MemberVO memberVO,
@@ -84,11 +87,20 @@ public class IntroduceVO extends BoardVO {
 		this.categoryVO = categoryVO;
 	}
 
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	@Override
 	public String toString() {
-		return super.toString() + "IntroduceBoardVO [companyName=" + companyName + ", region=" + region + ", location="
-				+ location + ", businessHours=" + businessHours + ", tel=" + tel + ", keyWordVO=" + keyWordVO
-				+ ", categoryVO=" + categoryVO + "]";
+		return "IntroduceVO [companyName=" + companyName + ", region=" + region + ", location=" + location
+				+ ", businessHours=" + businessHours + ", tel=" + tel + ", keyword=" + keyword + ", keyWordVO="
+				+ keyWordVO + ", categoryVO=" + categoryVO + "]";
 	}
+
 
 }

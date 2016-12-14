@@ -130,7 +130,9 @@ public class BoardController {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		// id에 해당하는 기업회원의 쓴 소개글의 boarNo를 찾아 boarNo에 해당하는 소개글의 정보를 얻어오는 서비스를 호출한다
+
 		IntroduceVO introVO = boardService.showCompanyBoard(memberVO.getId());
+
 		// 소개글 정보를 소개글 보기 폼으로 보낸다
 		return new ModelAndView("myPage/company/showMyBoard", "introVO", introVO);
 
@@ -142,7 +144,7 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping("fileDownload.do")
-	public String fileDownload(String fileName) {
+	public String fileDownload(String fileName, String originalFileName) {
 		// 전달된 fileName(실제서버에 저장되어있는 파일명)으로 파일을 다운로드한다
 		return "downloadView";
 	}
@@ -219,24 +221,45 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "introduceWrite.do")
-	public String introduceWrite(HttpServletRequest request, IntroduceVO introduceVO, UploadFileVO vo) {
+	public String introduceWrite(HttpServletRequest request, IntroduceVO introduceVO, UploadFileVO vo,String keyword) {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		// 로그인한 기업회원정보 출력
 		introduceVO.setMemberVO(memberVO);
-		System.out.println(introduceVO);
 		// 키워드 저장됬는지 확인하기
 		// System.out.println("키워드 저장됬는지 확인하기"+introduceVO.getKeyWordVO());
 		// 이미지 저장하기전 boardNO 파라미터로 얻어옴
-		boardService.introduceWrite(introduceVO, vo, request);
+		boardService.introduceWrite(introduceVO, vo, request); 
 		return "redirect:introduceDetail.do?boardNo=" + introduceVO.getBoardNo();
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "introduceUpdate.do")
 	public String introduceUpdate(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
+
 		boardService.introduceUpdate(introduceVO, vo, request);
 		return "redirect:showCompanyBoard.do";
 	}
 
+	/**
+	 * 게시글 삭제 게시글에 관련된 데이터 정보도 함께삭제한다
+	 * @param boardNo
+	 * @return
+	 */
+	@RequestMapping("introduceDelete.do")
+	public String introduceDelete(HttpServletRequest request, IntroduceVO introduceVO) {		
+	/*	HttpSession session = request.getSession(false);
+		// 기업회원은 기업회원객체를 가지고있다
+		CompanyMemberVO memberVO = (CompanyMemberVO) session.getAttribute("memberVO");*/
+		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// 로그인한 기업회원정보 출력
+		introduceVO.setMemberVO(memberVO);
+			//게시글삭제
+		boardService.introduceDelete(introduceVO,request); 
+			
+		/*// 세션의 CompanyMember의 write도 1로 변경하여 업데이트해준도
+		memberVO.setWrite("0");
+		session.setAttribute("memberVO", memberVO);*/
+		return "redirect:showCompanyInfo.do";
+	}
 	/**
 	 * 소개글 수정시 파일 삭제 ajax
 	 * @param deleteFileName
@@ -327,7 +350,7 @@ public class BoardController {
 	@RequestMapping("meetingDelete.do")
 	public ModelAndView meetingDelete(int boardNo) {
 		boardService.boardDelete(boardNo);
-		return new ModelAndView("redirect:reviewList.do");
+		return new ModelAndView("redirect:meetingList.do");
 	}
 
 	// 모임 게시글 수정 폼

@@ -23,9 +23,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class MemberController {
 	@Resource
 	private MemberService memberService;
+
 	// 회원정보수정시 비밀번호 암호화처리를 위한 객체를 주입받는다
 	@Resource
 	private BCryptPasswordEncoder passwordEncoder;
+
 
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
 	public String registerMember(GenericMemberVO vo) {

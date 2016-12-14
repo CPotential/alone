@@ -37,8 +37,12 @@ CREATE TABLE COMPANYMEMBER(
 )
 alter table COMPANYMEMBER add write number default 0
 select * from companymember
+<<<<<<< HEAD
 
 
+=======
+select * from authorities;
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 CREATE TABLE AUTHORITIES(
 	id varchar2(50) not null,
 	authority varchar2(30) not null, -- 권한

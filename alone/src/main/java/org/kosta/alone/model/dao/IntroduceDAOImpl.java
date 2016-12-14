@@ -55,6 +55,7 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 	 * 기업회원 write를 update
 	 */
 	@Override
+
 	public void updateWrite(String id) {
 		sqlSessionTemplate.update("introduce.updateWrite", id);
 	}
@@ -62,6 +63,33 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 	/**
 	 * 키워드 저장
 	 */
+
+   
+	/**
+	 * 기업회원write 정보 0으로 바꾸기
+	 */
+	
+	@Override
+	public void updateWriteBack(String id) {
+		sqlSessionTemplate.update("introduce.updateWriteBack",id);
+		
+	}
+	@Override
+	public void introduceDeleteByBoardNo(int boardNo){
+		
+		sqlSessionTemplate.delete("introduce.introduceDeleteByBoardNo",boardNo);
+	}
+	@Override
+	public void keywordDeleteByBoardNo(int boardNo){
+		
+		sqlSessionTemplate.delete("introduce.keywordDeleteByBoardNo",boardNo);
+	}
+	
+	
+/**
+ * 키워드 저장
+ */
+
 	@Override
 	public void keywordRegister(KeyWordVO keywordVO) {
 		sqlSessionTemplate.insert("introduce.keywordRegister", keywordVO);
@@ -85,4 +113,10 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 		sqlSessionTemplate.update("introduce.introduceUpdate", introduceVO);
 	}
 
+
+	@Override
+	public void keywordUpdate(KeyWordVO keywordVO) {
+		sqlSessionTemplate.update("introduce.keywordUpdate",keywordVO);
+		
+	}
 }

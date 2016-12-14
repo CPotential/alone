@@ -25,6 +25,7 @@ public class MemberServiceImpl implements MemberService {
 	private GenericMemberDAO genericMemberDAO;
 	@Resource
 	private CompanyMemberDAO companyMemberDAO;
+
 	/*
 	 * 비밀번호 암호화를 위한 객체를 주입받는다 
 	 */
@@ -86,7 +87,7 @@ public class MemberServiceImpl implements MemberService {
 	 * 회원 탈퇴
 	 */
 	@Override
-	public void deleteMember(String id) {
+	public void deleteMember(String id) { 
 		memberDAO.deleteMember(id);
 	}
 
@@ -153,15 +154,19 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	/**
-	 * 현재 마일리지
+	 * 아이디에 해당하는 마일리지정보
 	 */
 	@Override
 	public int nowMileage(String id) {
 		return genericMemberDAO.nowMileage(id);
 	}
+	/**
+	 * 검색한 아이디에 해당하는 마일리지정보
+	 */
 
 	@Override
 	public MemberVO SearchIdAndMileage(String id) {
+		//마일리지 정보출력
 		return genericMemberDAO.SearchIdAndMileage(id);
 	}
 
@@ -172,7 +177,9 @@ public class MemberServiceImpl implements MemberService {
 		map.put("memberId", memberVO.getId());
 		map.put("companyId", companyVO.getId());
 		map.put("dealMoney", (int) (-1 * memberVO.getMileage()));
+		//마일리지 내역 저장
 		genericMemberDAO.mileageMinus(map);
+		//회원의 마일리지 차감
 		genericMemberDAO.updateMileage(map);
 	}
 
