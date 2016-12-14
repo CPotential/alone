@@ -46,4 +46,14 @@ public class CompanyMemberDAOImpl implements CompanyMemberDAO {
 	public List<CompanyMemberVO> companyList() {
 		return sqlSessionTemplate.selectList("companyMember.companyList");
 	}
+	
+	@Override
+	public String companyAuthority(String id) {
+		return sqlSessionTemplate.selectOne("companyMember.companyAuthority", id);
+	}
+
+	@Override
+	public String writeCheck(String id) {
+		return sqlSessionTemplate.selectOne("companyMember.writeCheck", id);
+	}
 }

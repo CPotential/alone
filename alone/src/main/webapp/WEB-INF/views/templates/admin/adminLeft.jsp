@@ -4,7 +4,7 @@
 
 <div class="col-sm-4 col-md-3 col-lg-2">
 	<ul class="list-unstyled profile-social center-block">
-		<li><a href="${pageContext.request.contextPath}/myPage/admin/showInfo.do" class="btn btn-default btn-block">메인</a></li>
+		<li><a href="${pageContext.request.contextPath}/showAdminInfo.do" class="btn btn-default btn-block">메인</a></li>
 		<li><a href="${pageContext.request.contextPath}/NonApporvalCompanyList.do" class="btn btn-default btn-block"> 회원승인</a></li>
 		<li class="dropdown"><a href="#" class="btn btn-default btn-block" data-toggle="dropdown"> 회원관리</a>
 			<ul class="dropdown-menu" role="management"> 

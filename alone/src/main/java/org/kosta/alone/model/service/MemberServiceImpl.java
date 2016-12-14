@@ -5,14 +5,15 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.kosta.alone.model.dao.CommonMemberDAO;
 import org.kosta.alone.model.dao.CompanyMemberDAO;
 import org.kosta.alone.model.dao.GenericMemberDAO;
 import org.kosta.alone.model.dao.MemberDAO;
+import org.kosta.alone.model.vo.Authority;
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.GenericMemberVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.kosta.alone.model.vo.MileageVO;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,23 +24,12 @@ public class MemberServiceImpl implements MemberService {
 	@Resource
 	private GenericMemberDAO genericMemberDAO;
 	@Resource
-	private CommonMemberDAO commonMemberDAO;
-	@Resource
 	private CompanyMemberDAO companyMemberDAO;
-
-	@Override
-	public MemberVO memberLogin(MemberVO memberVO) {
-		memberVO = commonMemberDAO.memberLogin(memberVO);
-		// 아이디 패스워드 확인
-		if (memberVO == null) {
-			return memberVO;
-		}
-		if (memberVO.getAuthority().equals("ROLE_COMPANY")) {
-			return commonMemberDAO.adminApproval(memberVO);
-			// 관리자가 기업 승인 여부 확인해야한다.
-		}
-		return memberVO;
-	}
+	/*
+	 * 비밀번호 암호화를 위한 객체를 주입받는다 
+	 */
+	@Resource
+	private BCryptPasswordEncoder passwordEncoder; 
 
 	public int idcheck(String id) {
 		return memberDAO.idcheck(id);
@@ -47,19 +37,28 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	@Transactional
-	public void registerMember(GenericMemberVO vo) {
-		memberDAO.registerMember(vo); // pk 넣어주고
-		genericMemberDAO.registerMember(vo); // fk로 pk가져왔으니깐 상관없음
-		vo.setAuthority("ROLE_MEMBER"); // 권한 셋팅
-		commonMemberDAO.registerAuthority(vo); // 권한 DB에 인서트
+	public void registerMember(GenericMemberVO genericMemberVO) {
+		// 비밀번호를 bcrypt 알고리즘으로 암호화하여 DB에 저장한다
+        String encodedPwd = passwordEncoder.encode(genericMemberVO.getPassword());
+        genericMemberVO.setPassword(encodedPwd);
+		memberDAO.registerMember(genericMemberVO); 
+		genericMemberDAO.registerMember(genericMemberVO); 
+		//회원 가입시 반드시 권한이 등록되도록 트랜잭션처리를 한다  
+		Authority authority = new Authority(genericMemberVO.getId(),"ROLE_MEMBER");
+		memberDAO.registerAuthority(authority); // 권한 DB에 인서트
 	}
 
+	@Override
 	@Transactional
-	public void registerMember(CompanyMemberVO vo) {
-		memberDAO.registerMember(vo);
-		companyMemberDAO.registerMember(vo);
-		vo.setAuthority("ROLE_COMPANY"); // 권한 셋팅
-		commonMemberDAO.registerAuthority(vo); // 권한 DB에 인서트
+	public void registerMember(CompanyMemberVO companyMemberVO) {
+		// 비밀번호를 bcrypt 알고리즘으로 암호화하여 DB에 저장한다
+        String encodedPwd = passwordEncoder.encode(companyMemberVO.getPassword());
+        companyMemberVO.setPassword(encodedPwd);
+		memberDAO.registerMember(companyMemberVO); 
+		companyMemberDAO.registerMember(companyMemberVO); 
+		//회원 가입시 반드시 권한이 등록되도록 트랜잭션처리를 한다  
+		Authority authority = new Authority(companyMemberVO.getId(),"ROLE_COMPANY_NON_VERIFIED");
+		memberDAO.registerAuthority(authority); // 권한 DB에 인서트
 	}
 
 	public List<CompanyMemberVO> NonApporvalCompanyList() {
@@ -181,6 +180,25 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO showAdminMember(MemberVO memberVO) {
 		return memberDAO.showAdminMember(memberVO);
 	}
-	
+
+	@Override
+	public MemberVO findMemberById(String id) {
+		return memberDAO.findMemberById(id);
+	}
+
+	@Override
+	public List<Authority> selectAuthorityById(String id) {
+		return memberDAO.selectAuthorityById(id);
+	}
+
+	@Override
+	public String companyAuthority(String id) {
+		return companyMemberDAO.companyAuthority(id);
+	}
+
+	@Override
+	public String writeCheck(String id) {
+		return companyMemberDAO.writeCheck(id);
+	}
 }
 

@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<select id="imageList" resultMap="imageRM" resultType="imageVO">
-	SELECT image_name FROM image WHERE NOT image_name LIKE 'main%'and board_no=#{value}
+		SELECT image_name FROM image WHERE NOT image_name LIKE 'main%'and board_no=#{value}
 	</select>
 	
 	

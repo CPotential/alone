@@ -64,8 +64,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	/**
-	 * 소개글 리스트 1)카테고리에 해당하는 게시물 리스트를 뽑는다 :introduceList 2)첫번째 소개글에 게시물 번호를 얻어와
-	 * 해당 게시물에 키워드가 몇개 등록되었는지 확인 한다 :keyWordSize 3) 게시물이 가지고있는 키워드의 이름을 뽀는다
+	 * 소개글 리스트 
+	 * 1)카테고리에 해당하는 게시물 리스트를 뽑는다 :introduceList 
+	 * 2)첫번째 소개글에 게시물 번호를 얻어와
+	 * 해당 게시물에 키워드가 몇개 등록되었는지 확인 한다 :keyWordSize 
+	 * 3) 게시물이 가지고있는 키워드의 이름을 뽀는다
 	 * introduceList.get(i).getBoardNo()게시물 번호
 	 */
 	@Override
@@ -121,6 +124,7 @@ public class BoardServiceImpl implements BoardService {
 	/**
 	 * 소개글 작성
 	 */
+	@Transactional
 	@Override
 	public void introduceWrite(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
 		// 테이블 기존 정보 쓰기
@@ -141,14 +145,12 @@ public class BoardServiceImpl implements BoardService {
 			list.get(i).setBoardNo(introduceVO.getBoardNo());
 			introduceDAO.keywordRegister(list.get(i));
 		}
-
 	}
 
 	/**
 	 * 소개글 수정
 	 */
 	@Override
-
 	public void introduceUpdate(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
 		// 테이블 기존 정보 쓰기
 		introduceDAO.boardUpdate(introduceVO);
@@ -165,7 +167,6 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public String deleteImage(String deleteFileName, HttpServletRequest request) {
-		// System.out.println("fileDelete 실행 :"+deleteFileName);
 		// 파일 경로 얻어오기
 		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload/");
 		File file = new File(uploadPath + deleteFileName);
@@ -200,7 +201,7 @@ public class BoardServiceImpl implements BoardService {
 				ImageVO imageVO = new ImageVO(0, mainFileName, boardVO.getBoardNo());
 				// System.out.println("imageVO: "+imageVO);
 				boardDAO.imageUpload(imageVO);
-
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

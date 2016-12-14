@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      select board_no,nickname,region from
      (select row_number() over(order by board.board_no) as rnum,introduce.board_no,member.nickname,introduce.region from
      board board,member member,introduce introduce
-     where introduce.category_no=#{categoryNo} and member.id=board.id and board.board_no=introduce.board_no) 
+     where introduce.category_no=#{categoryNo} and member.id=board.id and board.board_no=introduce.board_no and board.board_enabled=1) 
 	 where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}   
 	</select>
 	<select id="getTotalContentCount" resultType="int" parameterType="int"> 
@@ -40,12 +40,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select category_no, category_name from introduce_category
 	</select>
 	
-		<select id="introduceDetail" resultMap="introduceRM" parameterType="int"> 
+	<select id="introduceDetail" resultMap="introduceRM" parameterType="int"> 
 		select introduce.board_no, board.content, introduce.company_name, introduce.region, 
 		introduce.location, introduce.business_hours, introduce.tel 
 		from introduce introduce,board board 
 		where board.board_no=introduce.board_no and introduce.board_no=#{value}
-		</select>
+	</select>
 		
     <insert id="boardWrite" parameterType="introduceVO">
 		<selectKey resultType="int" keyProperty="boardNo" order="BEFORE">
@@ -56,8 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<update id="updateWrite" parameterType="string">
-	
-		update companymember set write = write+1 where id=#{value} 
+		UPDATE companymember SET write = 1 WHERE id=#{value} 
 	</update>
 	
 	<insert id="introduceWrite" parameterType="introduceVO" >
@@ -65,14 +64,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{boardNo}, #{companyName}, #{region}, #{location}, #{businessHours},#{tel},#{categoryVO.categoryNo})
 	</insert>
 	
-	
-	
 	<insert id="keywordRegister" parameterType="keywordVO"  >
 		<selectKey resultType="int" keyProperty="keyWordNo" order="BEFORE">
 			select board_seq.nextval from dual
 		</selectKey>
-	insert into KEYWORD(keyword_no,keyword_name,board_no) 
-     values(#{keyWordNo}, #{keyWordName},#{boardNo})
+		insert into KEYWORD(keyword_no,keyword_name,board_no) 
+	    values(#{keyWordNo}, #{keyWordName},#{boardNo})
 	</insert>
 	
 	<update id="boardUpdate" parameterType="introduceVO">
@@ -83,7 +80,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where board_no=#{boardNo}
 	
 	</update>
-	
 
 	<update id="introduceUpdate" parameterType="introduceVO">
 		update introduce
@@ -97,12 +93,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where board_no=#{boardNo}
 	</update>
 	
-	
-	
 	<select id="findIntroduceById" resultType="int">
-	select b.board_no
-    from BOARD b, INTRODUCE intro
-    where b.board_no=intro.board_no and b.id=#{value}
+		select b.board_no
+	    from BOARD b, INTRODUCE intro
+	    where b.board_no=intro.board_no and b.id=#{value}
 	</select>
 	
 </mapper>

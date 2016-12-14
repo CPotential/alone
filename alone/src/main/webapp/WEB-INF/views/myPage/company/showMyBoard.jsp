@@ -20,7 +20,7 @@
 								<c:forEach items="${requestScope.introVO.imageVO}" var="imgVO">
 									<a href="${pageContext.request.contextPath}/fileDownload.do?fileName=${imgVO.imageName}">${imgVO.imageName}</a>
 									<br>
-									<img src="${pageContext.request.contextPath}/resources/upload/${imgVO.imageName}">
+									<img src="${pageContext.request.contextPath}/resources/upload/${imgVO.imageName}" width="100%" height="100%">
 									<br>
 								</c:forEach>
 							</div>

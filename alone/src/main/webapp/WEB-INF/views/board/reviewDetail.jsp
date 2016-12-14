@@ -7,23 +7,14 @@
 
 <!--  jquery 사용처입니다. -->
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						var boardNo = $
-						{
-							param.boardNo
-						}
+	$(document).ready(function() {
+						var boardNo = ${param.boardNo}
 						var content = "";
 						var commentNo = "";
-						$("#sendComment")
-								.click(
-										function() {
-											var comment = $("#sendContent")
-													.val()
+						$("#sendComment").click(function() {
+											var comment = $("#sendContent").val();
 
-											$
-													.ajax({
+											$.ajax({
 														type : "GET",
 														url : "${pageContext.request.contextPath}/sendCommentAjax.do",
 														data : "comment="
@@ -41,8 +32,8 @@
 																json += data[i].memberVO.nickName;
 																json += "</div>";
 																json += "<time datetime="
-						json += data[i].timePosted;
-						json += "class='comment__date'> </time>";
+																json += data[i].timePosted;
+																json += "class='comment__date'> </time>";
 																json += "<p>";
 																json += data[i].content;
 																json += "</p>";
@@ -59,31 +50,21 @@
 																	json += "</div>"
 																}
 																json += "<input type='hidden' id='commentNo'  value="
-						json += data[i].commentNo
-						json +=">"
+																json += data[i].commentNo
+																json +=">"
 																json += "</div></div>";
 															}
-															$("#commentView")
-																	.html(json);
+															$("#commentView").html(json);
 														}//callback			
 													}); //ajax
 										}); // sendCommentclick 이벤트
 
-						$("#commentView")
-								.on(
-										"click",
-										"#editComment",
-										function() {
+						$("#commentView").on("click","#editComment",function() {
 
-											content = $(this).parent().prev()
-													.html().trim();
-											commentNo = $(this).parent().next()
-													.val();
+											content = $(this).parent().prev().html().trim();
+											commentNo = $(this).parent().next().val();
 											$("#commentresetView").empty();
-											$("#commentresetView")
-													.html(
-															"<textarea class='form-control'"
-					+"rows='2' id='comment'>"
+											$("#commentresetView").html("<textarea class='form-control'"+"rows='2' id='comment'>"
 																	+ content
 																	+ "</textarea>"
 																	+ "<a href='#' id='updateComment' class='btn btn-default btn-xs'>"
@@ -91,14 +72,9 @@
 
 										});//editComment (댓글 수정)
 
-						$("#commentView")
-								.on(
-										"click",
-										"#updateComment",
-										function() {
+						$("#commentView").on("click","#updateComment",function() {
 											content = $(this).prev().val();
-											$
-													.ajax({
+											$.ajax({
 														type : "GET",
 														url : "${pageContext.request.contextPath}/updateCommentAjax.do",
 														data : "content="
@@ -118,8 +94,8 @@
 																json += data[i].memberVO.nickName;
 																json += "</div>";
 																json += "<time datetime="
-						json += data[i].timePosted;
-						json += "class='comment__date'> </time>";
+																json += data[i].timePosted;
+																json += "class='comment__date'> </time>";
 																json += "<p>";
 																json += data[i].content;
 																json += "</p>";
@@ -135,35 +111,24 @@
 																	json += "</div>"
 																}
 																json += "<input type='hidden' id='commentNo'  value="
-							json += data[i].commentNo
-							json +=">"
+																json += data[i].commentNo
+																json +=">"
 																json += "</div></div>";
 															}
-															$("#commentView")
-																	.html(json);
+															$("#commentView").html(json);
 														}
 													}); //ajax
 
 										}); //commentView 수정하기 버튼
 						//삭제하기
-						$("#commentView")
-								.on(
-										"click",
-										"#removeComment",
-										function() {
+						$("#commentView").on("click","#removeComment",function() {
 											if (confirm("댓글을 삭제하시겠습니까?")) {
-												commentNo = $(this).parent()
-														.next().val();
-												$
-														.ajax({
+												commentNo = $(this).parent().next().val();
+												$.ajax({
 															type : "GET",
 															url : "${pageContext.request.contextPath}/deleteCommentAjax.do",
-															data : "commentNo="
-																	+ commentNo
-																	+ "&boardNo="
-																	+ boardNo,
-															success : function(
-																	data) {
+															data : "commentNo="+ commentNo+ "&boardNo="+ boardNo,
+															success : function(data) {
 																var json = "";
 																for (var i = 0; i < data.length; i++) {
 																	json += "<div class='comment'>";
@@ -174,8 +139,8 @@
 																	json += data[i].memberVO.nickName;
 																	json += "</div>";
 																	json += "<time datetime="
-								json += data[i].timePosted;
-								json += "class='comment__date'> </time>";
+																	json += data[i].timePosted;
+																	json += "class='comment__date'> </time>";
 																	json += "<p>";
 																	json += data[i].content;
 																	json += "</p>";
@@ -191,14 +156,11 @@
 																		json += "</div>"
 																	}
 																	json += "<input type='hidden' id='commentNo'  value="
-								json += data[i].commentNo
-								json +=">"
+																	json += data[i].commentNo
+																	json +=">"
 																	json += "</div></div>";
 																}
-																$(
-																		"#commentView")
-																		.html(
-																				json);
+																$("#commentView").html(json);
 															}
 														}); //ajax
 
@@ -208,22 +170,14 @@
 										}); //commentView 삭제하기 버튼
 
 						//좋아요
-						$("#like")
-								.click(
-										function() {
-											$
-													.ajax({
+						$("#like").click(function() {
+											$.ajax({
 														type : "get",
 														url : "${pageContext.request.contextPath}/likeUpAjax.do",
-														data : "boardNo="
-																+ '${rvo.boardNo}',
+														data : "boardNo="+ '${rvo.boardNo}',
 														dataType : "json",
-														success : function(
-																result) {
-															$("#likeNum")
-																	.html(
-																			"좋아요 : "
-																					+ result.likes);
+														success : function(result) {
+															$("#likeNum").html("좋아요 : "+ result.likes);
 														}
 													}) // ajax
 										}); // click
@@ -321,8 +275,7 @@
 											Edit</a> <a href="#" class="btn btn-primary btn-xs"><i
 											class="fa fa-reply"></i> Answer</a>
 									</div>
-									<input type="hidden" id="commentNo"
-										value="${commentList.commentNo}">
+									<input type="hidden" id="commentNo" value="${commentList.commentNo}">
 								</c:if>
 							</div>
 							<!-- / .comment__content -->

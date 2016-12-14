@@ -12,7 +12,8 @@ drop sequence mileage_seq;
 drop sequence comment_seq;
 drop sequence image_seq;
 
-
+update member set enabled=1 where id='admin'
+select * from member where id='rl2'
 DROP TABLE IMAGE
 CREATE TABLE IMAGE(
 	image_no number primary key,
@@ -29,7 +30,11 @@ CREATE TABLE MILEAGE(
 	id varchar2(50) not null,
 	constraint fk_mileage foreign key(id) references genericmember(id)
 )
- 
+ select * from mileage
+ insert into mileage(mileage_no, deal_money, deal_content, id) values(mileage_seq.nextval, 500, '좋아요', 'fd')
+ select * from genericmember where id='fd'
+ update genericmember set mileage=0
+ update genericmember set mileage=(select sum(deal_money) as mileage from mileage where id='fd')
 --	constraint pk_likescheck primary key(board_no, id)
 -- 댓글 정보
 

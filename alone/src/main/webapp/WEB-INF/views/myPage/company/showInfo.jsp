@@ -49,7 +49,7 @@
 					</div>
 					<!-- / .table-responsive -->
 				</div>
-				<a href="${pageContext.request.contextPath}/companyUpdateForm.do?id=${requestScope.cvo.id}" class="btn btn-primary">수정하기</a>
+				<a href="${pageContext.request.contextPath}/companyUpdateForm.do" class="btn btn-primary">수정하기</a>
 			</div>
 			<!-- / .tab-content -->
 		</div>

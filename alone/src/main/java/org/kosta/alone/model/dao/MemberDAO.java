@@ -2,6 +2,7 @@ package org.kosta.alone.model.dao;
 
 import java.util.List;
 
+import org.kosta.alone.model.vo.Authority;
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.MemberVO;
 
@@ -25,5 +26,11 @@ public interface MemberDAO {
 
 	public MemberVO showAdminMember(MemberVO memberVO);
 
+	public MemberVO findMemberById(String id);
 
+	public List<Authority> selectAuthorityById(String id);
+
+	public CompanyMemberVO adminApproval(MemberVO memberVO);
+
+	public void registerAuthority(Authority authority);
 }

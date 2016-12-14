@@ -1,72 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
 
 <!--  jquery 사용처입니다. -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document).ready(function() {
-		var passwordCheck; // 패스워드 체크 변수
 		var nicknameCheck; // nickName 체크 변수
 
-		$("#memberUpdateForm").submit(	function() {
-			if ($("#password").val() != "" && $("#passwordCheck").val() == "") {
-				alert("비밀번호를 다시 한번 입력하세요");
-				return false;
-			}
-			if (passwordCheck == false) {
-				alert("비밀번호를 재확인하세요");
-				return false;
-			} else if (nicknameCheck == false) {
+		$("#memberUpdateForm").submit(function() {
+			if (nicknameCheck == false) {
 				alert("닉네임 중복 확인하세요");
 				return false;
 			}
 		}); // submit function
-
-		$("#password").keyup(function() {
-			if ($("#password").val() != $("#passwordCheck").val()) {
-				$("#passwordCheckView").html("비밀번호를 불일치!").css("color", "red");
-				passwordCheck = false;
-			} else {
-				$("#passwordCheckView").html("비밀번호를 사용가능!").css("color", "red");
-				passwordCheck = false;
-			}
-		}); // 패스워드 keyup
-
-		$("#passwordCheck").keyup(function() {
-			if ($("#password").val() != $(this).val()) {
-				$("#passwordCheckView").html("비밀번호를 사용불가!").css("color", "red");
-				passwordCheck = false;
-			} else {
-				$("#passwordCheckView").html("비밀번호 사용가능!").css("color", "red");
-				passwordCheck = true;
-			}
-		}); // 패스워드 체크 keyup
-
-		$("#nickName").keyup(function() {
-			var nickname = $("#nickName").val().trim();
-			$.ajax({
-				type : "POST",
-				url : "${pageContext.request.contextPath}/nickNamecheckAjax.do",
-				data : "nickname=" + nickname,
-				success : function(data) {
-					if (data == "fail") {
-						$("#nickNameCheckView").html(nickname + " 사용불가!").css("color", "red");
-						nicknameCheck = false;
-					} else {
-						$("#nickNameCheckView").html(nickname + " 사용가능!").css("color", "red");
-						nicknameCheck = true;
-					}
-				}//callback			
-			});//ajax
-		});//key
 	});
-</script>
+</script> -->
 
 <div class="container">
 	<div class="row">
 
 		<div class="col-sm-8 col-md-9 col-lg-10">
+			<sec:authorize ifAnyGranted="ROLE_MEMBER">
 			<form action="${pageContext.request.contextPath}/genericUpdate.do" method="post" id="memberUpdateForm">
 				<!-- Tab content -->
 				<div class="tab-content">
@@ -75,6 +30,10 @@
 						<div class="table-responsive">
 							<table class="table">
 								<tbody>
+									<tr>
+										<th scope="row">아이디</th>
+										<td><sec:authentication property="principal.id" /><td>
+									</tr>
 									<tr>
 										<th scope="row">비밀번호</th>
 										<td><input type="password" id="password" name="password"></td>
@@ -121,6 +80,7 @@
 				</div>
 				<!-- / .tab-content -->
 			</form>
+			</sec:authorize>
 		</div>
 
 

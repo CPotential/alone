@@ -1,48 +1,28 @@
 package org.kosta.alone.model.vo;
 
-
-
 public class ImageVO {
 	private int boardNo;
 	private int imageNo;
 	private String imageName;
 
-
-
 	public ImageVO() {
 		super();
 	}
 
-	public ImageVO(int imageNo, String imageName) {
-
-		super();
-
-		this.imageNo = imageNo;
-		this.imageName = imageName;
-
-	
-	}
-	
-
-	
 	public ImageVO(int imageNo, String imageName, int boardNo) {
 		super();
 		this.imageNo = imageNo;
 		this.imageName = imageName;
 		this.boardNo = boardNo;
-
 	}
 
-	
 	public int getBoardNO() {
 		return boardNo;
 	}
 
 	public void setBoardNO(int boardNO) {
 		this.boardNo = boardNO;
-
 	}
-
 
 	public int getImageNo() {
 		return imageNo;
@@ -60,18 +40,9 @@ public class ImageVO {
 		this.imageName = imageName;
 	}
 
-
-
-
-
 	@Override
 	public String toString() {
-
-		return "ImageVO [imageNo=" + imageNo + ", imageName=" + imageName + ", boardNo=" + boardNo 
-				+"]";
-
+		return "ImageVO [imageNo=" + imageNo + ", imageName=" + imageName + ", boardNo=" + boardNo + "]";
 	}
-
-
 
 }

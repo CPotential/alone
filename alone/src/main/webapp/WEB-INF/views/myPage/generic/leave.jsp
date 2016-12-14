@@ -10,26 +10,6 @@
 				alert("비밀번호를 입력하세요");				
 				return false;
 			}
-			
-			$.ajax({
-				type:"post",
-				url:"${pageContext.request.contextPath}/passwordCheckAjax.do",
-				data:"password="+password,
-				success : function(result){
-					if(result=="ok"){
-						leaveCheck=true;
-						if(confirm("진심 탈퇴 할거임?")){
-							location.href="${pageContext.request.contextPath}/deleteMember.do"
-						}
-					} else{
-						alert("비밀번호 불일치");
-						leaveCheck=false;						
-					} 
-				}
-			}); // ajax
-			if(leaveCheck==false){
-				return false;
-			}
 		});//submit
 
 	}); // ready
@@ -50,7 +30,7 @@
 			<div class="body-plain__form">
 
 				<!-- Sign In form -->
-				<form role="form" method="post" id="form_delete">
+				<form role="form" method="post" id="form_delete" action="${pageContext.request.contextPath}/deleteMember.do">
 					<br> <label for="sign-in__password" class="sr-only">Enter password</label>
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock"></i></span>
