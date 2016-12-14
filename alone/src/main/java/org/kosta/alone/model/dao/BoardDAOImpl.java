@@ -23,8 +23,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public List<ImageVO> introduceFirstImage(int boardNo) {
-		return sqlSessionTemplate.selectList("board.introduceFirstImage", boardNo);
+	public ImageVO introduceFirstImage(int boardNo) {
+		return sqlSessionTemplate.selectOne("board.introduceFirstImage", boardNo);
 	}
 
 	@Override
@@ -70,6 +70,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public void boardDelete(int boardNo) {
 		sqlSessionTemplate.update("board.boardDelete", boardNo);
 	}
+	@Override
+	public void boardDeleteByBoardNo(int boardNo){
+		sqlSessionTemplate.delete("board.boardDeleteByBoardNo", boardNo);
+		
+	}
 
 	public void likeCheck(BoardVO bvo) {
 		sqlSessionTemplate.update("board.likeCheck", bvo);
@@ -89,6 +94,18 @@ public class BoardDAOImpl implements BoardDAO {
 
 	public void meetingboardUpdate(MeetingVO meetingVO) {
 		sqlSessionTemplate.update("board.meetingboardUpdate", meetingVO);
+	}
+
+	@Override
+	public void imageDeleteByBoardNo(int boardNo) {
+		
+		sqlSessionTemplate.delete("board.imageDeleteByBoardNo",boardNo);
+	}
+
+	@Override
+	public List<ImageVO> imageAllList(int boardNo) {
+
+		return sqlSessionTemplate.selectList("board.imageAllList",boardNo);
 	}
 
 }

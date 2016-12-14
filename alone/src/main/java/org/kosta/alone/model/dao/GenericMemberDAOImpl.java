@@ -39,6 +39,7 @@ public class GenericMemberDAOImpl implements GenericMemberDAO {
 
 	/**
 	 * 마일리지 내역
+	 * 해당 id의 거래액 거래상세정보를 출력한다.
 	 */
 	@Override
 	public List<MileageVO> mileageInfo(String id) {
@@ -46,24 +47,33 @@ public class GenericMemberDAOImpl implements GenericMemberDAO {
 	}
 
 	/**
-	 * 현재 마일리지
+	 * 회원이보유한 마일리지만
 	 */
 	@Override
 	public int nowMileage(String id) {
 		return sqlSessionTemplate.selectOne("genericMember.nowMileage", id);
 	}
-	
+	/**
+	 * 아이디에 해당하는 회원이보유한 마일리지와 아이디
+	 */
 	@Override
 	public MemberVO SearchIdAndMileage(String id) {
 		return sqlSessionTemplate.selectOne("genericMember.SearchIdAndMileage",id);
 	}
 
+	/**
+	 * 기업회원이 마일리지 차감시 기업회원의 닉네임 정보 주기
+	 * Map 정보 companyId,dealMoney,memberId
+	 */
 	@Override
 	public void mileageMinus(HashMap<String, Object> map) {
 		 sqlSessionTemplate.insert("genericMember.mileageMinus",map);
 		
 	}
 
+	/**
+	 * 마일리지 증가시켜주기
+	 */
 	@Override
 	public void updateMileage(HashMap<String, Object> map) {
 		sqlSessionTemplate.update("genericMember.updateMileage",map);

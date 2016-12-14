@@ -9,14 +9,14 @@ public class IntroduceVO extends BoardVO {
 	private String businessHours;
 	private String tel;
 	private int likes;
+	private String keyword;
 	private List<KeyWordVO> keyWordVO;
 	private IntroduceCategoryVO categoryVO;
 
+	//디폴트 생성자
 	public IntroduceVO() {
-		super();
+		super(); //상위 클래스의 디폴트 생성자 호출
 	}
-
-	
 
 	public IntroduceVO(int boardNo, String content, String timePosted, int boardEnabled,int likeCheck,MemberVO memberVO,
 			List<ImageVO> imageVO, String companyName, String region, String location, String businessHours, String tel,int likes,
@@ -95,8 +95,13 @@ public class IntroduceVO extends BoardVO {
 	public void setCategoryVO(IntroduceCategoryVO categoryVO) {
 		this.categoryVO = categoryVO;
 	}
+	public String getKeyword() {
+		return keyword;
+	}
 
-
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 
 	@Override
 	public String toString() {

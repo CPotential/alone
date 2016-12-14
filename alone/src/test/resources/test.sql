@@ -59,12 +59,15 @@ and board.board_no=image.board_no and image.image_no=1;
 
 --and image.image_no=1;
 delete from image;
-insert into image(image_no, image_name, image_original_name, board_no) 
-values('1', sysdate, 'asdf', 1);
-insert into image(image_no, image_name, image_original_name, board_no) 
-values('1', sysdate, 'asdf', 2);
+insert into image(image_no, image_name, image_originalname, board_no) 
+values(image_seq.nextval, sysdate, '공유.jpg', 1);
+insert into image(image_no, image_name, image_originalname, board_no) 
+values(image_seq.nextval, sysdate, '아이유.jpg', 1);
 select * from image where board_no=1;
 
+--오리지널 이미지 이름뽑기
+	SELECT image_name,image_originalname image_ FROM image 
+	WHERE NOT image_name LIKE 'main%'and board_no='1';
 
 -----------------기업회원 마이페이지
 	select companymember.id,member.nickname,authorities.authority,companymember.approval,companymember.write
@@ -172,6 +175,22 @@ ENERICMEMBER gmember,mileage mileage
 	
 	select nickName from member where id='spring'
 	select * from mileage
+<<<<<<< HEAD
+
+
+--소개글삭제
+
+delete from introduce where board_no ='246' 
+delete from board where board_no ='246' --이미지가 먼저 삭제된후 삭제되야함
+delete from image where board_no ='246' 
+delete from keyword where board_no ='246' 
+
+  select image_name from image where board_no ='254'
+  
+ALTER TABLE INTRODUCE
+ADD constraint fk_introduce foreign key(board_no) 
+references board(board_no)
+[ON DELETE CASCADE];
 
 	
 	select * from member where id='admin'
@@ -179,6 +198,7 @@ ENERICMEMBER gmember,mileage mileage
 
 select mileage.deal_money, mileage.deal_content
 		from mileage mileage, member member
+<<<<<<< HEAD
 		where mileage.id=member.id and member.id='java' order by mileage_no desc
 		
 	select board_no,likes,nickname from(select introduce.board_no,introduce.likes,member.nickname,
@@ -193,3 +213,82 @@ select mileage.deal_money, mileage.deal_content
   	where board_no=1 and introduce.board_no = board.board_no and review.board_no=board.board_no
   	
   	select likes from introduce where board_no='1'
+=======
+		where mileage.id=member.id and member.id='java' order by mileage_no desc
+
+		
+select * from INTRODUCE_CATEGORY;	
+
+select * from introduce;
+
+
+
+select category.category_no, category.category_name
+from introduce introduce, INTRODUCE_CATEGORY category
+where introduce.category_no =category.category_no 
+and introduce.board_no='273';
+
+
+		select introduce.board_no, board.content, introduce.company_name, introduce.region, 
+		introduce.location, introduce.business_hours, introduce.tel, introduce.keyword,introduce.category_no
+		from introduce introduce,board board 
+		where board.board_no=introduce.board_no and introduce.board_no='273'
+
+-----------
+select * from attendance;
+select * from genericmember;
+
+select to_char(sysdate,'YYYY/MM/DD') from dual;
+
+
+--회원 출석 정보 저장
+insert into attendance(id,mydate)
+values('mimi',(select to_char(sysdate,'YYYY/MM/DD') from dual))
+insert into attendance(id,mydate)
+values('mimi','2016/12/13')
+
+
+--현재 날짜에 출석된 정보가 있는지 화인
+select count(*) from attendance where id='java' 
+and mydate=(select to_char(sysdate,'YYYY/MM/DD') from dual);
+
+
+--총 출석일 뽑기
+select * from attendance where id='mimi';
+select count(*) from attendance where id='mimi';
+
+
+--마일리지 증가시켜주기
+
+select * from mileage;
+--generic member 마일리지 거래내역 추가
+INSERT into mileage (mileage_no,deal_money,deal_content,id)
+VALUES (mileage_seq.nextval,100,'출석','mimi');
+
+--generic member 마일리지 증가
+update genericmember set mileage = mileage+200
+where id='mimi'	
+
+ select count(*) from attendance where id='mimi'
+and mydate=(select to_char(sysdate,'YYYY/MM/DD') from dual)
+
+select mydate from attendance where id='mimi';
+
+select substr(
+(
+select mydate from attendance where id='mimimi4'
+),-2) mydate from dual;
+
+
+--특정 day만 출력하기
+select substr(mydate,-2) as day from attendance where id='mimi'
+and mydate LIKE '2016/12%';
+		
+select * from introduce
+select * from keyword
+		
+     select board_no,nickname,region,keyword from
+     (select row_number() over(order by board.board_no) as rnum,introduce.board_no,member.nickname,introduce.region,
+     introduce.keyword from board board,member member,introduce introduce
+     where introduce.category_no=2 and member.id=board.id and board.board_no=introduce.board_no and board.board_enabled=1) 
+	 where rnum between 1 and 4

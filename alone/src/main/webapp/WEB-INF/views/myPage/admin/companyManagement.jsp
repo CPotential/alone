@@ -56,7 +56,6 @@
 								<th>Tel</th>
 								<th>Address</th>
 								<th>Corporate Registration Number</th>
-								<th>Approval</th>
 								<th>Write</th>
 								<th></th>
 							</tr>
@@ -71,7 +70,6 @@
 									<td>${list.tel }</td>
 									<td>${list.address }</td>
 									<td>${list.corporateRegistrationNumber }</td>
-									<td>${list.approval }</td>
 									<td>${list.write }</td>
 									<td><a class="btn btn-primary">remove</a></td>
 								</tr>

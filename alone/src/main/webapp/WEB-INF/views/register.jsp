@@ -14,7 +14,7 @@
     <script type="text/javascript">
 	$(document).ready(function(){
 		$("#cancel").click(function(){
-			location.href="${pageContext.request.contextPath}/homego.do";
+			location.href="${pageContext.request.contextPath}/home.do";
 			return false;
 		});
 		$("#registerMember").click(function(){

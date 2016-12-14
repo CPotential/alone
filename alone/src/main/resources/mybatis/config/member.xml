@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- MyBatis에서 namespace는 필수적으로 명시해야 함 -->
 <mapper namespace="member"> 
-
+<!-- 
 	<select id="memberLogin" parameterType="memberVO" resultType="memberVO">
 		select member.id,member.nickname,authorities.authority
 		from member member,authorities authorities
@@ -12,14 +12,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		member.password=#{password} and member.id=authorities.id
 		and
 		member.enabled=1
-	</select>
+	</select> -->
+	<resultMap type="memberVO" id="memberRM">
+		<result column="nickname" property="nickName"/>
+	</resultMap>
 	
 	<select id="adminApproval" parameterType="memberVO" resultType="companyMemberVO">
-	select companymember.id,member.nickname,authorities.authority,companymember.approval,companymember.write
-	from companymember companymember,member member,authorities authorities
-	where companymember.id=member.id and member.id=authorities.id
-	and companymember.id=#{id}
+		select companymember.id,member.nickname,authorities.authority,companymember.approval,companymember.write
+		from companymember companymember,member member,authorities authorities
+		where companymember.id=member.id and member.id=authorities.id and companymember.id=#{id}
 	</select>
+	
 	<update id="updateMember" parameterType="memberVO">
 		update member
 		<set>
@@ -34,13 +37,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="idcheck" resultType="int" parameterType="string">
 		select count(*) from member where id=#{value}
 	</select>
+	
 	<select id="nickNamecheck" resultType="int" parameterType="string">
 		select count(*) from member where nickname=#{value}   
 	</select>
+	
 	<insert id="registerMember" parameterType="memberVO">
-		insert into member(id,password,name,nickname,tel)
+		insert into member(id, password, name, nickname, tel)
 		values(#{id}, #{password}, #{name}, #{nickName}, #{tel})
 	</insert>
+	
 	<update id="updateCompanyMember" parameterType="companyMemberVO">
 		update member 
 		<set>
@@ -51,52 +57,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</set>
 		where id=#{id}
 	</update>
-	<update id="deleteMember" parameterType="memberVO">
+	
+	<update id="deleteMember" parameterType="string">
 		update member set 	enabled=0 where id=#{value}
 	</update>
+	
 	<select id="passwordCheck" resultType="int" parameterType="MemberVO">
 		select count(*) from member where id=#{id} and password=#{password}
 	</select>
+	
 	<select id="leaveMemberList" resultType="memberVO">
 		select id, name, nickname, tel
 		from member
 		where enabled=0
 	</select>
+	
 	<select id="showAdminMember" parameterType="memberVO" resultType="memberVO">
-	select id,nickName,name,tel from member where id=#{id}
+		SELECT id,nickName, name, tel 
+		FROM member 
+		WHERE id=#{id}
 	</select>
 	
+	<!-- Spring Security에서 로그인 인증시 사용 : 
+	      사용가능한(enabled 1) 계정일 경우만 조회. 
+	 -->
+	<select id="findMemberById" resultType="memberVO" resultMap="memberRM">
+		SELECT id, password, nickname, enabled 
+		FROM member 
+		WHERE id=#{value} AND enabled=1
+	</select>
+	
+	<!-- Spring Security에서 권한 체크를 위해 사용 -->
+	<select id="selectAuthorityById" resultType="authority">
+		SELECT id, authority 
+		FROM	authorities 
+		WHERE id=#{id}
+	</select>
+	
+	<insert id="registerAuthority" parameterType="authority">
+		INSERT INTO authorities(id, authority) 
+		VALUES(#{id}, #{authority})
+	</insert>
 
 </mapper>
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

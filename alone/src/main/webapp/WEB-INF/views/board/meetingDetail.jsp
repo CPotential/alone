@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5a5f74b55c137eef83dc34e43b7a72b7&libraries=services"></script>
@@ -178,7 +178,7 @@
 			<div class="col-sm-8 col-md-9">
 				<div class="well well">${meetingVO.title}</div>
 				<c:forEach items="${requestScope.meetingVO.imageVO}" var="imageVO">
-					<img src="${pageContext.request.contextPath}/resources/upload/${imageVO.imageName}">
+					<img src="${pageContext.request.contextPath}/resources/upload/${imageVO.imageName}" width="50%" height="50%">
 				</c:forEach>
 				<div class="panel-body">
 					<table>
@@ -216,11 +216,12 @@
 						}
 					});
 				</script>
-
+				<sec:authentication property="principal.id" var="sessionId"/>
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<a href="${pageContext.request.contextPath}/meetingList.do" class="btn btn-default">목 록</a>
-						<c:if test="${meetingVO.memberVO.id==sessionScope.memberVO.id}">
+						
+						<c:if test="${meetingVO.memberVO.id==sessionId}">
 							<a href="${pageContext.request.contextPath}/meetingUpdateForm.do?boardNo=${requestScope.meetingVO.boardNo}" class="btn btn-default">수 정</a>
 							<a href="${pageContext.request.contextPath}/meetingDelete.do?boardNo=${requestScope.meetingVO.boardNo}" class="btn btn-default">삭 제</a>
 						</c:if>

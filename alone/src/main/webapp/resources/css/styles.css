@@ -7581,7 +7581,7 @@ a.list-group-item .list-group-item-text {
 .topbar {
   position: relative;
   height: 40px;
-  background: #333333;
+  background: #FFFF00;
 }
 .topbar:after:before,
 .topbar:after:after {
@@ -7610,14 +7610,14 @@ a.list-group-item .list-group-item-text {
 .topbar-nav > li > a {
   display: block;
   padding: 11px 5px;
-  color: #9e9e9e;
+  color: #FFE400;
   text-decoration: none;
   font-size: 12px;
   font-weight: 500;
 }
 .topbar-nav > li > a:hover,
 .topbar-nav > li > a:focus {
-  color: #ff5722;
+  color: #FFE400;
 }
 .topbar-nav_left {
   float: left;

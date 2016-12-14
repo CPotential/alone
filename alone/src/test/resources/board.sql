@@ -25,13 +25,16 @@ CREATE TABLE BOARD(
 	board_enabled number default 1, -- 게시글 삭제 여부 : 삭제시 0
 	constraint fk_board foreign key(id) references member(id)
 )
-
+delete from board;
+delete from meeting;
+delete from BOARDCOMMENT;
 CREATE TABLE INTRODUCE_CATEGORY(
 	category_no number primary key,
 	category_name varchar2(50) not null
 )
 
 -- 소개글 정보
+drop table INTRODUCE  CASCADE CONSTRAINTS;
 CREATE TABLE INTRODUCE(
 	board_no number primary key,
 	company_name varchar2(50) not null,
@@ -40,11 +43,13 @@ CREATE TABLE INTRODUCE(
 	business_hours varchar2(50) not null,
 	tel varchar2(50) not null,
 	category_no number not null,
+	keyword varchar2(100) not null,
 	constraint fk_introduce foreign key(board_no) references board(board_no),
 	constraint fk_introduce_category foreign key(category_no) references introduce_category(category_no)
 )
 alter table INTRODUCE add likes number default 0
 
+select * from introduce;
 
 
 -- 소개글 키워드 정보
@@ -75,6 +80,8 @@ CREATE TABLE REVIEW(
 	likes number default 0,
 	constraint fk_review foreign key(board_no) references board(board_no)
 )
+
+delete from REVIEW;
 
 --board sql
 

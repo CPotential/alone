@@ -6,36 +6,36 @@
 		<result property="corporateRegistrationNumber" column="corporate_registration_number" />
 		<result property="nickName" column="nickname" />
 	</resultMap>
+	
 	<insert id="registerMember" parameterType="companyMemberVO">
-		insert into
-		COMPANYMEMBER(id,address,corporate_registration_number)
-		values(#{id},#{address},#{corporateRegistrationNumber})
+		INSERT INTO companymember(id, address, corporate_registration_number) 
+		VALUES(#{id}, #{address}, #{corporateRegistrationNumber})
 	</insert>
-	<insert id="registerAuthority" parameterType="companyMemberVO">
-		insert into
-		AUTHORITIES (id,authority) values (#{id},#{authority})
-	</insert>
+	
 	<select id="NonApporvalCompanyList" resultMap="comMemberRM">
-		select
-		companymember.id,member.name,member.nickname,companymember.corporate_registration_number,member.tel,companymember.approval
-		from member member,companymember companymember where
-		member.id=companymember.id and companymember.approval = 0
+		SELECT companymember.id, member.name, member.nickname, companymember.corporate_registration_number, member.tel
+		FROM member member,companymember companymember, authorities authorities 
+		WHERE member.id=companymember.id and companymember.id=authorities.id and authorities.authority='ROLE_COMPANY_NON_VERIFIED'
 	</select>
+	
 	<select id="ApporvalCompanyList" resultMap="comMemberRM">
-		select
-		companymember.id,member.name,member.nickname,companymember.corporate_registration_number,member.tel,companymember.approval
-		from member member,companymember companymember where
-		member.id=companymember.id and companymember.approval = 1
+		SELECT companymember.id, member.name, member.nickname, companymember.corporate_registration_number, member.tel
+		FROM member member,companymember companymember, authorities authorities 
+		WHERE member.id=companymember.id and companymember.id=authorities.id and authorities.authority='ROLE_COMPANY_VERIFIED'
 	</select>
+	
 	<update id="updateApproval" parameterType="string">
-		update companymember
-		set approval = approval+1 where id=#{value}
+		UPDATE authorities
+		SET authority = 'ROLE_COMPANY_VERIFIED' 
+		WHERE id=#{value}
 	</update>
+	
 	<select id="showCompanyMember"  parameterType="memberVO" resultMap="comMemberRM">
 		select companymember.id,member.name,member.nickname,companymember.corporate_registration_number,companymember.address,member.tel 
 		from member member,companymember companymember 
 		where member.id=companymember.id and companymember.id=#{id} 
 	</select>
+	
 	<update id="updateCompanyMember" parameterType="companyMemberVO">
 		update companymember set address = #{address},corporate_registration_number = #{corporateRegistrationNumber} where id=#{id} 
 	</update>
@@ -47,36 +47,13 @@
 		from member member, companymember companymember 
 		where member.id=companymember.id and member.enabled=1
 	</select>
+	
+	<select id="companyAuthority" parameterType="string" resultType="string">
+		select authority from authorities where id=#{value}
+	</select>
+	
+	<select id="writeCheck" parameterType="string" resultType="string">
+		select write from companymember where id=#{value}
+	</select>
 </mapper>
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

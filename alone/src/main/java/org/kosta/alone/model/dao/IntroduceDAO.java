@@ -41,4 +41,13 @@ public interface IntroduceDAO {
 
 	public int likeCheckNumber(BoardVO bvo);
 
+	public void keywordUpdate(KeyWordVO keywordVO);
+
+
+	void keywordDeleteByBoardNo(int boardNo);
+
+	void introduceDeleteByBoardNo(int boardNo);
+
+	public void updateWriteBack(String id);
+
 }

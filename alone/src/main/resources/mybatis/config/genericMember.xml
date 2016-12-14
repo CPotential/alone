@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="deal_money" property="dealMileage" />
 		<result column="deal_content" property="dealDetail" />
 	</resultMap>
+	
 	<insert id="registerMember" parameterType="genericMemberVO">
 		insert into genericmember (id, birth, gender)
 		values(#{id}, #{birth}, #{gender})

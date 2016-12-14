@@ -20,4 +20,8 @@ public interface CompanyMemberDAO {
 	public void updateCompanyMember(CompanyMemberVO cvo);
 
 	public List<CompanyMemberVO> companyList();
+	
+	public String companyAuthority(String id);
+
+	public String writeCheck(String id);
 }

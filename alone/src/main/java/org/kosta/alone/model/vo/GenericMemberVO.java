@@ -10,9 +10,9 @@ public class GenericMemberVO extends MemberVO {
 		super();
 	}
 
-	public GenericMemberVO(String id, String password, String name, String nickName, String tel, String authority,
+	public GenericMemberVO(String id, String password, String name, String nickName, String tel, 
 			int enabled, String birth, String gender, int mileage) {
-		super(id, password, name, nickName, tel, authority, enabled);
+		super(id, password, name, nickName, tel, enabled);
 		this.birth = birth;
 		this.gender = gender;
 	}

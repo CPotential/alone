@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.alone.model.vo.Authority;
 import org.kosta.alone.model.vo.CompanyMemberVO;
 import org.kosta.alone.model.vo.MemberVO;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -66,4 +67,29 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSessionTemplate.selectOne("member.showAdminMember",memberVO);
 	}
 
+	@Override
+	public MemberVO findMemberById(String id) {
+		return sqlSessionTemplate.selectOne("member.findMemberById",id);
+	}
+	
+	/*
+	 * Security에서 인증시 사용
+	 */
+	@Override
+	public List<Authority> selectAuthorityById(String id) {
+		return sqlSessionTemplate.selectList("member.selectAuthorityById", id);
+	}
+
+	@Override
+	public CompanyMemberVO adminApproval(MemberVO memberVO) {
+		return sqlSessionTemplate.selectOne("member.adminApproval", memberVO);
+	}
+
+	/**
+	 * 아이디 권한 생성
+	 */
+	@Override
+	public void registerAuthority(Authority authority) {
+		sqlSessionTemplate.insert("member.registerAuthority", authority);
+	}
 }

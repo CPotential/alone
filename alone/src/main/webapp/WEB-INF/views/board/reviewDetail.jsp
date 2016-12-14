@@ -12,8 +12,7 @@
 						var content = "";
 						var commentNo = "";
 						$("#sendComment").click(function() {
-											var comment = $("#sendContent").val()
-
+											var comment = $("#sendContent").val();
 											$.ajax({
 														type : "GET",
 														url : "${pageContext.request.contextPath}/sendCommentAjax.do",
@@ -104,8 +103,7 @@
 																json +=">"
 																json += "</div></div>";
 															}
-															$("#commentView")
-																	.html(json);
+															$("#commentView").html(json);
 														}
 													}); //ajax
 
@@ -159,14 +157,14 @@
 										}); //commentView 삭제하기 버튼
 
 						//좋아요
-						$("#like").click(function(){
+
+						$("#like").click(function() {
 											$.ajax({
 														type : "get",
 														url : "${pageContext.request.contextPath}/likeUpAjax.do",
 														data : "boardNo="+ '${rvo.boardNo}',
 														dataType : "json",
 														success : function(result) {
-															alert(result);
 															$("#likeNum").html("좋아요 : "+ result);
 														}
 													}) // ajax
@@ -262,8 +260,7 @@
 											Edit</a> <a href="#" class="btn btn-primary btn-xs"><i
 											class="fa fa-reply"></i> Answer</a>
 									</div>
-									<input type="hidden" id="commentNo"
-										value="${commentList.commentNo}">
+									<input type="hidden" id="commentNo" value="${commentList.commentNo}">
 								</c:if>
 							</div>
 							<!-- / .comment__content -->

@@ -12,7 +12,7 @@ public interface BoardDAO {
 
 	List<ImageVO> imageList(int boardNo);
 
-	List<ImageVO> introduceFirstImage(int boardNo);
+	ImageVO introduceFirstImage(int boardNo);
 
 	List<CommentVO> commentList(int boardNo);
 
@@ -39,5 +39,11 @@ public interface BoardDAO {
 	void imageDelete(String deleteFileName);
 
 	public void meetingboardUpdate(MeetingVO meetingVO);
+
+	void boardDeleteByBoardNo(int boardNo);
+
+	void imageDeleteByBoardNo(int boardNo);
+
+	List<ImageVO> imageAllList(int boardNo);
 
 }
