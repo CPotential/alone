@@ -217,3 +217,55 @@ and introduce.board_no='273';
 		introduce.location, introduce.business_hours, introduce.tel, introduce.keyword,introduce.category_no
 		from introduce introduce,board board 
 		where board.board_no=introduce.board_no and introduce.board_no='273'
+
+-----------
+select * from attendance;
+select * from genericmember;
+
+select to_char(sysdate,'YYYY/MM/DD') from dual;
+
+
+--회원 출석 정보 저장
+insert into attendance(id,mydate)
+values('mimi',(select to_char(sysdate,'YYYY/MM/DD') from dual))
+insert into attendance(id,mydate)
+values('mimi','2016/12/13')
+
+
+--현재 날짜에 출석된 정보가 있는지 화인
+select count(*) from attendance where id='java' 
+and mydate=(select to_char(sysdate,'YYYY/MM/DD') from dual);
+
+
+--총 출석일 뽑기
+select * from attendance where id='mimi';
+select count(*) from attendance where id='mimi';
+
+
+--마일리지 증가시켜주기
+
+select * from mileage;
+--generic member 마일리지 거래내역 추가
+INSERT into mileage (mileage_no,deal_money,deal_content,id)
+VALUES (mileage_seq.nextval,100,'출석','mimi');
+
+--generic member 마일리지 증가
+update genericmember set mileage = mileage+200
+where id='mimi'	
+
+ select count(*) from attendance where id='mimi'
+and mydate=(select to_char(sysdate,'YYYY/MM/DD') from dual)
+
+select mydate from attendance where id='mimi';
+
+select substr(
+(
+select mydate from attendance where id='mimimi4'
+),-2) mydate from dual;
+
+
+--특정 day만 출력하기
+select substr(mydate,-2) as day from attendance where id='mimi'
+and mydate LIKE '2016/12%';
+		
+		

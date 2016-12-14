@@ -56,3 +56,15 @@ create table likescheck(
 )
 
 
+
+drop table attendance;
+create table attendance(
+   id varchar2(50) not null,
+   mydate varchar2(50) not null,
+   constraint fk_attendance_id foreign key(id) references GENERICMEMBER(id),
+   constraint fk_attendance primary key(id,mydate)
+
+);
+
+
+

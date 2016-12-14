@@ -368,7 +368,7 @@ public class BoardController {
 	@RequestMapping("meetingDelete.do")
 	public ModelAndView meetingDelete(int boardNo) {
 		boardService.boardDelete(boardNo);
-		return new ModelAndView("redirect:reviewList.do");
+		return new ModelAndView("redirect:meetingList.do");
 	}
 
 	// 모임 게시글 수정 폼
