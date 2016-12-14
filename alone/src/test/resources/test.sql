@@ -59,12 +59,15 @@ and board.board_no=image.board_no and image.image_no=1;
 
 --and image.image_no=1;
 delete from image;
-insert into image(image_no, image_name, image_original_name, board_no) 
-values('1', sysdate, 'asdf', 1);
-insert into image(image_no, image_name, image_original_name, board_no) 
-values('1', sysdate, 'asdf', 2);
+insert into image(image_no, image_name, image_originalname, board_no) 
+values(image_seq.nextval, sysdate, '공유.jpg', 1);
+insert into image(image_no, image_name, image_originalname, board_no) 
+values(image_seq.nextval, sysdate, '아이유.jpg', 1);
 select * from image where board_no=1;
 
+--오리지널 이미지 이름뽑기
+	SELECT image_name,image_originalname image_ FROM image 
+	WHERE NOT image_name LIKE 'main%'and board_no='1';
 
 -----------------기업회원 마이페이지
 	select companymember.id,member.nickname,authorities.authority,companymember.approval,companymember.write
@@ -172,6 +175,22 @@ ENERICMEMBER gmember,mileage mileage
 	
 	select nickName from member where id='spring'
 	select * from mileage
+<<<<<<< HEAD
+
+
+--소개글삭제
+
+delete from introduce where board_no ='246' 
+delete from board where board_no ='246' --이미지가 먼저 삭제된후 삭제되야함
+delete from image where board_no ='246' 
+delete from keyword where board_no ='246' 
+
+  select image_name from image where board_no ='254'
+  
+ALTER TABLE INTRODUCE
+ADD constraint fk_introduce foreign key(board_no) 
+references board(board_no)
+[ON DELETE CASCADE];
 
 	
 	select * from member where id='admin'
@@ -180,3 +199,21 @@ ENERICMEMBER gmember,mileage mileage
 select mileage.deal_money, mileage.deal_content
 		from mileage mileage, member member
 		where mileage.id=member.id and member.id='java' order by mileage_no desc
+
+		
+select * from INTRODUCE_CATEGORY;	
+
+select * from introduce;
+
+
+
+select category.category_no, category.category_name
+from introduce introduce, INTRODUCE_CATEGORY category
+where introduce.category_no =category.category_no 
+and introduce.board_no='273';
+
+
+		select introduce.board_no, board.content, introduce.company_name, introduce.region, 
+		introduce.location, introduce.business_hours, introduce.tel, introduce.keyword,introduce.category_no
+		from introduce introduce,board board 
+		where board.board_no=introduce.board_no and introduce.board_no='273'

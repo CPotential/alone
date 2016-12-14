@@ -36,24 +36,24 @@
 			<!-- Account links -->
 			<c:choose>
 				<c:when test="${empty sessionScope.memberVO}">
-				<li><a href="${pageContext.request.contextPath}/templates/attendance.do">출석부 테스트</a></li>
-					<li><a href="${pageContext.request.contextPath}/login.do">Sign In</a></li>
-					<li><a href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
+				<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/templates/attendance.do">출석부 테스트</a></li>
+					<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/login.do">Sign In</a></li>
+					<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
 				</c:when>
 
 				<c:otherwise>
 					<c:set var="authority" value="${sessionScope.memberVO.authority}" />
 					<c:if test="${authority eq 'ROLE_MEMBER'}">
-						<li><a href="${pageContext.request.contextPath}/showGenericInfo.do">myPageGeneric</a></li>
-						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+						<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showGenericInfo.do">myPageGeneric</a></li>
+						<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 					</c:if>
 					<c:if test="${authority eq 'ROLE_COMPANY'}">
-						<li><a href="${pageContext.request.contextPath}/showCompanyInfo.do">myPageCompany</a></li>
-						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+						<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/showCompanyInfo.do">myPageCompany</a></li>
+						<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 					</c:if>
 					<c:if test="${authority eq 'ROLE_ADMIN'}">
-						<li><a href="${pageContext.request.contextPath}/showAdminInfo.do">myPageAdmin</a></li>
-						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+						<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showAdminInfo.do">myPageAdmin</a></li>
+						<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 					</c:if>
 
 				</c:otherwise>
@@ -82,7 +82,7 @@
 					class="icon-bar"></span>
 			</button>
 			<!-- Brand name -->
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/home.do">혼자서도 잘해요</a>
+			<a class="navbar-brand"  href="${pageContext.request.contextPath}/home.do">혼자서도 잘해요</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<!-- Navbar links -->

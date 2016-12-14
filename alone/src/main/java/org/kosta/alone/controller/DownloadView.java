@@ -31,6 +31,7 @@ public class DownloadView extends AbstractView{
    HttpServletRequest request, HttpServletResponse response) throws Exception {
   String path=request.getSession().getServletContext().getRealPath("/resources/upload/");
   String filename=request.getParameter("fileName");
+  String originalFileName=request.getParameter("originalFileName");
   request.getSession().getServletContext().getRealPath("/resources/upload/");
   System.out.println("DownloadView 실행 "+path+filename);
   // 업로드 파일 객체 
@@ -39,9 +40,10 @@ public class DownloadView extends AbstractView{
      response.setContentType(this.getContentType());
      response.setContentLength((int)file.length());//파일 크기 설정 
      // 다운로드 파일에 대한 설정 
+     //원래 파일이름으로 다운로드하는 방법!!!
      response.setHeader("Content-Disposition", 
        "attachment; fileName="
-     +new String(file.getName().getBytes("UTF-8"),"8859_1"));
+     +new String(originalFileName.getBytes("UTF-8"),"8859_1"));
      //데이터 인코딩이 바이너리 파일임을 명시
      response.setHeader("Content-Transfer-encoding", "binary");
   

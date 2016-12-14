@@ -13,7 +13,8 @@
 
 	
     <!-- CSS Global -->
-    <link href="${pageContext.request.contextPath}/resources/css/styles_light-green.css" rel="stylesheet">
+	<%--  <link href="${pageContext.request.contextPath}/resources/css/styles_light-green.css" rel="stylesheet"> --%>
+   <link href="${pageContext.request.contextPath}/resources/css/styles_test.css" rel="stylesheet">
     
     <!-- 부트스트랩 select -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">

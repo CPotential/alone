@@ -1,6 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(
+					function() {
+
+						$("#introduceUpdate")
+								.click(
+										function() {
+
+										
+												location.href = "${pageContext.request.contextPath}/introduceUpdateForm.do?boardNo=${requestScope.introVO.boardNo}";
+										
+										});//click
+						$("#introduceDelete")
+								.click(
+										function() {
+
+											if (confirm("삭제 하시겠습니까?")) {
+												location.href = "${pageContext.request.contextPath}/introduceDelete.do?boardNo=${requestScope.introVO.boardNo}";
+											}
+
+										}); //click
+
+					});//ready
+</script>
 <!-- Panels -->
 <div class="container">
 	<div class="row">
@@ -16,11 +42,14 @@
 						<div class="panel panel-primary">
 							<div class="panel-heading"></div>
 							<div class="panel-body">
-								<!-- fileOriginal name 따로 저장해야되는구나. -->
+
 								<c:forEach items="${requestScope.introVO.imageVO}" var="imgVO">
-									<a href="${pageContext.request.contextPath}/fileDownload.do?fileName=${imgVO.imageName}">${imgVO.imageName}</a>
+									<!--  다운로드시는 서버에 저장되는 실제 이름과 같아야함/ 원래 저장했던 이미지로 다운로드하기!!! -->
+									<a
+										href="${pageContext.request.contextPath}/fileDownload.do?fileName=${imgVO.imageName}&originalFileName=${imgVO.originalFileName}">${imgVO.originalFileName}</a>
 									<br>
-									<img src="${pageContext.request.contextPath}/resources/upload/${imgVO.imageName}">
+									<img
+										src="${pageContext.request.contextPath}/resources/upload/${imgVO.imageName}">
 									<br>
 								</c:forEach>
 							</div>
@@ -32,8 +61,8 @@
 								<h3 class="panel-title">가게 상세정보</h3>
 							</div>
 							<div class="panel-body">
-								${requestScope.introVO.content}<br>
-								<br> 장소:${requestScope.introVO.location}<br>
+								${requestScope.introVO.content}<br> <br>
+								장소:${requestScope.introVO.location}<br>
 								영업시간:${requestScope.introVO.businessHours}<br>
 								전화번호:${requestScope.introVO.tel}<br> 키워드:
 								<c:forEach items="${requestScope.introVO.keyWordVO}" var="keyVO">
@@ -45,13 +74,13 @@
 						</div>
 					</div>
 					<div class="panel-footer">
-						<div class="btn-group btn-group-justified">
-							<a
-								href="${pageContext.request.contextPath}/introduceUpdateForm.do?boardNo=${requestScope.introVO.boardNo}"
-								class="btn btn-default">수 정</a> <a href="#"
-								class="btn btn-default">삭 제</a>
+					<!-- 	<div class="btn-group btn-group-justified"> -->
 
-						</div>
+							<button type="button" class="btn btn-primary"
+								id="introduceUpdate">수정</button>
+							<button type="button" class="btn btn-primary"
+								id="introduceDelete">삭제</button>
+				<!-- 		</div> -->
 					</div>
 
 				</div>

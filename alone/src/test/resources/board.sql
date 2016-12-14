@@ -32,6 +32,7 @@ CREATE TABLE INTRODUCE_CATEGORY(
 )
 
 -- 소개글 정보
+drop table INTRODUCE  CASCADE CONSTRAINTS;
 CREATE TABLE INTRODUCE(
 	board_no number primary key,
 	company_name varchar2(50) not null,
@@ -40,6 +41,7 @@ CREATE TABLE INTRODUCE(
 	business_hours varchar2(50) not null,
 	tel varchar2(50) not null,
 	category_no number not null,
+	keyword varchar2(100) not null,
 	constraint fk_introduce foreign key(board_no) references board(board_no),
 	constraint fk_introduce_category foreign key(category_no) references introduce_category(category_no)
 )

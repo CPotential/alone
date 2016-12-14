@@ -70,7 +70,7 @@ public class BoardServiceImpl implements BoardService {
 	 */
 	@Override
 	public ListVO<IntroduceVO> introduceList(int categoryNo, String nowPage) {
-		List<ImageVO> imageList = null;
+		ImageVO mainImage = null;
 		List<KeyWordVO> keyWordVO = null;
 		int totalCount = introduceDAO.getTotalContentCount(categoryNo);
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -87,8 +87,9 @@ public class BoardServiceImpl implements BoardService {
 			for (int i = 0; i < list.size(); i++) {
 				keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
 				list.get(i).setKeyWordVO(keyWordVO);
-				imageList = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
-				list.get(i).setImageVO(imageList);
+				mainImage = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
+				list.get(i).setMainImage(mainImage);
+			
 			}
 			ListVO<IntroduceVO> vo = new ListVO<IntroduceVO>(list, pagingBean);
 			return vo;
@@ -104,8 +105,8 @@ public class BoardServiceImpl implements BoardService {
 			for (int i = 0; i < list.size(); i++) {
 				keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
 				list.get(i).setKeyWordVO(keyWordVO);
-				imageList = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
-				list.get(i).setImageVO(imageList);
+				mainImage = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
+				list.get(i).setMainImage(mainImage);
 			}
 			ListVO<IntroduceVO> vo = new ListVO<IntroduceVO>(list, pagingBean);
 			return vo;
@@ -121,8 +122,9 @@ public class BoardServiceImpl implements BoardService {
 	/**
 	 * 소개글 작성
 	 */
+	@Transactional
 	@Override
-	public void introduceWrite(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
+	public void introduceWrite(IntroduceVO introduceVO, UploadFileVO vo ,HttpServletRequest request) {
 		// 테이블 기존 정보 쓰기
 		introduceDAO.boardWrite(introduceVO);
 		// 테이블 상세정보쓰기
@@ -130,19 +132,82 @@ public class BoardServiceImpl implements BoardService {
 		// 기업회원 글한번 쓴 상태로 변경
 		introduceDAO.updateWrite(introduceVO.getMemberVO().getId());
 		// 이미지 업로드& 이미지 데이터 저장
+
+		//이미지 정보가 모두 비어있지않다면 update
+		 if(vo.getFile()!=null&& vo.getMainFile()!=null )
 		imageUpload(introduceVO, vo, request);
-		// 키워드 데이터 저장
-		keywordRegister(introduceVO);
+
+       
+        //데이터 베이스에 키워드 저장
+        if(introduceVO.getKeyword()!=null)
+		keywordRegister(introduceVO, introduceVO.getKeyword());
 	}
 
-	public void keywordRegister(IntroduceVO introduceVO) {
-		List<KeyWordVO> list = introduceVO.getKeyWordVO();
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).setBoardNo(introduceVO.getBoardNo());
-			introduceDAO.keywordRegister(list.get(i));
+	public void keywordRegister(IntroduceVO introduceVO,String keyword) {
+	
+		if(keyword!=null){
+		KeyWordVO keywordVO=null;
+	    String[] array;
+	    array=keyword.split("#");
+	    
+
+  
+       
+		for (int i = 1; i < array.length; i++) {
+			
+			
+			keywordVO = new KeyWordVO();
+			keywordVO.setBoardNo(introduceVO.getBoardNo());
+			keywordVO.setKeyWordName(array[i]);
+			introduceDAO.keywordRegister(keywordVO);
 		}
+		
 
+		}
 	}
+	
+	/**
+	 * 키워드 수정
+	 * @param introduceVO
+	 * @param keyword
+	 */
+	public void keywordUpdate(IntroduceVO introduceVO,String keyword) {
+
+		if(keyword!=null){
+	   List<KeyWordVO> list =introduceVO.getKeyWordVO();
+	   KeyWordVO keywordVO=null;
+
+	    String[] array;
+	    array=keyword.split("#");
+	    
+
+
+       
+		for (int i = 1; i < array.length; i++) {
+		//기존 키워드 업데이트
+		if(i<=list.size())
+		{	
+			list.get(i-1).setKeyWordName(array[i]);
+			introduceDAO.keywordUpdate(	list.get(i-1));
+
+		}
+		//그외 새로 추가
+		else {
+			keywordVO = new KeyWordVO();
+			keywordVO.setBoardNo(introduceVO.getBoardNo());
+			keywordVO.setKeyWordName(array[i]);
+			introduceDAO.keywordRegister(keywordVO);
+	
+			
+		}
+		
+		}
+		
+
+
+		}
+	}
+	
 
 	/**
 	 * 소개글 수정
@@ -151,18 +216,49 @@ public class BoardServiceImpl implements BoardService {
 
 	public void introduceUpdate(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
 		// 테이블 기존 정보 쓰기
-		introduceDAO.boardUpdate(introduceVO);
-		// 테이블 상세정보쓰기
-		introduceDAO.introduceUpdate(introduceVO);
+		//System.out.println(introduceVO);
+		List<KeyWordVO> keyWordVO=null;
+		
+		
+		//content가 비어있지 않다면 update
+       if(!introduceVO.getContent().equals("") ){
+    	        introduceDAO.boardUpdate(introduceVO);
+            // System.out.println("boardUpdate");
+       }
+		// 테이블 상세정보들이 모두 비어있지 않다면 update
+		if( !(introduceVO.getCompanyName().equals("") && introduceVO.getRegion().equals("")&& 
+				introduceVO.getLocation().equals("") && introduceVO.getBusinessHours().equals("")
+				&& introduceVO.getTel().equals("") && introduceVO.getKeyword().equals("") && 
+				introduceVO.getCategoryVO().equals("")
+				
+				) 
+			){
+		   introduceDAO.introduceUpdate(introduceVO);
+		   // System.out.println("introduceUpdate");
+		}
 
+   
+		//이미지 정보가 모두 비어있지않다면 update
+        if(vo.getFile()!=null&& vo.getMainFile()!=null ){
+        System.out.println("이미지 정보안비어있음");
 		imageUpload(introduceVO, vo, request);
-
-		/*
-		 * // 키워드 데이터 저장 keywordRegister(introduceVO);
-		 */
-
+        }
+        //키워드가 null이 아니라면 
+        if(introduceVO.getKeyword()!=null)
+        {
+        	
+        	//기존 게시물에 저장되어있는 키워드 정보를 가져와 세팅해준다음에 keywordUpdate 해준다
+            keyWordVO = introduceDAO.keyWordList(introduceVO.getBoardNo());
+            introduceVO.setKeyWordVO(keyWordVO);
+        	keywordUpdate(introduceVO, introduceVO.getKeyword());
+        	
+        }
+        
+        
 	}
+ 
 
+	
 	@Override
 	public String deleteImage(String deleteFileName, HttpServletRequest request) {
 		// System.out.println("fileDelete 실행 :"+deleteFileName);
@@ -192,13 +288,17 @@ public class BoardServiceImpl implements BoardService {
 			uploadDir.mkdirs();
 		// 메인 파일 업로드
 		if (mainFile != null) {
-			String mainFileName = mainFile.getOriginalFilename();
-			mainFileName = "main_" + boardVO.getBoardNo() + mainFileName;
+			//서버 파일이름
+			String mainFileName=null;
+			//원래 파일이름
+			String originalFileName=   mainFile.getOriginalFilename();
+
+			mainFileName = "main_" + boardVO.getBoardNo() + originalFileName;
 			try {
 				mainFile.transferTo(new File(uploadPath + mainFileName));
-				// System.out.println(mainFileName+" 업로드 완료");
-				ImageVO imageVO = new ImageVO(0, mainFileName, boardVO.getBoardNo());
-				// System.out.println("imageVO: "+imageVO);
+				System.out.println(mainFileName+" 업로드 완료");
+				ImageVO imageVO = new ImageVO(0, mainFileName,originalFileName,boardVO.getBoardNo());
+				 System.out.println("imageVO: "+imageVO);
 				boardDAO.imageUpload(imageVO);
 
 			} catch (Exception e) {
@@ -207,42 +307,90 @@ public class BoardServiceImpl implements BoardService {
 
 		}
 		// 그외 파일 업로드
+		if(list!=null){
 		for (int i = 0; i < list.size(); i++) {
 			// 만약 업로드 파일이 없으면 파일명은 공란처리된다
-			String fileName = list.get(i).getOriginalFilename();
+			//서버 파일이름
+			String fileName=null;
+			//원래 파일이름
+			String originalFileName=   list.get(i).getOriginalFilename();
 			// 파일이름을 유일하게 해준다
-			fileName = boardVO.getBoardNo() + "_" + i + fileName;
+			fileName = boardVO.getBoardNo() + "_" + i + originalFileName;
 			// 업로드 파일이 있으면 파일을 특정경로로 업로드한다
 			if (!fileName.equals("")) {
 				try {
 					list.get(i).transferTo(new File(uploadPath + fileName));
-					ImageVO imageVO = new ImageVO(0, fileName, boardVO.getBoardNo());
+					System.out.println(fileName+" 업로드 완료");
+					//데이터베이스에 파일 저장
+					ImageVO imageVO = new ImageVO(0, fileName,originalFileName,boardVO.getBoardNo());
 					boardDAO.imageUpload(imageVO);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
+		}
 	}
 
 	@Override
 	public IntroduceVO introduceDetail(int boardNo) {
 		List<ImageVO> imageList = null;
+		ImageVO mainImage= null;
 		List<KeyWordVO> keyWordList = null;
 		// boardNo에 해당하는 게시물 기본정보를 가져옴
 		IntroduceVO introduceVO = introduceDAO.introduceDetail(boardNo);
 		// 해당 게시물의 키워드 정보를 가져와서 세팅
 		keyWordList = introduceDAO.keyWordList(boardNo);
-		introduceVO.setKeyWordVO(keyWordList);
 
-		// 해당 게시물의 이미지 정보를 가져와서 세팅(main image 정보도 저장되어있으므로 이것은 수정해야함!!)
+		introduceVO.setKeyWordVO(keyWordList);
+		
+		//keword도 세팅
+		String keywordSet="";
+		for(int i=0;i<keyWordList.size();i++){
+		
+			keywordSet+="#"+keyWordList.get(i).getKeyWordName();
+			
+
+		}
+
+		introduceVO.setKeyword(keywordSet);
+
+		//메인 이미지 저장
+		mainImage = boardDAO.introduceFirstImage(boardNo);
+		introduceVO.setMainImage(mainImage);
+		//이미지 상세 저장
 		imageList = boardDAO.imageList(boardNo);
 		introduceVO.setImageVO(imageList);
 
+	
 		// 완벽히 저장된 상세정보를 리턴한다!!!
 		return introduceVO;
 	}
+	
+	/**
+	 * 게시글 삭제
+	 * 해당 boardNo가 없으면 삭제안되므로 예외처리 필요없음
+	 */
+	@Transactional
+	@Override
+	public void introduceDelete(IntroduceVO introduceVO,HttpServletRequest request) {
+		List<ImageVO> list =null;
 
+		 list=boardDAO.imageAllList(introduceVO.getBoardNo());
+		if(list!=null)
+		{
+			for(int i=0; i<list.size();i++)
+			deleteImage(list.get(i).getImageName(),request);
+
+		}
+		introduceDAO.keywordDeleteByBoardNo(introduceVO.getBoardNo());
+		introduceDAO.introduceDeleteByBoardNo(introduceVO.getBoardNo());
+		boardDAO.boardDeleteByBoardNo(introduceVO.getBoardNo());
+		// 기업회원 글한번 쓴 상태로 변경
+		introduceDAO.updateWriteBack(introduceVO.getMemberVO().getId());
+		
+		
+	}
 	@Transactional
 	@Override
 	public void reviewWrite(ReviewVO reviewVO) {
@@ -441,5 +589,7 @@ public class BoardServiceImpl implements BoardService {
 			reviewDAO.likeUp(bvo);
 		}
 	}
+
+
 
 }

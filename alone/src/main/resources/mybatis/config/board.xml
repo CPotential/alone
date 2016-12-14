@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="board">
 	<resultMap type="imageVO" id="imageRM">
 		<result column="image_name" property="imageName" />
+		<result column="image_originalname" property="originalFileName"/>
 	</resultMap>
 	<resultMap type="boardVO" id="boardRM">
 		<result column="board_no" property="boardNo"/>
@@ -13,24 +14,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<select id="imageList" resultMap="imageRM" resultType="imageVO">
-	SELECT image_name FROM image WHERE NOT image_name LIKE 'main%'and board_no=#{value}
+	SELECT image_name,image_originalname FROM image 
+	WHERE NOT image_name LIKE 'main%'and board_no=#{value}
 	</select>
 	
 	
 	<select id="introduceFirstImage" resultMap="imageRM" resultType="imageVO">
-	SELECT image_name FROM image WHERE image_name LIKE 'main%' and board_no=#{value}
+	SELECT image_name,image_originalname FROM image WHERE image_name LIKE 'main%' and board_no=#{value}
 	</select>
 
    	<insert id ="imageUpload" parameterType="imageVO" >
 		<selectKey resultType="int" keyProperty="imageNo" order="BEFORE">
 			select image_seq.nextval from dual
 		</selectKey>
-	insert into image(image_no, image_name, board_no) 
-    values(#{imageNo}, #{imageName}, #{boardNO})
+	insert into image(image_no,image_name,image_originalname, board_no) 
+    values(#{imageNo},#{imageName}, #{originalFileName},#{boardNO})
 	</insert>
 	
 	<delete id="imageDelete">
 	   delete from image where image_name=#{value}
+	</delete>
+	
+	<select id="imageAllList" resultMap="imageRM" resultType="imageVO">
+	   select image_name from image where board_no =#{value}
+	</select>
+	
+	
+	<delete id="imageDeleteByBoardNo">
+	delete from image where board_no =#{value} 
+	</delete>
+	
+	<delete id="boardDeleteByBoardNo">
+	  delete from board where board_no =#{value}
 	</delete>
 	
 	<select id="commentList" resultType="commentVO">

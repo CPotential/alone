@@ -3,33 +3,113 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-
+	$(document).ready(function(){
+		//카테고리 정보 자동으로 세팅
+		$("#category_no").val(${introVO.categoryVO.categoryNo});
+		//alert("${introVO.categoryVO.categoryNo}");
+		
+		
+		$("#introduceUpdate").click(function(){
+			if($("#category_no").val().trim() =="")
+			{
+		    	
+			alert("카테고리번호를 선택하세요");				
+			return false;
+			}
+			
+			
+		});//submit
+		
+		
+		$("#introduceUpdateCansel").click(function(){
+			
+			
+			if (confirm("작성을 취소하시겠습니까?")) {
+				location.href = "${pageContext.request.contextPath}/showCompanyBoard.do";
+			}
+			
+		}); //click 
+	
 		//alert("1");
-		$("#deleteFileView").on("click", "#deleteBtn", function() {
+		$("#deleteMainFileView").on("click", "#maindeleteBtn", function() {
 
 			//alert($(this).val());
-			var fileName = $(this).parent().text().trim();
-			var del = $(this).parent().parent();
+			var mainfileName = $("#mainfileName").val();
+			var maindel = $(this).parent().parent();
 			$.ajax({
 				type : "POST",
 				url : "${pageContext.request.contextPath}/fileDelete.do",
-				data : "deleteFileName=" + fileName,
+				data : "deleteFileName=" + mainfileName,
 				success : function(data) {
-					alert(data);
-					if (data == "fail") {
-						console.log(data);
-						alert("실패");
 
+					if (data == "fail") {
+
+						alert("파일 삭제 실패");
 					} else {
-						del.empty();
+						maindel.empty();
+						alert("파일 삭제 성공");
 					}
 				}//callback			
 			});//ajax 
 
 		});//deleteBtn callback
 
-	});//ready
+		$("#deleteFileView").on("click", "#deleteBtn", function() {
+
+			//alert($(this).val());
+			var fileName = $("#fileName").val();
+			var del = $(this).parent().parent();
+			$.ajax({
+				type : "POST",
+				url : "${pageContext.request.contextPath}/fileDelete.do",
+				data : "deleteFileName=" + fileName,
+				success : function(data) {
+
+					if (data == "fail") {
+
+						alert("파일 삭제 실패");
+
+					} else {
+						del.empty();
+						alert("파일 삭제 성공");
+					}
+				}//callback			
+			});//ajax 
+
+		});//deleteBtn callback
+		
+
+		$("#keyword").keyup(function(){
+			
+			
+			var string=$(this).val();
+			//문자열 해쉬태그 배열로 나누기
+			var strArray=string.split('#');
+
+			for(var key in strArray){
+		
+				if(parseInt(key)!=0 && parseInt(key)<4)
+				{
+
+				$("#hash"+key).val(strArray[parseInt(key)]);
+			
+				}
+				else if( parseInt(key)>=4){
+					
+					alert("태그는 3개까지만 유효합니다");
+				
+					$("#keyword").val("#"+strArray[1]+"#"+strArray[2]+"#"+strArray[3]);
+
+			 	
+			}
+			}
+		
+		});//callback
+	
+
+		
+		
+	});
 </script>
 
 <!-- PAGE CONTENT
@@ -52,11 +132,12 @@
 				var RecaptchaOptions = {
 					theme : 'custom',
 					custom_theme_widget : 'recaptcha_widget'
-				};
+				}
 			</script>
 			<!-- Please carefully read the README.txt file in order to setup
                the PHP contact form properly -->
-			<form role="form" action="${pageContext.request.contextPath}/introduceUpdate.do"
+			<form role="form"
+				action="${pageContext.request.contextPath}/introduceUpdate.do"
 				id="form_introduceWrite" method="post" enctype="multipart/form-data">
 				<c:set value="${requestScope.introVO}" var="introVO" />
 				<input type="hidden" name="boardNo" value="${introVO.boardNo}">
@@ -69,12 +150,12 @@
 				<div class="form-group">
 					<label for="region">키워드</label> <input type="text" name="keyword"
 						class="form-control" id="keyword"
-						placeholder="<%-- ${introVO.keyWordVO[0].keywordName}${introVO.keyWordVO[1].keywordName}${introVO.keyWordVO[2].keywordName} --%>keyword"
+						placeholder="${introVO.keyword}"
 						data-original-title="" title="" value="">
 					<div id="hashTag">
-						<input type="text" id="hash1" name="keyWordVO[0].keyWordName" value="" readonly> 
-						<input type="text" id="hash2" name="keyWordVO[1].keyWordName" value="" readonly> 
-						<input type="text" id="hash3" name="keyWordVO[2].keyWordName" value="" readonly>
+						<input type="text" id="hash1" value="" readonly> <input
+							type="text" id="hash2" value="" readonly> <input
+							type="text" id="hash3" value="" readonly>
 					</div>
 					<span class="help-block"></span>
 				</div>
@@ -96,8 +177,8 @@
 						title=""> <span class="help-block"></span>
 				</div>
 				<div class="form-group">
-					<label for="interest">전화번호</label> 
-					<input type="text" name="tel" class="form-control" id="tel" placeholder="${introVO.tel}"
+					<label for="interest">전화번호</label> <input type="text" name="tel"
+						class="form-control" id="tel" placeholder="${introVO.tel}"
 						data-original-title="" title=""> <span class="help-block"></span>
 				</div>
 				<div class="form-group">
@@ -107,109 +188,130 @@
 					<span class="help-block"></span>
 				</div>
 				<div class="form-group">
-					<label for="interest">메인사진 첨부</label> 
-					<input type="file" name="mainFile"><br> <span class="help-block"></span>
+					<label for="interest">메인사진 첨부</label> <input type="file"
+						name="mainFile"><br> <span class="help-block"></span>
 				</div>
+				<!-- 메인 파일 삭제하기 -->
+				
+					<c:set value="${introVO.mainImage}" var="mainFile" />
+		
+					<c:if test="${not empty mainFile}">
+				<div id="deleteMainFileView">
+
+	
+					<div id="deleteResult">
+					
+						<p id="resultView">${mainFile.originalFileName}
+							<input type="hidden" id="mainfileName"
+								value="${mainFile.imageName}"> <input type="button"
+								id="maindeleteBtn" value="삭제" />
+						</p>
+					
+					</div>
+					</div>
+	            </c:if>
+
+		
 				<div class="form-group">
 					<label for="interest">사진첨부</label> <input type="file" name="file"
 						multiple="multiple"><br> <span class="help-block"></span>
 				</div>
 
-					<!-- 파일 삭제하기 -->
-					<div id="deleteFileView">
+				<!-- 파일 삭제하기 -->
+				<div id="deleteFileView">
 
-						<c:forEach items="${introVO.imageVO}" var="file"
-							varStatus="status">
-							<%-- 	<a href="fileDownload.do?fileName=${fileName}">${fileName}</a> --%>
-							<%-- 	<img src="${pageContext.request.contextPath}/resources/upload/${fileName}"> --%>
+					<c:forEach items="${introVO.imageVO}" var="file" varStatus="status">
+						<%-- 	<a href="fileDownload.do?fileName=${fileName}">${fileName}</a> --%>
+						<%-- 	<img src="${pageContext.request.contextPath}/resources/upload/${fileName}"> --%>
 
-							<%--     <a  id="" href="fileDelete.do?fileName=${fileName}">${fileName}</a> --%>
+						<%--     <a  id="" href="fileDelete.do?fileName=${fileName}">${fileName}</a> --%>
 
-							<div id="deleteResult">
-								<p id="resultView">${file.imageName}
-									<input type="button" id="deleteBtn" value="삭제" />
-								</p>
-							</div>
+						<div id="deleteResult">
+							<p id="resultView">${file.originalFileName}
+								<input type="hidden" id="fileName" value="${file.imageName}">
+								<input type="button" id="deleteBtn" value="삭제" />
+							</p>
+						</div>
 
-						</c:forEach>
+					</c:forEach>
 
-					</div>
+				</div>
 
 
-					<!-- 	<div class="row"> -->
-					<div class="form-group">
-						<label for="interest">카테고리</label>
-						<div></div>
+				<!-- 	<div class="row"> -->
+				<div class="form-group">
+					<label for="interest">카테고리</label>
+					<div></div>
 
-						<div class="row">
+					<div class="row">
 
-							<div class="col-sm-5">
-								<!-- 	<form class="form-inline topbar__search" role="form"
+						<div class="col-sm-5">
+							<!-- 	<form class="form-inline topbar__search" role="form"
 				action="findMeetingList.do"> -->
-								<select class="selectpicker" name="categoryVO.categoryNo"
-									id="category_no">
-									<option value="0">카테고리</option>
-									<option value="1">음식</option>
-									<option value="2">술</option>
-									<option value="3">문화</option>
-								</select>
-							</div>
-
+							<select class="selectpicker" name="categoryVO.categoryNo"
+								id="category_no">
+								<option value="">카테고리</option>
+								<option value="1">음식</option>
+								<option value="2">술</option>
+								<option value="3">문화</option>
+							</select>
 						</div>
 
-						<div class="form-group"></div>
 					</div>
-					<!-- reCAPTCHA -->
-					<div class="form-group" id="form-captcha">
-						<!-- Start reCAPTCHA -->
-						<div id="recaptcha_widget" style="display: none">
-							<div class="row">
-								<div class="col-xs-12 col-md-12">
-									<p>
-										<span class="recaptcha_only_if_image">Can't read the
-											words below?</span> <span class="recaptcha_only_if_audio">Can't
-											hear the sound?</span> <a href="javascript:Recaptcha.reload()">Get
-											another CAPTCHA</a> or <span class="recaptcha_only_if_image"><a
-											href="javascript:Recaptcha.switch_type('audio')">try an
-												audio CAPTCHA</a></span><span class="recaptcha_only_if_audio"><a
-											href="javascript:Recaptcha.switch_type('image')">try an
-												image CAPTCHA</a></span>.
-									</p>
-									<!-- reCAPTCHA image -->
-									<div id="recaptcha_image"></div>
-									<div class="recaptcha_only_if_image">Enter the words
-										above:</div>
-									<div class="recaptcha_only_if_audio">Enter the numbers
-										you hear:</div>
-									<!-- reCAPTCHA input -->
-									<input class="form-control input-sm" type="text"
-										id="recaptcha_response_field" name="recaptcha_response_field" />
-								</div>
+
+					<div class="form-group"></div>
+				</div>
+				<!-- reCAPTCHA -->
+				<div class="form-group" id="form-captcha">
+					<!-- Start reCAPTCHA -->
+					<div id="recaptcha_widget" style="display: none">
+						<div class="row">
+							<div class="col-xs-12 col-md-12">
+								<p>
+									<span class="recaptcha_only_if_image">Can't read the
+										words below?</span> <span class="recaptcha_only_if_audio">Can't
+										hear the sound?</span> <a href="javascript:Recaptcha.reload()">Get
+										another CAPTCHA</a> or <span class="recaptcha_only_if_image"><a
+										href="javascript:Recaptcha.switch_type('audio')">try an
+											audio CAPTCHA</a></span><span class="recaptcha_only_if_audio"><a
+										href="javascript:Recaptcha.switch_type('image')">try an
+											image CAPTCHA</a></span>.
+								</p>
+								<!-- reCAPTCHA image -->
+								<div id="recaptcha_image"></div>
+								<div class="recaptcha_only_if_image">Enter the words
+									above:</div>
+								<div class="recaptcha_only_if_audio">Enter the numbers you
+									hear:</div>
+								<!-- reCAPTCHA input -->
+								<input class="form-control input-sm" type="text"
+									id="recaptcha_response_field" name="recaptcha_response_field" />
 							</div>
 						</div>
-						<!-- / #recaptcha_widget -->
-						<script type="text/javascript"
-							src="http://www.google.com/recaptcha/api/challenge?k=your_public_key">
-							// Insert your public key here
-						</script>
-						<noscript>
-							<iframe
-								src="http://www.google.com/recaptcha/api/noscript?k=your_public_key"
-								height="300" width="500" frameborder="0"></iframe>
-							<br>
-							<textarea name="recaptcha_challenge_field" rows="3" cols="40">
+					</div>
+					<!-- / #recaptcha_widget -->
+					<script type="text/javascript"
+						src="http://www.google.com/recaptcha/api/challenge?k=your_public_key">
+						// Insert your public key here
+					</script>
+					<noscript>
+						<iframe
+							src="http://www.google.com/recaptcha/api/noscript?k=your_public_key"
+							height="300" width="500" frameborder="0"></iframe>
+						<br>
+						<textarea name="recaptcha_challenge_field" rows="3" cols="40">
                  </textarea>
-							<input type="hidden" name="recaptcha_response_field"
-								value="manual_challenge">
-						</noscript>
-						<!-- End reCAPTCHA -->
-						<span class="help-block"></span>
-					</div>
-					<!-- / reCAPTCHA -->
-					<button type="submit" class="btn btn-primary" id="meetingWrite">수정
-						하기</button>
-					<button type="button" class="btn btn-primary"
-						id="meetingWriteCancel">작성 취소</button>
+						<input type="hidden" name="recaptcha_response_field"
+							value="manual_challenge">
+					</noscript>
+					<!-- End reCAPTCHA -->
+					<span class="help-block"></span>
+				</div>
+				<!-- / reCAPTCHA -->
+				<button type="submit" class="btn btn-primary" id="introduceUpdate">수정
+					하기</button>
+				<button type="button" class="btn btn-primary"
+					id="introduceUpdateCansel">작성 취소</button>
 			</form>
 		</div>
 	</div>

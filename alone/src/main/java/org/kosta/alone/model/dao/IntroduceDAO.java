@@ -34,4 +34,13 @@ public interface IntroduceDAO {
 
 	public void introduceUpdate(IntroduceVO introduceVO);
 
+	public void keywordUpdate(KeyWordVO keywordVO);
+
+
+	void keywordDeleteByBoardNo(int boardNo);
+
+	void introduceDeleteByBoardNo(int boardNo);
+
+	public void updateWriteBack(String id);
+
 }

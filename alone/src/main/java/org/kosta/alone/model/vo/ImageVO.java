@@ -6,6 +6,7 @@ public class ImageVO {
 	private int boardNo;
 	private int imageNo;
 	private String imageName;
+	private String originalFileName;
 
 
 
@@ -25,10 +26,11 @@ public class ImageVO {
 	
 
 	
-	public ImageVO(int imageNo, String imageName, int boardNo) {
+	public ImageVO(int imageNo, String imageName, String originalFileName ,int boardNo) {
 		super();
 		this.imageNo = imageNo;
 		this.imageName = imageName;
+		this.originalFileName = originalFileName;
 		this.boardNo = boardNo;
 
 	}
@@ -61,17 +63,21 @@ public class ImageVO {
 	}
 
 
+	public String getOriginalFileName() {
+		return originalFileName;
+	}
 
-
+	public void setOriginalFileName(String originalFileName) {
+		this.originalFileName = originalFileName;
+	}
 
 	@Override
 	public String toString() {
-
-		return "ImageVO [imageNo=" + imageNo + ", imageName=" + imageName + ", boardNo=" + boardNo 
-				+"]";
-
+		return "ImageVO [boardNo=" + boardNo + ", imageNo=" + imageNo + ", imageName=" + imageName
+				+ ", originalFileName=" + originalFileName + "]";
 	}
 
-
+	
+	
 
 }
