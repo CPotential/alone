@@ -72,7 +72,6 @@ create table attendance(
    mydate varchar2(50) not null,
    constraint fk_attendance_id foreign key(id) references GENERICMEMBER(id),
    constraint fk_attendance primary key(id,mydate)
-
 );
 
 

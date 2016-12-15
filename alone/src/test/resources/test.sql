@@ -292,3 +292,6 @@ select * from keyword
      introduce.keyword from board board,member member,introduce introduce
      where introduce.category_no=2 and member.id=board.id and board.board_no=introduce.board_no and board.board_enabled=1) 
 	 where rnum between 1 and 4
+
+	 	select keyword_name,keyword_no
+		from keyword

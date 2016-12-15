@@ -227,7 +227,6 @@ public class BoardController {
 		// 로그인한 기업회원정보 출력
 		introduceVO.setMemberVO(memberVO);
 		// 키워드 저장됬는지 확인하기
-		// System.out.println("키워드 저장됬는지 확인하기"+introduceVO.getKeyWordVO());
 		// 이미지 저장하기전 boardNO 파라미터로 얻어옴
 		boardService.introduceWrite(introduceVO, vo, request); 
 		return "redirect:introduceDetail.do?boardNo=" + introduceVO.getBoardNo();

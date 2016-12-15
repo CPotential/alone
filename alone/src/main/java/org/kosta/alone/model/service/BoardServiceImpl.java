@@ -574,24 +574,20 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<IntroduceVO> rankingIntroduceList() {
-		List<ImageVO> imageList = null;
+		List<ImageVO> imageList = new ArrayList<ImageVO>();
 		List<KeyWordVO> keyWordVO = null;
+		ImageVO imageVO=null;
 		List<IntroduceVO> list =introduceDAO.rankingIntroduceList();
 		for (int i = 0; i < list.size(); i++) {
 			keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
+			System.out.println(list);
 			list.get(i).setKeyWordVO(keyWordVO);
-			
-			imageList=new ArrayList<>();
-			ImageVO imageVO =boardDAO.introduceFirstImage(list.get(i).getBoardNo());
+			imageVO =boardDAO.introduceFirstImage(list.get(i).getBoardNo());
 			if(imageVO==null){
 				return list;
 			}
-					
-			imageList.set(0,imageVO);
-			System.out.println(imageList+"123123");
-			if(imageList.isEmpty()==false){
+			imageList.add(imageVO);
 			list.get(i).setImageVO(imageList);
-			}
 		}
 		
 		return list;
@@ -605,7 +601,6 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.insertLikeCheck(bvo);
 			boardDAO.likeCheckUp(bvo);
 			introduceDAO.likeUp(bvo);
-
 		}else if(vo != null &&vo.getLikeCheck()==1){
 			return introduceDAO.likeCheckNumber(bvo);
 		}

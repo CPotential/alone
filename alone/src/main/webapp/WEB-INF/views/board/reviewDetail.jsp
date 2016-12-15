@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <script
 	src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
@@ -200,12 +201,13 @@
 				<div align="right" id="like">
 					<img src="${pageContext.request.contextPath}/resources/img/좋아요.jpg">
 				</div>
+				<sec:authentication property="principal.id" var="sessionId"/>
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<a href="${pageContext.request.contextPath}/reviewList.do"
 							class="btn btn-default">목 록</a>
-						<c:if test="${rvo.memberVO.id==sessionScope.memberVO.id}">
-							<a
+						<c:if test="${rvo.memberVO.id==sessionId}">
+						<a
 								href="${pageContext.request.contextPath}/reviewUpdateForm.do?boardNo=${requestScope.rvo.boardNo}"
 								class="btn btn-default">수 정</a>
 							<a

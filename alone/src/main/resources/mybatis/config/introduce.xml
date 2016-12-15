@@ -27,6 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      where introduce.category_no=#{categoryNo} and member.id=board.id and board.board_no=introduce.board_no and board.board_enabled=1) 
 	 where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}   
 	</select>
+	
 	<select id="getTotalContentCount" resultType="int" parameterType="int"> 
 		select count(*) from introduce introduce,introduce_category introduce_category 
 		where introduce.category_no = introduce_category.category_no and introduce_category.category_no = #{value}
