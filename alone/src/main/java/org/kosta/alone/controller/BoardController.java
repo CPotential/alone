@@ -11,6 +11,7 @@ import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
+import org.kosta.alone.model.vo.KeyWordVO;
 import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
@@ -130,11 +131,18 @@ public class BoardController {
 	 */
 	@RequestMapping("showCompanyBoard.do")
 	public ModelAndView showCompanyBoard(HttpSession session) {
+	
+		ModelAndView mv = new ModelAndView("myPage/company/showMyBoard");
+
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		// id에 해당하는 기업회원의 쓴 소개글의 boarNo를 찾아 boarNo에 해당하는 소개글의 정보를 얻어오는 서비스를 호출한다
 		IntroduceVO introVO = boardService.showCompanyBoard(memberVO.getId());
 		// 소개글 정보를 소개글 보기 폼으로 보낸다
-		return new ModelAndView("myPage/company/showMyBoard", "introVO", introVO);
+	
+		
+		mv.addObject("introVO", introVO);
+		
+		return mv;
 	}
 
 	/**
@@ -157,8 +165,26 @@ public class BoardController {
 	@RequestMapping("introduceUpdateForm.do")
 	public ModelAndView introduceUpdateForm(int boardNo) {
 		// boardNo에 해당하는 소개글의 정보를 소개글 수정폼에 전달하여 함께 출력한다
+		ModelAndView mv =  new ModelAndView("myPage/company/introduceUpdateForm");
+		
 		IntroduceVO introVO = boardService.introduceDetail(boardNo);
-		return new ModelAndView("myPage/company/introduceUpdateForm", "introVO", introVO);
+		List<KeyWordVO>  keyWordVO =introVO.getKeyWordVO();
+		String keyword="";
+		
+		if(keyWordVO!=null)
+		{
+			for(int i=0; i<keyWordVO.size(); i++)
+			{
+				keyword+="#"+keyWordVO.get(i).getKeyWordName();
+				
+			}
+			mv.addObject("keyword", keyword);
+			
+		}
+      
+		mv.addObject("introVO", introVO);
+		
+		return mv;
 	}
 
 	/**
@@ -221,19 +247,19 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "introduceWrite.do")
-	public String introduceWrite(HttpServletRequest request, IntroduceVO introduceVO, UploadFileVO vo,String keyword) {
+	public String introduceWrite(HttpServletRequest request,String keyword, IntroduceVO introduceVO, UploadFileVO vo) {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		// 로그인한 기업회원정보 출력
 		introduceVO.setMemberVO(memberVO);
 		// 키워드 저장됬는지 확인하기
 		// 이미지 저장하기전 boardNO 파라미터로 얻어옴
-		boardService.introduceWrite(introduceVO, vo, request); 
-		return "redirect:introduceDetail.do?boardNo=" + introduceVO.getBoardNo();
+		boardService.introduceWrite(introduceVO,keyword, vo, request); 
+		return "redirect:showCompanyBoard.do";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "introduceUpdate.do")
-	public String introduceUpdate(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
-		boardService.introduceUpdate(introduceVO, vo, request);
+	public String introduceUpdate(IntroduceVO introduceVO, String keyword,UploadFileVO vo, HttpServletRequest request) {
+		boardService.introduceUpdate(introduceVO,keyword, vo, request);
 		return "redirect:showCompanyBoard.do";
 	}
 
@@ -243,10 +269,10 @@ public class BoardController {
 	 * @return
 	 */
 	@RequestMapping("introduceDelete.do")
-	public String introduceDelete(int boardNo) {		
+	public String introduceDelete(int boardNo,HttpServletRequest request) {		
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		//게시글삭제
-		boardService.introduceDelete(memberVO.getId(), boardNo);
+		boardService.introduceDelete(memberVO.getId(), boardNo,request);
 		return "redirect:showCompanyInfo.do";
 	}
 	
