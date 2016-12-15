@@ -15,8 +15,7 @@
 	$(document).ready(function(){
 		var checkResultId="";		
 		$("#cancel").click(function(){
-			alert("작성이 취소됩니다.");
-			location.href="${pageContext.request.contextPath}/homego.do";
+			location.href="${pageContext.request.contextPath}/home.do";
 			return false;
 		}); 
 		$("#registerComForm").submit(function(){			
@@ -99,51 +98,6 @@
 
             <!-- Sign Up form -->
             <form role="form" action="${pageContext.request.contextPath}/registerCompanyMember.do" method="post" id="registerComForm">
-          <!--     <div class="col-sm-10 form-group">
-             	   <label for="sign-up__name" class="sr-only">ID</label>
-              	  <input type="text" class="form-control" id="sign-up__id" name="id" placeholder="아이디">
-              	  <span id="idCheckView"></span>
-              </div>
-           <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-10">
-                    <div class="form-group">
-                      <label for="sign-up__password" class="sr-only">Password</label>
-                      <input type="password" class="form-control" id="sign-up__password" name="password" placeholder="패스워드"> <br>
-                      <label for="sign-up__password_repeat" class="sr-only">Repeat Password</label>
-                      <input type="password" class="form-control" id="sign-up__password_repeat" name="repeatPassword" placeholder="패스워드확인">
-                    </div>
-                  </div>
-               	 </div>
-                </div>
-              <div class="form-group">
-                <label for="sign-up__name" class="sr-only">name</label>
-                <input type="text" class="form-control" id="sign-up__name" name="name" placeholder="대표명">
-              </div>
-              <div class="col-sm-7 form-group">
-             	   <label for="sign-up__tel" class="sr-only">reginumber</label>
-              	  <input type="text" class="form-control" id="sign-up__tel"  name="corporateRegistrationNumber"  placeholder="사업자등록번호">
-              </div>
-              <div class="col-sm-7 form-group">
-             	   <label for="sign-up__tel" class="sr-only">address</label>
-              	  <input type="text" class="form-control" id="sign-up__tel"  name="address"  placeholder="주소">
-              </div>
-              <div class="col-sm-7 form-group">
-             	   <label for="sign-up__tel" class="sr-only">tel</label>
-              	  <input type="text" class="form-control" id="sign-up__tel"  name="tel"  placeholder="연락처">
-              </div>
-
-                <div class="form-group">
-                <div class="row">
-                  <div class="col-sm-7">
-             
-              <div class="form-group">
-                <label for="sign-up__name" class="sr-only">nickName</label>
-                <input type="text" class="form-control" id="sign-up__name"  name="nickName" placeholder="기업명">
-              </div>
-                  </div>
-                </div>
-              </div> -->
   			  <div class="form-group">
                   <label for="sign-up__name" class="sr-only">ID</label>
               	  <input type="text" class="form-control" id="sign-up__id" name="id" placeholder="아이디">

@@ -89,7 +89,7 @@
 										<!-- Image -->
 										
 										<div class="portfolio__img">
-											<img src="${pageContext.request.contextPath}/resources/upload/ ${list.mainImage.imageName}" alt="Portfolio Image">
+											<img src="${pageContext.request.contextPath}/resources/upload/${list.mainImage.imageName}" alt="Portfolio Image">
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
@@ -116,24 +116,19 @@
 								<div class="col-xs-6 col-sm-6 col-md-3">
 									<!-- Portfolio Item #1 -->
 									<div class="portfolio__item">
-										<!-- Image -->
-											
+										<!-- Image -->			
 										<div class="portfolio__img">
-										<c:set var="mainImage" property="${list.mainImage.imageName}"/>		
-										
+										<c:set var="mainImage" property="${list.mainImage.imageName}"/>									
 										<img src="${pageContext.request.contextPath}/resources/upload/${mainImage}" alt="Portfolio Image">
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-	
 											<h3 class="portfolio__title">${list.memberVO.nickName } ${list.mainImage}</h3>
-											  <div class="portfolio__intro">
-											 
+											  <div class="portfolio__intro">		 
 										  <c:forEach items="${list.keyWordVO}" var="keyWordList">
 											#${keyWordList.keyWordName}  
 											</c:forEach>
-                        				  </div>
-									
+                        				  </div>			
 										</div>
 									</div>
 								</div>

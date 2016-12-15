@@ -24,8 +24,6 @@ public interface BoardDAO {
 
 	void deleteComment(CommentVO commentVO);
 
-	void boardDelete(int boardNo);
-
 	public void likeCheck(BoardVO bvo);
 
 	public BoardVO likeCheckInfo(BoardVO bvo);

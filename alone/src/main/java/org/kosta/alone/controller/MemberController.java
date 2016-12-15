@@ -99,14 +99,13 @@ public class MemberController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping(value = "genericUpdate.do", method = RequestMethod.POST)
 	public ModelAndView myPageMemberupdate(GenericMemberVO genericMemberVO, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("redirect:showGenericInfo.do");
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		genericMemberVO.setId(memberVO.getId());
 		// 변경할 비밀번호를 암호화한다
 		String encodePassword = passwordEncoder.encode(genericMemberVO.getPassword());
 		genericMemberVO.setPassword(encodePassword);
 		memberService.updateInfo(genericMemberVO);
-		return mav;
+		return new ModelAndView("redirect:showGenericInfo.do");
 
 	}
 
@@ -141,7 +140,7 @@ public class MemberController {
 	@RequestMapping("showGenericInfo.do")
 	public ModelAndView showGmemberinfo(HttpSession session) {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return new ModelAndView("myPage/generic/showInfo", "gvo", memberService.showGenericmember(memberVO));
+		return new ModelAndView("myPage/generic/showInfo", "gvo", memberService.showGenericmember(memberVO.getId()));
 	}
 
 	/**
@@ -154,7 +153,7 @@ public class MemberController {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		CompanyMemberVO companyMemberVO = null;
 		companyMemberVO = memberService.showCompanyMember(memberVO);
-		companyMemberVO.setWrite(memberService.writeCheck(memberVO.getId()));
+		//companyMemberVO.setWrite(memberService.writeCheck(memberVO.getId()));
 		session.setAttribute("writeCheck", memberService.writeCheck(memberVO.getId()));
 		return new ModelAndView("myPage/company/showInfo", "cvo", companyMemberVO);
 	}
