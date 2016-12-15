@@ -198,6 +198,22 @@ references board(board_no)
 
 select mileage.deal_money, mileage.deal_content
 		from mileage mileage, member member
+<<<<<<< HEAD
+		where mileage.id=member.id and member.id='java' order by mileage_no desc
+		
+	select board_no,likes,nickname from(select introduce.board_no,introduce.likes,member.nickname,
+	RANK() OVER(order by introduce.likes desc) 
+	as rank from introduce introduce,member member,board board where board.id=member.id and 
+	introduce.board_no=board.board_no and board.board_enabled=1)
+  	where rank between 1 and 8 order by likes desc
+  	
+  	SELECT image_name FROM image WHERE NOT image_name LIKE 'main%'and board_no=127
+  	
+  	select review.likes,introduce.likes from board board,review review,introduce introduce  
+  	where board_no=1 and introduce.board_no = board.board_no and review.board_no=board.board_no
+  	
+  	select likes from introduce where board_no='1'
+=======
 		where mileage.id=member.id and member.id='java' order by mileage_no desc
 
 		
@@ -268,4 +284,11 @@ select mydate from attendance where id='mimimi4'
 select substr(mydate,-2) as day from attendance where id='mimi'
 and mydate LIKE '2016/12%';
 		
+select * from introduce
+select * from keyword
 		
+     select board_no,nickname,region,keyword from
+     (select row_number() over(order by board.board_no) as rnum,introduce.board_no,member.nickname,introduce.region,
+     introduce.keyword from board board,member member,introduce introduce
+     where introduce.category_no=2 and member.id=board.id and board.board_no=introduce.board_no and board.board_enabled=1) 
+	 where rnum between 1 and 4

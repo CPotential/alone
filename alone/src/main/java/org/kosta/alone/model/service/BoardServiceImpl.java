@@ -4,8 +4,10 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.kosta.alone.model.dao.BoardDAO;
 import org.kosta.alone.model.dao.IntroduceDAO;
 import org.kosta.alone.model.dao.MeetingDAO;
@@ -23,8 +25,8 @@ import org.kosta.alone.model.vo.PagingBean;
 import org.kosta.alone.model.vo.ReviewVO;
 import org.kosta.alone.model.vo.UploadFileVO;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -64,8 +66,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	/**
-	 * 소개글 리스트 1)카테고리에 해당하는 게시물 리스트를 뽑는다 :introduceList 2)첫번째 소개글에 게시물 번호를 얻어와
-	 * 해당 게시물에 키워드가 몇개 등록되었는지 확인 한다 :keyWordSize 3) 게시물이 가지고있는 키워드의 이름을 뽀는다
+	 * 소개글 리스트 1) 카테고리에 해당하는 게시물 리스트를 뽑는다 :introduceList 
+	 * 2) 첫번째 소개글에 게시물 번호를 얻어와 해당 게시물에 키워드가 몇개 등록되었는지 확인 한다 :keyWordSize 
+	 * 3) 게시물이 가지고있는 키워드의 이름을 뽑는다
 	 * introduceList.get(i).getBoardNo()게시물 번호
 	 */
 	@Override
@@ -74,43 +77,28 @@ public class BoardServiceImpl implements BoardService {
 		List<KeyWordVO> keyWordVO = null;
 		int totalCount = introduceDAO.getTotalContentCount(categoryNo);
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		PagingBean pagingBean = null;
+		List<IntroduceVO> list = null;
+		if (nowPage == null)
+			pagingBean = new PagingBean(totalCount);
+		else
+			pagingBean = new PagingBean(totalCount, Integer.parseInt(nowPage));
 
-		if (nowPage == null) {
-			PagingBean pagingBean = new PagingBean(totalCount);
-			pagingBean.setContentNumberPerPage(6);
-			pagingBean.setPageNumberPerPageGroup(4);
-			map.put("categoryNo", categoryNo);
-			map.put("pagingBean", pagingBean);
-			map.get("categoryNo");
-			List<IntroduceVO> list = introduceDAO.introduceList(map);
+		pagingBean.introduceListSetPaging();
 
-			for (int i = 0; i < list.size(); i++) {
-				keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
-				list.get(i).setKeyWordVO(keyWordVO);
-				mainImage = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
-				list.get(i).setMainImage(mainImage);
-			
-			}
-			ListVO<IntroduceVO> vo = new ListVO<IntroduceVO>(list, pagingBean);
-			return vo;
-		} else {
-			PagingBean pagingBean = new PagingBean(totalCount, Integer.parseInt(nowPage));
-			pagingBean.setContentNumberPerPage(6);
-			pagingBean.setPageNumberPerPageGroup(4);
-			map.put("categoryNo", categoryNo);
-			map.put("pagingBean", pagingBean);
-			map.get("categoryNo");
-			List<IntroduceVO> list = introduceDAO.introduceList(map);
+		map.put("categoryNo", categoryNo);
+		map.put("pagingBean", pagingBean);
+		map.get("categoryNo");
+		list = introduceDAO.introduceList(map);
 
-			for (int i = 0; i < list.size(); i++) {
-				keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
-				list.get(i).setKeyWordVO(keyWordVO);
-				mainImage = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
-				list.get(i).setMainImage(mainImage);
-			}
-			ListVO<IntroduceVO> vo = new ListVO<IntroduceVO>(list, pagingBean);
-			return vo;
+		for (int i = 0; i < list.size(); i++) {
+			keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
+			list.get(i).setKeyWordVO(keyWordVO);
+			mainImage = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
+			list.get(i).setMainImage(mainImage);
 		}
+		ListVO<IntroduceVO> vo = new ListVO<IntroduceVO>(list, pagingBean);
+		return vo;
 	}
 
 	// 소개글 카테고리 리스트
@@ -124,7 +112,7 @@ public class BoardServiceImpl implements BoardService {
 	 */
 	@Transactional
 	@Override
-	public void introduceWrite(IntroduceVO introduceVO, UploadFileVO vo ,HttpServletRequest request) {
+	public void introduceWrite(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
 		// 테이블 기존 정보 쓰기
 		introduceDAO.boardWrite(introduceVO);
 		// 테이블 상세정보쓰기
@@ -133,135 +121,99 @@ public class BoardServiceImpl implements BoardService {
 		introduceDAO.updateWrite(introduceVO.getMemberVO().getId());
 		// 이미지 업로드& 이미지 데이터 저장
 
-		//이미지 정보가 모두 비어있지않다면 update
-		 if(vo.getFile()!=null&& vo.getMainFile()!=null )
-		imageUpload(introduceVO, vo, request);
+		// 이미지 정보가 모두 비어있지않다면 update
+		if (vo.getFile() != null && vo.getMainFile() != null)
+			imageUpload(introduceVO, vo, request);
 
-       
-        //데이터 베이스에 키워드 저장
-        if(introduceVO.getKeyword()!=null)
-		keywordRegister(introduceVO, introduceVO.getKeyword());
+		// 데이터 베이스에 키워드 저장
+		if (introduceVO.getKeyword() != null)
+			keywordRegister(introduceVO, introduceVO.getKeyword());
 	}
 
-	public void keywordRegister(IntroduceVO introduceVO,String keyword) {
-	
-		if(keyword!=null){
-		KeyWordVO keywordVO=null;
-	    String[] array;
-	    array=keyword.split("#");
-	    
+	public void keywordRegister(IntroduceVO introduceVO, String keyword) {
+		if (keyword != null) {
+			KeyWordVO keywordVO = null;
+			String[] array;
+			array = keyword.split("#");
 
-  
-       
-		for (int i = 1; i < array.length; i++) {
-			
-			
-			keywordVO = new KeyWordVO();
-			keywordVO.setBoardNo(introduceVO.getBoardNo());
-			keywordVO.setKeyWordName(array[i]);
-			introduceDAO.keywordRegister(keywordVO);
-		}
-		
-
+			for (int i = 1; i < array.length; i++) {
+				keywordVO = new KeyWordVO();
+				keywordVO.setBoardNo(introduceVO.getBoardNo());
+				keywordVO.setKeyWordName(array[i]);
+				introduceDAO.keywordRegister(keywordVO);
+			}
 		}
 	}
-	
+
 	/**
 	 * 키워드 수정
+	 * 
 	 * @param introduceVO
 	 * @param keyword
 	 */
-	public void keywordUpdate(IntroduceVO introduceVO,String keyword) {
+	public void keywordUpdate(IntroduceVO introduceVO, String keyword) {
+		if (keyword != null) {
+			List<KeyWordVO> list = introduceVO.getKeyWordVO();
+			KeyWordVO keywordVO = null;
 
-		if(keyword!=null){
-	   List<KeyWordVO> list =introduceVO.getKeyWordVO();
-	   KeyWordVO keywordVO=null;
+			String[] array;
+			array = keyword.split("#");
 
-	    String[] array;
-	    array=keyword.split("#");
-	    
+			for (int i = 1; i < array.length; i++) {
+				// 기존 키워드 업데이트
+				if (i <= list.size()) {
+					list.get(i - 1).setKeyWordName(array[i]);
+					introduceDAO.keywordUpdate(list.get(i - 1));
+				}
+				// 그외 새로 추가
+				else {
+					keywordVO = new KeyWordVO();
+					keywordVO.setBoardNo(introduceVO.getBoardNo());
+					keywordVO.setKeyWordName(array[i]);
+					introduceDAO.keywordRegister(keywordVO);
 
-
-       
-		for (int i = 1; i < array.length; i++) {
-		//기존 키워드 업데이트
-		if(i<=list.size())
-		{	
-			list.get(i-1).setKeyWordName(array[i]);
-			introduceDAO.keywordUpdate(	list.get(i-1));
-
-		}
-		//그외 새로 추가
-		else {
-			keywordVO = new KeyWordVO();
-			keywordVO.setBoardNo(introduceVO.getBoardNo());
-			keywordVO.setKeyWordName(array[i]);
-			introduceDAO.keywordRegister(keywordVO);
-	
-			
-		}
-		
-		}
-		
-
-
+				}
+			}
 		}
 	}
-	
 
 	/**
 	 * 소개글 수정
 	 */
 	@Override
-
 	public void introduceUpdate(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
 		// 테이블 기존 정보 쓰기
-		//System.out.println(introduceVO);
-		List<KeyWordVO> keyWordVO=null;
-		
-		
-		//content가 비어있지 않다면 update
-       if(!introduceVO.getContent().equals("") ){
-    	        introduceDAO.boardUpdate(introduceVO);
-            // System.out.println("boardUpdate");
-       }
-		// 테이블 상세정보들이 모두 비어있지 않다면 update
-		if( !(introduceVO.getCompanyName().equals("") && introduceVO.getRegion().equals("")&& 
-				introduceVO.getLocation().equals("") && introduceVO.getBusinessHours().equals("")
-				&& introduceVO.getTel().equals("") && introduceVO.getKeyword().equals("") && 
-				introduceVO.getCategoryVO().equals("")
-				
-				) 
-			){
-		   introduceDAO.introduceUpdate(introduceVO);
-		   // System.out.println("introduceUpdate");
+		List<KeyWordVO> keyWordVO = null;
+
+		// content가 비어있지 않다면 update
+		if (!introduceVO.getContent().equals("")) {
+			introduceDAO.boardUpdate(introduceVO);
 		}
+		
+		// 테이블 상세정보들이 모두 비어있지 않다면 update
+		if ( !(introduceVO.getCompanyName().equals("") && introduceVO.getRegion().equals("") 
+				&& introduceVO.getLocation().equals("") && introduceVO.getBusinessHours().equals("")
+				&& introduceVO.getTel().equals("") && introduceVO.getKeyword().equals("")
+				&& introduceVO.getCategoryVO().equals("")) ) 
+			introduceDAO.introduceUpdate(introduceVO);
 
-   
-		//이미지 정보가 모두 비어있지않다면 update
-        if(vo.getFile()!=null&& vo.getMainFile()!=null ){
-        System.out.println("이미지 정보안비어있음");
-		imageUpload(introduceVO, vo, request);
-        }
-        //키워드가 null이 아니라면 
-        if(introduceVO.getKeyword()!=null)
-        {
-        	
-        	//기존 게시물에 저장되어있는 키워드 정보를 가져와 세팅해준다음에 keywordUpdate 해준다
-            keyWordVO = introduceDAO.keyWordList(introduceVO.getBoardNo());
-            introduceVO.setKeyWordVO(keyWordVO);
-        	keywordUpdate(introduceVO, introduceVO.getKeyword());
-        	
-        }
-        
-        
+		// 이미지 정보가 모두 비어있지않다면 update
+		if (vo.getFile() != null && vo.getMainFile() != null) {
+			// System.out.println("이미지 정보안비어있음");
+			imageUpload(introduceVO, vo, request);
+		}
+		// 키워드가 null이 아니라면
+		if (introduceVO.getKeyword() != null) {
+
+			// 기존 게시물에 저장되어있는 키워드 정보를 가져와 세팅해준다음에 keywordUpdate 해준다
+			keyWordVO = introduceDAO.keyWordList(introduceVO.getBoardNo());
+			introduceVO.setKeyWordVO(keyWordVO);
+			keywordUpdate(introduceVO, introduceVO.getKeyword());
+		}
 	}
- 
 
-	
 	@Override
 	public String deleteImage(String deleteFileName, HttpServletRequest request) {
-		// System.out.println("fileDelete 실행 :"+deleteFileName);
 		// 파일 경로 얻어오기
 		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload/");
 		File file = new File(uploadPath + deleteFileName);
@@ -275,9 +227,9 @@ public class BoardServiceImpl implements BoardService {
 			return "ok";
 		} else// 파일이 존재하지 않으면
 			return "fail";
-
 	}
 
+	@Transactional
 	public void imageUpload(BoardVO boardVO, UploadFileVO vo, HttpServletRequest request) {
 		MultipartFile mainFile = vo.getMainFile(); // 메인 파일을 가져온다
 		List<MultipartFile> list = vo.getFile(); // 그외 파일을 가져온다
@@ -288,100 +240,84 @@ public class BoardServiceImpl implements BoardService {
 			uploadDir.mkdirs();
 		// 메인 파일 업로드
 		if (mainFile != null) {
-			//서버 파일이름
-			String mainFileName=null;
-			//원래 파일이름
-			String originalFileName=   mainFile.getOriginalFilename();
+			// 서버 파일이름
+			String mainFileName = null;
+			// 원래 파일이름
+			String originalFileName = mainFile.getOriginalFilename();
 
 			mainFileName = "main_" + boardVO.getBoardNo() + originalFileName;
 			try {
 				mainFile.transferTo(new File(uploadPath + mainFileName));
-				System.out.println(mainFileName+" 업로드 완료");
-				ImageVO imageVO = new ImageVO(0, mainFileName,originalFileName,boardVO.getBoardNo());
-				 System.out.println("imageVO: "+imageVO);
+				ImageVO imageVO = new ImageVO(0, mainFileName, originalFileName, boardVO.getBoardNo());
 				boardDAO.imageUpload(imageVO);
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 		}
 		// 그외 파일 업로드
-		if(list!=null){
-		for (int i = 0; i < list.size(); i++) {
-			// 만약 업로드 파일이 없으면 파일명은 공란처리된다
-			//서버 파일이름
-			String fileName=null;
-			//원래 파일이름
-			String originalFileName=   list.get(i).getOriginalFilename();
-			// 파일이름을 유일하게 해준다
-			fileName = boardVO.getBoardNo() + "_" + i + originalFileName;
-			// 업로드 파일이 있으면 파일을 특정경로로 업로드한다
-			if (!fileName.equals("")) {
-				try {
-					list.get(i).transferTo(new File(uploadPath + fileName));
-					System.out.println(fileName+" 업로드 완료");
-					//데이터베이스에 파일 저장
-					ImageVO imageVO = new ImageVO(0, fileName,originalFileName,boardVO.getBoardNo());
-					boardDAO.imageUpload(imageVO);
-				} catch (Exception e) {
-					e.printStackTrace();
+		if (list != null) {
+			for (int i = 0; i < list.size(); i++) {
+				// 만약 업로드 파일이 없으면 파일명은 공란처리된다
+				// 서버 파일이름
+				String fileName = null;
+				// 원래 파일이름
+				String originalFileName = list.get(i).getOriginalFilename();
+				// 파일이름을 유일하게 해준다
+				fileName = boardVO.getBoardNo() + "_" + i + originalFileName;
+				// 업로드 파일이 있으면 파일을 특정경로로 업로드한다
+				if (!fileName.equals("")) {
+					try {
+						list.get(i).transferTo(new File(uploadPath + fileName));
+						// 데이터베이스에 파일 저장
+						ImageVO imageVO = new ImageVO(0, fileName, originalFileName, boardVO.getBoardNo());
+						boardDAO.imageUpload(imageVO);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
-		}
 		}
 	}
 
 	@Override
+	@Transactional
 	public IntroduceVO introduceDetail(int boardNo) {
 		List<ImageVO> imageList = null;
-		ImageVO mainImage= null;
+		ImageVO mainImage = null;
 		List<KeyWordVO> keyWordList = null;
 		// boardNo에 해당하는 게시물 기본정보를 가져옴
 		IntroduceVO introduceVO = introduceDAO.introduceDetail(boardNo);
 		// 해당 게시물의 키워드 정보를 가져와서 세팅
 		keyWordList = introduceDAO.keyWordList(boardNo);
-
 		introduceVO.setKeyWordVO(keyWordList);
-		
-		//keword도 세팅
-		String keywordSet="";
-		for(int i=0;i<keyWordList.size();i++){
-		
-			keywordSet+="#"+keyWordList.get(i).getKeyWordName();
-			
-
+		// keword도 세팅
+		String keywordSet = "";
+		for (int i = 0; i < keyWordList.size(); i++) {
+			keywordSet += "#" + keyWordList.get(i).getKeyWordName();
 		}
-
 		introduceVO.setKeyword(keywordSet);
-
-		//메인 이미지 저장
+		// 메인 이미지 저장
 		mainImage = boardDAO.introduceFirstImage(boardNo);
 		introduceVO.setMainImage(mainImage);
-		//이미지 상세 저장
+		// 이미지 상세 저장
 		imageList = boardDAO.imageList(boardNo);
 		introduceVO.setImageVO(imageList);
-
-	
 		// 완벽히 저장된 상세정보를 리턴한다!!!
 		return introduceVO;
 	}
-	
+
 	/**
-	 * 게시글 삭제
-	 * 해당 boardNo가 없으면 삭제안되므로 예외처리 필요없음
+	 * 게시글 삭제 해당 boardNo가 없으면 삭제안되므로 예외처리 필요없음
 	 */
 	@Transactional
 	@Override
-	public void introduceDelete(IntroduceVO introduceVO,HttpServletRequest request) {
-		List<ImageVO> list =null;
-
-		 list=boardDAO.imageAllList(introduceVO.getBoardNo());
-		if(list!=null)
-		{
-			for(int i=0; i<list.size();i++)
-			deleteImage(list.get(i).getImageName(),request);
-
+	public void introduceDelete(IntroduceVO introduceVO, HttpServletRequest request) {
+		List<ImageVO> list = null;
+		list = boardDAO.imageAllList(introduceVO.getBoardNo());
+		if (list != null) {
+			for (int i = 0; i < list.size(); i++)
+				deleteImage(list.get(i).getImageName(), request);
 		}
 		introduceDAO.keywordDeleteByBoardNo(introduceVO.getBoardNo());
 		introduceDAO.introduceDeleteByBoardNo(introduceVO.getBoardNo());
@@ -389,8 +325,10 @@ public class BoardServiceImpl implements BoardService {
 		// 기업회원 글한번 쓴 상태로 변경
 		introduceDAO.updateWriteBack(introduceVO.getMemberVO().getId());
 		
-		
+		// 게시글 상태여부 ( board_enabled = 0 으로 변경만 하면 됨.. )
+		//boardDAO.deleteBoard(introduceVO.getBoardNo());
 	}
+
 	@Transactional
 	@Override
 	public void reviewWrite(ReviewVO reviewVO) {
@@ -413,6 +351,7 @@ public class BoardServiceImpl implements BoardService {
 	 * 모임글 상세보기
 	 */
 	@Override
+	@Transactional
 	public MeetingVO meetingDetail(int boardNo) {
 		meetingDAO.updateHit(boardNo);
 		MeetingVO meetingVO = null;
@@ -509,11 +448,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public MeetingVO meetingNoHitDetail(int boardNo) {
-		MeetingVO meetingVO = null;
-		meetingVO = meetingDAO.meetingDetail(boardNo);
-		List<ImageVO> imageList = null;
-		imageList = boardDAO.imageList(boardNo);
-		meetingVO.setImageVO(imageList);
+		MeetingVO meetingVO = meetingDAO.meetingDetail(boardNo);
+		meetingVO.setImageVO(boardDAO.imageList(boardNo));
 		return meetingVO;
 	}
 
@@ -526,10 +462,8 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	@Transactional
 	public IntroduceVO showCompanyBoard(String id) {
-
 		int boardNo = introduceDAO.findIntroduceById(id);
 		return introduceDetail(boardNo);
-
 	}
 
 	@Transactional
@@ -564,10 +498,12 @@ public class BoardServiceImpl implements BoardService {
 		map = new HashMap<String, Object>();
 		map.put("keyWord", searchKeyWord);
 		map.put("pb", pagingBean);
+		
 		if (command.equals("findByTitle"))
 			list = meetingDAO.meetingTitleSearchList(map);
 		else
 			list = meetingDAO.meetingWriterSearchList(map);
+		
 		listVO = new ListVO<>(list, pagingBean);
 		return listVO;
 	}
@@ -578,18 +514,57 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Transactional
-	public void likeUp(BoardVO bvo) {
+	public int reviewLikeUp(BoardVO bvo) {
 		BoardVO vo = boardDAO.likeCheckInfo(bvo);
 		if (vo == null) {
 			boardDAO.insertLikeCheck(bvo);
 			boardDAO.likeCheckUp(bvo);
 			reviewDAO.likeUp(bvo);
-		} else if (vo != null && vo.getLikeCheck() == 0) {
-			boardDAO.likeCheckUp(bvo);
-			reviewDAO.likeUp(bvo);
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("dealcontent", "게시물 번호 : " + bvo.getBoardNo() + " 좋아요 클릭");
+			map.put("id", bvo.getMemberVO().getId());
+			System.out.println(map.get("dealcontent") + "ddd");
+			reviewDAO.mileageInsert(map);
+			reviewDAO.mileageUpdate(map);
+		} else if (vo != null && vo.getLikeCheck() == 1) {
+			return reviewDAO.likeCheckNumber(bvo);
 		}
+
+		return reviewDAO.likeCheckNumber(bvo);
 	}
 
+	@Override
+	public List<IntroduceVO> rankingIntroduceList() {
+		List<KeyWordVO> keyWordVO = null;
+		List<IntroduceVO> list = introduceDAO.rankingIntroduceList();
+		ImageVO imageVO=null;
+		for (int i = 0; i < list.size(); i++) {
+			keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
+			list.get(i).setKeyWordVO(keyWordVO);
 
+			imageVO = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
+			
+			if (imageVO == null) {
+				return list;
+			}
+			list.get(i).setMainImage(imageVO);
+		}
+		System.out.println(list);
+		return list;
+	}
 
+	@Transactional
+	@Override
+	public int introduceLikeUp(BoardVO bvo) {
+		BoardVO vo = boardDAO.likeCheckInfo(bvo);
+		if (vo == null) {
+			boardDAO.insertLikeCheck(bvo);
+			boardDAO.likeCheckUp(bvo);
+			introduceDAO.likeUp(bvo);
+
+		} else if (vo != null && vo.getLikeCheck() == 1) {
+			return introduceDAO.likeCheckNumber(bvo);
+		}
+		return introduceDAO.likeCheckNumber(bvo);
+	}
 }

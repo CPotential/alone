@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kosta.alone.model.dao.CommonMemberDAO;
 import org.kosta.alone.model.dao.IntroduceDAO;
 import org.kosta.alone.model.dao.MeetingDAO;
 import org.kosta.alone.model.dao.MemberDAO;
@@ -30,8 +29,6 @@ public class TestUnit {
 	private MeetingDAO meetingDAO;
 	@Resource
 	ReviewDAO dao;
-	@Resource
-	CommonMemberDAO cdao;
 	@Resource
 	private MemberDAO memberDAO;
 	@Resource

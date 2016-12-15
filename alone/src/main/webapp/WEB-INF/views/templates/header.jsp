@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -33,33 +34,35 @@
 	<div class="container">
 		<ul class="topbar-nav topbar-nav_right">
 
-
 			<!-- Account links -->
-		
-			<c:choose>
-				<c:when test="${empty sessionScope.memberVO}">
-					<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/login.do">Sign In</a></li>
-					<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
-				</c:when>
 
-				<c:otherwise>
-					<c:set var="authority" value="${sessionScope.memberVO.authority}" />
-					
-					<c:if test="${authority eq 'ROLE_MEMBER'}">
-						<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showGenericInfo.do">myPageGeneric</a></li>
-						<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
-					</c:if>
-					<c:if test="${authority eq 'ROLE_COMPANY'}">
-						<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/showCompanyInfo.do">myPageCompany</a></li>
-						<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
-					</c:if>
-					<c:if test="${authority eq 'ROLE_ADMIN'}">
-						<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showAdminInfo.do">myPageAdmin</a></li>
-						<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
-					</c:if>
-
-				</c:otherwise>
-			</c:choose>
+			<%-- 
+			ifAllGranted 속성: 사용자가 나열된 모든 권한에 해당할 경우 태그 안에 포함된 내용을 보여준다.
+			ifAnyGranted 속성: 사용자가 나열된 권한 중 한가지에라도 해당할 경우 태그 안에 포함된 내용을 보여준다.
+			ifNotGranted 속성: 사용자가 나열된 권한 중 한가지에라도 해당할 경우 태그 안에 포함된 내용을 보여주지 않는다.
+			
+			Spring Security를 이용하면 Authentication Bean 이 생성
+			로그인 한 사용자의 정보는 Authentication 객체의 principal property
+			 --%>
+			<sec:authorize ifNotGranted="ROLE_MEMBER, ROLE_COMPANY_VERIFIED, ROLE_ADMIN">
+				<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/loginForm.do">Sign In</a></li>
+				<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
+			</sec:authorize>
+			<sec:authorize ifAnyGranted="ROLE_MEMBER">
+				<sec:authentication property="principal.nickName" />님
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showGenericInfo.do">myPageGeneric</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+			</sec:authorize>
+			<sec:authorize ifAnyGranted="ROLE_COMPANY_VERIFIED">
+				<sec:authentication property="principal.nickName" />님
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showCompanyInfo.do">myPageCompany</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+			</sec:authorize>
+			<sec:authorize ifAnyGranted="ROLE_ADMIN">
+				<sec:authentication property="principal.nickName" />님
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showAdminInfo.do">myPageAdmin</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+			</sec:authorize>
 
 		</ul>
 	</div>

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="sec"  uri="http://www.springframework.org/security/tags"%>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
 
 	<!--  jquery 사용처입니다. -->
-	<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(document).ready(function(){
 		
 		var passwordCheck; // 패스워드 체크 변수
@@ -66,11 +66,12 @@
 	}); //ready
 
 </script>
-
+ -->
 <div class="container">
 	<div class="row">
         
 		<div class="col-sm-8 col-md-9 col-lg-10">
+			<sec:authorize ifAnyGranted="ROLE_COMPANY_VERIFIED">
 			<form action="${pageContext.request.contextPath}/companyUpdate.do" method="post" id="memberUpdateForm">
 		     <!-- Tab content -->
 				<div class="tab-content">
@@ -81,7 +82,7 @@
 			      		<tbody>
 							<tr>
 								<th scope="row">아이디</th> 
-								<td><input type="text" id="id" name="id" value="${requestScope.id}" readonly></td>
+								<td><sec:authentication property="principal.id" /><td>
 							</tr> 
 							<tr>
 								<th scope="row">비밀번호</th>
@@ -103,8 +104,7 @@
 							</tr>
 							<tr>
 								<th scope="row">주소</th>
-								<td>             
-			                	<input type="text" class="form-control" name="address" placeholder="주소"></td>
+								<td><input type="text" class="form-control" name="address" placeholder="주소"></td>
 							</tr>
 							<tr>
 								<th scope="row">기업명</th>
@@ -124,6 +124,7 @@
 			  
 			    </div> <!-- / .tab-content -->
 			</form>
+			</sec:authorize>
    		</div>        
 	</div> <!-- / .row -->
 

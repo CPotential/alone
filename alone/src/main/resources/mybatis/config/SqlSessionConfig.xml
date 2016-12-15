@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/config/introduce.xml" />
 		<mapper resource="mybatis/config/genericMember.xml"/>
 		<mapper resource="mybatis/config/companyMember.xml"/>	
-        <mapper resource="mybatis/config/event.xml"/>	
+        <mapper resource="mybatis/config/event.xml"/> 	
 </mappers>
 
 </configuration>

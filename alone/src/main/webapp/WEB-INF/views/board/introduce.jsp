@@ -17,11 +17,8 @@
 						<div class="portfolio__img">
 							<a href="portfolio-item.html"> 
 
-							<c:set var="mainImage" value="${list.mainImage}"></c:set>
-						
-								<img src="${pageContext.request.contextPath}/resources/upload/${mainImage.imageName}" alt="Portfolio Image">
-				
-
+						<%-- 	<c:set var="mainImage" property="${list.imageVO.mainImage}"></c:set>		
+									<img src="${pageContext.request.contextPath}/resources/upload/${mainImage.imageName}" alt="Portfolio Image"> --%>
 							</a>
 						</div>
 						<!-- Captions -->

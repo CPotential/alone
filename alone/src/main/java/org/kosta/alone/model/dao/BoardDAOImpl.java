@@ -43,12 +43,9 @@ public class BoardDAOImpl implements BoardDAO {
 	/**
 	 * 이미지 삭제
 	 */
-
 	@Override
 	public void imageDelete(String deleteFileName) {
-
 		sqlSessionTemplate.delete("board.imageDelete", deleteFileName);
-
 	}
 
 	@Override
@@ -63,7 +60,6 @@ public class BoardDAOImpl implements BoardDAO {
 
 	public void deleteComment(CommentVO commentVO) {
 		sqlSessionTemplate.delete("board.deleteComment", commentVO);
-
 	}
 
 	public void reviewBoardUpdate(ReviewVO reviewVO) {
@@ -74,10 +70,10 @@ public class BoardDAOImpl implements BoardDAO {
 	public void boardDelete(int boardNo) {
 		sqlSessionTemplate.update("board.boardDelete", boardNo);
 	}
+	
 	@Override
 	public void boardDeleteByBoardNo(int boardNo){
 		sqlSessionTemplate.delete("board.boardDeleteByBoardNo", boardNo);
-		
 	}
 
 	public void likeCheck(BoardVO bvo) {
@@ -102,14 +98,16 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void imageDeleteByBoardNo(int boardNo) {
-		
 		sqlSessionTemplate.delete("board.imageDeleteByBoardNo",boardNo);
 	}
 
 	@Override
 	public List<ImageVO> imageAllList(int boardNo) {
-
 		return sqlSessionTemplate.selectList("board.imageAllList",boardNo);
 	}
 
+	@Override
+	public void deleteBoard(int boardNo) {
+		sqlSessionTemplate.update("board.deleteBoard", boardNo);
+	}
 }

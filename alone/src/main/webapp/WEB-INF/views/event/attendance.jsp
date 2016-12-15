@@ -3,11 +3,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Calendar"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%
- 	request.setCharacterEncoding("utf-8");
+ 	request.setCharacterEncoding("utf-8");  
 
  	Calendar cal=Calendar.getInstance(); //현재 시스템이 가지고 있는 날짜 데이터 가지고 오기
  	
@@ -31,6 +28,11 @@
  	int w=cal.get(Calendar.DAY_OF_WEEK); //1(일)~7(토) => 일요일일때 w에 1. 메소드를 외우면 된다.
 	int sat=1;
  %>
+ 
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> 
+ <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,7 +64,7 @@ function changeDate(){
 <script type="text/javascript">
 	$(document).ready(function(){
 
-	<c:set var="authority" value="${sessionScope.memberVO.authority}"/>
+   <c:set var="authority" value="${requestScope.authority}"/>
 			var author='<c:out value="${authority}"/>'
 
    <c:set var="y" value="${param.y}"/>
@@ -72,16 +74,9 @@ function changeDate(){
 
      $("#showAttendDay").click(function(){
     	 
-    	   //회원가입 안되있을시
-    	    if(author == "")
-    	    {
-    		if (confirm("로그인하셔야 이용가능합니다.")) {
-    			location.href = "${pageContext.request.contextPath}/login.do";
-    		} 
-    	 
-    	    }
+ 	
     	    //기업회원일 경우 	
-    	    else if(author == 'ROLE_COMPANY')
+    	    if(author == 'ROLE_COMPANY_VERIFIED')
     	    {
     	    	 alert("기업회원은 이용 불가능 합니다.");
     	    	
@@ -92,23 +87,12 @@ function changeDate(){
     
      $("#stempCheck").click(function(){
     	 
-
-   //회원가입 안되있을시
-    if(author == "")
-    {
-    	
-    	 	 if (confirm("로그인하셔야 이용가능합니다.")) {
-     			location.href = "${pageContext.request.contextPath}/login.do";
-     		}
-
-    	 
-    }
-   //기업회원일 경우 	
-    else if(author == 'ROLE_COMPANY')
+	//기업회원일 경우 	
+    if(author == 'ROLE_COMPANY_VERIFIED')
     {
     	 alert("기업회원은 이용 불가능 합니다.");
     	
-    }
+    }  
    //일반 회원일 경우 서버로 이동
     else
     {
@@ -117,16 +101,13 @@ function changeDate(){
     }
     	 
      });//click
-     
-
-	
 });  //ready
  </script>
 </head>
 <body>
 
 <c:set var="resultMap" value="${requestScope.resultMap}"/>
-<c:set var="authority" value="${sessionScope.memberVO.authority}"/>
+<%-- <c:set var="authority" value="${sessionScope.memberVO.authority}"/> --%>
 <center> 
 	<div class="form-group">
 	   <div class ="row">
@@ -135,14 +116,14 @@ function changeDate(){
                     <div class="form-group">
               
                       <!--  일반회원일 경우만 -->
-						<c:choose>
-						<c:when test="${authority eq 'ROLE_MEMBER'}">
+						
+						<sec:authorize ifAnyGranted="ROLE_MEMBER">
 						<input type="button" class="btn btn-ki btn-block btn-lg" value="나의 출석일수 ${resultMap.totalDay}">
-						</c:when>
-						<c:otherwise>
+						</sec:authorize>
+						 <sec:authorize ifAnyGranted="ROLE_COMPANY_VERIFIED"> 
 						 <input type="button" class="btn btn-ki btn-block btn-lg"  id="showAttendDay"value="나의 출석일수 보기"/>
-						</c:otherwise>
-						</c:choose>
+						</sec:authorize>
+						
                     </div>
                   </div>
                   

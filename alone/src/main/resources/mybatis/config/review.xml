@@ -97,6 +97,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="likeup" parameterType="boardVO">
 		update review set likes = likes+1 where board_no = #{boardNo} 
 	</update>
+	<select id="likeChekcNumber" resultType="int" parameterType="boardVO">
+	select likes from review where board_no=#{boardNo}
+	</select>
+	
+	<insert id="mileageInsert" parameterType="hashmap">
+		INSERT into mileage (mileage_no,deal_money,deal_content,id)
+		VALUES (mileage_seq.nextval,10,#{dealcontent},#{id})
+	</insert>
+	
+	<update id="mileageUpdate" parameterType="hashmap">
+		update genericmember set mileage = mileage+10 where id=#{id}
+	</update>
 
 </mapper> 
 

@@ -46,4 +46,6 @@ public interface BoardDAO {
 
 	List<ImageVO> imageAllList(int boardNo);
 
+	public void deleteBoard(int boardNo);
+
 }

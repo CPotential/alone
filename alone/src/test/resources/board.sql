@@ -2,21 +2,15 @@ drop sequence introduce_category_seq;
 drop sequence board_seq;
 drop sequence keyword_seq;
 
-drop table keyword;
-drop table introduce;
-drop table introduce_category;
-drop table meeting;
-drop table review;
-drop table board;
-
+DROP TABLE board CASCADE CONSTRAINT;
+DROP TABLE introduce CASCADE CONSTRAINT;
+DROP TABLE review CASCADE CONSTRAINT;
+DROP TABLE meeting CASCADE CONSTRAINT;
+DROP TABLE keyword CASCADE CONSTRAINT;
+DROP TABLE introduce_category CASCADE CONSTRAINT;
 
 -- 공통 게시판 정보
-
 CREATE SEQUENCE BOARD_SEQ;
-CREATE SEQUENCE INTRODUCE_CATEGORY_SEQ;
-CREATE SEQUENCE KEYWORD_SEQ;
-
-
 CREATE TABLE BOARD(
 	board_no number primary key,
 	id varchar2(50) not null,
@@ -26,13 +20,14 @@ CREATE TABLE BOARD(
 	constraint fk_board foreign key(id) references member(id)
 )
 
+-- 소개글 카테고리
+CREATE SEQUENCE INTRODUCE_CATEGORY_SEQ;
 CREATE TABLE INTRODUCE_CATEGORY(
 	category_no number primary key,
 	category_name varchar2(50) not null
 )
 
 -- 소개글 정보
-drop table INTRODUCE  CASCADE CONSTRAINTS;
 CREATE TABLE INTRODUCE(
 	board_no number primary key,
 	company_name varchar2(50) not null,
@@ -42,10 +37,13 @@ CREATE TABLE INTRODUCE(
 	tel varchar2(50) not null,
 	category_no number not null,
 	keyword varchar2(100) not null,
+	likes number default 0,
 	constraint fk_introduce foreign key(board_no) references board(board_no),
 	constraint fk_introduce_category foreign key(category_no) references introduce_category(category_no)
 )
+
 -- 소개글 키워드 정보
+CREATE SEQUENCE KEYWORD_SEQ;
 CREATE TABLE KEYWORD(
 	keyword_no number primary key,
 	keyword_name varchar2(50) not null,
@@ -53,8 +51,8 @@ CREATE TABLE KEYWORD(
 	constraint fk_keyword_board foreign key(board_no) references introduce(board_no)
 )
 
-select *from KEYWORD
---모임 테이블 정보
+--모임글 정보
+
 CREATE TABLE MEETING(
 	board_no number primary key,
 	title varchar2(100) not null,
@@ -65,7 +63,6 @@ CREATE TABLE MEETING(
 	constraint fk_meeting foreign key(board_no) references board(board_no)
 )
 
-
 -- 후기글 정보
 CREATE TABLE REVIEW(
 	board_no number primary key,
@@ -74,6 +71,8 @@ CREATE TABLE REVIEW(
 	likes number default 0,
 	constraint fk_review foreign key(board_no) references board(board_no)
 )
+
+
 
 --board sql
 
@@ -100,11 +99,10 @@ review.title='음식후기'
 -- 1) 사진,가게명,지역 뽑아오기
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce 
-where introduce.category_no=1 and member.id=board.id and board.board_no=image.board_no and board.board_no=image.board_no
+where introduce.category_no=1 and member.id=board.id and board.board_no=image.board_no 
+and board.board_no=image.board_no
+
 -- 2) keyword 뽑아오기
 select keyword.keyword_name
 from keyword keyword, introduce introduce
 where keyword.board_no=introduce.board_no and introduce.board_no=1
-
-select * from board;
-select * from review;
