@@ -221,7 +221,7 @@
 					<div class="btn-group btn-group-justified">
 						<a href="${pageContext.request.contextPath}/meetingList.do" class="btn btn-default">목 록</a>
 						<c:if test="${meetingVO.memberVO.id==sessionScope.memberVO.id}">
-							<a href="${pageContext.request.contextPath}/reviewUpdateForm.do?boardNo=${requestScope.meetingVO.boardNo}" class="btn btn-default">수 정</a>
+							<a href="${pageContext.request.contextPath}/meetingUpdateForm.do?boardNo=${requestScope.meetingVO.boardNo}" class="btn btn-default">수 정</a>
 							<a href="${pageContext.request.contextPath}/meetingDelete.do?boardNo=${requestScope.meetingVO.boardNo}" class="btn btn-default">삭 제</a>
 						</c:if>
 					</div>

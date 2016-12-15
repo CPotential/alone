@@ -14,7 +14,7 @@ Last change:    14/06/2016
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
-  font-family: sans-serif;
+  font-family: sans-serif; /*sans-serif;*/
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
@@ -1080,7 +1080,8 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: 'PT Sans', sans-serif;
+  /* font-family: 'PT Sans', sans-serif; 'PT Sans', sans-serif; Days+One */
+  font-family: FontAwesome;
   font-size: 13px;
   line-height: 1.42857143;
   color: #333333;
@@ -7513,7 +7514,7 @@ a.list-group-item .list-group-item-text {
 .navbar-brand,
 .navbar-nav > li > a,
 .topbar-nav > li > a {
-  font-family: 'Roboto Slab', serif;
+ font-family: FontAwesome;
   -webkit-transition: color 0.1s;
   -o-transition: color 0.1s;
   transition: color 0.1s;

@@ -21,7 +21,7 @@ CREATE TABLE IMAGE(
 	board_no number not null,
 	constraint fk_image foreign key(board_no) references board(board_no)
 )
-select * from image
+
 --마일리지 정보
 CREATE TABLE MILEAGE(
 	mileage_no number primary key,
@@ -54,5 +54,16 @@ create table likescheck(
 	constraint fk_likescheck_id foreign key(id) references member(id),
 	constraint fk_likescheck primary key(id,board_no)
 )
+
+
+
+drop table attendance;
+create table attendance(
+   id varchar2(50) not null,
+   mydate varchar2(50) not null,
+   constraint fk_attendance_id foreign key(id) references GENERICMEMBER(id),
+   constraint fk_attendance primary key(id,mydate)
+);
+
 
 

@@ -34,6 +34,7 @@ CREATE TABLE COMPANYMEMBER(
 )
 alter table COMPANYMEMBER add write number default 0
 select * from companymember
+select * from authorities;
 CREATE TABLE AUTHORITIES(
 	id varchar2(50) not null,
 	authority varchar2(30) not null, -- 권한

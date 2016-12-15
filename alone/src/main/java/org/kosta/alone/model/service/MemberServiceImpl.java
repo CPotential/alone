@@ -32,12 +32,14 @@ public class MemberServiceImpl implements MemberService {
 		memberVO = commonMemberDAO.memberLogin(memberVO);
 		// 아이디 패스워드 확인
 		if (memberVO == null) {
-			return memberVO;
+			return memberVO;//아이디 틀렸을 경우 null
 		}
 		if (memberVO.getAuthority().equals("ROLE_COMPANY")) {
+		//기업회원 객체 출력
 			return commonMemberDAO.adminApproval(memberVO);
 			// 관리자가 기업 승인 여부 확인해야한다.
 		}
+	
 		return memberVO;
 	}
 
@@ -154,15 +156,19 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	/**
-	 * 현재 마일리지
+	 * 아이디에 해당하는 마일리지정보
 	 */
 	@Override
 	public int nowMileage(String id) {
 		return genericMemberDAO.nowMileage(id);
 	}
+	/**
+	 * 검색한 아이디에 해당하는 마일리지정보
+	 */
 
 	@Override
 	public MemberVO SearchIdAndMileage(String id) {
+		//마일리지 정보출력
 		return genericMemberDAO.SearchIdAndMileage(id);
 	}
 
@@ -173,7 +179,9 @@ public class MemberServiceImpl implements MemberService {
 		map.put("memberId", memberVO.getId());
 		map.put("companyId", companyVO.getId());
 		map.put("dealMoney", (int) (-1 * memberVO.getMileage()));
+		//마일리지 내역 저장
 		genericMemberDAO.mileageMinus(map);
+		//회원의 마일리지 차감
 		genericMemberDAO.updateMileage(map);
 	}
 

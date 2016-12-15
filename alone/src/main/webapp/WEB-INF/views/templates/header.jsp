@@ -1,3 +1,4 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -34,15 +35,16 @@
 
 
 			<!-- Account links -->
+		
 			<c:choose>
 				<c:when test="${empty sessionScope.memberVO}">
-				<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/templates/attendance.do">출석부 테스트</a></li>
 					<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/login.do">Sign In</a></li>
 					<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
 				</c:when>
 
 				<c:otherwise>
 					<c:set var="authority" value="${sessionScope.memberVO.authority}" />
+					
 					<c:if test="${authority eq 'ROLE_MEMBER'}">
 						<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showGenericInfo.do">myPageGeneric</a></li>
 						<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
@@ -87,6 +89,7 @@
 		<div class="collapse navbar-collapse">
 			<!-- Navbar links -->
 			<ul class="nav navbar-nav navbar-left">
+		
 
 				<!-- 가게 소개 -->
 				<li class="dropdown">
@@ -103,7 +106,23 @@
 						<li><a href="${pageContext.request.contextPath}/reviewList.do">리뷰 게시판</a></li>
 					</ul>
 				</li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> 이벤트 <span class="fa fa-angle-down"></span></a>
+					<ul class="dropdown-menu" role="menu"> 
+						<li><a href="#">진행중인 이벤트</a></li>
+						<li><a href="#">지난 이벤트</a></li>
+						<%
+						Calendar cal=Calendar.getInstance(); //현재 시스템이 가지고 있는 날짜 데이터 가지고 오기
+					 	
+					 	int y=cal.get(Calendar.YEAR);
+					 	int m=cal.get(Calendar.MONTH)+1;
+						%>
+						<li><a href="${pageContext.request.contextPath}/showAttendanceMain.do?y=<%=y%>&m=<%=m%>">출석체크 이벤트</a></li>
+						<%--  <li><a href="${pageContext.request.contextPath}/showAttendanceMain.do">출석체크 이벤트</a></li> --%>
+					</ul>
+				</li>
+				</ul>
 			</div>
+				
 	</div>
 </div>
 

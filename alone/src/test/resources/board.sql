@@ -45,9 +45,6 @@ CREATE TABLE INTRODUCE(
 	constraint fk_introduce foreign key(board_no) references board(board_no),
 	constraint fk_introduce_category foreign key(category_no) references introduce_category(category_no)
 )
-
-
-
 -- 소개글 키워드 정보
 CREATE TABLE KEYWORD(
 	keyword_no number primary key,
@@ -56,6 +53,7 @@ CREATE TABLE KEYWORD(
 	constraint fk_keyword_board foreign key(board_no) references introduce(board_no)
 )
 
+select *from KEYWORD
 --모임 테이블 정보
 CREATE TABLE MEETING(
 	board_no number primary key,

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="event">
+ 
+ <select id="countAttendance" resultType="int">
+ select count(*) from attendance where id=#{value} 
+and mydate=(select to_char(sysdate,'YYYY/MM/DD') from dual)
+ </select>
+
+<insert id="insertAttendaceInfo">
+insert into attendance(id,mydate)
+values(#{value},(select to_char(sysdate,'YYYY/MM/DD') from dual))
+</insert>
+
+<insert id="insertMileageHistroy" parameterType="hashmap">
+INSERT into mileage (mileage_no,deal_money,deal_content,id)
+VALUES (mileage_seq.nextval,#{dealMoney},'출석',#{memberId})
+</insert>
+
+<select id="ShowAttendDay" resultType="int">
+select count(*) from attendance where id=#{value}
+</select>
+
+<select id="attendanceList" resultType="int" parameterType="hashMap">
+select substr(mydate,-2) as day from attendance where id=#{id}
+and mydate LIKE #{ym}
+</select>
+
+
+</mapper> 

@@ -30,13 +30,16 @@ public class MemberController {
 		if (memberVO == null) {
 			mav = new ModelAndView("member/login_fail");
 			return mav;
-		} else if (memberVO instanceof CompanyMemberVO) {
-			CompanyMemberVO companyMemberVO = (CompanyMemberVO) memberVO;
-			if (companyMemberVO.getApproval().equals("0")) {
+		} else if (memberVO instanceof CompanyMemberVO) {  
+
+			//기업회원이 승인받지 않을 경우 세션 저장 실폐
+			if (((CompanyMemberVO) memberVO).getApproval().equals("0")) {
 				mav = new ModelAndView("member/login_companyfail");
 				return mav;
-			}
+			} 
 		}
+		
+		//기업회원일경우에만 기업회원 세션으로 저장
 		session.setAttribute("memberVO", memberVO);
 		mav = new ModelAndView("redirect:home.do");
 		return mav;
