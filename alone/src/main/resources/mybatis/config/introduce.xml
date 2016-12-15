@@ -21,9 +21,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="category_name" property="categoryName" />
 	</resultMap>
 	<select id="introduceList" resultMap="introduceRM" parameterType="hashMap">
-	     select board_no,nickname,region,keyword 
+	     select board_no,nickname,region
 	     from (
-	     	select row_number() over(order by board.board_no) as rnum, introduce.board_no, member.nickname, introduce.region, introduce.keyword 
+	     	select row_number() over(order by board.board_no) as rnum, introduce.board_no, member.nickname, introduce.region 
 		     from board board,member member,introduce introduce
 		     where introduce.category_no=#{categoryNo} and member.id=board.id and board.board_no=introduce.board_no and board.board_enabled=1) 
 		 where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}   
@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="introduceDetail" resultMap="introduceRM" parameterType="int"> 
 		select introduce.board_no, board.content, introduce.company_name, introduce.region, 
 		introduce.location, introduce.business_hours, introduce.tel,introduce.likes
-		,introduce.keyword,introduce.category_no
+		,introduce.category_no
 		from introduce introduce,board board 
 		where board.board_no=introduce.board_no and introduce.board_no=#{value}
 
@@ -78,8 +78,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<insert id="introduceWrite" parameterType="introduceVO" >
-		insert into introduce(board_no, company_name, region, location, business_hours,tel,category_no,keyword )
-		values(#{boardNo}, #{companyName}, #{region}, #{location}, #{businessHours},#{tel},#{categoryVO.categoryNo},#{keyword})
+		insert into introduce(board_no, company_name, region, location, business_hours,tel,category_no )
+		values(#{boardNo}, #{companyName}, #{region}, #{location}, #{businessHours},#{tel},#{categoryVO.categoryNo})
 	</insert>
 	
 	<insert id="keywordRegister" parameterType="keywordVO"  >
@@ -114,7 +114,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="location != null  and location !=''">location=#{location},</if>
 		    <if test="businessHours != null  and businessHours !=''">business_hours=#{businessHours},</if>
 			<if test="tel != null  and tel !=''"> tel=#{tel},</if>
-		    <if test="keyword != null  and keyword !=''"> keyword=#{keyword},</if>
 		   <!-- 		<result column="category_no" property="categoryVO.categoryNo"/> --> 
 		    <if test="categoryVO.categoryNo != null  and categoryVO.categoryNo !=''">
 		    category_no=#{categoryVO.categoryNo}</if>

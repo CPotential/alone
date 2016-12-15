@@ -1,7 +1,7 @@
 
 --소개글 리스트 뽑기------------------------------------------------------
 
-
+SELECT image_name, image_originalname,board_no FROM image WHERE image_name LIKE 'main%'
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce ,INTRODUCE_CATEGORY category
 where introduce.category_no=1
@@ -13,7 +13,7 @@ and introduce.category_no = category.category_no;
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce 
 where introduce.category_no=1
-and member.id=board.id and  board.board_no=image.board_no
+and member.id=board.id and  board.board_no=image.board_nos
 
 select b.board_no, m.nickname, i.image_name, m.name
 from member m, board b, image i

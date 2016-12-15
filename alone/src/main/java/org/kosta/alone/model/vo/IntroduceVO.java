@@ -9,7 +9,6 @@ public class IntroduceVO extends BoardVO {
 	private String businessHours;
 	private String tel;
 	private int likes;
-	private String keyword;
 	private List<KeyWordVO> keyWordVO;
 	private IntroduceCategoryVO categoryVO;
 
@@ -95,22 +94,14 @@ public class IntroduceVO extends BoardVO {
 	public void setCategoryVO(IntroduceCategoryVO categoryVO) {
 		this.categoryVO = categoryVO;
 	}
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
 
 	@Override
 	public String toString() {
-		return super.toString()+"IntroduceVO [companyName=" + companyName 
-				+ ", region=" + region + ", location=" + location
-				+ ", businessHours=" + businessHours + ", tel=" 
-				+ tel + ", likes=" + likes + ", keyWordVO=" + keyWordVO
+		return "IntroduceVO [companyName=" + companyName + ", region=" + region + ", location=" + location
+				+ ", businessHours=" + businessHours + ", tel=" + tel + ", likes=" + likes + ", keyWordVO=" + keyWordVO
 				+ ", categoryVO=" + categoryVO + "]";
 	}
+
 
 
 }

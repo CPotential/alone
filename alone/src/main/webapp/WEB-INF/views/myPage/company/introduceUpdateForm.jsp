@@ -150,7 +150,7 @@
 				<div class="form-group">
 					<label for="region">키워드</label> <input type="text" name="keyword"
 						class="form-control" id="keyword"
-						placeholder="${introVO.keyword}"
+						placeholder="${requestScope.keyword}"
 						data-original-title="" title="" value="">
 					<div id="hashTag">
 						<input type="text" id="hash1" value="" readonly> <input

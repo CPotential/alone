@@ -12,7 +12,7 @@ CREATE TABLE MEMBER(
 	tel varchar2(50) not null,
 	enabled number default 1 -- 탈퇴여부 : 탈퇴시 0 으로 변경
 )
-
+alter table member MODIFY(password varchar2(100))
 -- 일반 회원 정보
 CREATE TABLE GENERICMEMBER(
 	id varchar2(50) primary key,
@@ -31,7 +31,7 @@ CREATE TABLE COMPANYMEMBER(
 	write number default 0,
 	constraint fk_companymember foreign key(id) references member(id)
 )
-
+update AUTHORITIES set authority='ROLE_ADMIN' where id='admin2'
 -- 회원 권한 
 CREATE TABLE AUTHORITIES(
 	id varchar2(50) not null,
