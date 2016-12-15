@@ -14,7 +14,7 @@ public interface GenericMemberDAO {
 	
 	public void updateMember(GenericMemberVO genericMemberVO);
 
-	public GenericMemberVO showGenericmember(MemberVO vo);
+	public GenericMemberVO showGenericmember(String id);
 
 	public List<MileageVO> mileageInfo(String id);
 

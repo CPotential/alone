@@ -68,7 +68,7 @@ public interface BoardService {
 
 	public void meetingUpdate(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO);
 
-	public void boardDelete(int boardNo);
+	public void deleteBoard(int boardNo);
 
 	public int reviewLikeUp(BoardVO bvo);
 	
@@ -76,6 +76,6 @@ public interface BoardService {
 	
 	public List<IntroduceVO> rankingIntroduceList();
 
-	void introduceDelete(IntroduceVO introduceVO, HttpServletRequest request);
+	void introduceDelete(String id, int boardNo);
 
 }

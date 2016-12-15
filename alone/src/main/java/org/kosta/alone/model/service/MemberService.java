@@ -30,7 +30,7 @@ public interface MemberService {
 
 	public void updateApproval(String id);
 
-	public GenericMemberVO showGenericmember(MemberVO mvo);
+	public GenericMemberVO showGenericmember(String id);
 
 	public CompanyMemberVO showCompanyMember(MemberVO mvo);
 

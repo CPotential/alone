@@ -67,11 +67,6 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public void boardDelete(int boardNo) {
-		sqlSessionTemplate.update("board.boardDelete", boardNo);
-	}
-	
-	@Override
 	public void boardDeleteByBoardNo(int boardNo){
 		sqlSessionTemplate.delete("board.boardDeleteByBoardNo", boardNo);
 	}
@@ -108,6 +103,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void deleteBoard(int boardNo) {
+		System.out.println("삭제 클릭 후 dao 진입 " + boardNo);
 		sqlSessionTemplate.update("board.deleteBoard", boardNo);
 	}
 }

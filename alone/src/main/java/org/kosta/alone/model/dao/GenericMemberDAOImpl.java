@@ -25,8 +25,8 @@ public class GenericMemberDAOImpl implements GenericMemberDAO {
 		sqlSessionTemplate.update("genericMember.updateGenericMember",genericMemberVO);
 	}
  
-	public GenericMemberVO showGenericmember(MemberVO vo){
-		return sqlSessionTemplate.selectOne("genericMember.showGenericmember", vo);
+	public GenericMemberVO showGenericmember(String id){
+		return sqlSessionTemplate.selectOne("genericMember.showGenericmember", id);
 	}
 	
 	/**

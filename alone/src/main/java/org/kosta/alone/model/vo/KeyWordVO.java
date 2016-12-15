@@ -3,22 +3,19 @@ package org.kosta.alone.model.vo;
 public class KeyWordVO {
 	private int keyWordNo;
 	private String keyWordName;
-    private int boardNo;
-    
-    
+	private int boardNo;
+
 	public KeyWordVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	
-	public KeyWordVO( String keyWordName, int boardNo) {
+	public KeyWordVO(String keyWordName, int boardNo) {
 		super();
-	
+
 		this.keyWordName = keyWordName;
 		this.boardNo = boardNo;
 	}
-	
+
 	public KeyWordVO(int keyWordNo, String keyWordName, int boardNo) {
 		super();
 		this.keyWordNo = keyWordNo;
@@ -26,16 +23,13 @@ public class KeyWordVO {
 		this.boardNo = boardNo;
 	}
 
-
 	public int getBoardNo() {
 		return boardNo;
 	}
 
-
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
-
 
 	public int getKeyWordNo() {
 		return keyWordNo;

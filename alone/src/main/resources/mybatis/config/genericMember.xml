@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="genericMemberVO">
 		select genericmember.id, member.name, member.nickname, genericmember.gender, genericmember.birth, member.tel
 		from member member, genericmember genericmember 
-		where member.id=genericmember.id and genericmember.id=#{id}
+		where member.id=genericmember.id and genericmember.id=#{value}
 	</select>
 
 	<select id="genericList" resultType="genericMemberVO">

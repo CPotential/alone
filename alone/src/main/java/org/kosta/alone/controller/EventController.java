@@ -26,11 +26,10 @@ public class EventController {
 
 	/**
 	 * gerneic 멤버일때만 출석일수를 가져온다
-	 * 
 	 * @param session
 	 * @return
 	 */
-	@Secured({ "ROLE_MEMBER", "ROLE_COMPANY_VERIFIED" })
+	@Secured({ "ROLE_MEMBER", "ROLE_COMPANY_VERIFIED", "ROLE_ADMIN"})
 	@RequestMapping("showAttendanceMain.do")
 	public ModelAndView showAttenadceMain(HttpSession session, String y, String m) {
 		ModelAndView mv = new ModelAndView();
