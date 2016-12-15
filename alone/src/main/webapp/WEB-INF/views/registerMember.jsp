@@ -8,8 +8,7 @@
 	$(document).ready(function(){
 		var checkResultId="";
 		$("#cancel").click(function(){
-			alert("작성이 취소됩니다.");
-			location.href="${pageContext.request.contextPath}/homego.do";
+			location.href="${pageContext.request.contextPath}/home.do";
 			return false;
 		}); 
 		
@@ -153,7 +152,7 @@
               <input type="submit" class="btn btn-primary btn-block btn-lg" value="가입하기"><br>
              <button type="submit" class="btn btn-primary btn-block btn-lg"  id="cancel" >취소</button>
           </form>    
-                   
+          </div> <!-- / .body-plain__form -->
 
 
           <!-- Footer -->

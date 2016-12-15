@@ -4,18 +4,18 @@ public class PagingBean {
 
 	// 현재 페이지/
 	private int nowPage = 1; 
+	
 	// 페이지당 게시물수/
 
 	private int contentNumberPerPage = 0; 
+	
 	// 페이지 그룹당 페이지수/
 	private int pageNumberPerPageGroup = 0;
+	
 	/*
 	 * database에 저장된 총게시물수
 	 */
 	private int totalContents;
-    
-	
-
 
 	public int getContentNumberPerPage() {
 		return contentNumberPerPage;
@@ -209,9 +209,15 @@ public class PagingBean {
 		}
 		return flag;
 	}
+	
 	public void introduceListSetPaging(){
 		this.contentNumberPerPage=6;
 		this.pageNumberPerPageGroup=4;
+	}
+	
+	public void communityListSetPaging(){
+		this.contentNumberPerPage=10;
+		this.pageNumberPerPageGroup=5;
 	}
 
 

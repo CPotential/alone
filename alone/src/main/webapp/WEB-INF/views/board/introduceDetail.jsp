@@ -2,24 +2,20 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script>
-$(document).ready(function(){
-	
-
-$("#like").click(function(){
-	
-		$.ajax({
-					type : "get",
-					url : "${pageContext.request.contextPath}/likeUpAjax.do",
-					data : "command=introduce&boardNo="+'${param.boardNo}',
-					dataType : "json",
-					success : function(result) {
-						$("#likeNum").html("좋아요 : "+ result);
-					}
-				}) // ajax
-	}); // click
-});//ready
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#like").click(function(){
+			$.ajax({
+				type : "get",
+				url : "${pageContext.request.contextPath}/likeUpAjax.do",
+				data : "command=introduce&boardNo="+'${param.boardNo}',
+				dataType : "json",
+				success : function(result) {
+					$("#likeNum").html("좋아요 : "+ result);
+				}
+			}) // ajax
+		}); // click
+	});//ready
 </script>
 
  <!-- Panels -->
@@ -33,8 +29,8 @@ $("#like").click(function(){
 					<h3 class="panel-title">가게 사진</h3>
 				</div>
 				<div class="panel-body" >
-					<c:forEach items="${requestScope.introVO.imageVO}" var="imgVO">
-						<img src="${pageContext.request.contextPath}/resources/upload/${imgVO.imageName}" width="50%" height="40%">
+					<c:forEach items="${requestScope.introVO.imageVO}" var="image">
+						<img src="${pageContext.request.contextPath}/resources/upload/${image.imageName}" width="50%" height="40%"><br>
 					</c:forEach>
 				</div>
 			</div>

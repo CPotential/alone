@@ -85,7 +85,7 @@
 										<!-- Image -->
 										
 										<div class="portfolio__img">
-											<img src="${pageContext.request.contextPath}/resources/upload/ ${list.mainImage.imageName}" alt="Portfolio Image">
+											<img src="${pageContext.request.contextPath}/resources/upload/${list.mainImage.imageName}" alt="Portfolio Image">
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">

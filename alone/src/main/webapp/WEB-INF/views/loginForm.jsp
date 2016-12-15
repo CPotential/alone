@@ -33,6 +33,10 @@
 <!--  jquery 사용처입니다. -->
 <script type="text/javascript">
 	$(document).ready(function() {
+		$("#cancel").click(function(){
+			location.href="${pageContext.request.contextPath}/home.do";
+			return false;
+		}); 
 		$("#form_login").submit(function(){
 			if($("#form_login :input[name=id]").val().trim()==""){
 				alert("아이디를 입력하세요");				
@@ -82,6 +86,7 @@
 						</div>
 						<br>
 						<button type="submit" class="btn btn-primary btn-block btn-lg">Login</button>
+						<button type="click" class="btn btn-primary btn-block btn-lg" id="cancel">취소</button>
 					</form>
 
 					<!-- Sign Up link -->

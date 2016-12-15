@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#searchSubmit").click(function(){
-			alert($("#findType").val() + $("#searchKeyWord").val());
 			var searchKeyWord = $("#searchKeyWord").val();
 			if (searchKeyWord == "") {
 				alert("검색어를 입력하세요!");
@@ -98,8 +98,8 @@
 		</table>
 	</div>
 	<br><br><br>
+	<!-- /.row -->
 	
-	<!-- / .table-responsive -->
 	<div class="row">
 		<div class="col-sm-5"></div>
 		<div class="col-sm-5">
@@ -117,10 +117,13 @@
 		</div>
 		<div class="col-sm-2">
 			<div class="ui__section" id="ui_buttons">
+			<sec:authorize ifAnyGranted="ROLE_MEMBER">
 				<a href="${pageContext.request.contextPath}/meetingWriteForm.do" class="btn btn-sm btn-primary">글작성</a>
+			</sec:authorize>
 			</div>
 		</div>
 	</div> 
+	<!-- /.row -->
 	
 	<!-- paging -->
 	<div class="ui__section" id="ui_pagination" align="center">
@@ -142,6 +145,7 @@
 			</ul>
 		</nav>
 	</div>
+	<!-- /.paging -->
 	
 </div>
 	

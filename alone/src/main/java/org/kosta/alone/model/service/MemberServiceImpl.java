@@ -105,8 +105,8 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.nickNamecheck(nickname);
 	}
 
-	public GenericMemberVO showGenericmember(MemberVO mvo) {
-		return genericMemberDAO.showGenericmember(mvo);
+	public GenericMemberVO showGenericmember(String id) {
+		return genericMemberDAO.showGenericmember(id);
 	}
 
 	@Override

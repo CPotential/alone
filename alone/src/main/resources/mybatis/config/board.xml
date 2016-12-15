@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="introduceFirstImage" resultMap="imageRM" resultType="imageVO">
-		SELECT image_name,image_originalname FROM image WHERE image_name LIKE 'main%' and board_no=#{value}
+		SELECT image_name, image_originalname FROM image WHERE image_name LIKE 'main%' and board_no=#{value}
 	</select>
 
    	<insert id ="imageUpload" parameterType="imageVO" >
@@ -42,10 +42,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<delete id="imageDeleteByBoardNo">
 		delete from image where board_no =#{value} 
-	</delete>
-	
-	<delete id="boardDeleteByBoardNo">
-		delete from board where board_no =#{value}
 	</delete>
 	
 	<select id="commentList" resultType="commentVO">
@@ -71,14 +67,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateComment" parameterType="commentVO">
 		update boardcomment set content = #{content} where comment_no=#{commentNo}
 	</update>
-
-
 	
 	<delete id="deleteComment" parameterType="commentVO">
 		delete from boardcomment where comment_no = #{commentNo} 
 	</delete>
 
-	
 	<update id="updateHitBoard" parameterType="int">
 		update review set hits=hits+1 where board_no=#{value}
 	</update>
@@ -98,8 +91,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set content=#{content}, time_posted=sysdate
 		where board_no=#{boardNo}
 	</update>
-
-
 	
 	<select id="likeCheckInfo" parameterType="boardVO" resultMap="boardRM"> 
 		select member.id,board.board_no,likescheck.likeCheck from member member,board board,likescheck likescheck
@@ -114,7 +105,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update likescheck set likeCheck = likeCheck+1 where id=#{memberVO.id} and board_no=#{boardNo}
 	</update>
 
-	<update id="deleteBoard" parameterType="string">
+	<update id="deleteBoard" parameterType="int">
 		update board set board_enabled=0 where board_no=#{value}
 	</update>
 </mapper>

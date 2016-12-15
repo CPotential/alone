@@ -33,13 +33,8 @@
 
 								<c:forEach items="${requestScope.introVO.imageVO}" var="imgVO">
 									<!--  다운로드시는 서버에 저장되는 실제 이름과 같아야함/ 원래 저장했던 이미지로 다운로드하기!!! -->
-									<a
-										href="${pageContext.request.contextPath}/fileDownload.do?fileName=${imgVO.imageName}&originalFileName=${imgVO.originalFileName}">${imgVO.originalFileName}</a>
-									<br>
-
-									<img src="${pageContext.request.contextPath}/resources/upload/${imgVO.imageName}" width="100%" height="100%">
-
-									<br>
+									<a 	href="${pageContext.request.contextPath}/fileDownload.do?fileName=${imgVO.imageName}&originalFileName=${imgVO.originalFileName}">${imgVO.originalFileName}</a><br>
+									<img src="${pageContext.request.contextPath}/resources/upload/${imgVO.imageName}" width="100%" height="100%"><br>
 								</c:forEach>
 							</div>
 						</div>
@@ -55,8 +50,8 @@
 								영업시간:${requestScope.introVO.businessHours}<br>
 								전화번호:${requestScope.introVO.tel}<br> 키워드:
 								<c:forEach items="${requestScope.introVO.keyWordVO}" var="keyVO">
-                  		#${keyVO.keyWordName}
-                  	</c:forEach>
+			                  		#${keyVO.keyWordName}
+			                  	</c:forEach>
 								<br>
 							</div>
 
@@ -64,12 +59,8 @@
 					</div>
 					<div class="panel-footer">
 					<!-- 	<div class="btn-group btn-group-justified"> -->
-
-							<button type="button" class="btn btn-primary"
-								id="introduceUpdate">수정</button>
-							<button type="button" class="btn btn-primary"
-								id="introduceDelete">삭제</button>
-				<!-- 		</div> -->
+							<button type="button" class="btn btn-primary" id="introduceUpdate">수정</button>
+							<button type="button" class="btn btn-primary" id="introduceDelete">삭제</button>
 					</div>
 
 				</div>

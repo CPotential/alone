@@ -58,8 +58,7 @@ public class BoardServiceImpl implements BoardService {
 		} else {
 			pagingBean = new PagingBean(totalCount, Integer.parseInt(nowPage));
 		}
-		pagingBean.setContentNumberPerPage(10);
-		pagingBean.setPageNumberPerPageGroup(5);
+		pagingBean.communityListSetPaging(); // setContentNumberPerPage(10), setContentNumberPerPage(5)
 		List<ReviewVO> list = reviewDAO.reviewList(pagingBean);
 		ListVO<ReviewVO> listVO = new ListVO<ReviewVO>(list, pagingBean);
 		return listVO;
@@ -147,7 +146,6 @@ public class BoardServiceImpl implements BoardService {
 
 	/**
 	 * 키워드 수정
-	 * 
 	 * @param introduceVO
 	 * @param keyword
 	 */
@@ -194,17 +192,17 @@ public class BoardServiceImpl implements BoardService {
 		if ( !(introduceVO.getCompanyName().equals("") && introduceVO.getRegion().equals("") 
 				&& introduceVO.getLocation().equals("") && introduceVO.getBusinessHours().equals("")
 				&& introduceVO.getTel().equals("") && introduceVO.getKeyword().equals("")
-				&& introduceVO.getCategoryVO().equals("")) ) 
+				&& introduceVO.getCategoryVO().equals("")) ) {
 			introduceDAO.introduceUpdate(introduceVO);
-
+		}
+		
 		// 이미지 정보가 모두 비어있지않다면 update
 		if (vo.getFile() != null && vo.getMainFile() != null) {
-			// System.out.println("이미지 정보안비어있음");
 			imageUpload(introduceVO, vo, request);
 		}
+		
 		// 키워드가 null이 아니라면
 		if (introduceVO.getKeyword() != null) {
-
 			// 기존 게시물에 저장되어있는 키워드 정보를 가져와 세팅해준다음에 keywordUpdate 해준다
 			keyWordVO = introduceDAO.keyWordList(introduceVO.getBoardNo());
 			introduceVO.setKeyWordVO(keyWordVO);
@@ -296,6 +294,7 @@ public class BoardServiceImpl implements BoardService {
 		for (int i = 0; i < keyWordList.size(); i++) {
 			keywordSet += "#" + keyWordList.get(i).getKeyWordName();
 		}
+		
 		introduceVO.setKeyword(keywordSet);
 		// 메인 이미지 저장
 		mainImage = boardDAO.introduceFirstImage(boardNo);
@@ -312,21 +311,11 @@ public class BoardServiceImpl implements BoardService {
 	 */
 	@Transactional
 	@Override
-	public void introduceDelete(IntroduceVO introduceVO, HttpServletRequest request) {
-		List<ImageVO> list = null;
-		list = boardDAO.imageAllList(introduceVO.getBoardNo());
-		if (list != null) {
-			for (int i = 0; i < list.size(); i++)
-				deleteImage(list.get(i).getImageName(), request);
-		}
-		introduceDAO.keywordDeleteByBoardNo(introduceVO.getBoardNo());
-		introduceDAO.introduceDeleteByBoardNo(introduceVO.getBoardNo());
-		boardDAO.boardDeleteByBoardNo(introduceVO.getBoardNo());
-		// 기업회원 글한번 쓴 상태로 변경
-		introduceDAO.updateWriteBack(introduceVO.getMemberVO().getId());
-		
+	public void introduceDelete(String id, int boardNo) {
 		// 게시글 상태여부 ( board_enabled = 0 으로 변경만 하면 됨.. )
-		//boardDAO.deleteBoard(introduceVO.getBoardNo());
+		boardDAO.deleteBoard(boardNo);
+		// 기업회원 글한번 쓴 상태로 변경
+		introduceDAO.updateWriteBack(id);
 	}
 
 	@Transactional
@@ -397,13 +386,12 @@ public class BoardServiceImpl implements BoardService {
 	public ListVO<MeetingVO> meetingList(String pageNo) {
 		int totalCount = meetingDAO.getTotalContentCount();
 		PagingBean pagingBean = null;
-		if (pageNo == null) {
+		if (pageNo == null) 
 			pagingBean = new PagingBean(totalCount);
-		} else {
+		else 
 			pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
-		}
-		pagingBean.setContentNumberPerPage(10);
-		pagingBean.setPageNumberPerPageGroup(5);
+		
+		pagingBean.communityListSetPaging(); // setContentNumberPerPage(10), setContentNumberPerPage(5)
 		List<MeetingVO> list = meetingDAO.meetingList(pagingBean);
 		ListVO<MeetingVO> listVO = new ListVO<MeetingVO>(list, pagingBean);
 		return listVO;
@@ -427,8 +415,7 @@ public class BoardServiceImpl implements BoardService {
 		else
 			pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
 
-		pagingBean.setContentNumberPerPage(10);
-		pagingBean.setPageNumberPerPageGroup(5);
+		pagingBean.communityListSetPaging(); // setContentNumberPerPage(10), setContentNumberPerPage(5)
 		map = new HashMap<String, Object>();
 		map.put("keyword", searchKeyWord);
 		map.put("pb", pagingBean);
@@ -470,7 +457,6 @@ public class BoardServiceImpl implements BoardService {
 	public void meetingUpdate(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO) {
 		boardDAO.meetingboardUpdate(meetingVO);
 		meetingDAO.meetingUpdate(meetingVO);
-		// mageUpload(request, meetingVO, uploadFileVO);
 	}
 
 	/**
@@ -493,8 +479,7 @@ public class BoardServiceImpl implements BoardService {
 		else
 			pagingBean = new PagingBean(totalCount, Integer.parseInt(pageNo));
 
-		pagingBean.setContentNumberPerPage(10);
-		pagingBean.setPageNumberPerPageGroup(5);
+		pagingBean.communityListSetPaging(); // setContentNumberPerPage(10), setContentNumberPerPage(5)
 		map = new HashMap<String, Object>();
 		map.put("keyWord", searchKeyWord);
 		map.put("pb", pagingBean);
@@ -509,8 +494,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void boardDelete(int boardNo) {
-		boardDAO.boardDelete(boardNo);
+	public void deleteBoard(int boardNo) {
+		boardDAO.deleteBoard(boardNo);
 	}
 
 	@Transactional
