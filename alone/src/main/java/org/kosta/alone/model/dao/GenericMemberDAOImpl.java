@@ -53,6 +53,7 @@ public class GenericMemberDAOImpl implements GenericMemberDAO {
 	public int nowMileage(String id) {
 		return sqlSessionTemplate.selectOne("genericMember.nowMileage", id);
 	}
+	
 	/**
 	 * 아이디에 해당하는 회원이보유한 마일리지와 아이디
 	 */
@@ -68,7 +69,6 @@ public class GenericMemberDAOImpl implements GenericMemberDAO {
 	@Override
 	public void mileageMinus(HashMap<String, Object> map) {
 		 sqlSessionTemplate.insert("genericMember.mileageMinus",map);
-		
 	}
 
 	/**

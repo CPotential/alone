@@ -2,7 +2,6 @@ package org.kosta.alone.model.dao;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -60,29 +59,31 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 	public void updateWrite(String id) {
 		sqlSessionTemplate.update("introduce.updateWrite", id);
 	}
+
 	/**
 	 * 기업회원write 정보 0으로 바꾸기
 	 */
 	@Override
 	public void updateWriteBack(String id) {
-		sqlSessionTemplate.update("introduce.updateWriteBack",id);
+		sqlSessionTemplate.update("introduce.updateWriteBack", id);
 	}
+
 	@Override
-	public void introduceDeleteByBoardNo(int boardNo){
-		sqlSessionTemplate.delete("introduce.introduceDeleteByBoardNo",boardNo);
+	public void introduceDeleteByBoardNo(int boardNo) {
+		sqlSessionTemplate.delete("introduce.introduceDeleteByBoardNo", boardNo);
 	}
+
 	@Override
-	public void keywordDeleteByBoardNo(int boardNo){
-		sqlSessionTemplate.delete("introduce.keywordDeleteByBoardNo",boardNo);
+	public void keywordDeleteByBoardNo(int boardNo) {
+		sqlSessionTemplate.delete("introduce.keywordDeleteByBoardNo", boardNo);
 	}
-	
-	
-/**
- * 키워드 저장
- */
+
+	/**
+	 * 키워드 저장
+	 */
 	@Override
 	public void keywordRegister(KeyWordVO keywordVO) {
-		sqlSessionTemplate.insert("introduce.keywordRegister",keywordVO);
+		sqlSessionTemplate.insert("introduce.keywordRegister", keywordVO);
 	}
 
 	/**
@@ -103,27 +104,24 @@ public class IntroduceDAOImpl implements IntroduceDAO {
 		sqlSessionTemplate.update("introduce.introduceUpdate", introduceVO);
 	}
 
-
 	@Override
 	public void keywordUpdate(KeyWordVO keywordVO) {
-		sqlSessionTemplate.update("introduce.keywordUpdate",keywordVO);
+		sqlSessionTemplate.update("introduce.keywordUpdate", keywordVO);
 	}
 
-	
 	@Override
-	public List<IntroduceVO> rankingIntroduceList(){
+	public List<IntroduceVO> rankingIntroduceList() {
 		return sqlSessionTemplate.selectList("introduce.rankingIntroduceList");
 	}
 
 	@Override
 	public void likeUp(BoardVO bvo) {
-		sqlSessionTemplate.update("introduce.likeup",bvo);
+		sqlSessionTemplate.update("introduce.likeup", bvo);
 	}
 
 	@Override
 	public int likeCheckNumber(BoardVO bvo) {
-		return sqlSessionTemplate.selectOne("introduce.likeChekcNumber",bvo);
+		return sqlSessionTemplate.selectOne("introduce.likeChekcNumber", bvo);
 	}
-
 
 }

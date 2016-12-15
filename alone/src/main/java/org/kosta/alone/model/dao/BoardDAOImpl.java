@@ -70,10 +70,10 @@ public class BoardDAOImpl implements BoardDAO {
 	public void boardDelete(int boardNo) {
 		sqlSessionTemplate.update("board.boardDelete", boardNo);
 	}
+	
 	@Override
 	public void boardDeleteByBoardNo(int boardNo){
 		sqlSessionTemplate.delete("board.boardDeleteByBoardNo", boardNo);
-		
 	}
 
 	public void likeCheck(BoardVO bvo) {
@@ -98,14 +98,16 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void imageDeleteByBoardNo(int boardNo) {
-		
 		sqlSessionTemplate.delete("board.imageDeleteByBoardNo",boardNo);
 	}
 
 	@Override
 	public List<ImageVO> imageAllList(int boardNo) {
-
 		return sqlSessionTemplate.selectList("board.imageAllList",boardNo);
 	}
 
+	@Override
+	public void deleteBoard(int boardNo) {
+		sqlSessionTemplate.update("board.deleteBoard", boardNo);
+	}
 }

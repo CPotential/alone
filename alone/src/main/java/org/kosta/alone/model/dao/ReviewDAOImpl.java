@@ -16,74 +16,76 @@ import org.springframework.stereotype.Repository;
 public class ReviewDAOImpl implements ReviewDAO {
 	
 	@Resource
-	private SqlSessionTemplate template;
+	private SqlSessionTemplate sqlSessionTemplate;
 
 	@Override
 	public List<ReviewVO> reviewList(PagingBean pagingBean) {
-		System.out.println(template.selectList("review.reviewList",pagingBean));
-		return template.selectList("review.reviewList",pagingBean);
+		System.out.println(sqlSessionTemplate.selectList("review.reviewList",pagingBean));
+		return sqlSessionTemplate.selectList("review.reviewList",pagingBean);
 	}
 	
 	public int getTotalContentCount(){
-		return template.selectOne("review.getTotalContentCount"); 
+		return sqlSessionTemplate.selectOne("review.getTotalContentCount"); 
 	}
 
 	@Override
 	public List<ReviewVO> reviewTitleSearchList(Map<String, Object> map) {
-		return template.selectList("review.reviewTitleSearchList",map);
+		return sqlSessionTemplate.selectList("review.reviewTitleSearchList",map);
 	}
 
 	@Override
 	public List<ReviewVO> reviewWriterSearchList(Map<String, Object> map) {
-		return template.selectList("review.reviewWriterSearchList",map);
+		return sqlSessionTemplate.selectList("review.reviewWriterSearchList",map);
 	}
 	
 	public void reviewBoardWrite(ReviewVO reviewVO){ 
-		template.insert("review.reviewBoardWrite",reviewVO);
+		sqlSessionTemplate.insert("review.reviewBoardWrite",reviewVO);
 	}
+	
 	public void reviewWrite(ReviewVO reviewVO){
-		template.insert("review.reviewWrite",reviewVO);
+		sqlSessionTemplate.insert("review.reviewWrite",reviewVO);
 	}
+	
 	public ReviewVO reviewDetail(int boardNo){ 
-		return template.selectOne("review.reviewDetail", boardNo);
+		return sqlSessionTemplate.selectOne("review.reviewDetail", boardNo);
 	}
 
 	@Override
 	public int getTitleSearchContentCount(String searchKeyWord) {
-		return template.selectOne("review.getTitleSearchContentCount",searchKeyWord); 
+		return sqlSessionTemplate.selectOne("review.getTitleSearchContentCount",searchKeyWord); 
 	}
+	
 	@Override
 	public int getWriterSearchCount(String searchKeyWord) {
-		return template.selectOne("review.getWriterSearchCount",searchKeyWord); 
+		return sqlSessionTemplate.selectOne("review.getWriterSearchCount",searchKeyWord); 
 	}
 
 	@Override
 	public void updateHit(int boardNo) {
-		template.update("review.updateHitBoard",boardNo);
+		sqlSessionTemplate.update("review.updateHitBoard",boardNo);
 	}
 	
 	public void reviewUpdate(ReviewVO reviewVO){
-		template.update("review.reviewUpdate",reviewVO);
+		sqlSessionTemplate.update("review.reviewUpdate",reviewVO);
 	}
 	
 	public void likeUp(BoardVO bvo){
-		template.update("review.likeup",bvo);
+		sqlSessionTemplate.update("review.likeup",bvo);
 	}
 
 	@Override
 	public int likeCheckNumber(BoardVO bvo) {
-		// TODO Auto-generated method stub
-		return template.selectOne("review.likeChekcNumber",bvo);
+		return sqlSessionTemplate.selectOne("review.likeChekcNumber",bvo);
 	}
 
 	@Override
 	public void mileageInsert(HashMap<String, Object> map) {
-		template.insert("review.mileageInsert",map);	
+		sqlSessionTemplate.insert("review.mileageInsert",map);	
 	}
 
 	@Override
 	public void mileageUpdate(HashMap<String, Object> map) {
-		template.update("review.mileageUpdate",map);
+		sqlSessionTemplate.update("review.mileageUpdate",map);
 	}
 	
 }
