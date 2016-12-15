@@ -1,22 +1,20 @@
 
+DROP TABLE member CASCADE CONSTRAINT;
+DROP TABLE genericmember CASCADE CONSTRAINT;
+DROP TABLE companymember CASCADE CONSTRAINT;
+DROP TABLE authorities CASCADE CONSTRAINT;
 
-DROP TABLE MEMBER
-drop table genericmember
-drop table COMPANYMEMBER
-drop table authorities;
-
-
+-- 공통 회원 정보
 CREATE TABLE MEMBER( 
 	id varchar2(50) primary key,
-	password varchar2(50) not null,
+	password varchar2(100) not null,
 	name varchar2(50) not null,
 	nickname varchar2(50) not null,
 	tel varchar2(50) not null,
 	enabled number default 1 -- 탈퇴여부 : 탈퇴시 0 으로 변경
 )
-alter table member modify(password varchar2(100)) 
 
-
+-- 일반 회원 정보
 CREATE TABLE GENERICMEMBER(
 	id varchar2(50) primary key,
 	birth varchar2(50) not null,
@@ -25,27 +23,20 @@ CREATE TABLE GENERICMEMBER(
 	constraint fk_genericmember foreign key(id) references member(id)
 )
 
-
-DROP TABLE COMPANYMEMBER
+-- 기업 회원 정보
 CREATE TABLE COMPANYMEMBER( 
 	id varchar2(50) primary key,
 	address varchar2(50) not null,
 	corporate_registration_number varchar2(50) not null,
-	approval number default 0, -- 가입승인 여부 : 가입 승인 시 1로 변경
 	write number default 0,
 	constraint fk_companymember foreign key(id) references member(id)
 )
-alter table COMPANYMEMBER add write number default 0
-select * from companymember
-<<<<<<< HEAD
+alter table COMPANYMEMBER drop COLUMN  approval
 
-
-=======
-select * from authorities;
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
+-- 회원 권한 
 CREATE TABLE AUTHORITIES(
 	id varchar2(50) not null,
 	authority varchar2(30) not null, -- 권한
 	constraint fk_authorities foreign key(id) references member(id),
-	constraint fk_member_authorities primary key(id, authority)
+	constraint pk_authorities primary key(id, authority)
 )

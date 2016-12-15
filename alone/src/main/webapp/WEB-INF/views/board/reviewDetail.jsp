@@ -3,8 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
+
+<c:set var="sessionId">
+<sec:authentication property="principal.id" />
+</c:set>
 
 <!--  jquery 사용처입니다. -->
 <script type="text/javascript">
@@ -22,28 +25,23 @@
 															var json = "";
 															for (var i = 0; i < data.length; i++) {
 																json += "<div class='comment'>";
-																json += " <div class='comment__author_img'>"
-																json += data[i].memberVO.nickName;
-																json += "</div> <div class='comment__content' id='commentresetView'>";
+																json += " <div class='comment__content' id='commentresetView'>";
 																json += "<div class='comment__author_name'>"
 																json += data[i].memberVO.nickName;
 																json += "</div>";
 																json += "<time datetime="
+																json += "class='comment__date'> ";
 																json += data[i].timePosted;
-																json += "class='comment__date'> </time>";
-																json += "<p>";
+																json += "</time><p>";
 																json += data[i].content;
 																json += "</p>";
-																<c:set var="id" value="${sessionScope.memberVO.id }"/>
-
 																var id = data[i].memberVO.id;
-																var nowid = '<c:out value="${id}"/>'
+																var nowid = '<c:out value="${sessionId}"/>'
 
 																if (id == nowid) {
 																	json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
-																	json += " <a href='#' id='removeComment' class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
-																	json += " <a href='#' id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
-																	json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
+																	json += " <a  id='removeComment' class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
+																	json += " <a  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
 																	json += "</div>"
 																}
 																json += "<input type='hidden' id='commentNo'  value="
@@ -61,7 +59,7 @@
 											commentNo = $(this).parent().next().val();
 											$("#commentresetView").empty();
 											$("#commentresetView").html("<textarea class='form-control'"+"rows='2' id='comment'>"
-											+ content+ "</textarea>"+ "<a href='#' id='updateComment' class='btn btn-default btn-xs'>"
+											+ content+ "</textarea>"+ "<a id='updateComment' class='btn btn-default btn-xs'>"
 										+ "<i class='fa fa-edit'></i> 수정하기</a>");
 
 										});//editComment (댓글 수정)
@@ -76,27 +74,23 @@
 															var json = "";
 															for (var i = 0; i < data.length; i++) {
 																json += "<div class='comment'>";
-																json += " <div class='comment__author_img'>"
-																json += data[i].memberVO.nickName;
-																json += "</div> <div class='comment__content' id='commentresetView'>";
+																json += " <div class='comment__content' id='commentresetView'>";
 																json += "<div class='comment__author_name'>"
 																json += data[i].memberVO.nickName;
 																json += "</div>";
 																json += "<time datetime="
+																json += "class='comment__date'> ";
 																json += data[i].timePosted;
-																json += "class='comment__date'> </time>";
-																json += "<p>";
+																json += "</time><p>";
 																json += data[i].content;
 																json += "</p>";
-																<c:set var="id" value="${sessionScope.memberVO.id }"/>
 																var id = data[i].memberVO.id;
-																var nowid = '<c:out value="${id}"/>'
+																var nowid = '<c:out value="${sessionId}"/>'
 
 																if (id == nowid) {
 																	json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
-																	json += " <a href='#' id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
-																	json += " <a href='#'  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
-																	json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
+																	json += " <a  id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
+																	json += " <a  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
 																	json += "</div>"
 																}
 																json += "<input type='hidden' id='commentNo'  value="
@@ -121,27 +115,24 @@
 																var json = "";
 																for (var i = 0; i < data.length; i++) {
 																	json += "<div class='comment'>";
-																	json += " <div class='comment__author_img'>"
-																	json += data[i].memberVO.nickName;
-																	json += "</div> <div class='comment__content' id='commentresetView'>";
+																
+																	json += "<div class='comment__content' id='commentresetView'>";
 																	json += "<div class='comment__author_name'>"
 																	json += data[i].memberVO.nickName;
 																	json += "</div>";
 																	json += "<time datetime="
+																	json += "class='comment__date'> ";
 																	json += data[i].timePosted;
-																	json += "class='comment__date'> </time>";
-																	json += "<p>";
+																	json += "</time><p>";
 																	json += data[i].content;
 																	json += "</p>";
-																	<c:set var="id" value="${sessionScope.memberVO.id }"/>
 																	var id = data[i].memberVO.id;
-																	var nowid = '<c:out value="${id}"/>'
+																	var nowid = '<c:out value="${sessionId}"/>'
 
 																	if (id == nowid) {
 																		json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
-																		json += " <a href='#' id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
-																		json += " <a href='#'  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
-																		json += " <a href='#' class='btn btn-primary btn-xs'><i class='fa fa-reply'></i> Answer</a>";
+																		json += " <a id='removeComment'class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
+																		json += " <a  id='editComment' class='btn btn-default btn-xs'><i class='fa fa-edit'></i> Edit</a>";
 																		json += "</div>"
 																	}
 																	json += "<input type='hidden' id='commentNo'  value="
@@ -156,9 +147,6 @@
 												location.href = "meetingDetail.do?boardNo=${param.boardNo}";
 											}
 										}); //commentView 삭제하기 버튼
-
-						//좋아요
-
 						$("#like").click(function() {
 											$.ajax({
 														type : "get",
@@ -169,7 +157,7 @@
 															$("#likeNum").html("좋아요 : "+ result);
 														}
 													}) // ajax
-						});// click
+									});// click
 					}); // ready
 </script>
 <!--  jquery 사용처입니다. -->
@@ -243,24 +231,18 @@
 				<div id="commentView">
 					<c:forEach var="commentList" items="${requestScope.commentList}">
 						<div class="comment">
-							<div class="comment__author_img">${commentList.memberVO.id}</div>
 							<div class="comment__content" id="commentresetView">
 								<div class="comment__author_name">
 									${commentList.memberVO.nickName}</div>
-								<time datetime="2015-01-30" class="comment__date">
+								<time datetime="${commentList.timePosted}" class="comment__date">
 									${commentList.timePosted}</time>
 								<p>${commentList.content}</p>
-								<c:set var="id" value="${sessionScope.memberVO.id }" />
+
 								<c:set var="nowid" value="${commentList.memberVO.id}" />
-								<c:if test="${id eq nowid}">
-									<div class="btn-group pull-right" role="group"
-										aria-label="comment__actions">
-										<a href="#" id="removeComment"
-											class="btn btn-default btn-xs"><i class="fa fa-times"></i>
-											Remove</a> <a href="#" id="editComment"
-											class="btn btn-default btn-xs"><i class="fa fa-edit"></i>
-											Edit</a> <a href="#" class="btn btn-primary btn-xs"><i
-											class="fa fa-reply"></i> Answer</a>
+								<c:if test="${sessionId eq nowid}">
+									<div class="btn-group pull-right" role="group" aria-label="comment__actions">
+										<a  id="removeComment"class="btn btn-default btn-xs"><i class="fa fa-times"></i>Remove</a> 
+										<a id="editComment"class="btn btn-default btn-xs"><i class="fa fa-edit"></i>Edit</a> 
 									</div>
 									<input type="hidden" id="commentNo" value="${commentList.commentNo}">
 								</c:if>

@@ -88,7 +88,6 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView("board/review");
 		ListVO<ReviewVO> list = null;
 		if (command == null || command.trim() == "") {
-			System.out.println(pageNo);
 			list = boardService.reviewList(pageNo);
 		} else {
 			list = boardService.reviewSerachList(pageNo, searchKeyWord, command);
@@ -123,7 +122,6 @@ public class BoardController {
 	@RequestMapping("introduceDetail.do")
 	public ModelAndView introduceDetail(int boardNo) {
 		IntroduceVO introVO = boardService.introduceDetail(boardNo);
-		System.out.println(introVO);
 		return new ModelAndView("board/introduceDetail", "introVO", introVO);
 	}
 
@@ -137,7 +135,6 @@ public class BoardController {
 		IntroduceVO introVO = boardService.showCompanyBoard(memberVO.getId());
 		// 소개글 정보를 소개글 보기 폼으로 보낸다
 		return new ModelAndView("myPage/company/showMyBoard", "introVO", introVO);
-
 	}
 
 	/**
@@ -245,20 +242,14 @@ public class BoardController {
 	 */
 	@RequestMapping("introduceDelete.do")
 	public String introduceDelete(HttpServletRequest request, IntroduceVO introduceVO) {		
-	/*	HttpSession session = request.getSession(false);
-		// 기업회원은 기업회원객체를 가지고있다
-		CompanyMemberVO memberVO = (CompanyMemberVO) session.getAttribute("memberVO");*/
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		// 로그인한 기업회원정보 출력
 		introduceVO.setMemberVO(memberVO);
-			//게시글삭제
+		//게시글삭제
 		boardService.introduceDelete(introduceVO,request); 
-			
-		/*// 세션의 CompanyMember의 write도 1로 변경하여 업데이트해준도
-		memberVO.setWrite("0");
-		session.setAttribute("memberVO", memberVO);*/
 		return "redirect:showCompanyInfo.do";
 	}
+	
 	/**
 	 * 소개글 수정시 파일 삭제 ajax
 	 * @param deleteFileName
@@ -319,12 +310,10 @@ public class BoardController {
 	@RequestMapping("likeUpAjax.do")
 	@ResponseBody
 	public int likeUp(BoardVO bvo,String command) {
-		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		bvo.setMemberVO(memberVO);
 		if(command ==null)
-			return  boardService.reviewLikeUp(bvo);	
+			return boardService.reviewLikeUp(bvo);	
 		else
-			return 	boardService.introduceLikeUp(bvo);
+			return boardService.introduceLikeUp(bvo);
 	}
 
 	@Secured("ROLE_MEMBER")

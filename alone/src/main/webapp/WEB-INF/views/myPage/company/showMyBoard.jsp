@@ -4,28 +4,16 @@
 
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(
-					function() {
-
-						$("#introduceUpdate")
-								.click(
-										function() {
-
-										
-												location.href = "${pageContext.request.contextPath}/introduceUpdateForm.do?boardNo=${requestScope.introVO.boardNo}";
-										
-										});//click
-						$("#introduceDelete")
-								.click(
-										function() {
-
-											if (confirm("삭제 하시겠습니까?")) {
-												location.href = "${pageContext.request.contextPath}/introduceDelete.do?boardNo=${requestScope.introVO.boardNo}";
-											}
-
-										}); //click
-
-					});//ready
+	$(document).ready(function() {
+		$("#introduceUpdate").click(function() {
+			location.href = "${pageContext.request.contextPath}/introduceUpdateForm.do?boardNo=${requestScope.introVO.boardNo}";
+		});//click
+		$("#introduceDelete").click(function() {
+			if (confirm("삭제 하시겠습니까?")) {
+				location.href = "${pageContext.request.contextPath}/introduceDelete.do?boardNo=${requestScope.introVO.boardNo}";
+			}
+		}); //click
+	});//ready
 </script>
 <!-- Panels -->
 <div class="container">

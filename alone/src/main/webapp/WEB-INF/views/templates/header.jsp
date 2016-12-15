@@ -49,17 +49,14 @@
 				<li><a href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
 			</sec:authorize>
 			<sec:authorize ifAnyGranted="ROLE_MEMBER">
-				<sec:authentication property="principal.nickName" />님
 				<li><a href="${pageContext.request.contextPath}/showGenericInfo.do">myPageGeneric</a></li>
 				<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 			</sec:authorize>
 			<sec:authorize ifAnyGranted="ROLE_COMPANY_VERIFIED">
-				<sec:authentication property="principal.nickName" />님
 				<li><a href="${pageContext.request.contextPath}/showCompanyInfo.do">myPageCompany</a></li>
 				<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 			</sec:authorize>
 			<sec:authorize ifAnyGranted="ROLE_ADMIN">
-				<sec:authentication property="principal.nickName" />님
 				<li><a href="${pageContext.request.contextPath}/showAdminInfo.do">myPageAdmin</a></li>
 				<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 			</sec:authorize>
@@ -120,7 +117,6 @@
 					 	int m=cal.get(Calendar.MONTH)+1;
 						%>
 						<li><a href="${pageContext.request.contextPath}/showAttendanceMain.do?y=<%=y%>&m=<%=m%>">출석체크 이벤트</a></li>
-						<%--  <li><a href="${pageContext.request.contextPath}/showAttendanceMain.do">출석체크 이벤트</a></li> --%>
 					</ul>
 				</li>
 				</ul>

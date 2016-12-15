@@ -28,7 +28,6 @@ public class MemberController {
 	@Resource
 	private BCryptPasswordEncoder passwordEncoder;
 
-
 	@RequestMapping(value = "registerMember.do", method = RequestMethod.POST)
 	public String registerMember(GenericMemberVO vo) {
 		memberService.registerMember(vo);
@@ -56,11 +55,8 @@ public class MemberController {
 	@Secured({"ROLE_MEMBER", "ROLE_COMPANY_VERIFIED"})
 	@RequestMapping(method = RequestMethod.POST, value="deleteMember.do")
 	public String deleteMember(HttpServletRequest request, String password) {
-		System.out.println(password);
-		System.out.println("컨트롤진입");
 		// Spring Security 세션 회원정보를 반환받는다
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(memberVO.getPassword());
 		if(passwordEncoder.matches(password, memberVO.getPassword())){
 			memberService.deleteMember(memberVO.getId());
 			return "redirect:logout.do";
@@ -256,14 +252,5 @@ public class MemberController {
 	public ModelAndView showAdminInfo() {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return new ModelAndView("myPage/admin/showInfo", "admin", memberService.showAdminMember(memberVO));
-	}
-	
-	/**
-	 * 로그인시 권한 체크
-	 */
-	@RequestMapping("companyAuthorityCheckAjax.do")
-	@ResponseBody
-	public String companyAuthorityCheckAjax(String id){
-		return memberService.companyAuthority(id);
 	}
 }

@@ -30,8 +30,9 @@
 								<div class="portfolio__intro">
 								${list.region }<br>
 								<c:forEach items="${list.keyWordVO}" var="keyWordList">
-									#${keyWordList.keyWordName}  
-								</c:forEach><br>
+									#${keyWordList.keyWordName}
+								</c:forEach>
+
 							</div>
 						</div>
 					</div>

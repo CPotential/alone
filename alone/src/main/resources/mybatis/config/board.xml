@@ -14,39 +14,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<select id="imageList" resultMap="imageRM" resultType="imageVO">
-
-	SELECT image_name,image_originalname FROM image 
-	WHERE NOT image_name LIKE 'main%'and board_no=#{value}
+		SELECT image_name,image_originalname FROM image 
+		WHERE NOT image_name LIKE 'main%'and board_no=#{value}
 	</select>
 	
 	
 	<select id="introduceFirstImage" resultMap="imageRM" resultType="imageVO">
-	SELECT image_name,image_originalname FROM image WHERE image_name LIKE 'main%' and board_no=#{value}
+		SELECT image_name,image_originalname FROM image WHERE image_name LIKE 'main%' and board_no=#{value}
 	</select>
 
    	<insert id ="imageUpload" parameterType="imageVO" >
 		<selectKey resultType="int" keyProperty="imageNo" order="BEFORE">
 			select image_seq.nextval from dual
 		</selectKey>
-	insert into image(image_no,image_name,image_originalname, board_no) 
-    values(#{imageNo},#{imageName}, #{originalFileName},#{boardNO})
+		insert into image(image_no,image_name,image_originalname, board_no) 
+	    values(#{imageNo},#{imageName}, #{originalFileName},#{boardNO})
 	</insert>
 	
 	<delete id="imageDelete">
-	   delete from image where image_name=#{value}
+		delete from image where image_name=#{value}
 	</delete>
 	
 	<select id="imageAllList" resultMap="imageRM" resultType="imageVO">
-	   select image_name from image where board_no =#{value}
+		select image_name from image where board_no =#{value}
 	</select>
 	
 	
 	<delete id="imageDeleteByBoardNo">
-	delete from image where board_no =#{value} 
+		delete from image where board_no =#{value} 
 	</delete>
 	
 	<delete id="boardDeleteByBoardNo">
-	  delete from board where board_no =#{value}
+		delete from board where board_no =#{value}
 	</delete>
 	
 	<select id="commentList" resultType="commentVO">
@@ -70,7 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<update id="updateComment" parameterType="commentVO">
-	update boardcomment set content = #{content} where comment_no=#{commentNo}
+		update boardcomment set content = #{content} where comment_no=#{commentNo}
 	</update>
 
 
@@ -81,24 +80,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	
 	<update id="updateHitBoard" parameterType="int">
-	update review set hits=hits+1 where board_no=#{value}
+		update review set hits=hits+1 where board_no=#{value}
 	</update>
 
 	<update id="reviewBoardUpdate" parameterType="reviewVO">
-	update board
-	set content=#{content}, time_posted=sysdate
-	where board_no=#{boardNo}
-   </update>
+		update board
+		set content=#{content}, time_posted=sysdate
+		where board_no=#{boardNo}
+	</update>
    
-   <update id="boardDelete" parameterType="int">
-   update board set board_enabled=0 where board_no= #{value}
-   </update>
+	<update id="boardDelete" parameterType="int">
+		update board set board_enabled=0 where board_no= #{value}
+	</update>
 
-   <update id="meetingboardUpdate" parameterType="meetingVO">
-	update board
-	set content=#{content}, time_posted=sysdate
-	where board_no=#{boardNo}
-   </update>
+	<update id="meetingboardUpdate" parameterType="meetingVO">
+		update board
+		set content=#{content}, time_posted=sysdate
+		where board_no=#{boardNo}
+	</update>
 
 
 	
@@ -115,36 +114,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update likescheck set likeCheck = likeCheck+1 where id=#{memberVO.id} and board_no=#{boardNo}
 	</update>
 
+	<update id="deleteBoard" parameterType="string">
+		update board set board_enabled=0 where board_no=#{value}
+	</update>
+	<select id="findByBoardId" resultType="string" parameterType="int">
+	select id from board where board_no=#{value}
+	</select>
 </mapper>
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

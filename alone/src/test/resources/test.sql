@@ -1,7 +1,7 @@
 
 --소개글 리스트 뽑기------------------------------------------------------
 
-
+select id from board where board_no='137'
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce ,INTRODUCE_CATEGORY category
 where introduce.category_no=1
@@ -122,6 +122,7 @@ select image_no from image;
 select IMAGE_SEQ.nextval from dual;
 
 
+
 select image_name 
 from image 
 where image_no = (
@@ -198,7 +199,6 @@ references board(board_no)
 
 select mileage.deal_money, mileage.deal_content
 		from mileage mileage, member member
-<<<<<<< HEAD
 		where mileage.id=member.id and member.id='java' order by mileage_no desc
 		
 	select board_no,likes,nickname from(select introduce.board_no,introduce.likes,member.nickname,
@@ -213,7 +213,6 @@ select mileage.deal_money, mileage.deal_content
   	where board_no=1 and introduce.board_no = board.board_no and review.board_no=board.board_no
   	
   	select likes from introduce where board_no='1'
-=======
 		where mileage.id=member.id and member.id='java' order by mileage_no desc
 
 		
@@ -295,3 +294,7 @@ select * from keyword
 
 	 	select keyword_name,keyword_no
 		from keyword
+		
+		select * from companymember
+		insert into AUTHORITIES(id,authority) values('jaeman','ROLE_COMPANY')
+		delete from AUTHORITIES where id='jaeman' and authority='ROLE_COMPANY'
