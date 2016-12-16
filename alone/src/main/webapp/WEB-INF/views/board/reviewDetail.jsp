@@ -171,8 +171,8 @@
 				href="#"><span class="badge">날짜 : ${rvo.timePosted}</span></a>
 		</div>
 		<div class="nav nav-pills col-md-8 text-right">
-			<a href="#">작성자 : ${rvo.memberVO.nickName}</a> <a 
-				id="likeNum">좋아요 : ${rvo.likes}</a>
+			<a href="#">작성자 : ${rvo.memberVO.nickName}</a> 
+			<a  id="likeNum">좋아요 : ${rvo.likes}</a>
 		</div>
 	</div>
 	<div class="container">
@@ -250,12 +250,8 @@
 						<!-- / .comment -->
 					</c:forEach>
 				</div>
-
 			</div>
 			<!-- col-sm-8 col-md-9 -->
-
-
-			
 		</div>
 	</div>
 </div>
