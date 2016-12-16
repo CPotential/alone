@@ -1,6 +1,7 @@
 
 --소개글 리스트 뽑기------------------------------------------------------
-
+insert into attendance(id,mydate)
+values('jj3','2016/12/11')
 
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce ,INTRODUCE_CATEGORY category
