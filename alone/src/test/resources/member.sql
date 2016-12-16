@@ -1,3 +1,4 @@
+
 DROP TABLE member CASCADE CONSTRAINT;
 DROP TABLE genericmember CASCADE CONSTRAINT;
 DROP TABLE companymember CASCADE CONSTRAINT;
@@ -27,11 +28,15 @@ CREATE TABLE COMPANYMEMBER(
 	id varchar2(50) primary key,
 	address varchar2(50) not null,
 	corporate_registration_number varchar2(50) not null,
-	approval number default 0, -- 가입승인 여부 : 가입 승인 시 1로 변경
 	write number default 0,
 	constraint fk_companymember foreign key(id) references member(id)
 )
+
+alter table COMPANYMEMBER drop COLUMN  approval
+
+
 update AUTHORITIES set authority='ROLE_ADMIN' where id='admin2'
+
 -- 회원 권한 
 CREATE TABLE AUTHORITIES(
 	id varchar2(50) not null,

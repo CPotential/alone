@@ -8,17 +8,12 @@
 	<!-- Portfolio -->
 	<div class="portfolio__items">
 		<div class="row">
-
 			<c:forEach items="${ListVO.list}" var="list">
-
 				<div class="col-xs-12 col-sm-4 filter__item filter_modernism">
 					<div class="portfolio__item">
 						<!-- Image -->
 						<div class="portfolio__img">
 							<a href="portfolio-item.html"> 
-
-							<%-- <c:set var="mainImage" property="${list.mainImage}"></c:set>		
-									<img src="${pageContext.request.contextPath}/resources/upload/${mainImage.imageName}" alt="Portfolio Image"> --%>
 							<img src="${pageContext.request.contextPath}/resources/upload/${list.mainImage.imageName}" alt="Portfolio Image">
 							</a>
 						</div>
@@ -31,8 +26,9 @@
 								<div class="portfolio__intro">
 								${list.region }<br>
 								<c:forEach items="${list.keyWordVO}" var="keyWordList">
-									#${keyWordList.keyWordName}  
-								</c:forEach><br>
+									#${keyWordList.keyWordName}
+								</c:forEach>
+
 							</div>
 						</div>
 					</div>

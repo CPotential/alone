@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-
 <!-- HERO BLOCK
     ============================== -->
 <div class="hero hero__bs">
@@ -13,9 +12,6 @@
 				<div class="container">
 					<div class="row" id="hero__content">
 						<div class="col-sm-12 text-center">
-							<h1 class="hero__h1">혼자서도 잘해요</h1>
-							<!-- 		<h2 class="hero__h2">하상현 진짜 개멍청해</h2>
-							<p class="hero__intro">부트스트랩 사용</p> -->
 						</div>
 					</div>
 					<!-- / .row -->
@@ -116,24 +112,19 @@
 								<div class="col-xs-6 col-sm-6 col-md-3">
 									<!-- Portfolio Item #1 -->
 									<div class="portfolio__item">
-										<!-- Image -->
-											
+										<!-- Image -->			
 										<div class="portfolio__img">
-										<c:set var="mainImage" property="${list.mainImage.imageName}"/>		
-										
+										<c:set var="mainImage" property="${list.mainImage.imageName}"/>									
 										<img src="${pageContext.request.contextPath}/resources/upload/${mainImage}" alt="Portfolio Image">
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-	
 											<h3 class="portfolio__title">${list.memberVO.nickName } ${list.mainImage}</h3>
-											  <div class="portfolio__intro">
-											 
+											  <div class="portfolio__intro">		 
 										  <c:forEach items="${list.keyWordVO}" var="keyWordList">
 											#${keyWordList.keyWordName}  
 											</c:forEach>
-                        				  </div>
-									
+                        				  </div>			
 										</div>
 									</div>
 								</div>
@@ -314,7 +305,4 @@
           </div>
         </div> <!-- / .row -->
       </div> <!-- /.container -->
-    </div> <!-- / .section -->
-    
-
-
+    </div> <!-- / .section -->    

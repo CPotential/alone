@@ -509,15 +509,20 @@ public class BoardServiceImpl implements BoardService {
 
 	@Transactional
 	public int reviewLikeUp(BoardVO bvo) {
+		MemberVO memberVO=new MemberVO();
+		memberVO.setId(boardDAO.findByBoardId(bvo.getBoardNo()));
+		bvo.setMemberVO(memberVO);
+		System.out.println(bvo);
 		BoardVO vo = boardDAO.likeCheckInfo(bvo);
+
 		if (vo == null) {
 			boardDAO.insertLikeCheck(bvo);
 			boardDAO.likeCheckUp(bvo);
 			reviewDAO.likeUp(bvo);
 			HashMap<String, Object> map = new HashMap<>();
 			map.put("dealcontent", "게시물 번호 : " + bvo.getBoardNo() + " 좋아요 클릭");
-			map.put("id", bvo.getMemberVO().getId());
-			System.out.println(map.get("dealcontent") + "ddd");
+			map.put("id", boardDAO.findByBoardId(bvo.getBoardNo()));
+			System.out.println(map);
 			reviewDAO.mileageInsert(map);
 			reviewDAO.mileageUpdate(map);
 		} else if (vo != null && vo.getLikeCheck() == 1) {
@@ -530,33 +535,34 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<IntroduceVO> rankingIntroduceList() {
 		List<KeyWordVO> keyWordVO = null;
-		List<IntroduceVO> list = introduceDAO.rankingIntroduceList();
 		ImageVO imageVO=null;
+		List<IntroduceVO> list =introduceDAO.rankingIntroduceList();
 		for (int i = 0; i < list.size(); i++) {
 			keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
 			list.get(i).setKeyWordVO(keyWordVO);
-
-			imageVO = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
-			
+			imageVO =boardDAO.introduceFirstImage(list.get(i).getBoardNo());
 			if (imageVO == null) {
 				return list;
 			}
+
 			list.get(i).setMainImage(imageVO);
 		}
-		System.out.println(list);
 		return list;
 	}
 
 	@Transactional
 	@Override
 	public int introduceLikeUp(BoardVO bvo) {
+		MemberVO memberVO=new MemberVO();
+		memberVO.setId(boardDAO.findByBoardId(bvo.getBoardNo()));
+		bvo.setMemberVO(memberVO);
 		BoardVO vo = boardDAO.likeCheckInfo(bvo);
 		if (vo == null) {
 			boardDAO.insertLikeCheck(bvo);
 			boardDAO.likeCheckUp(bvo);
 			introduceDAO.likeUp(bvo);
 
-		} else if (vo != null && vo.getLikeCheck() == 1) {
+		}else if(vo != null &&vo.getLikeCheck()==1){
 			return introduceDAO.likeCheckNumber(bvo);
 		}
 		return introduceDAO.likeCheckNumber(bvo);

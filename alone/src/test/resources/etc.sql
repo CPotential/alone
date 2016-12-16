@@ -7,7 +7,7 @@ DROP TABLE attendance CASCADE CONSTRAINT;
 drop sequence mileage_seq;
 drop sequence comment_seq;
 drop sequence image_seq;
-
+select mileage_seq.nextval from dual
 -- 이미지 정보
 CREATE SEQUENCE IMAGE_SEQ;
 CREATE TABLE IMAGE(
@@ -20,6 +20,7 @@ CREATE TABLE IMAGE(
 
 --마일리지 정보
 CREATE SEQUENCE MILEAGE_SEQ;
+
 CREATE TABLE MILEAGE(
 	mileage_no number primary key,
 	deal_money number not null,
@@ -28,6 +29,7 @@ CREATE TABLE MILEAGE(
 	constraint fk_mileage foreign key(id) references genericmember(id)
 )
 
+select * from GENERICMEMBER
 -- 댓글 정보
 CREATE SEQUENCE COMMENT_SEQ;
 CREATE TABLE BOARDCOMMENT(
@@ -50,14 +52,16 @@ create table likescheck(
 	constraint pk_likescheck primary key(id,board_no)
 )
 
+commit
+select * from likecheck
+drop table likecheck
 -- 출석 체크
 create table attendance(
    id varchar2(50) not null,
    mydate varchar2(50) not null,
    constraint fk_attendance_id foreign key(id) references GENERICMEMBER(id),
    constraint pk_attendance primary key(id,mydate)
-)
-
+);
 
 update genericmember set mileage=(select sum(deal_money) as mileage from mileage where id='fd')
 --	constraint pk_likescheck primary key(board_no, id)

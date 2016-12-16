@@ -47,26 +47,28 @@
 <%-- 			 	<li><a href="${pageContext.request.contextPath}/shop.do">shop test</a></li>
 			 	 	<li><a href="${pageContext.request.contextPath}/shop-item.do">shop-item test</a></li> --%>
 			<sec:authorize ifNotGranted="ROLE_MEMBER, ROLE_COMPANY_VERIFIED, ROLE_ADMIN">
-			
-				<li><a href="${pageContext.request.contextPath}/loginForm.do">Sign In</a></li>
-				<li><a href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
+
+				<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/loginForm.do">Sign In</a></li>
+				<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
+
 			</sec:authorize>
 			<sec:authorize ifAnyGranted="ROLE_MEMBER">
 				<sec:authentication property="principal.nickName" />님
-				<li><a href="${pageContext.request.contextPath}/showGenericInfo.do">myPageGeneric</a></li>
-				<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showGenericInfo.do">myPageGeneric</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+
 			</sec:authorize>
 			<sec:authorize ifAnyGranted="ROLE_COMPANY_VERIFIED">
 				<sec:authentication property="principal.nickName" />님
-				<li><a href="${pageContext.request.contextPath}/showCompanyInfo.do">myPageCompany</a></li>
-				<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showCompanyInfo.do">myPageCompany</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 			</sec:authorize>
 			<sec:authorize ifAnyGranted="ROLE_ADMIN">
 				<sec:authentication property="principal.nickName" />님
-				<li><a href="${pageContext.request.contextPath}/showAdminInfo.do">myPageAdmin</a></li>
-				<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showAdminInfo.do">myPageAdmin</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 			</sec:authorize>
-			
+
 		</ul>
 	</div>
 	<!-- / .container -->
@@ -90,7 +92,7 @@
 					class="icon-bar"></span>
 			</button>
 			<!-- Brand name -->
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/home.do">혼자서도 잘해요</a>
+			<a class="navbar-brand"  href="${pageContext.request.contextPath}/home.do">혼자서도 잘해요</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<!-- Navbar links -->
@@ -123,7 +125,6 @@
 					 	int m=cal.get(Calendar.MONTH)+1;
 						%>
 						<li><a href="${pageContext.request.contextPath}/showAttendanceMain.do?y=<%=y%>&m=<%=m%>">출석체크 이벤트</a></li>
-						<%--  <li><a href="${pageContext.request.contextPath}/showAttendanceMain.do">출석체크 이벤트</a></li> --%>
 					</ul>
 				</li>
 				</ul>

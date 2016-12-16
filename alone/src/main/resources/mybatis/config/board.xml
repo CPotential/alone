@@ -82,10 +82,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where board_no=#{boardNo}
 	</update>
    
-	<update id="boardDelete" parameterType="int">
-		update board set board_enabled=0 where board_no= #{value}
-	</update>
-
 	<update id="meetingboardUpdate" parameterType="meetingVO">
 		update board
 		set content=#{content}, time_posted=sysdate
@@ -108,6 +104,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="deleteBoard" parameterType="int">
 		update board set board_enabled=0 where board_no=#{value}
 	</update>
+
+	<select id="findByBoardId" resultType="string" parameterType="int">
+	select id from board where board_no=#{value}
+	</select>
+
 </mapper>
  
  

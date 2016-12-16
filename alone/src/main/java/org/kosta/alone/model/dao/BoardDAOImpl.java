@@ -39,15 +39,16 @@ public class BoardDAOImpl implements BoardDAO {
 	public void imageUpload(ImageVO imageVO) {
 		sqlSessionTemplate.insert("board.imageUpload", imageVO);
 	}
-
+	
 	/**
 	 * 이미지 삭제
 	 */
+	
 	@Override
 	public void imageDelete(String deleteFileName) {
 		sqlSessionTemplate.delete("board.imageDelete", deleteFileName);
 	}
-
+	
 	@Override
 	public void insertComment(CommentVO commentVO) {
 		sqlSessionTemplate.insert("board.insertComment", commentVO);
@@ -103,7 +104,11 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void deleteBoard(int boardNo) {
-		System.out.println("삭제 클릭 후 dao 진입 " + boardNo);
 		sqlSessionTemplate.update("board.deleteBoard", boardNo);
+	}
+
+	@Override
+	public String findByBoardId(int boardNo) {
+		return sqlSessionTemplate.selectOne("board.findByBoardId",boardNo);
 	}
 }

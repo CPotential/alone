@@ -58,6 +58,7 @@
         </div>
         
 
+
             <!-- Controls -->
             <a class="left carousel-control" href="#product-item__carousel" role="button" data-slide="prev">
               <i class="fa fa-angle-left" aria-hidden="true"></i>

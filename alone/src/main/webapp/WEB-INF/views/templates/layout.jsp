@@ -13,8 +13,8 @@
 
 	
     <!-- CSS Global -->
-    <link href="${pageContext.request.contextPath}/resources/css/styles_blue.css" rel="stylesheet">
-    
+	<%--  <link href="${pageContext.request.contextPath}/resources/css/styles_blue.css" rel="stylesheet"> --%>
+   <link href="${pageContext.request.contextPath}/resources/css/styles_test.css" rel="stylesheet"> 
     <!-- 부트스트랩 select -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
 
@@ -25,7 +25,7 @@
     <link href="${pageContext.request.contextPath}/resources/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/animate.css" rel="stylesheet">
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts --> 
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
 
@@ -61,7 +61,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/custom_hero.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/custom_skills.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/custom_countto.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/custom_google-map.js"></script>
     
        <!--BootStrap Select  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>

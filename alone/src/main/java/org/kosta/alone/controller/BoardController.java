@@ -84,12 +84,12 @@ public class BoardController {
 		return mav;
 	}
 
+	
 	@RequestMapping("reviewList.do")
 	public ModelAndView reviewList(String pageNo, String searchKeyWord, String command) {
 		ModelAndView mav = new ModelAndView("board/review");
 		ListVO<ReviewVO> list = null;
 		if (command == null || command.trim() == "") {
-			System.out.println(pageNo);
 			list = boardService.reviewList(pageNo);
 		} else {
 			list = boardService.reviewSerachList(pageNo, searchKeyWord, command);
@@ -253,7 +253,6 @@ public class BoardController {
 		// 로그인한 기업회원정보 출력
 		introduceVO.setMemberVO(memberVO);
 		// 키워드 저장됬는지 확인하기
-		// System.out.println("키워드 저장됬는지 확인하기"+introduceVO.getKeyWordVO());
 		// 이미지 저장하기전 boardNO 파라미터로 얻어옴
 		boardService.introduceWrite(introduceVO,keyword, vo, request); 
 		return "redirect:showCompanyBoard.do";
@@ -340,8 +339,6 @@ public class BoardController {
 	@RequestMapping("likeUpAjax.do")
 	@ResponseBody
 	public int likeUp(BoardVO bvo,String command) {
-		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		bvo.setMemberVO(memberVO);
 		if(command ==null)
 			return boardService.reviewLikeUp(bvo);	
 		else
