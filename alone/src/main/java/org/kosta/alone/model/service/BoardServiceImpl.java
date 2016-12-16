@@ -508,9 +508,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Transactional
-	public int reviewLikeUp(BoardVO bvo) {
+	public int reviewLikeUp(BoardVO bvo,String id) {
 		MemberVO memberVO=new MemberVO();
-		memberVO.setId(boardDAO.findByBoardId(bvo.getBoardNo()));
+		memberVO.setId(id);
 		bvo.setMemberVO(memberVO);
 		BoardVO vo = boardDAO.likeCheckInfo(bvo);
 		if (vo == null) {
@@ -549,9 +549,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Transactional
 	@Override
-	public int introduceLikeUp(BoardVO bvo) {
+	public int introduceLikeUp(BoardVO bvo,String id) {
 		MemberVO memberVO=new MemberVO();
-		memberVO.setId(boardDAO.findByBoardId(bvo.getBoardNo()));
+		memberVO.setId(id);
 		bvo.setMemberVO(memberVO);
 		BoardVO vo = boardDAO.likeCheckInfo(bvo);
 		if (vo == null) {
@@ -564,4 +564,6 @@ public class BoardServiceImpl implements BoardService {
 		}
 		return introduceDAO.likeCheckNumber(bvo);
 	}
+
+	
 }

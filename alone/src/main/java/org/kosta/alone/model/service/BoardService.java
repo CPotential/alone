@@ -68,9 +68,9 @@ public interface BoardService {
 
 	public void deleteBoard(int boardNo);
 
-	public int reviewLikeUp(BoardVO bvo);
+	public int reviewLikeUp(BoardVO bvo, String id);
 	
-	public int introduceLikeUp(BoardVO bvo);
+	public int introduceLikeUp(BoardVO bvo, String id);
 	
 	public List<IntroduceVO> rankingIntroduceList();
 

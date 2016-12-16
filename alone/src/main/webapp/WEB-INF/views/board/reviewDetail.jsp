@@ -29,10 +29,6 @@
 						</tr>
 					</table>
 				</div>
-				<div align="right" id="like">
-					<img src="${pageContext.request.contextPath}/resources/img/좋아요.jpg">
-				</div>
-
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<a href="${pageContext.request.contextPath}/reviewList.do"
@@ -40,10 +36,8 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="col-sm-8 col-md-9">
-				<!-- / .comment__new -->
-				
+				<!-- / .comment__new -->				
 				<!-- Comments header -->
 				<div class="comment__header">
 					<span>List of Comments</span>
@@ -72,11 +66,14 @@
 	</div>
 </div>
 
-</sec:authorize> 
+</sec:authorize> <!--  //비회원 부분 -->
 
     <sec:authorize ifAnyGranted="ROLE_MEMBER,ROLE_ADMIN,ROLE_COMPANY_VERIFIED,ROLE_COMPANY_NON_VERIFIED">
        <c:set var="sessionId" >
 	<sec:authentication property="principal.id" />
+	</c:set>
+	 <c:set var="sessionNickname" >
+	<sec:authentication property="principal.nickName" />
 	</c:set>
     
     
@@ -259,10 +256,11 @@
 						</tr>
 					</table>
 				</div>
+				<sec:authorize ifNotGranted="ROLE_COMPANY_VERIFIED,ROLE_COMPANY_NON_VERIFIED">
 				<div align="right" id="like">
 					<img src="${pageContext.request.contextPath}/resources/img/좋아요.jpg">
 				</div>
-				
+				</sec:authorize>
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<a href="${pageContext.request.contextPath}/reviewList.do"
@@ -279,7 +277,7 @@
 
 			<div class="col-sm-8 col-md-9">
 				<div class="comment comment_new">
-					<div class="comment__author_img">${memberVO.nickName}</div>
+					<div class="comment__author_img">${sessionNickname}</div>
 					<div class="comment__content">
 						<form>
 							<div class="form-group">

@@ -198,7 +198,6 @@ public class BoardController {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		meetingVO.setMemberVO(memberVO);
 		boardService.meetingWrite(request, meetingVO, uploadFileVO);
-		System.out.println(meetingVO.getBoardNo() + "게시글 작성 직후");
 		return "redirect:meetingNoHitDetail.do?boardNo=" + meetingVO.getBoardNo();
 	}
 
@@ -237,7 +236,6 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO", boardService.meetingDetail(boardNo));
 		mav.addObject("commentList", boardService.commentList(boardNo));
-		System.out.println("모임글 상세보기 진입 직전 " + boardService.meetingDetail(boardNo));
 		return mav;
 	}
 
@@ -331,18 +329,17 @@ public class BoardController {
 	public ModelAndView meetingNoHitDetail(int boardNo) {
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
 		mav.addObject("meetingVO", boardService.meetingNoHitDetail(boardNo));
-		System.out.println(boardNo + "모임글 작성 후 노히트 디테일 진입 전");
-		System.out.println(boardService.meetingNoHitDetail(boardNo));
 		return mav;
 	}
 
 	@RequestMapping("likeUpAjax.do")
 	@ResponseBody
 	public int likeUp(BoardVO bvo,String command) {
+		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if(command ==null)
-			return boardService.reviewLikeUp(bvo);	
+			return boardService.reviewLikeUp(bvo,memberVO.getId());	
 		else
-			return boardService.introduceLikeUp(bvo);
+			return boardService.introduceLikeUp(bvo,memberVO.getId());
 	}
 
 	@Secured("ROLE_MEMBER")
@@ -368,7 +365,6 @@ public class BoardController {
 
 	@RequestMapping("meetingDelete.do")
 	public ModelAndView meetingDelete(int boardNo) {
-		System.out.println("모임글 삭제 클릭 후 " + boardNo);
 		boardService.deleteBoard(boardNo);
 		return new ModelAndView("redirect:meetingList.do");
 	}

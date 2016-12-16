@@ -3,7 +3,7 @@
 
 insert into attendance(id,mydate)
 values('jj3','2016/12/11')
-
+select * from likescheck
 
 
 SELECT image_name, image_originalname,board_no FROM image WHERE image_name LIKE 'main%'
