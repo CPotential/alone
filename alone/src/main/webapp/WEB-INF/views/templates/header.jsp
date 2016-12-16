@@ -44,7 +44,10 @@
 			Spring Security를 이용하면 Authentication Bean 이 생성
 			로그인 한 사용자의 정보는 Authentication 객체의 principal property
 			 --%>
+<%-- 			 	<li><a href="${pageContext.request.contextPath}/shop.do">shop test</a></li>
+			 	 	<li><a href="${pageContext.request.contextPath}/shop-item.do">shop-item test</a></li> --%>
 			<sec:authorize ifNotGranted="ROLE_MEMBER, ROLE_COMPANY_VERIFIED, ROLE_ADMIN">
+			
 				<li><a href="${pageContext.request.contextPath}/loginForm.do">Sign In</a></li>
 				<li><a href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
 			</sec:authorize>
