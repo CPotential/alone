@@ -45,22 +45,26 @@
 			로그인 한 사용자의 정보는 Authentication 객체의 principal property
 			 --%>
 			<sec:authorize ifNotGranted="ROLE_MEMBER, ROLE_COMPANY_VERIFIED, ROLE_ADMIN">
-				<li><a href="${pageContext.request.contextPath}/loginForm.do">Sign In</a></li>
-				<li><a href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
+				<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/loginForm.do">Sign In</a></li>
+				<li><a class="navbar-brand"  href="${pageContext.request.contextPath}/register.do"> Sign Up</a></li>
 			</sec:authorize>
 			<sec:authorize ifAnyGranted="ROLE_MEMBER">
-				<li><a href="${pageContext.request.contextPath}/showGenericInfo.do">myPageGeneric</a></li>
-				<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+				<sec:authentication property="principal.nickName" />님
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showGenericInfo.do">myPageGeneric</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+
 			</sec:authorize>
 			<sec:authorize ifAnyGranted="ROLE_COMPANY_VERIFIED">
-				<li><a href="${pageContext.request.contextPath}/showCompanyInfo.do">myPageCompany</a></li>
-				<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+				<sec:authentication property="principal.nickName" />님
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showCompanyInfo.do">myPageCompany</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 			</sec:authorize>
 			<sec:authorize ifAnyGranted="ROLE_ADMIN">
-				<li><a href="${pageContext.request.contextPath}/showAdminInfo.do">myPageAdmin</a></li>
-				<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+				<sec:authentication property="principal.nickName" />님
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/showAdminInfo.do">myPageAdmin</a></li>
+				<li><a class="navbar-brand" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 			</sec:authorize>
-			
+
 		</ul>
 	</div>
 	<!-- / .container -->
@@ -84,7 +88,7 @@
 					class="icon-bar"></span>
 			</button>
 			<!-- Brand name -->
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/home.do">혼자서도 잘해요</a>
+			<a class="navbar-brand"  href="${pageContext.request.contextPath}/home.do">혼자서도 잘해요</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<!-- Navbar links -->

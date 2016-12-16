@@ -508,6 +508,7 @@ public class BoardServiceImpl implements BoardService {
 		memberVO.setId(boardDAO.findByBoardId(bvo.getBoardNo()));
 		bvo.setMemberVO(memberVO);
 		BoardVO vo = boardDAO.likeCheckInfo(bvo);
+		System.out.println(vo);
 		if (vo == null) {
 			boardDAO.insertLikeCheck(bvo);
 			boardDAO.likeCheckUp(bvo);
@@ -515,6 +516,7 @@ public class BoardServiceImpl implements BoardService {
 			HashMap<String, Object> map = new HashMap<>();
 			map.put("dealcontent", "게시물 번호 : " + bvo.getBoardNo() + " 좋아요 클릭");
 			map.put("id", boardDAO.findByBoardId(bvo.getBoardNo()));
+			System.out.println(map);
 			reviewDAO.mileageInsert(map);
 			reviewDAO.mileageUpdate(map);
 		} else if (vo != null && vo.getLikeCheck() == 1) {
@@ -545,6 +547,9 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public int introduceLikeUp(BoardVO bvo) {
+		MemberVO memberVO=new MemberVO();
+		memberVO.setId(boardDAO.findByBoardId(bvo.getBoardNo()));
+		bvo.setMemberVO(memberVO);
 		BoardVO vo = boardDAO.likeCheckInfo(bvo);
 		if (vo == null) {
 			boardDAO.insertLikeCheck(bvo);

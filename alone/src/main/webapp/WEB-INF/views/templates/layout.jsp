@@ -13,19 +13,19 @@
 
 	
     <!-- CSS Global -->
-    <link href="${pageContext.request.contextPath}/resources/css/styles_blue.css" rel="stylesheet">
-    
+	<%--  <link href="${pageContext.request.contextPath}/resources/css/styles_blue.css" rel="stylesheet"> --%>
+	<link href="${pageContext.request.contextPath}/resources/css/styles_test.css" rel="stylesheet"> 
     <!-- 부트스트랩 select -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
 
-     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	
 
     <!-- CSS Plugins -->
     <link href="${pageContext.request.contextPath}/resources/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/css/animate.css" rel="stylesheet">
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts --> 
     <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700' rel='stylesheet' type='text/css'>
 

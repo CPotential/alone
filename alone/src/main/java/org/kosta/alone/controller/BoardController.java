@@ -87,6 +87,7 @@ public class BoardController {
 		return mav;
 	}
 
+	
 	@RequestMapping("reviewList.do")
 	public ModelAndView reviewList(String pageNo, String searchKeyWord, String command) {
 		ModelAndView mav = new ModelAndView("board/review");
@@ -348,7 +349,6 @@ public class BoardController {
 	@RequestMapping("likeUpAjax.do")
 	@ResponseBody
 	public int likeUp(BoardVO boardVO, String command) {
-		System.out.println(boardVO);
 		if (command == null)
 			return boardService.reviewLikeUp(boardVO);
 		else

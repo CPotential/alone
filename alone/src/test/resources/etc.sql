@@ -49,15 +49,19 @@ create table likescheck(
 	constraint fk_likescheck_id foreign key(id) references member(id),
 	constraint pk_likescheck primary key(id,board_no)
 )
-
+select * from likescheck
 -- 출석 체크
 create table attendance(
    id varchar2(50) not null,
    mydate varchar2(50) not null,
    constraint fk_attendance_id foreign key(id) references GENERICMEMBER(id),
-   constraint fk_attendance primary key(id,mydate)
+   constraint pk_attendance primary key(id,mydate)
 );
-
 
 update genericmember set mileage=(select sum(deal_money) as mileage from mileage where id='fd')
 --	constraint pk_likescheck primary key(board_no, id)
+
+SELECT member.id, board.board_no, likescheck.likeCheck 
+		FROM member member, board board, likescheck likescheck
+		WHERE board.board_no=likescheck.board_no and member.id=likescheck.id and likescheck.id='json'
+		and likescheck.board_no='30' 

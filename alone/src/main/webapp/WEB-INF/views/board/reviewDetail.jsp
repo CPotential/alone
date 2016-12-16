@@ -5,8 +5,76 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
 
-<sec:authentication property="principal.id" var="sessionId" />
+<!-- 비회원 접근시  -->
+<sec:authorize ifNotGranted="ROLE_MEMBER,ROLE_ADMIN,ROLE_COMPANY_VERIFIED,ROLE_COMPANY_NON_VERIFIED">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 col-md-9">
+			<a href="#"><span class="badge">No. ${rvo.boardNo }</span></a> <a
+				href="#"><span class="badge">조회수 : ${rvo.hits}</span></a> <a
+				href="#"><span class="badge">날짜 : ${rvo.timePosted}</span></a>
+		</div>
+		<div class="nav nav-pills col-md-8 text-right">
+			<a href="#">작성자 : ${rvo.memberVO.nickName}</a> 
+			<a  id="likeNum">좋아요 : ${rvo.likes}</a>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-md-9">
+				<div class="well well">${rvo.title}</div>
+				<div class="panel-body">
+					<table>
+						<tr>
+							<td>${rvo.content}</td>
+						</tr>
+					</table>
+				</div>
 
+				<div class="panel-footer">
+					<div class="btn-group btn-group-justified">
+						<a href="${pageContext.request.contextPath}/reviewList.do"
+							class="btn btn-default">목 록</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-8 col-md-9">
+				<!-- / .comment__new -->
+				
+				<!-- Comments header -->
+				<div class="comment__header">
+					<span>List of Comments</span>
+				</div>
+
+				<!-- All comments -->
+				<div id="commentView">
+					<c:forEach var="commentList" items="${requestScope.commentList}">
+						<div class="comment">
+							<div class="comment__content" id="commentresetView">
+								<div class="comment__author_name">
+									${commentList.memberVO.nickName}</div>
+								<time datetime="${commentList.timePosted}" class="comment__date">
+									${commentList.timePosted}</time>
+								<p>${commentList.content}</p>
+
+							</div>
+							<!-- / .comment__content -->
+						</div>
+						<!-- / .comment -->
+					</c:forEach>
+				</div>
+			</div>
+			<!-- col-sm-8 col-md-9 -->
+		</div>
+	</div>
+</div>
+
+</sec:authorize> 
+
+<!-- 회원 접근 시 댓글 보이게 -->
+<sec:authorize ifAnyGranted="ROLE_MEMBER,ROLE_ADMIN,ROLE_COMPANY_VERIFIED,ROLE_COMPANY_NON_VERIFIED">
+<sec:authentication property="principal.id" var="sessionId" />
 <!--  jquery 사용처입니다. -->
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -142,7 +210,7 @@
 					}
 				}); //ajax
 			} else {
-				location.href = "meetingDetail.do?boardNo=${param.boardNo}";
+				location.href = "reviewDetail.do?boardNo=${param.boardNo}";
 			}
 		}); //commentView 삭제하기 버튼
 		
@@ -150,7 +218,7 @@
 			$.ajax({
 				type : "get",
 				url : "${pageContext.request.contextPath}/likeUpAjax.do",
-				data : "boardNo=" + ${rvo.boardNo},
+				data : "boardNo=" + '${rvo.boardNo}',
 				dataType : "json",
 				success : function(result) {
 					$("#likeNum").html("좋아요 : "+ result);
@@ -161,17 +229,17 @@
 </script>
 <!--  jquery 사용처입니다. -->
 
-<script src="//code.jquery.com/jquery.min.js"></script>
+
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8 col-md-9">
-			<a href="#"><span class="badge">No. ${rvo.boardNo }</span></a> <a
-				href="#"><span class="badge">조회수 : ${rvo.hits}</span></a> <a
-				href="#"><span class="badge">날짜 : ${rvo.timePosted}</span></a>
+			<a href="#"><span class="badge">No. ${rvo.boardNo }</span></a> 
+			<a 	href="#"><span class="badge">조회수 : ${rvo.hits}</span></a> 
+			<a 	href="#"><span class="badge">날짜 : ${rvo.timePosted}</span></a>
 		</div>
 		<div class="nav nav-pills col-md-8 text-right">
-			<a href="#">작성자 : ${rvo.memberVO.nickName}</a> <a href="#"
-				id="likeNum">좋아요 : ${rvo.likes}</a>
+			<a href="#">작성자 : ${rvo.memberVO.nickName}</a> 
+			<a  id="likeNum">좋아요 : ${rvo.likes}</a>
 		</div>
 	</div>
 	<div class="container">
@@ -185,9 +253,11 @@
 						</tr>
 					</table>
 				</div>
-				<div align="right" id="like">
-					<img src="${pageContext.request.contextPath}/resources/img/좋아요.jpg">
-				</div>
+				<sec:authorize ifNotGranted="ROLE_COMPANY_VERIFIED,ROLE_COMPANY_NON_VERIFIED,ROLE_ADMIN">
+	            <div align="right" id="like">
+	               <img src="${pageContext.request.contextPath}/resources/img/좋아요.jpg">
+	            </div>
+	            </sec:authorize>
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<a href="${pageContext.request.contextPath}/reviewList.do" class="btn btn-default">목 록</a>
@@ -243,13 +313,13 @@
 						<!-- / .comment -->
 					</c:forEach>
 				</div>
-
 			</div>
 			<!-- col-sm-8 col-md-9 -->
-
-
-			
 		</div>
 	</div>
 </div>
+
+</sec:authorize>
+
+
 

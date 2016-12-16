@@ -1,7 +1,13 @@
 
 --소개글 리스트 뽑기------------------------------------------------------
 
+insert into attendance(id,mydate)
+values('jj3','2016/12/11')
+
+
+
 SELECT image_name, image_originalname,board_no FROM image WHERE image_name LIKE 'main%'
+
 
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce ,INTRODUCE_CATEGORY category
@@ -295,6 +301,8 @@ select * from keyword
 
 	 	select keyword_name,keyword_no
 		from keyword
+		
+		update AUTHORITIES set authority='ROLE_ADMIN' where id='jj4'
 		
 		select * from companymember
 		insert into AUTHORITIES(id,authority) values('jaeman','ROLE_COMPANY')
