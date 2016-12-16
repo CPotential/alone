@@ -12,10 +12,8 @@
 				<div class="col-xs-12 col-sm-4 filter__item filter_modernism">
 					<div class="portfolio__item">
 						<!-- Image -->
-						<div class="portfolio__img">
-							<a href="portfolio-item.html"> 
-							<img src="${pageContext.request.contextPath}/resources/upload/${list.mainImage.imageName}" alt="Portfolio Image">
-							</a>
+						<div class="portfolio__img">				
+						<img src="${pageContext.request.contextPath}/resources/upload/${list.mainImage.imageName}" alt="Portfolio Image">
 						</div>
 						<!-- Captions -->
 						<div class="portfolio__caption">
