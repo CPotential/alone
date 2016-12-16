@@ -30,7 +30,6 @@
 						</tr>
 					</table>
 				</div>
-
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<a href="${pageContext.request.contextPath}/reviewList.do"
@@ -38,10 +37,8 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="col-sm-8 col-md-9">
-				<!-- / .comment__new -->
-				
+				<!-- / .comment__new -->				
 				<!-- Comments header -->
 				<div class="comment__header">
 					<span>List of Comments</span>
@@ -70,11 +67,13 @@
 	</div>
 </div>
 
-</sec:authorize> 
+</sec:authorize> <!--  //비회원 부분 -->
 
 <!-- 회원 접근 시 댓글 보이게 -->
-<sec:authorize ifAnyGranted="ROLE_MEMBER,ROLE_ADMIN,ROLE_COMPANY_VERIFIED,ROLE_COMPANY_NON_VERIFIED">
+<sec:authorize ifAnyGranted="ROLE_MEMBER, ROLE_ADMIN, ROLE_COMPANY_VERIFIED, ROLE_COMPANY_NON_VERIFIED">
 <sec:authentication property="principal.id" var="sessionId" />
+<sec:authentication property="principal.nickName" var="sessionNickname"/>
+    
 <!--  jquery 사용처입니다. -->
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -271,7 +270,7 @@
 
 			<div class="col-sm-8 col-md-9">
 				<div class="comment comment_new">
-					<div class="comment__author_img">${memberVO.nickName}</div>
+					<div class="comment__author_img">${sessionNickname}</div>
 					<div class="comment__content">
 						<form>
 							<div class="form-group">
@@ -320,6 +319,3 @@
 </div>
 
 </sec:authorize>
-
-
-
