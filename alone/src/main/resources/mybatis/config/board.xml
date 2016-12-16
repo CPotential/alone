@@ -89,8 +89,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="likeCheckInfo" parameterType="boardVO" resultMap="boardRM"> 
-		select member.id,board.board_no,likescheck.likeCheck from member member,board board,likescheck likescheck
-		where board.board_no = likescheck.board_no and member.id = likescheck.id and likescheck.id = #{memberVO.id} and likescheck.board_no=#{boardNo} 
+		SELECT member.id, board.board_no, likescheck.likeCheck 
+		FROM member member, board board, likescheck likescheck
+		WHERE board.board_no=likescheck.board_no and member.id=likescheck.id and likescheck.id=#{memberVO.id} 
+		and likescheck.board_no=#{boardNo} 
 	</select>
 	
 	<insert id="insertLikeCheck" parameterType="boardVO">
@@ -106,7 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 
 	<select id="findByBoardId" resultType="string" parameterType="int">
-	select id from board where board_no=#{value}
+		select id from board where board_no=#{value}
 	</select>
 
 </mapper>

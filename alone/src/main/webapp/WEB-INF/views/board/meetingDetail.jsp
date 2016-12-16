@@ -6,9 +6,7 @@
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=5a5f74b55c137eef83dc34e43b7a72b7&libraries=services"></script>
 
-<c:set var="sessionId">
-<sec:authentication property="principal.id" />
-</c:set>
+<sec:authentication property="principal.id" var="sessionId"/>
 
 <script type="text/javascript">
 	$(document).ready(function() {

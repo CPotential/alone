@@ -43,11 +43,6 @@
 					<textarea cols="20" rows="20" name="content" class="form-control"  id="content" placeholder="content"></textarea>
 					 <span class="help-block"></span>  
 				</div>
-				<div class="form-group">
-					<label for="image">image</label> <input type="text" name="image"
-						class="form-control" id="image" placeholder="picture"> <span
-						class="help-block"></span>
-				</div>
 					<button type="submit" class="btn btn-primary">후기글 작성</button>
 					<button type="button" class="btn btn-primary" onclick="reviewWriteCancel()">작성 취소</button>
 			</form>

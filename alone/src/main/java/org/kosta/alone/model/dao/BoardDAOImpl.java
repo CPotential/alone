@@ -109,6 +109,6 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public String findByBoardId(int boardNo) {
-		return sqlSessionTemplate.selectOne("board.findByBoardId",boardNo);
+		return sqlSessionTemplate.selectOne("board.findByBoardId", boardNo);
 	}
 }

@@ -159,11 +159,6 @@
 
     <!-- JS Plugins -->
     <script src="${pageContext.request.contextPath}/resources/js/scrolltopcontrol.js"></script>
-    <script src="${pageContext.request.contextPath}/js/wow.min.js"></script>
-
-    <!-- JS Custom -->
-    <script src="js/custom.js"></script>
-
 
   </body>
 </html>
