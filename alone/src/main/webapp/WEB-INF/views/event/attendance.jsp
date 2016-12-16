@@ -226,7 +226,7 @@ if(resultMap!=null){
 		
 				if((int)mydayList.get(s) == day){
 					//내가출석한 데이와 달력의 데이가 같을때만 이미지출력 아니면 공백%>
-				    <img src="${pageContext.request.contextPath}/resources/img/출석도장.png">
+				    <img src="${pageContext.request.contextPath}/resources/img/출석도장3.png">
 				<% }%>
 			
 			<%}
@@ -274,7 +274,7 @@ if(resultMap!=null){
 			
 				if((int)mydayList.get(s) == day2){
 					//내가출석한 데이와 달력의 데이가 같을때만 이미지출력 아니면 공백%>
-				    <img src="${pageContext.request.contextPath}/resources/img/출석도장.png">
+				    <img src="${pageContext.request.contextPath}/resources/img/출석도장3.png">
 				<% }
 			
 			}
