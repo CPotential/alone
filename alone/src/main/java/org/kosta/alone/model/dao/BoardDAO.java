@@ -46,4 +46,6 @@ public interface BoardDAO {
 
 	public void deleteBoard(int boardNo);
 
+	public String findByBoardId(int boardNo);
+
 }

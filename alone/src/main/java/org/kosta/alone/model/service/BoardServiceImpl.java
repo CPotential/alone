@@ -111,7 +111,7 @@ public class BoardServiceImpl implements BoardService {
 	 */
 	@Transactional
 	@Override
-	public void introduceWrite(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
+	public void introduceWrite(IntroduceVO introduceVO, String keyword, UploadFileVO vo, HttpServletRequest request) {
 		// 테이블 기존 정보 쓰기
 		introduceDAO.boardWrite(introduceVO);
 		// 테이블 상세정보쓰기
@@ -125,8 +125,8 @@ public class BoardServiceImpl implements BoardService {
 			imageUpload(introduceVO, vo, request);
 
 		// 데이터 베이스에 키워드 저장
-		if (introduceVO.getKeyword() != null)
-			keywordRegister(introduceVO, introduceVO.getKeyword());
+		if (keyword != null)
+			keywordRegister(introduceVO, keyword);
 	}
 
 	public void keywordRegister(IntroduceVO introduceVO, String keyword) {
@@ -179,7 +179,7 @@ public class BoardServiceImpl implements BoardService {
 	 * 소개글 수정
 	 */
 	@Override
-	public void introduceUpdate(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
+	public void introduceUpdate(IntroduceVO introduceVO, String keyword,UploadFileVO vo, HttpServletRequest request) {
 		// 테이블 기존 정보 쓰기
 		List<KeyWordVO> keyWordVO = null;
 
@@ -191,8 +191,7 @@ public class BoardServiceImpl implements BoardService {
 		// 테이블 상세정보들이 모두 비어있지 않다면 update
 		if ( !(introduceVO.getCompanyName().equals("") && introduceVO.getRegion().equals("") 
 				&& introduceVO.getLocation().equals("") && introduceVO.getBusinessHours().equals("")
-				&& introduceVO.getTel().equals("") && introduceVO.getKeyword().equals("")
-				&& introduceVO.getCategoryVO().equals("")) ) {
+				&& introduceVO.getTel().equals("") 	&& introduceVO.getCategoryVO().equals("")) ) {
 			introduceDAO.introduceUpdate(introduceVO);
 		}
 		
@@ -202,11 +201,11 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		// 키워드가 null이 아니라면
-		if (introduceVO.getKeyword() != null) {
+		if (keyword != null) {
 			// 기존 게시물에 저장되어있는 키워드 정보를 가져와 세팅해준다음에 keywordUpdate 해준다
 			keyWordVO = introduceDAO.keyWordList(introduceVO.getBoardNo());
 			introduceVO.setKeyWordVO(keyWordVO);
-			keywordUpdate(introduceVO, introduceVO.getKeyword());
+			keywordUpdate(introduceVO, keyword);
 		}
 	}
 
@@ -287,15 +286,10 @@ public class BoardServiceImpl implements BoardService {
 		// boardNo에 해당하는 게시물 기본정보를 가져옴
 		IntroduceVO introduceVO = introduceDAO.introduceDetail(boardNo);
 		// 해당 게시물의 키워드 정보를 가져와서 세팅
+		
 		keyWordList = introduceDAO.keyWordList(boardNo);
 		introduceVO.setKeyWordVO(keyWordList);
-		// keword도 세팅
-		String keywordSet = "";
-		for (int i = 0; i < keyWordList.size(); i++) {
-			keywordSet += "#" + keyWordList.get(i).getKeyWordName();
-		}
-		
-		introduceVO.setKeyword(keywordSet);
+	
 		// 메인 이미지 저장
 		mainImage = boardDAO.introduceFirstImage(boardNo);
 		introduceVO.setMainImage(mainImage);
@@ -311,11 +305,26 @@ public class BoardServiceImpl implements BoardService {
 	 */
 	@Transactional
 	@Override
-	public void introduceDelete(String id, int boardNo) {
+	public void introduceDelete(String id, int boardNo, HttpServletRequest request) {
 		// 게시글 상태여부 ( board_enabled = 0 으로 변경만 하면 됨.. )
 		boardDAO.deleteBoard(boardNo);
 		// 기업회원 글한번 쓴 상태로 변경
+		
+		//이미지 서버에서삭제 AND 실제 삭제
+		List<ImageVO> list = boardDAO.imageAllList(boardNo);
+		
+		for(int i=0; i<list.size(); i++){
+			
+			
+			//서버에 파일이 존재할때만 삭제한다
+			deleteImage(list.get(i).getImageName(),request);
+			
+			
+		}
+		
 		introduceDAO.updateWriteBack(id);
+		
+		
 	}
 
 	@Transactional
@@ -500,6 +509,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Transactional
 	public int reviewLikeUp(BoardVO bvo) {
+		MemberVO memberVO=new MemberVO();
+		memberVO.setId(boardDAO.findByBoardId(bvo.getBoardNo()));
+		bvo.setMemberVO(memberVO);
 		BoardVO vo = boardDAO.likeCheckInfo(bvo);
 		if (vo == null) {
 			boardDAO.insertLikeCheck(bvo);
@@ -507,8 +519,7 @@ public class BoardServiceImpl implements BoardService {
 			reviewDAO.likeUp(bvo);
 			HashMap<String, Object> map = new HashMap<>();
 			map.put("dealcontent", "게시물 번호 : " + bvo.getBoardNo() + " 좋아요 클릭");
-			map.put("id", bvo.getMemberVO().getId());
-			System.out.println(map.get("dealcontent") + "ddd");
+			map.put("id", boardDAO.findByBoardId(bvo.getBoardNo()));
 			reviewDAO.mileageInsert(map);
 			reviewDAO.mileageUpdate(map);
 		} else if (vo != null && vo.getLikeCheck() == 1) {
@@ -521,20 +532,18 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<IntroduceVO> rankingIntroduceList() {
 		List<KeyWordVO> keyWordVO = null;
-		List<IntroduceVO> list = introduceDAO.rankingIntroduceList();
 		ImageVO imageVO=null;
+		List<IntroduceVO> list =introduceDAO.rankingIntroduceList();
 		for (int i = 0; i < list.size(); i++) {
 			keyWordVO = introduceDAO.keyWordList(list.get(i).getBoardNo());
 			list.get(i).setKeyWordVO(keyWordVO);
-
-			imageVO = boardDAO.introduceFirstImage(list.get(i).getBoardNo());
-			
+			imageVO =boardDAO.introduceFirstImage(list.get(i).getBoardNo());
 			if (imageVO == null) {
 				return list;
 			}
+
 			list.get(i).setMainImage(imageVO);
 		}
-		System.out.println(list);
 		return list;
 	}
 
@@ -547,7 +556,7 @@ public class BoardServiceImpl implements BoardService {
 			boardDAO.likeCheckUp(bvo);
 			introduceDAO.likeUp(bvo);
 
-		} else if (vo != null && vo.getLikeCheck() == 1) {
+		}else if(vo != null &&vo.getLikeCheck()==1){
 			return introduceDAO.likeCheckNumber(bvo);
 		}
 		return introduceDAO.likeCheckNumber(bvo);

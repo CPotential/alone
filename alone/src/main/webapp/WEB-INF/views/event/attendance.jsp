@@ -33,11 +33,7 @@
     pageEncoding="UTF-8"%> 
  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+
 <style type="text/css">
 	*{margin:0px; padding:0px;font-famaily: 돋움; font-size: 9pt;}
 	td{font-size: 9pt;}
@@ -79,35 +75,27 @@ function changeDate(){
     	    if(author == 'ROLE_COMPANY_VERIFIED')
     	    {
     	    	 alert("기업회원은 이용 불가능 합니다.");
-    	    	
-    	    }
-    	 
+    	    } 
      });
 
-    
-     $("#stempCheck").click(function(){
-    	 
+     $("#stempCheck").click(function(){ 
 	//기업회원일 경우 	
     if(author == 'ROLE_COMPANY_VERIFIED')
     {
     	 alert("기업회원은 이용 불가능 합니다.");
-    	
     }  
    //일반 회원일 경우 서버로 이동
     else
     {
     	location.href = "${pageContext.request.contextPath}/attendanceCheck.do?y="+y+"&m="+m;
-    	
     }
     	 
      });//click
 });  //ready
  </script>
-</head>
-<body>
+
 
 <c:set var="resultMap" value="${requestScope.resultMap}"/>
-<%-- <c:set var="authority" value="${sessionScope.memberVO.authority}"/> --%>
 <center> 
 	<div class="form-group">
 	   <div class ="row">
@@ -149,12 +137,9 @@ function changeDate(){
 			       <%}%>
 			       <%=y%>.<%=m%>
 			       <%if(m==12){ %>
-			       		<a href="${pageContext.request.contextPath}/showAttendanceMain.do?y=<%=y+1%>&m=<%=1%>">▶</a>
-					
-					
+			       		<a href="${pageContext.request.contextPath}/showAttendanceMain.do?y=<%=y+1%>&m=<%=1%>">▶</a>	
 					<%}else{%>
 						<a href="${pageContext.request.contextPath}/showAttendanceMain.do?y=<%=y%>&m=<%=m+1%>">▶</a>
-					
 					<%} %></caption>
 				</h3>
                    
@@ -202,7 +187,6 @@ if(resultMap!=null){
 		if(fc.equals("blue"))
 		{
 			sat=i;
-		//System.out.println(sat);
 		}
 		w++;
 
@@ -212,10 +196,7 @@ if(resultMap!=null){
 			int day;
 			for(int j=1; j<=7;j++)
 			{
-				
-		
-				if((i-7+j)>0){
-					
+				if((i-7+j)>0){	
 			//System.out.println("j  :"+(i-7+j)); //5-4 (j-first)
 			day=(i-7+j);
 			%>
@@ -238,49 +219,33 @@ if(resultMap!=null){
             }%>
 			</td><%}
 				else{%>
-					<td align='center' bgcolor='#ffffff';>&nbsp;
-	
-					</td>
-					
-				<% }
-			
+					<td align='center' bgcolor='#ffffff';>&nbsp;</td>	
+				<% }		
 			}
-
 			out.println("</tr>");
 			out.println("<tr height='100'>"); // 공백 부분
 		}
 	}
 	
-	// 뒷부분 공백처리
+ 	// 뒷부분 공백처리
 	if(w%7!=1){
-
-		//System.out.println(w);
-		//System.out.println("뒷부분 공백 안먹음");
 		int day2;
 		if(w%7==0){
-		
-		
-			out.println("<tr height='100'>");// 맨아랫 부분 공백 
-		
+			out.println("<tr height='100'>");// 맨아랫 부분 공백 	
 			 for(int i=1; i<7;i++){	
 				// System.out.println("뒷부분 나누어떨어진거  :"+ (sat+i) );
 					day2=sat+i;
 					%>
 					<td align='center' bgcolor='#ffffff';>&nbsp;
-							<%
+					<%
 					if(mydayList!=null){
 			for(int s=0; s<mydayList.size();s++){
-		
-			
 				if((int)mydayList.get(s) == day2){
 					//내가출석한 데이와 달력의 데이가 같을때만 이미지출력 아니면 공백%>
 				    <img src="${pageContext.request.contextPath}/resources/img/출석도장3.png">
 				<% }
-			
 			}
-		
 /* 			<td align='center' bgcolor='#ffffff';>&nbsp;
-
 	       <img src="${pageContext.request.contextPath}/resources/img/출석도장.png">
 		</td> 
  */
@@ -289,20 +254,16 @@ if(resultMap!=null){
 	     
 	     
 		<%}
-			 out.println("</tr>");
+			 /* out.println("</tr>"); */
 	  }else{
 		for(int i=w%7; i<=7; i++)
 			out.println("<td bgcolor='#ffffff'>&nbsp;</td>");
 	}
 	out.println("</tr>");
-		out.println("<tr height='100'>");// 맨아랫 부분 공백 
+		out.println("<tr");// 맨아랫 부분 공백 
 		int day3;
 		for(int j=1; j<(w%7);j++){
-			//System.out.println("뒷부분 j   :"+(cal.getActualMaximum(Calendar.DATE)-7+j)); //5-4 (j-first)
-			//System.out.println("뒷부분 j   :"+(sat+j));
 			day3=sat+j;
-			//(w%7
-			//System.out.println(i+j);
 		      %>
 				<td align='center' bgcolor='#ffffff';>&nbsp;
 				<%
@@ -314,18 +275,14 @@ if(resultMap!=null){
 				    <img src="${pageContext.request.contextPath}/resources/img/출석도장.png">
 				<% }%>
 				</td>
-			<%}
-			
-/*		<td align='center' bgcolor='#ffffff';>&nbsp;
-
+			<%} %>
+		<%-- <td align='center' bgcolor='#ffffff';>&nbsp;
 	       <img src="${pageContext.request.contextPath}/resources/img/출석도장.png">
-		</td> */
+		</td> --%>
+	<%}%>
 		
-	
-		}%>
-				</td>
 	<% 	out.println("</tr>");
-	}
+		}
 	}
 %>
 </table>
@@ -333,5 +290,3 @@ if(resultMap!=null){
 
 </center>
 
-</body>
-</html>

@@ -33,7 +33,6 @@ public class DownloadView extends AbstractView {
 		String filename = request.getParameter("fileName");
 		String originalFileName = request.getParameter("originalFileName");
 		request.getSession().getServletContext().getRealPath("/resources/upload/");
-		System.out.println("DownloadView 실행 " + path + filename);
 		// 업로드 파일 객체
 		File file = new File(path + filename);
 		// 파일 다운로드
@@ -45,12 +44,10 @@ public class DownloadView extends AbstractView {
 				"attachment; fileName=" + new String(originalFileName.getBytes("UTF-8"), "8859_1"));
 		// 데이터 인코딩이 바이너리 파일임을 명시
 		response.setHeader("Content-Transfer-encoding", "binary");
-
 		// response에 연결된 OutputStream
 		OutputStream os = response.getOutputStream();
 		// 업로드된 파일을 입력받기 위한 입력스트림
 		FileInputStream fis = new FileInputStream(file);
 		FileCopyUtils.copy(fis, os);
-		System.out.println("다운로드 ok:" + file.getName());
 	}
 }

@@ -252,13 +252,4 @@ public class MemberController {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return new ModelAndView("myPage/admin/showInfo", "admin", memberService.showAdminMember(memberVO));
 	}
-	
-	/**
-	 * 로그인시 권한 체크
-	 */
-	@RequestMapping("companyAuthorityCheckAjax.do")
-	@ResponseBody
-	public String companyAuthorityCheckAjax(String id){
-		return memberService.companyAuthority(id);
-	}
 }

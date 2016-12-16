@@ -45,12 +45,6 @@
 					<textarea cols="20" rows="20" name="content" class="form-control"  id="content" >${rvo.content}</textarea>
 					 <span class="help-block"></span>  
 				</div>
-				<div class="form-group">
-					<label for="image">image</label> <input type="text" name="image"
-						class="form-control" id="image" placeholder="picture"> <span
-						class="help-block"></span>
-						<input type="hidden" name ="boardNo" value="${param.boardNo }">
-				</div>
 					<button type="submit" class="btn btn-primary">수정하기</button>
 					<button type="button" class="btn btn-primary"
 						onclick="reviewWriteCancel()">작성 취소</button>

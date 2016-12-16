@@ -56,7 +56,7 @@
 				</div>
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
-						<a href="${pageContext.request.contextPath}/introduceList.do?categoryNo=" class="btn btn-default">목 록</a>
+						<a href="${pageContext.request.contextPath}/introduceList.do?categoryNo=${introVO.categoryVO.categoryNo}" class="btn btn-default">목 록</a>
 					</div>
 				</div>
 			</div>

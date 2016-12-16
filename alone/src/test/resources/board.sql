@@ -36,11 +36,12 @@ CREATE TABLE INTRODUCE(
 	business_hours varchar2(50) not null,
 	tel varchar2(50) not null,
 	category_no number not null,
-	keyword varchar2(100) not null,
 	likes number default 0,
 	constraint fk_introduce foreign key(board_no) references board(board_no),
 	constraint fk_introduce_category foreign key(category_no) references introduce_category(category_no)
 )
+
+alter table introduce add likes number default 0
 
 -- 소개글 키워드 정보
 CREATE SEQUENCE KEYWORD_SEQ;

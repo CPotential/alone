@@ -1,7 +1,13 @@
 
 --소개글 리스트 뽑기------------------------------------------------------
+
 insert into attendance(id,mydate)
 values('jj3','2016/12/11')
+
+
+
+SELECT image_name, image_originalname,board_no FROM image WHERE image_name LIKE 'main%'
+
 
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce ,INTRODUCE_CATEGORY category
@@ -14,7 +20,7 @@ and introduce.category_no = category.category_no;
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce 
 where introduce.category_no=1
-and member.id=board.id and  board.board_no=image.board_no
+and member.id=board.id and  board.board_no=image.board_nos
 
 select b.board_no, m.nickname, i.image_name, m.name
 from member m, board b, image i
@@ -123,6 +129,7 @@ select image_no from image;
 select IMAGE_SEQ.nextval from dual;
 
 
+
 select image_name 
 from image 
 where image_no = (
@@ -176,7 +183,7 @@ ENERICMEMBER gmember,mileage mileage
 	
 	select nickName from member where id='spring'
 	select * from mileage
-<<<<<<< HEAD
+
 
 
 --소개글삭제
@@ -199,7 +206,6 @@ references board(board_no)
 
 select mileage.deal_money, mileage.deal_content
 		from mileage mileage, member member
-<<<<<<< HEAD
 		where mileage.id=member.id and member.id='java' order by mileage_no desc
 		
 	select board_no,likes,nickname from(select introduce.board_no,introduce.likes,member.nickname,
@@ -214,7 +220,6 @@ select mileage.deal_money, mileage.deal_content
   	where board_no=1 and introduce.board_no = board.board_no and review.board_no=board.board_no
   	
   	select likes from introduce where board_no='1'
-=======
 		where mileage.id=member.id and member.id='java' order by mileage_no desc
 
 		
@@ -293,3 +298,12 @@ select * from keyword
      introduce.keyword from board board,member member,introduce introduce
      where introduce.category_no=2 and member.id=board.id and board.board_no=introduce.board_no and board.board_enabled=1) 
 	 where rnum between 1 and 4
+
+	 	select keyword_name,keyword_no
+		from keyword
+		
+		update AUTHORITIES set authority='ROLE_ADMIN' where id='jj4'
+		
+		select * from companymember
+		insert into AUTHORITIES(id,authority) values('jaeman','ROLE_COMPANY')
+		delete from AUTHORITIES where id='jaeman' and authority='ROLE_COMPANY'
