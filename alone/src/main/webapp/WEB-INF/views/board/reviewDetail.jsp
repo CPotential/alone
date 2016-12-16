@@ -162,7 +162,7 @@
 </script>
 <!--  jquery 사용처입니다. -->
 
-<script src="//code.jquery.com/jquery.min.js"></script>
+
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8 col-md-9">
@@ -171,7 +171,7 @@
 				href="#"><span class="badge">날짜 : ${rvo.timePosted}</span></a>
 		</div>
 		<div class="nav nav-pills col-md-8 text-right">
-			<a href="#">작성자 : ${rvo.memberVO.nickName}</a> <a href="#"
+			<a href="#">작성자 : ${rvo.memberVO.nickName}</a> <a 
 				id="likeNum">좋아요 : ${rvo.likes}</a>
 		</div>
 	</div>
@@ -195,11 +195,9 @@
 						<a href="${pageContext.request.contextPath}/reviewList.do"
 							class="btn btn-default">목 록</a>
 						<c:if test="${rvo.memberVO.id==sessionId}">
-						<a
-								href="${pageContext.request.contextPath}/reviewUpdateForm.do?boardNo=${requestScope.rvo.boardNo}"
+						<a href="${pageContext.request.contextPath}/reviewUpdateForm.do?boardNo=${requestScope.rvo.boardNo}"
 								class="btn btn-default">수 정</a>
-							<a
-								href="${pageContext.request.contextPath}/reviewDelete.do?boardNo=${requestScope.rvo.boardNo}"
+							<a href="${pageContext.request.contextPath}/reviewDelete.do?boardNo=${requestScope.rvo.boardNo}"
 								class="btn btn-default">삭 제</a>
 						</c:if>
 					</div>

@@ -550,6 +550,9 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public int introduceLikeUp(BoardVO bvo) {
+		MemberVO memberVO=new MemberVO();
+		memberVO.setId(boardDAO.findByBoardId(bvo.getBoardNo()));
+		bvo.setMemberVO(memberVO);
 		BoardVO vo = boardDAO.likeCheckInfo(bvo);
 		if (vo == null) {
 			boardDAO.insertLikeCheck(bvo);

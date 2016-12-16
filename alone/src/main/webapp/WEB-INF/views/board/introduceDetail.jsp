@@ -46,9 +46,11 @@
 	             	영업시간:${requestScope.introVO.businessHours}<br>
 	             	전화번호:${requestScope.introVO.tel}<br> 
 	             	키워드:
+	             	
 	             	<c:forEach items="${requestScope.introVO.keyWordVO}" var="keyVO">
 	             		#${keyVO.keyWordName}
-	             	</c:forEach>
+	             	</c:forEach><br> 
+	             	 <a id="likeNum">좋아요 : ${introVO.likes}</a>
 					<br>
 				<div align="right" id="like">
 					<img src="${pageContext.request.contextPath}/resources/img/좋아요.jpg">
