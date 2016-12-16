@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
-
 <!-- HERO BLOCK
     ============================== -->
 <div class="hero hero__bs">
@@ -13,9 +12,6 @@
 				<div class="container">
 					<div class="row" id="hero__content">
 						<div class="col-sm-12 text-center">
-							<h1 class="hero__h1">혼자서도 잘해요</h1>
-							<!-- 		<h2 class="hero__h2">하상현 진짜 개멍청해</h2>
-							<p class="hero__intro">부트스트랩 사용</p> -->
 						</div>
 					</div>
 					<!-- / .row -->
@@ -309,7 +305,4 @@
           </div>
         </div> <!-- / .row -->
       </div> <!-- /.container -->
-    </div> <!-- / .section -->
-    
-
-
+    </div> <!-- / .section -->    

@@ -84,6 +84,7 @@ public class BoardController {
 		return mav;
 	}
 
+	
 	@RequestMapping("reviewList.do")
 	public ModelAndView reviewList(String pageNo, String searchKeyWord, String command) {
 		ModelAndView mav = new ModelAndView("board/review");

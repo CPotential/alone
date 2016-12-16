@@ -40,7 +40,9 @@ CREATE TABLE INTRODUCE(
 	constraint fk_introduce foreign key(board_no) references board(board_no),
 	constraint fk_introduce_category foreign key(category_no) references introduce_category(category_no)
 )
+
 alter table introduce add likes number default 0
+
 -- 소개글 키워드 정보
 CREATE SEQUENCE KEYWORD_SEQ;
 CREATE TABLE KEYWORD(
@@ -51,6 +53,7 @@ CREATE TABLE KEYWORD(
 )
 
 --모임글 정보
+
 CREATE TABLE MEETING(
 	board_no number primary key,
 	title varchar2(100) not null,

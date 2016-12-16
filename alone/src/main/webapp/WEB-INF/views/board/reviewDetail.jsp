@@ -5,10 +5,81 @@
 
 <script src="${pageContext.request.contextPath}/resources/js/jquery-1.12.4.min.js"></script>
 
-<c:set var="sessionId">
-<sec:authentication property="principal.id" />
-</c:set>
+<sec:authorize ifNotGranted="ROLE_MEMBER,ROLE_ADMIN,ROLE_COMPANY_VERIFIED,ROLE_COMPANY_NON_VERIFIED">
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 col-md-9">
+			<a href="#"><span class="badge">No. ${rvo.boardNo }</span></a> <a
+				href="#"><span class="badge">조회수 : ${rvo.hits}</span></a> <a
+				href="#"><span class="badge">날짜 : ${rvo.timePosted}</span></a>
+		</div>
+		<div class="nav nav-pills col-md-8 text-right">
+			<a href="#">작성자 : ${rvo.memberVO.nickName}</a> 
+			<a  id="likeNum">좋아요 : ${rvo.likes}</a>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 col-md-9">
+				<div class="well well">${rvo.title}</div>
+				<div class="panel-body">
+					<table>
+						<tr>
+							<td>${rvo.content}</td>
+						</tr>
+					</table>
+				</div>
+				<div align="right" id="like">
+					<img src="${pageContext.request.contextPath}/resources/img/좋아요.jpg">
+				</div>
 
+				<div class="panel-footer">
+					<div class="btn-group btn-group-justified">
+						<a href="${pageContext.request.contextPath}/reviewList.do"
+							class="btn btn-default">목 록</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-8 col-md-9">
+				<!-- / .comment__new -->
+				
+				<!-- Comments header -->
+				<div class="comment__header">
+					<span>List of Comments</span>
+				</div>
+
+				<!-- All comments -->
+				<div id="commentView">
+					<c:forEach var="commentList" items="${requestScope.commentList}">
+						<div class="comment">
+							<div class="comment__content" id="commentresetView">
+								<div class="comment__author_name">
+									${commentList.memberVO.nickName}</div>
+								<time datetime="${commentList.timePosted}" class="comment__date">
+									${commentList.timePosted}</time>
+								<p>${commentList.content}</p>
+
+							</div>
+							<!-- / .comment__content -->
+						</div>
+						<!-- / .comment -->
+					</c:forEach>
+				</div>
+			</div>
+			<!-- col-sm-8 col-md-9 -->
+		</div>
+	</div>
+</div>
+
+</sec:authorize> 
+
+    <sec:authorize ifAnyGranted="ROLE_MEMBER,ROLE_ADMIN,ROLE_COMPANY_VERIFIED,ROLE_COMPANY_NON_VERIFIED">
+       <c:set var="sessionId" >
+	<sec:authentication property="principal.id" />
+	</c:set>
+    
+    
 <!--  jquery 사용처입니다. -->
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -36,8 +107,8 @@
 																json += data[i].content;
 																json += "</p>";
 																var id = data[i].memberVO.id;
-																var nowid = '<c:out value="${sessionId}"/>'
-
+																var nowid="";
+																nowid = '<c:out value="${sessionId}"/>'
 																if (id == nowid) {
 																	json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
 																	json += " <a  id='removeComment' class='btn btn-default btn-xs'><i class='fa fa-times'></i> Remove</a>";
@@ -85,7 +156,8 @@
 																json += data[i].content;
 																json += "</p>";
 																var id = data[i].memberVO.id;
-																var nowid = '<c:out value="${sessionId}"/>'
+																var nowid="";
+																nowid = '<c:out value="${sessionId}"/>'
 
 																if (id == nowid) {
 																	json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
@@ -127,7 +199,8 @@
 																	json += data[i].content;
 																	json += "</p>";
 																	var id = data[i].memberVO.id;
-																	var nowid = '<c:out value="${sessionId}"/>'
+																	var nowid="";
+																	nowid = '<c:out value="${sessionId}"/>'
 
 																	if (id == nowid) {
 																		json += "<div class='btn-group pull-right' role='group' aria-label='comment__actions'>";
@@ -189,7 +262,7 @@
 				<div align="right" id="like">
 					<img src="${pageContext.request.contextPath}/resources/img/좋아요.jpg">
 				</div>
-				<sec:authentication property="principal.id" var="sessionId"/>
+				
 				<div class="panel-footer">
 					<div class="btn-group btn-group-justified">
 						<a href="${pageContext.request.contextPath}/reviewList.do"
@@ -255,4 +328,8 @@
 		</div>
 	</div>
 </div>
+
+</sec:authorize>
+
+
 

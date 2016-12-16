@@ -99,6 +99,7 @@ function changeDate(){
 <center> 
 	<div class="form-group">
 	   <div class ="row">
+	   		
                  <div class="col-sm-2 col-sm-offset-4">
                     <div class="form-group">
               
@@ -113,11 +114,13 @@ function changeDate(){
 						
                     </div>
                   </div>
+                  
                   <div class="col-sm-2">
                     <div class="form-group">
                      <input type="button" class="btn btn-ki btn-block btn-lg" id="stempCheck" value="출석하기" />	
                     </div>
                   </div>
+               
         </div>  
                   	<h3>
 					<caption> <!--  style=height: "25px" -->
@@ -204,7 +207,7 @@ if(resultMap!=null){
 		
 				if((int)mydayList.get(s) == day){
 					//내가출석한 데이와 달력의 데이가 같을때만 이미지출력 아니면 공백%>
-				    <img src="${pageContext.request.contextPath}/resources/img/출석도장.png">
+				    <img src="${pageContext.request.contextPath}/resources/img/출석도장3.png">
 				<% }%>
 			
 			<%}
@@ -239,7 +242,7 @@ if(resultMap!=null){
 			for(int s=0; s<mydayList.size();s++){
 				if((int)mydayList.get(s) == day2){
 					//내가출석한 데이와 달력의 데이가 같을때만 이미지출력 아니면 공백%>
-				    <img src="${pageContext.request.contextPath}/resources/img/출석도장.png">
+				    <img src="${pageContext.request.contextPath}/resources/img/출석도장3.png">
 				<% }
 			}
 /* 			<td align='center' bgcolor='#ffffff';>&nbsp;
