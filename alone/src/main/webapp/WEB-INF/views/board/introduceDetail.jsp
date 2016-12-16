@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -11,7 +12,7 @@
 				data : "command=introduce&boardNo="+'${param.boardNo}',
 				dataType : "json",
 				success : function(result) {
-					$("#likeNum").html("좋아요 : "+ result);
+					$("#likeNum").html("<i class='fa fa-check fa-fw text-primary'></i>좋아요 : "+ result);
 				}
 			}) // ajax
 		}); // click
@@ -93,13 +94,19 @@
             <li class="list-group-item"><i class="fa fa-check fa-fw text-primary"></i>
                <c:forEach items="${introVO.keyWordVO}" var="keyVO">
                 #${keyVO.keyWordName}
-            	</c:forEach></li>
+            	</c:forEach></li>	
+            <li class="list-group-item" id="likeNum"><i class="fa fa-check fa-fw text-primary"></i>좋아요 : ${introVO.likes}</li>
 
           </ul>
+          	<sec:authorize ifNotGranted="ROLE_COMPANY_VERIFIED,ROLE_COMPANY_NON_VERIFIED">
+				<div align="right" id="like">
+					<img src="${pageContext.request.contextPath}/resources/img/좋아요.jpg">
+				</div>
+			</sec:authorize>
 
         </div>
       </div> <!-- / .row -->
-      <div class="row">
+<%--       <div class="row">
         <div class="col-sm-8">
           <!-- New review -->
           <div class="comment comment_new">
@@ -124,5 +131,5 @@
             </div> <!-- / .comment__content -->
           </div> <!-- / .comment__new -->
     </div>
-   </div>
+   </div> --%>
 </div>

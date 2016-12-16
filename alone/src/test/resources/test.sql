@@ -3,8 +3,13 @@
 
 insert into attendance(id,mydate)
 values('jj3','2016/12/11')
+<<<<<<< HEAD
 select member.id,board.board_no,likescheck.likeCheck from member member,board board,likescheck likescheck
-
+=======
+select * from likescheck
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
+select * from board
+select * from COMPANYMEMBER
 
 SELECT image_name, image_originalname,board_no FROM image WHERE image_name LIKE 'main%'
 select * from member
