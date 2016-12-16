@@ -49,7 +49,6 @@
              <div class="item">
 				<img src="${pageContext.request.contextPath}/resources/upload/${image.imageName}" width="100%" height="100%" alt="...">
 			
-            <%--     <img src="${pageContext.request.contextPath}/resources/img/product_2.jpg" alt="..."> --%>
                 <div class="carousel-caption">
                    ${image.originalFileName}
                 </div>
@@ -105,6 +104,11 @@
 			</sec:authorize>
 
         </div>
+    	<div class="panel-footer">
+               <div class="btn-group btn-group-justified">
+                  <a href="${pageContext.request.contextPath}/introduceList.do?categoryNo=${introVO.categoryVO.categoryNo}" class="btn btn-default">목 록</a>
+               </div>
+           </div>
       </div> <!-- / .row -->
 <%--       <div class="row">
         <div class="col-sm-8">

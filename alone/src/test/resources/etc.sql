@@ -58,7 +58,7 @@ select * from likescheck
 commit
 select * from likecheck
 drop table likecheck
->>>>>>> branch 'master' of https://github.com/CPotential/alone.git
+
 -- 출석 체크
 create table attendance(
    id varchar2(50) not null,

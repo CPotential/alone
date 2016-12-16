@@ -270,7 +270,7 @@
 
 			<div class="col-sm-8 col-md-9">
 				<div class="comment comment_new">
-					<div class="comment__author_img">${sessionNickname}</div>
+					<div class="comment__author_img"></div>
 					<div class="comment__content">
 						<form>
 							<div class="form-group">

@@ -234,7 +234,7 @@
 	        <div class="col-sm-8 col-md-9">
 				<div class="comment comment_new">
 					<div class="comment__author_img">
-					<span> ${meetingVO.memberVO.nickName}</span>
+				
 					</div>
 					<div class="comment__content">
 						<form>

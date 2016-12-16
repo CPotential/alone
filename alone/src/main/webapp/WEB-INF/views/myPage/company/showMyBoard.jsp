@@ -27,7 +27,6 @@
 			<div class="ui__section" id="ui_panels">
 				<h3 class="header">Details</h3>
 				<div class="row">
-				=
 						<div class="panel panel-primary">
 							<div class="panel-heading"></div>
 							<div class="panel-body">

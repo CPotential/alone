@@ -216,7 +216,7 @@ public class PagingBean {
 	}
 	
 	public void communityListSetPaging(){
-		this.contentNumberPerPage=10;
+		this.contentNumberPerPage=6;
 		this.pageNumberPerPageGroup=5;
 	}
 
