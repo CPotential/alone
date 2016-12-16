@@ -3,11 +3,16 @@
 
 insert into attendance(id,mydate)
 values('jj3','2016/12/11')
+<<<<<<< HEAD
+select member.id,board.board_no,likescheck.likeCheck from member member,board board,likescheck likescheck
+=======
 select * from likescheck
-
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
+select * from board
+select * from COMPANYMEMBER
 
 SELECT image_name, image_originalname,board_no FROM image WHERE image_name LIKE 'main%'
-
+select * from member
 
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce ,INTRODUCE_CATEGORY category
@@ -17,6 +22,9 @@ and member.id=board.id and board.board_no=introduce.board_no and  board.board_no
 and introduce.category_no = category.category_no;
 --and introduce.category_no = category.category_no;
 
+INSERT into mileage (mileage_no,deal_money,deal_content,id)
+		VALUES (mileage_seq.nextval,10,'클릭','testcom')
+		select * from mileage
 select introduce.board_no, member.nickname, image.image_name, introduce.region 
 from member member, board board, image image, introduce introduce 
 where introduce.category_no=1

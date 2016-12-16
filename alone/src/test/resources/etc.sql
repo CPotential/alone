@@ -7,7 +7,7 @@ DROP TABLE attendance CASCADE CONSTRAINT;
 drop sequence mileage_seq;
 drop sequence comment_seq;
 drop sequence image_seq;
-
+select mileage_seq.nextval from dual
 -- 이미지 정보
 CREATE SEQUENCE IMAGE_SEQ;
 CREATE TABLE IMAGE(
@@ -20,6 +20,7 @@ CREATE TABLE IMAGE(
 
 --마일리지 정보
 CREATE SEQUENCE MILEAGE_SEQ;
+
 CREATE TABLE MILEAGE(
 	mileage_no number primary key,
 	deal_money number not null,
@@ -28,6 +29,7 @@ CREATE TABLE MILEAGE(
 	constraint fk_mileage foreign key(id) references genericmember(id)
 )
 
+select * from GENERICMEMBER
 -- 댓글 정보
 CREATE SEQUENCE COMMENT_SEQ;
 CREATE TABLE BOARDCOMMENT(
@@ -49,7 +51,14 @@ create table likescheck(
 	constraint fk_likescheck_id foreign key(id) references member(id),
 	constraint pk_likescheck primary key(id,board_no)
 )
+<<<<<<< HEAD
 select * from likescheck
+=======
+
+commit
+select * from likecheck
+drop table likecheck
+>>>>>>> branch 'master' of https://github.com/CPotential/alone.git
 -- 출석 체크
 create table attendance(
    id varchar2(50) not null,

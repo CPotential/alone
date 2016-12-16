@@ -506,8 +506,8 @@ public class BoardServiceImpl implements BoardService {
 		MemberVO memberVO=new MemberVO();
 		memberVO.setId(id);
 		bvo.setMemberVO(memberVO);
+		System.out.println(bvo);
 		BoardVO vo = boardDAO.likeCheckInfo(bvo);
-		System.out.println(vo);
 		if (vo == null) {
 			boardDAO.insertLikeCheck(bvo);
 			boardDAO.likeCheckUp(bvo);
