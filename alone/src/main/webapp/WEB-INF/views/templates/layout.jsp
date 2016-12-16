@@ -61,7 +61,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/custom_hero.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/custom_skills.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/custom_countto.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/custom_google-map.js"></script>
     
        <!--BootStrap Select  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>

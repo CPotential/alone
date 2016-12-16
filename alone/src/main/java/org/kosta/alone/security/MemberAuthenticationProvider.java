@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.kosta.alone.model.vo.Authority;
 import org.kosta.alone.model.service.MemberService;
+import org.kosta.alone.model.vo.Authority;
 import org.kosta.alone.model.vo.MemberVO;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -25,6 +25,7 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 	@Resource
 	private MemberService memberService;
 	// 비밀번호 암호화처리를 위한 객체를 주입받는다
+	
 	@Resource
 	private BCryptPasswordEncoder passwordEncoder;
 
@@ -51,7 +52,9 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 
 		// 2.사용자 정보 디비로 부터 조회(UserDetailsService에서 했던 작업)
 		String id = authentication.getName();// 사용자가 로그인시 입력한 ID 반환
+
 		MemberVO member = memberService.findMemberById(id);
+	
 		if (member == null) {
 			throw new UsernameNotFoundException("회원 아이디가 존재하지 않습니다");
 		}
@@ -89,10 +92,9 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 		 * 여기까지 왔으면 인증 완료 - Authentication객체 생성해서 리턴
 		 ***************************************/
 		Authentication auth = new UsernamePasswordAuthenticationToken(member, password, authorities);
-		System.out.println("로그인 OK~" + auth);
 		return auth;
 	}
-
+	
 	@Override
 	public boolean supports(Class<?> authentication) {
 		// Class객체.isAssignableFrom(Class객체) 같은 타입의 객체를 담을 수 있는지 체크ㅡ - 둘이 같은 class로 부터 생성된 Class객체인지 체크

@@ -55,8 +55,8 @@ create table attendance(
    id varchar2(50) not null,
    mydate varchar2(50) not null,
    constraint fk_attendance_id foreign key(id) references GENERICMEMBER(id),
-   constraint pk_attendance primary key(id,mydate)
-)
+   constraint fk_attendance primary key(id,mydate)
+);
 
 
 update genericmember set mileage=(select sum(deal_money) as mileage from mileage where id='fd')

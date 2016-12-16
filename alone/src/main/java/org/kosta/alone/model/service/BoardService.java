@@ -35,7 +35,7 @@ public interface BoardService {
 	public void reviewWrite(ReviewVO reviewVO);
 
 	public void meetingWrite(HttpServletRequest request, MeetingVO meetingVO, UploadFileVO uploadFileVO);
-	void introduceWrite(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request);
+
 	public MeetingVO meetingDetail(int boardNo);
 
 	public List<CommentVO> commentList(int boardNo);
@@ -58,8 +58,6 @@ public interface BoardService {
 
 	String deleteImage(String deleteFileName, HttpServletRequest request);
 
-	public void introduceUpdate(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request);
-
 	public ListVO<ReviewVO> reviewSerachList(String pageNo, String searchKeyWord, String command);
 
 	public ListVO<MeetingVO> meetingSearchList(String pageNo, String searchKeyWord, String command);
@@ -76,6 +74,10 @@ public interface BoardService {
 	
 	public List<IntroduceVO> rankingIntroduceList();
 
-	void introduceDelete(String id, int boardNo);
+	public void introduceWrite(IntroduceVO introduceVO, String keyword, UploadFileVO vo, HttpServletRequest request);
+
+	void introduceUpdate(IntroduceVO introduceVO, String keyword, UploadFileVO vo, HttpServletRequest request);
+
+	void introduceDelete(String id, int boardNo, HttpServletRequest request);
 
 }

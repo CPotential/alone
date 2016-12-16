@@ -116,24 +116,19 @@
 								<div class="col-xs-6 col-sm-6 col-md-3">
 									<!-- Portfolio Item #1 -->
 									<div class="portfolio__item">
-										<!-- Image -->
-											
+										<!-- Image -->			
 										<div class="portfolio__img">
-										<c:set var="mainImage" property="${list.mainImage.imageName}"/>		
-										
+										<c:set var="mainImage" property="${list.mainImage.imageName}"/>									
 										<img src="${pageContext.request.contextPath}/resources/upload/${mainImage}" alt="Portfolio Image">
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-	
 											<h3 class="portfolio__title">${list.memberVO.nickName } ${list.mainImage}</h3>
-											  <div class="portfolio__intro">
-											 
+											  <div class="portfolio__intro">		 
 										  <c:forEach items="${list.keyWordVO}" var="keyWordList">
 											#${keyWordList.keyWordName}  
 											</c:forEach>
-                        				  </div>
-									
+                        				  </div>			
 										</div>
 									</div>
 								</div>
@@ -177,9 +172,9 @@
                 <img src="${pageContext.request.contextPath}/resources/img/photo_1.jpg" class="img-responsive" alt="...">
               </div>
               <div class="authors__content">
-                <div class="authors__title">John Doe, Designer</div>
+                <div class="authors__title">JaeYoung Jeong, Developer</div>
                 <div class="authors__intro">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu lacus enim. Aliquam eu elit justo. 
+                  What you want to say. 
                 </div>
                 <ul class="authors__contact">
                   <li class="facebook">
@@ -205,9 +200,9 @@
                 <img src="${pageContext.request.contextPath}/resources/img/photo_2.jpg" class="img-responsive" alt="...">
               </div>
               <div class="authors__content">
-                <div class="authors__title">Judy Roe, Designer</div>
+                <div class="authors__title">SangHyeok Kim, Developer</div>
                 <div class="authors__intro">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu lacus enim. Aliquam eu elit justo. 
+                  What you want to say. 
                 </div>
                 <ul class="authors__contact">
                   <li class="facebook">
@@ -233,9 +228,9 @@
                 <img src="${pageContext.request.contextPath}/resources/img/photo_3.jpg" class="img-responsive" alt="...">
               </div>
               <div class="authors__content">
-                <div class="authors__title">Richard Doe, Developer</div>
+                <div class="authors__title">GiRim Lee, Developer</div>
                 <div class="authors__intro">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu lacus enim. Aliquam eu elit justo. 
+                  What you want to say. 
                 </div>
                 <ul class="authors__contact">
                   <li class="facebook">
@@ -255,17 +250,17 @@
             </div>
           </div>
         </div> <!-- / .row -->
-        <!-- Author #3 -->
+        <!-- Author #4 -->
         <div class="row" align="center">
           <div class="col-xs-12 col-sm-4">
             <div class="authors__item">
               <div class="authors__img wow flipInY" data-wow-delay=".4s">
-                <img src="${pageContext.request.contextPath}/resources/img/photo_3.jpg" class="img-responsive" alt="...">
+                <img src="${pageContext.request.contextPath}/resources/img/HyeJin.jpg" class="img-responsive" alt="...">
               </div>
               <div class="authors__content">
-                <div class="authors__title">Richard Doe, Developer</div>
+                <div class="authors__title">HyeJin Joo, Developer</div>
                 <div class="authors__intro">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu lacus enim. Aliquam eu elit justo. 
+                  What you want to say. 
                 </div>
                 <ul class="authors__contact">
                   <li class="facebook">
@@ -284,7 +279,7 @@
               </div>
             </div>
           </div>
-          <!-- Author #3 -->
+          <!-- Author #5 -->
           <div class="col-xs-12 col-sm-4">
             <div class="authors__item">
               <div class="authors__img wow flipInY" data-wow-delay=".4s">

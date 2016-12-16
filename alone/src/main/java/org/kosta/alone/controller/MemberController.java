@@ -71,5 +71,6 @@ public class MemberController {
 	@ResponseBody
 	public String companyAuthorityCheckAjax(String id) {
 		return memberService.companyAuthority(id);
+
 	}
 }

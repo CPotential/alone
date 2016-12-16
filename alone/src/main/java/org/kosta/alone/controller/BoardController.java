@@ -11,6 +11,7 @@ import org.kosta.alone.model.vo.BoardVO;
 import org.kosta.alone.model.vo.CommentVO;
 import org.kosta.alone.model.vo.IntroduceCategoryVO;
 import org.kosta.alone.model.vo.IntroduceVO;
+import org.kosta.alone.model.vo.KeyWordVO;
 import org.kosta.alone.model.vo.ListVO;
 import org.kosta.alone.model.vo.MeetingVO;
 import org.kosta.alone.model.vo.MemberVO;
@@ -28,14 +29,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class BoardController {
 	@Resource
 	private BoardService boardService;
-	
+
 	@RequestMapping("home.do")
-	public ModelAndView Home(){
-		return new ModelAndView("home","ranking",boardService.rankingIntroduceList());
+	public ModelAndView Home() {
+		return new ModelAndView("home", "ranking", boardService.rankingIntroduceList());
 	}
 
 	/**
 	 * 모임 게시글 리스트 & 검색 리스트
+	 * 
 	 * @param pageNo
 	 * @param searchKeyWord
 	 * @param command
@@ -59,6 +61,7 @@ public class BoardController {
 
 	/**
 	 * 모임글 지역별 검색
+	 * 
 	 * @param region
 	 * @return
 	 */
@@ -71,6 +74,7 @@ public class BoardController {
 
 	/**
 	 * 소개글 카테고리별 리스트 출력
+	 * 
 	 * @param categoryNo
 	 * @return
 	 */
@@ -88,7 +92,6 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView("board/review");
 		ListVO<ReviewVO> list = null;
 		if (command == null || command.trim() == "") {
-			System.out.println(pageNo);
 			list = boardService.reviewList(pageNo);
 		} else {
 			list = boardService.reviewSerachList(pageNo, searchKeyWord, command);
@@ -101,6 +104,7 @@ public class BoardController {
 
 	/**
 	 * 소개글 카테고리 목록 ajax
+	 * 
 	 * @return
 	 */
 	@RequestMapping("introduceCategoryListAjax.do")
@@ -111,6 +115,7 @@ public class BoardController {
 
 	/**
 	 * 모임글 작성 페이지 이동
+	 * 
 	 * @return
 	 */
 	@Secured("ROLE_MEMBER")
@@ -131,15 +136,22 @@ public class BoardController {
 	 */
 	@RequestMapping("showCompanyBoard.do")
 	public ModelAndView showCompanyBoard(HttpSession session) {
+
+		ModelAndView mv = new ModelAndView("myPage/company/showMyBoard");
+
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		// id에 해당하는 기업회원의 쓴 소개글의 boarNo를 찾아 boarNo에 해당하는 소개글의 정보를 얻어오는 서비스를 호출한다
 		IntroduceVO introVO = boardService.showCompanyBoard(memberVO.getId());
 		// 소개글 정보를 소개글 보기 폼으로 보낸다
-		return new ModelAndView("myPage/company/showMyBoard", "introVO", introVO);
+
+		mv.addObject("introVO", introVO);
+
+		return mv;
 	}
 
 	/**
 	 * 파일 다운로드
+	 * 
 	 * @param fileName
 	 * @return
 	 */
@@ -151,6 +163,7 @@ public class BoardController {
 
 	/**
 	 * 기업회원 소개글 수정 form 으로 이동
+	 * 
 	 * @param boardNo
 	 * @return
 	 */
@@ -158,12 +171,29 @@ public class BoardController {
 	@RequestMapping("introduceUpdateForm.do")
 	public ModelAndView introduceUpdateForm(int boardNo) {
 		// boardNo에 해당하는 소개글의 정보를 소개글 수정폼에 전달하여 함께 출력한다
+		ModelAndView mv = new ModelAndView("myPage/company/introduceUpdateForm");
+
 		IntroduceVO introVO = boardService.introduceDetail(boardNo);
-		return new ModelAndView("myPage/company/introduceUpdateForm", "introVO", introVO);
+		List<KeyWordVO> keyWordVO = introVO.getKeyWordVO();
+		String keyword = "";
+
+		if (keyWordVO != null) {
+			for (int i = 0; i < keyWordVO.size(); i++) {
+				keyword += "#" + keyWordVO.get(i).getKeyWordName();
+
+			}
+			mv.addObject("keyword", keyword);
+
+		}
+
+		mv.addObject("introVO", introVO);
+
+		return mv;
 	}
 
 	/**
 	 * 모임글 작성 후 상세보기로 이동
+	 * 
 	 * @param meetingVO
 	 * @return
 	 */
@@ -202,10 +232,11 @@ public class BoardController {
 
 	/**
 	 * 모임글 상세보기
+	 * 
 	 * @param boardNo
 	 * @return
 	 */
-	@Secured({"ROLE_COMPANY_VERIFIED", "ROLE_MEMBER", "ROLE_ADMIN"})
+	@Secured({ "ROLE_COMPANY_VERIFIED", "ROLE_MEMBER", "ROLE_ADMIN" })
 	@RequestMapping("meetingDetail.do")
 	public ModelAndView meetingDetail(int boardNo) {
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
@@ -217,43 +248,46 @@ public class BoardController {
 
 	/**
 	 * 소개글작성후 소개글리스트로 이동
+	 * 
 	 * @param request
 	 * @param meetingVO
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "introduceWrite.do")
-	public String introduceWrite(HttpServletRequest request, IntroduceVO introduceVO, UploadFileVO vo,String keyword) {
+	public String introduceWrite(HttpServletRequest request, String keyword, IntroduceVO introduceVO, UploadFileVO vo) {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		// 로그인한 기업회원정보 출력
 		introduceVO.setMemberVO(memberVO);
 		// 키워드 저장됬는지 확인하기
-		// System.out.println("키워드 저장됬는지 확인하기"+introduceVO.getKeyWordVO());
 		// 이미지 저장하기전 boardNO 파라미터로 얻어옴
-		boardService.introduceWrite(introduceVO, vo, request); 
-		return "redirect:introduceDetail.do?boardNo=" + introduceVO.getBoardNo();
+		boardService.introduceWrite(introduceVO, keyword, vo, request);
+		return "redirect:showCompanyBoard.do";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "introduceUpdate.do")
-	public String introduceUpdate(IntroduceVO introduceVO, UploadFileVO vo, HttpServletRequest request) {
-		boardService.introduceUpdate(introduceVO, vo, request);
+	public String introduceUpdate(IntroduceVO introduceVO, String keyword, UploadFileVO vo,
+			HttpServletRequest request) {
+		boardService.introduceUpdate(introduceVO, keyword, vo, request);
 		return "redirect:showCompanyBoard.do";
 	}
 
 	/**
 	 * 게시글 삭제 게시글에 관련된 데이터 정보도 함께삭제한다
+	 * 
 	 * @param boardNo
 	 * @return
 	 */
 	@RequestMapping("introduceDelete.do")
-	public String introduceDelete(int boardNo) {		
+	public String introduceDelete(int boardNo, HttpServletRequest request) {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		//게시글삭제
-		boardService.introduceDelete(memberVO.getId(), boardNo);
+		// 게시글삭제
+		boardService.introduceDelete(memberVO.getId(), boardNo, request);
 		return "redirect:showCompanyInfo.do";
 	}
-	
+
 	/**
 	 * 소개글 수정시 파일 삭제 ajax
+	 * 
 	 * @param deleteFileName
 	 * @param request
 	 * @return
@@ -301,7 +335,7 @@ public class BoardController {
 		mav.addObject("rvo", boardService.reviewNotHitDetail(boardNo));
 		return mav;
 	}
-	
+
 	@RequestMapping("meetingNoHitDetail.do")
 	public ModelAndView meetingNoHitDetail(int boardNo) {
 		ModelAndView mav = new ModelAndView("board/meetingDetail");
@@ -313,13 +347,12 @@ public class BoardController {
 
 	@RequestMapping("likeUpAjax.do")
 	@ResponseBody
-	public int likeUp(BoardVO bvo,String command) {
-		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		bvo.setMemberVO(memberVO);
-		if(command ==null)
-			return boardService.reviewLikeUp(bvo);	
+	public int likeUp(BoardVO boardVO, String command) {
+		System.out.println(boardVO);
+		if (command == null)
+			return boardService.reviewLikeUp(boardVO);
 		else
-			return boardService.introduceLikeUp(bvo);
+			return boardService.introduceLikeUp(boardVO);
 	}
 
 	@Secured("ROLE_MEMBER")

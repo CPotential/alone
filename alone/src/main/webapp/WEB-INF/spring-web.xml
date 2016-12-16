@@ -42,12 +42,13 @@
 		<!-- <property name="maxUploadSize" value="5*1024*1024"/> -->
 	</bean>
   
-<!-- 	파일 다운로드를 위한 설정 -->
-<!-- 	<bean name="downloadView" class="org.kosta.alone.controller.DownloadView" />
-	파일 다운로드 서비스를 위해 ViewResolver를 추가한다
-	<bean id="beanNameViewResolver"
-		class="org.springframework.web.servlet.view.BeanNameViewResolver">
-		<property name="order" value="1" /> TilesViewResolver가 0번 , InternalResourceViewResolver가 2번
-	</bean>
- -->
+<!-- 파일 다운로드를 위한 설정 -->
+<bean name="downloadView" class="org.kosta.alone.controller.DownloadView"/>
+<!-- 파일 다운로드 서비스를 위해 ViewResolver를 추가한다 -->
+<bean id="beanNameViewResolver" 
+class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	<property name="order" value="1"/>
+</bean>
+
+
 </beans>
