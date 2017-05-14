@@ -47,7 +47,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<h1 class="section__title">회원들이 좋아요 누른 가게</h1>
+				<h1 class="section__title">회원들이 추천한 가게</h1>
 				<p class="section__intro">인기있는 가게입니다.</p>
 				<div class="section__hr section__hr_center"></div>
 			</div>
@@ -89,12 +89,10 @@
 										</div>
 										<!-- Captions -->
 										<div class="portfolio__caption">
-											
-											<a href="${pageContext.request.contextPath}/introduceDetail.do?boardNo=${list.boardNo}">
 											<h3 class="portfolio__title">${list.memberVO.nickName }</h3>
-											</a>
 										</div>
 										  <div class="portfolio__intro">
+
 											<c:forEach items="${list.keyWordVO}" var="keyWordList">
 												#${keyWordList.keyWordName}  
 											</c:forEach>
@@ -110,23 +108,24 @@
 						<!-- Slide #2 -->
 					<div class="item">
 							<div class="row">
-							<c:forEach items="${ranking}" var="list" begin="4" end="7">
+							<c:forEach items="${ranking}" var="list" begin="4" end="8">
 								<div class="col-xs-6 col-sm-6 col-md-3">
 									<!-- Portfolio Item #1 -->
 									<div class="portfolio__item">
 										<!-- Image -->			
 										<div class="portfolio__img">
-										<img src="${pageContext.request.contextPath}/resources/upload/${list.mainImage.imageName}" alt="Portfolio Image">
+										<c:set var="mainImage" property="${list.mainImage.imageName}"/>									
+										<img src="${pageContext.request.contextPath}/resources/upload/${mainImage}" alt="Portfolio Image">
 										</div>
 										<!-- Captions -->
-									<div class="portfolio__caption">
-											<h3 class="portfolio__title">${list.memberVO.nickName }</h3>
-										</div>
-										  <div class="portfolio__intro">
-											<c:forEach items="${list.keyWordVO}" var="keyWordList">
-												#${keyWordList.keyWordName}  
+										<div class="portfolio__caption">
+											<h3 class="portfolio__title">${list.memberVO.nickName } ${list.mainImage}</h3>
+											  <div class="portfolio__intro">		 
+										  <c:forEach items="${list.keyWordVO}" var="keyWordList">
+											#${keyWordList.keyWordName}  
 											</c:forEach>
-                        				  </div>
+                        				  </div>			
+										</div>
 									</div>
 								</div>
 								</c:forEach>
@@ -153,10 +152,10 @@
         <div class="row">
           <div class="col-xs-12">
             <h1 class="section__title">
-              혼자서도 잘해요 Developer
+              Our Contributors
             </h1>
             <p class="section__intro">
-              Introduce Team
+              A team of hard-working enthusiastic people who helped this product come to life
             </p>
             <div class="section__hr section__hr_center"></div>
           </div>
@@ -166,12 +165,12 @@
           <div class="col-xs-12 col-sm-4">
             <div class="authors__item">
               <div class="authors__img wow flipInY" data-wow-offset>
-                <img src="${pageContext.request.contextPath}/resources/img/정재영.jpg" class="img-responsive" alt="...">
+                <img src="${pageContext.request.contextPath}/resources/img/photo_1.jpg" class="img-responsive" alt="...">
               </div>
               <div class="authors__content">
                 <div class="authors__title">JaeYoung Jeong, Developer</div>
                 <div class="authors__intro">
-                  화이팅
+                  What you want to say. 
                 </div>
                 <ul class="authors__contact">
                   <li class="facebook">
@@ -194,12 +193,12 @@
           <div class="col-xs-12 col-sm-4">
             <div class="authors__item">
               <div class="authors__img wow flipInY" data-wow-delay=".2s">
-                <img src="${pageContext.request.contextPath}/resources/img/김상혁1.jpg" class="img-responsive" alt="...">
+                <img src="${pageContext.request.contextPath}/resources/img/photo_2.jpg" class="img-responsive" alt="...">
               </div>
               <div class="authors__content">
                 <div class="authors__title">SangHyeok Kim, Developer</div>
                 <div class="authors__intro">
-                  지각하지 말자.
+                  What you want to say. 
                 </div>
                 <ul class="authors__contact">
                   <li class="facebook">
@@ -222,12 +221,12 @@
           <div class="col-xs-12 col-sm-4">
             <div class="authors__item">
               <div class="authors__img wow flipInY" data-wow-delay=".4s">
-                <img src="${pageContext.request.contextPath}/resources/img/이기림.jpg" class="img-responsive" alt="...">
+                <img src="${pageContext.request.contextPath}/resources/img/photo_3.jpg" class="img-responsive" alt="...">
               </div>
               <div class="authors__content">
-                <div class="authors__title">KiRim Lee, Developer</div>
+                <div class="authors__title">GiRim Lee, Developer</div>
                 <div class="authors__intro">
-                  안녕? 
+                  What you want to say. 
                 </div>
                 <ul class="authors__contact">
                   <li class="facebook">
@@ -257,7 +256,7 @@
               <div class="authors__content">
                 <div class="authors__title">HyeJin Joo, Developer</div>
                 <div class="authors__intro">
-                하이
+                  What you want to say. 
                 </div>
                 <ul class="authors__contact">
                   <li class="facebook">

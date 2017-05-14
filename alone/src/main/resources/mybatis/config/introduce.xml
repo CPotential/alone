@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="introduceList" resultMap="introduceRM" parameterType="hashMap">
 	     select board_no,nickname,region
 	     from (
-	     	select row_number() over(order by board.board_no desc) as rnum, introduce.board_no, member.nickname, introduce.region 
+	     	select row_number() over(order by board.board_no) as rnum, introduce.board_no, member.nickname, introduce.region 
 		     from board board,member member,introduce introduce
 		     where introduce.category_no=#{categoryNo} and member.id=board.id and board.board_no=introduce.board_no and board.board_enabled=1) 
 		 where rnum between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}   
